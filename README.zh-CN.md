@@ -470,12 +470,12 @@ cmake --build build --config Release
 
 ---
 
-## 赞赏与支持（Patronage & Sponsorship）
+## 赞赏与支持
 
 🙏你的赞赏与支持将直接化作推进本项目的动力：[![Patron](https://img.shields.io/badge/❤%EF%B8%8F-Patron-8b2635?style=flat-square)](patron/PATRON.zh-CN.md)
 
 ---
 
-## 开源协议（License）
+## 开源协议
 
 本项目采用 [MIT License](LICENSE) 开源协议授权。
