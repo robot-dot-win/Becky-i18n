@@ -1,0 +1,34 @@
+//  CMake template that generates the single-source version constants for the plug-in.
+//
+//  Copyright (C) 2026, Martin Young <martin_young@live.cn>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the MIT License.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  MIT License for more details.
+//
+//  You should have received a copy of the MIT License
+//  along with this program. If not, see <https://opensource.org/licenses/MIT>.
+//------------------------------------------------------------------------------
+#pragma once
+
+// 本文件由 CMake 从 src/version.hpp.in 生成，请勿手工编辑。
+// 版本号唯一来源是顶层 CMakeLists.txt 的 project(VERSION) 与 BECKY_VERSION_SUFFIX。
+
+namespace bki18n::version {
+
+inline constexpr int kMajor = @PROJECT_VERSION_MAJOR@;
+inline constexpr int kMinor = @PROJECT_VERSION_MINOR@;
+inline constexpr int kPatch = @PROJECT_VERSION_PATCH@;
+
+// 预发布后缀（不含前导连字符），正式发布为空字符串
+inline constexpr const char* kSuffix = "@BECKY_VERSION_SUFFIX@";
+
+// 完整语义版本，如 "1.0.0" 或 "1.0.0-rc.1"
+inline constexpr const char* kVersion = "@BECKY_VERSION_FULL@";
+inline constexpr const wchar_t* kVersionW = L"@BECKY_VERSION_FULL@";
+
+}  // namespace bki18n::version

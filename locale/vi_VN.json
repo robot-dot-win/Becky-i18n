@@ -1,0 +1,1843 @@
+{
+  "meta": {"locale": "vi_VN", "name": "Tiếng Việt (vi_VN)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "menus": {
+    "popups": {
+      "main_frame": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "Tệp",
+          "children": [
+            {"translate": true, "src": "Folder", "dst": "Thư mục"},
+            {"translate": true, "src": "Mailbox", "dst": "Hộp thư"},
+            {"translate": true, "src": "System", "dst": "Hệ thống"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "Chỉnh sửa"},
+        {
+          "translate": true,
+          "src": "View",
+          "dst": "Xem",
+          "children": [
+            {"translate": true, "src": "Change Layout", "dst": "Đổi bố cục"},
+            {"translate": true, "src": "Language", "dst": "Bảng mã ngôn ngữ"},
+            {"translate": true, "src": "Mail Address Format", "dst": "Định dạng địa chỉ thư"}
+          ]
+        },
+        {
+          "translate": true,
+          "src": "Mail",
+          "dst": "Thư",
+          "children": [{"translate": true, "src": "Compose To", "dst": "Soạn thư tới"}, {"translate": true, "src": "Reply To", "dst": "Trả lời tới"}]
+        },
+        {
+          "translate": true,
+          "src": "Tools",
+          "dst": "Công cụ",
+          "children": [
+            {"translate": true, "src": "Plug-Ins Setup", "dst": "Thiết lập tiện ích (Plug-In)"},
+            {"translate": true, "src": "Decode", "dst": "Giải mã"},
+            {"translate": true, "src": "Dialup", "dst": "Kết nối quay số"}
+          ]
+        },
+        {"translate": true, "src": "Help", "dst": "Trợ giúp"},
+        {"translate": true, "src": "Mailing List", "dst": "Danh sách gửi thư"},
+        {"translate": true, "src": "Special Copy/Paste", "dst": "Sao chép/Dán đặc biệt"},
+        {"translate": true, "src": "Paragraph Formatting", "dst": "Định dạng đoạn văn"}
+      ],
+      "compose": [
+        {"translate": true, "src": "File", "dst": "Tệp"},
+        {
+          "translate": true,
+          "src": "Edit",
+          "dst": "Chỉnh sửa",
+          "children": [
+            {"translate": true, "src": "Special Copy/Paste", "dst": "Sao chép/Dán đặc biệt"},
+            {"translate": true, "src": "Paragraph Formatting", "dst": "Định dạng đoạn văn"}
+          ]
+        },
+        {"translate": true, "src": "View", "dst": "Xem", "children": [{"translate": true, "src": "Language", "dst": "Bảng mã ngôn ngữ"}]},
+        {"translate": true, "src": "Tools", "dst": "Công cụ"},
+        {"translate": true, "src": "Help", "dst": "Trợ giúp"}
+      ],
+      "address": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "Tệp",
+          "children": [
+            {"translate": true, "src": "Add Address Book", "dst": "Thêm sổ địa chỉ"},
+            {"translate": true, "src": "Import", "dst": "Nhập"},
+            {"translate": true, "src": "Export", "dst": "Xuất"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "Chỉnh sửa"},
+        {"translate": true, "src": "View", "dst": "Xem"},
+        {"translate": true, "src": "Tools", "dst": "Công cụ", "children": [{"translate": true, "src": "Input Format", "dst": "Định dạng nhập"}]},
+        {"translate": true, "src": "Help", "dst": "Trợ giúp"}
+      ]
+    },
+    "commands": [
+      {
+        "cmd_id": 1,
+        "cmd_id_end": 100,
+        "ownerdraw": true,
+        "translate": true,
+        "rules": [
+          {"src": "From:", "dst": "Người gửi:"},
+          {"src": "Reply-To:", "dst": "Trả lời tới:"},
+          {"src": "Sender:", "dst": "Người phát:"},
+          {"src": "To:", "dst": "Người nhận:"},
+          {"src": "Cc:", "dst": "Đồng gửi (Cc):"},
+          {"src": "Bcc:", "dst": "Gửi ẩn danh (Bcc):"},
+          {"src": "Subject:", "dst": "Chủ đề:"},
+          {"src": "Return-Path:", "dst": "Địa chỉ hoàn thư:"},
+          {"src": "Message-Id:", "dst": "Mã định danh thư:"},
+          {"src": "In-Reply-To:", "dst": "Trả lời cho thư:"},
+          {"src": "References:", "dst": "Thư tham chiếu:"},
+          {"src": "X-Mailer:", "dst": "Trình gửi thư:"},
+          {"src": "X-SMTP-Result:", "dst": "Kết quả SMTP:"},
+          {"src": "Sent Date:", "dst": "Ngày gửi:"},
+          {"src": "Delivered Date:", "dst": "Ngày chuyển phát:"},
+          {"src": "Received Date:", "dst": "Ngày nhận:"},
+          {"src": "Resent Date:", "dst": "Ngày gửi lại:"},
+          {"src": "Local Time:", "dst": "Giờ địa phương:"},
+          {"src": "Time Difference:", "dst": "Chênh lệch múi giờ:"},
+          {"src": "** Clear All (To delete one by one, right click the item.) **", "dst": "** Xóa tất cả (Để xóa từng mục, hãy nhấp chuột phải vào mục đó.) **"}
+        ]
+      },
+      {"cmd_id": 101, "translate": true, "src": "Display as Domestic Time", "dst": "Hiển thị theo giờ địa phương"},
+      {
+        "cmd_id": 108,
+        "translate": true,
+        "src": "Direct Edit Mode",
+        "dst": "Chế độ chỉnh sửa trực tiếp",
+        "hint_src": "Toggle direct editing mode",
+        "hint_dst": "Bật/tắt chế độ chỉnh sửa trực tiếp nội dung thư"
+      },
+      {
+        "cmd_id": 10000,
+        "cmd_id_end": 10099,
+        "translate": true,
+        "rules": [
+          {"src": "Find Next", "dst": "Tìm tiếp theo", "hint_src": "Search next candidate", "hint_dst": "Tìm kết quả phù hợp tiếp theo"},
+          {"src": "Find Previous", "dst": "Tìm về trước", "hint_src": "Search previous candidate", "hint_dst": "Tìm kết quả phù hợp trước đó"},
+          {"src": "uudecode", "dst": "uudecode", "hint_src": "Decode uuencoded text in the message", "hint_dst": "Giải mã văn bản mã hóa uuencode trong thư"},
+          {"src": "BinHex", "dst": "BinHex", "hint_src": "Decode BinHex encoded text in the message", "hint_dst": "Giải mã văn bản mã hóa BinHex trong thư"},
+          {
+            "src": "Step Undo/Redo",
+            "dst": "Hoàn tác/Làm lại theo bước",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "Hoàn tác hoặc làm lại theo số bước chỉ định"
+          },
+          {
+            "src": "Paste From History",
+            "dst": "Dán từ lịch sử bộ nhớ tạm",
+            "hint_src": "Paste from the clipboard history",
+            "hint_dst": "Dán nội dung từ lịch sử bộ nhớ tạm"
+          },
+          {
+            "src": "Begin Box Selection",
+            "dst": "Bắt đầu chọn vùng khối",
+            "hint_src": "Begin the box selection",
+            "hint_dst": "Bắt đầu chọn vùng văn bản dạng khối"
+          },
+          {
+            "src": "Paste Box",
+            "dst": "Dán văn bản khối",
+            "hint_src": "Paste a box text previously copied or cut",
+            "hint_dst": "Dán văn bản khối đã sao chép hoặc cắt trước đó"
+          },
+          {"src": "Copy To File", "dst": "Sao chép vào tệp", "hint_src": "Copy the selection to a file", "hint_dst": "Sao chép vùng đã chọn vào một tệp"},
+          {
+            "src": "Append To File",
+            "dst": "Nối thêm vào tệp",
+            "hint_src": "Append the selection to an existing file",
+            "hint_dst": "Nối vùng đã chọn vào cuối tệp hiện có"
+          },
+          {
+            "src": "Paste From File",
+            "dst": "Dán từ tệp",
+            "hint_src": "Paste an existing text file at the caret position",
+            "hint_dst": "Chèn nội dung tệp văn bản vào vị trí con trỏ"
+          },
+          {"src": "Left", "dst": "Căn trái", "hint_src": "Bring the selection to the left", "hint_dst": "Căn lề trái vùng đã chọn"},
+          {"src": "Right", "dst": "Căn phải", "hint_src": "Bring the selection to the right", "hint_dst": "Căn lề phải vùng đã chọn"},
+          {"src": "Center", "dst": "Căn giữa", "hint_src": "Bring the selection to the center", "hint_dst": "Căn giữa vùng đã chọn"},
+          {"src": "Indent", "dst": "Tăng thụt lề", "hint_src": "Indent the selection by one level", "hint_dst": "Tăng thụt lề vùng đã chọn thêm một cấp"},
+          {"src": "Unindent", "dst": "Giảm thụt lề", "hint_src": "UnIndent the selection by one level", "hint_dst": "Giảm thụt lề vùng đã chọn đi một cấp"},
+          {
+            "src": "Add Strings",
+            "dst": "Thêm chuỗi ký tự",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "Nối chuỗi ký tự chỉ định vào đầu hoặc cuối vùng đã chọn"
+          },
+          {"src": "Sort", "dst": "Sắp xếp", "hint_src": "Sort the selection", "hint_dst": "Sắp xếp các dòng trong vùng đã chọn"},
+          {
+            "src": "Format",
+            "dst": "Định dạng đoạn",
+            "hint_src": "Format the selection or a text block which ends with an empty line",
+            "hint_dst": "Định dạng vùng đã chọn hoặc khối văn bản kết thúc bằng dòng trống"
+          },
+          {
+            "src": "Deformat",
+            "dst": "Hủy định dạng đoạn",
+            "hint_src": "Remove return codes from the selection or a text block which ends with an empty line",
+            "hint_dst": "Xóa ký tự xuống dòng khỏi vùng đã chọn hoặc khối văn bản kết thúc bằng dòng trống"
+          },
+          {"src": "Convert", "dst": "Chuyển đổi", "hint_src": "Convert the selection", "hint_dst": "Chuyển đổi vùng văn bản đã chọn"},
+          {
+            "src": "Auto Formatting Mode",
+            "dst": "Chế độ định dạng tự động",
+            "hint_src": "Toggle Auto Formatting mode",
+            "hint_dst": "Bật/tắt chế độ định dạng tự động"
+          },
+          {"src": "Overwrite Mode", "dst": "Chế độ ghi đè", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "Chuyển đổi chế độ Chèn/Ghi đè"},
+          {
+            "src": "Spelling-Check",
+            "dst": "Kiểm tra chính tả",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Kiểm tra chính tả toàn bộ văn bản hoặc vùng đang chọn"
+          },
+          {
+            "src": "(default)",
+            "dst": "(mặc định)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Thay đổi bảng mã ngôn ngữ của thư hiện tại"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(Mặc định)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Thay đổi bảng mã ngôn ngữ của thư hiện tại"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7bit ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "Tây Âu Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "Trung Âu Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "Tây Âu Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "Tiếng Nhật (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "Tiếng Hàn UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "Tiếng Hàn RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "Tiếng Trung Phồn thể (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "Tiếng Trung Giản thể (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "Tiêu chuẩn Quốc gia Trung Quốc (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "Tiếng Trung Giản thể HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "Tiếng Nga koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "Tiếng Ukraina koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "Chữ Kirin (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"},
+          {
+            "src": "StepDo",
+            "dst": "Hoàn tác/Làm lại theo bước",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "Hoàn tác hoặc làm lại theo số bước chỉ định"
+          },
+          {"src": "Box Begin", "dst": "Chọn vùng khối", "hint_src": "Begin the box selection", "hint_dst": "Bắt đầu chọn vùng văn bản dạng khối"},
+          {
+            "src": "Append String",
+            "dst": "Nối chuỗi ký tự",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "Nối chuỗi ký tự chỉ định vào đầu hoặc cuối vùng đã chọn"
+          },
+          {"src": "Auto Formatting", "dst": "Định dạng tự động", "hint_src": "Toggle Auto Formatting mode", "hint_dst": "Bật/tắt chế độ định dạng tự động"},
+          {"src": "Insert/Overwrite", "dst": "Chèn/Ghi đè", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "Chuyển đổi chế độ Chèn/Ghi đè"},
+          {
+            "src": "Spell Check",
+            "dst": "Kiểm tra chính tả",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Kiểm tra chính tả toàn bộ văn bản hoặc vùng đang chọn"
+          },
+          {
+            "src": "Spelling Check",
+            "dst": "Kiểm tra chính tả",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Kiểm tra chính tả toàn bộ văn bản hoặc vùng đang chọn"
+          }
+        ]
+      },
+      {
+        "cmd_id": 10102,
+        "translate": true,
+        "src": "General Setup",
+        "dst": "Thiết lập chung",
+        "hint_src": "Set up general preferences",
+        "hint_dst": "Thiết lập các tùy chọn chung của chương trình"
+      },
+      {
+        "cmd_id": 10103,
+        "translate": true,
+        "src": "Paste With Citation Prefix",
+        "dst": "Dán kèm tiền tố trích dẫn",
+        "hint_src": "Paste text adding citation prefix at each top of a line",
+        "hint_dst": "Dán văn bản kèm tiền tố trích dẫn ở đầu mỗi dòng"
+      },
+      {
+        "cmd_id": 10501,
+        "translate": true,
+        "src": "Receive New Mail",
+        "dst": "Nhận thư mới",
+        "hint_src": "Retrieve new messages from the server",
+        "hint_dst": "Nhận các thư mới từ máy chủ"
+      },
+      {
+        "cmd_id": 10502,
+        "translate": true,
+        "src": "Send From Outbox",
+        "dst": "Gửi thư từ Hộp thư đi",
+        "hint_src": "Send outgoing messages from Outbox",
+        "hint_dst": "Gửi các thư đang chờ trong Hộp thư đi"
+      },
+      {
+        "cmd_id": 10503,
+        "translate": true,
+        "src": "Remote Mailbox",
+        "dst": "Quản lý hộp thư từ xa",
+        "hint_src": "List messages on the server",
+        "hint_dst": "Liệt kê các thư trên máy chủ từ xa"
+      },
+      {
+        "cmd_id": 10504,
+        "translate": true,
+        "src": "Collection And Delivery",
+        "dst": "Gửi và nhận nhiều hộp thư",
+        "hint_src": "Send and receive messages for multiple mailboxes",
+        "hint_dst": "Gửi và nhận thư đồng thời cho nhiều hộp thư"
+      },
+      {"cmd_id": 10505, "translate": true, "src": "Reply", "dst": "Trả lời", "hint_src": "Reply to the selected message", "hint_dst": "Trả lời thư đã chọn"},
+      {
+        "cmd_id": 10506,
+        "translate": true,
+        "src": "Reply To All",
+        "dst": "Trả lời tất cả",
+        "hint_src": "Reply to not only the replying address but also the addresses in \"To\" and \"Cc\" field",
+        "hint_dst": "Trả lời cho cả người gửi lẫn mọi địa chỉ trong trường \"Người nhận (To)\" và \"Đồng gửi (Cc)\""
+      },
+      {"cmd_id": 10507, "translate": true, "src": "Compose", "dst": "Soạn thư mới", "hint_src": "Compose new message", "hint_dst": "Soạn một thư điện tử mới"},
+      {
+        "cmd_id": 10508,
+        "translate": true,
+        "src": "Forward",
+        "dst": "Chuyển tiếp",
+        "hint_src": "Forward the selected message to others",
+        "hint_dst": "Chuyển tiếp thư đã chọn cho người khác"
+      },
+      {
+        "cmd_id": 10510,
+        "translate": true,
+        "src": "Mail Query",
+        "dst": "Truy vấn thư",
+        "hint_src": "Search the specified string in e-mail messages and show results",
+        "hint_dst": "Tìm kiếm chuỗi ký tự chỉ định trong các thư và hiển thị kết quả"
+      },
+      {
+        "cmd_id": 10511,
+        "translate": true,
+        "src": "Mark As Read",
+        "dst": "Đánh dấu đã đọc",
+        "hint_src": "Mark the selected messages read",
+        "hint_dst": "Đánh dấu các thư đã chọn là đã đọc"
+      },
+      {
+        "cmd_id": 10512,
+        "translate": true,
+        "src": "Mark As Unread",
+        "dst": "Đánh dấu chưa đọc",
+        "hint_src": "Mark the selected messages unread",
+        "hint_dst": "Đánh dấu các thư đã chọn là chưa đọc"
+      },
+      {
+        "cmd_id": 10513,
+        "translate": true,
+        "src": "Rename Folder",
+        "dst": "Đổi tên thư mục",
+        "hint_src": "Change the name of the current folder",
+        "hint_dst": "Đổi tên thư mục hiện tại"
+      },
+      {
+        "cmd_id": 10517,
+        "translate": true,
+        "src": "Sort New Messages",
+        "dst": "Phân loại thư mới",
+        "hint_src": "Sort messages from Inbox and Sent box to folders according to the sorting rules",
+        "hint_dst": "Phân loại thư từ Hộp thư đến và Đã gửi vào các thư mục theo quy tắc lọc"
+      },
+      {
+        "cmd_id": 10518,
+        "translate": true,
+        "src": "Save To Outbox",
+        "dst": "Lưu vào Hộp thư đi",
+        "hint_src": "Save the currently editing message to Outbox",
+        "hint_dst": "Lưu thư đang soạn vào Hộp thư đi"
+      },
+      {
+        "cmd_id": 10519,
+        "translate": true,
+        "src": "Send Now",
+        "dst": "Gửi ngay",
+        "hint_src": "Send the currently editing message immediately.",
+        "hint_dst": "Gửi ngay thư đang soạn thảo"
+      },
+      {
+        "cmd_id": 10520,
+        "translate": true,
+        "src": "Save To Draft",
+        "dst": "Lưu vào Thư nháp",
+        "hint_src": "Save the currently editing message to Draft box",
+        "hint_dst": "Lưu thư đang soạn vào thư mục Thư nháp"
+      },
+      {
+        "cmd_id": 10522,
+        "translate": true,
+        "src": "Maxmize View",
+        "dst": "Phóng tối đa khung xem thư",
+        "hint_src": "Toggle the size of the message view between maximized and normal",
+        "hint_dst": "Chuyển đổi kích thước khung xem thư giữa phóng tối đa và bình thường"
+      },
+      {
+        "cmd_id": 10523,
+        "translate": true,
+        "src": "Mail To",
+        "dst": "Gửi thư tới",
+        "hint_src": "Write a message to this e-mail address",
+        "hint_dst": "Soạn thư gửi tới địa chỉ e-mail này"
+      },
+      {"cmd_id": 10524, "translate": true, "src": "Add To Address Book", "dst": "Thêm vào Sổ địa chỉ"},
+      {
+        "cmd_id": 10525,
+        "translate": true,
+        "src": "Copy Address",
+        "dst": "Sao chép địa chỉ",
+        "hint_src": "Highlight a e-mail address and copy to the clipboard",
+        "hint_dst": "Tô sáng địa chỉ e-mail và sao chép vào bộ nhớ tạm"
+      },
+      {"cmd_id": 10526, "translate": true, "src": "Highlight Word", "dst": "Tô sáng từ", "hint_src": "Highlight word", "hint_dst": "Tô sáng từ"},
+      {
+        "cmd_id": 10527,
+        "translate": true,
+        "src": "Open URL",
+        "dst": "Mở URL",
+        "hint_src": "Open URL with a Web browser",
+        "hint_dst": "Mở đường dẫn URL bằng trình duyệt Web"
+      },
+      {
+        "cmd_id": 10528,
+        "translate": true,
+        "src": "Copy URL",
+        "dst": "Sao chép URL",
+        "hint_src": "Highlight URL and copy to the clipboard",
+        "hint_dst": "Tô sáng URL và sao chép vào bộ nhớ tạm"
+      },
+      {"cmd_id": 10529, "translate": true, "src": "Highlight Word", "dst": "Tô sáng từ", "hint_src": "Highlight word", "hint_dst": "Tô sáng từ"},
+      {
+        "cmd_id": 10549,
+        "translate": true,
+        "src": "Set Priority",
+        "dst": "Đặt mức ưu tiên",
+        "hint_src": "Set the priority mark for the outgoing message.",
+        "hint_dst": "Đặt mức độ ưu tiên cho thư gửi đi"
+      },
+      {
+        "cmd_id": 20000,
+        "cmd_id_end": 31999,
+        "translate": true,
+        "rules": [
+          {
+            "src": "PGP: Decrypt And Verify",
+            "dst": "PGP: Giải mã và xác minh chữ ký",
+            "hint_src": "Decrypt and Verify PGP message",
+            "hint_dst": "Giải mã và xác minh chữ ký của thư PGP"
+          },
+          {"src": "PGP: Setup", "dst": "PGP: Thiết lập", "hint_src": "Setup PGP plugin", "hint_dst": "Thiết lập tiện ích PGP"},
+          {"src": "PGP: Encrypt", "dst": "PGP: Mã hóa", "hint_src": "Encrypt with PGP", "hint_dst": "Mã hóa bằng PGP"},
+          {"src": "PGP: Sign", "dst": "PGP: Ký số", "hint_src": "Sign with PGP", "hint_dst": "Ký số bằng PGP"},
+          {"src": "PGP: Sign And Encrypt", "dst": "PGP: Ký số và mã hóa", "hint_src": "Encrypt And Sign with PGP", "hint_dst": "Mã hóa và ký số bằng PGP"},
+          {
+            "src": "PGP: Attach Public Key",
+            "dst": "PGP: Đính kèm khóa công khai",
+            "hint_src": "Attach a PGP public key",
+            "hint_dst": "Đính kèm khóa công khai PGP"
+          },
+          {"src": "UI Language", "dst": "Ngôn ngữ giao diện", "hint_src": "Select the user interface language", "hint_dst": "Chọn ngôn ngữ giao diện"},
+          {
+            "src": "Voice Attachment",
+            "dst": "Đính kèm âm thanh",
+            "hint_src": "Record your voice and attach it to the outgoing message.",
+            "hint_dst": "Ghi âm giọng nói và đính kèm vào thư gửi đi"
+          }
+        ]
+      },
+      {
+        "cmd_id": 32773,
+        "translate": true,
+        "src": "Import",
+        "dst": "Nhập",
+        "hint_src": "Import e-mail messages from external files",
+        "hint_dst": "Nhập thư điện tử từ các tệp bên ngoài"
+      },
+      {
+        "cmd_id": 32774,
+        "translate": true,
+        "src": "Export",
+        "dst": "Xuất",
+        "hint_src": "Export e-mail messages to external files",
+        "hint_dst": "Xuất thư điện tử ra các tệp bên ngoài"
+      },
+      {
+        "cmd_id": 32775,
+        "translate": true,
+        "src": "Mailbox Setup",
+        "dst": "Thiết lập hộp thư",
+        "hint_src": "Set up mailbox preferences",
+        "hint_dst": "Thiết lập thông số cho hộp thư hiện tại"
+      },
+      {
+        "cmd_id": 32776,
+        "translate": true,
+        "src": "Reorganize",
+        "dst": "Tổ chức lại thư mục",
+        "hint_src": "Organize the messages according to the sent date",
+        "hint_dst": "Sắp xếp lại thứ tự thư theo ngày gửi"
+      },
+      {
+        "cmd_id": 32777,
+        "translate": true,
+        "src": "Thread Mode",
+        "dst": "Chế độ chuỗi hội thoại",
+        "hint_src": "Toggle message-threading mode",
+        "hint_dst": "Bật/tắt chế độ hiển thị theo chuỗi hội thoại"
+      },
+      {
+        "cmd_id": 32778,
+        "translate": true,
+        "src": "Send And Receive",
+        "dst": "Gửi và nhận",
+        "hint_src": "Send and receive messages",
+        "hint_dst": "Gửi và nhận thư"
+      },
+      {
+        "cmd_id": 32779,
+        "translate": true,
+        "src": "Mailboxes For Collection",
+        "dst": "Chọn hộp thư để gửi/nhận gộp",
+        "hint_src": "Select the mailboxes that will be checked by \"Collection And Delivery\" command",
+        "hint_dst": "Chọn các hộp thư sẽ được kiểm tra khi thực hiện lệnh \"Gửi và nhận nhiều hộp thư\""
+      },
+      {
+        "cmd_id": 32780,
+        "translate": true,
+        "src": "Receive All",
+        "dst": "Nhận tất cả thư",
+        "hint_src": "Retrieve all the messages on the server including the ones you have already received",
+        "hint_dst": "Nhận toàn bộ thư trên máy chủ bao gồm cả những thư đã nhận trước đó"
+      },
+      {
+        "cmd_id": 32782,
+        "translate": true,
+        "src": "Redirect",
+        "dst": "Chuyển hướng nguyên trạng",
+        "hint_src": "Forward the selected message keeping \"From\", \"To\", etc. fields intact",
+        "hint_dst": "Chuyển hướng thư đã chọn nhưng vẫn giữ nguyên các trường \"Người gửi\", \"Người nhận\", v.v"
+      },
+      {
+        "cmd_id": 32784,
+        "translate": true,
+        "src": "Reply To Selected Addresses",
+        "dst": "Trả lời các địa chỉ đã chọn",
+        "hint_src": "Reply to the selected e-mail addresses",
+        "hint_dst": "Trả lời tới các địa chỉ e-mail được chọn"
+      },
+      {
+        "cmd_id": 32785,
+        "translate": true,
+        "src": "Forward As Attachment",
+        "dst": "Chuyển tiếp dưới dạng đính kèm",
+        "hint_src": "Forward the selected message as \"message/rfc822\" attachments",
+        "hint_dst": "Chuyển tiếp thư đã chọn dưới dạng tệp đính kèm \"message/rfc822\""
+      },
+      {
+        "cmd_id": 32788,
+        "translate": true,
+        "src": "Delete Downloaded Messages From Server",
+        "dst": "Xóa thư đã tải khỏi máy chủ",
+        "hint_src": "Delete messages that you have already received from the server",
+        "hint_dst": "Xóa các thư bạn đã tải về khỏi máy chủ"
+      },
+      {
+        "cmd_id": 32789,
+        "translate": true,
+        "src": "Customize Tool Bar",
+        "dst": "Tùy chỉnh thanh công cụ",
+        "hint_src": "Customize the toolbar",
+        "hint_dst": "Tùy chỉnh các nút trên thanh công cụ"
+      },
+      {
+        "cmd_id": 32790,
+        "translate": true,
+        "src": "Cite Message",
+        "dst": "Trích dẫn thư",
+        "hint_src": "Cite the selection in the reference window",
+        "hint_dst": "Trích dẫn vùng đã chọn trong cửa sổ tham chiếu"
+      },
+      {
+        "cmd_id": 32792,
+        "translate": true,
+        "src": "Filtering Manager",
+        "dst": "Quản lý quy tắc lọc",
+        "hint_src": "Maintain sorting/filtering rules",
+        "hint_dst": "Quản lý các quy tắc phân loại và lọc thư"
+      },
+      {
+        "cmd_id": 32793,
+        "translate": true,
+        "src": "Mailing Lists Manager",
+        "dst": "Quản lý danh sách gửi thư",
+        "hint_src": "Maintain subscription information of mailing lists",
+        "hint_dst": "Quản lý thông tin đăng ký của các danh sách gửi thư (Mailing Lists)"
+      },
+      {
+        "cmd_id": 32794,
+        "translate": true,
+        "src": "EUC-JP",
+        "dst": "EUC-JP",
+        "hint_src": "Convert EUC-JP text to Shift-JIS",
+        "hint_dst": "Chuyển đổi văn bản mã EUC-JP sang Shift-JIS"
+      },
+      {
+        "cmd_id": 32796,
+        "translate": true,
+        "src": "Trash Duplicates",
+        "dst": "Chuyển thư trùng lặp vào Thùng rác",
+        "hint_src": "Trash messages whose Message-Id and Date is duplicate",
+        "hint_dst": "Chuyển các thư trùng lặp cả Message-Id và Ngày vào Thùng rác"
+      },
+      {
+        "cmd_id": 32797,
+        "translate": true,
+        "src": "Compaction",
+        "dst": "Nén gọn thư mục",
+        "hint_src": "Remove additional header data from all the messages in the selected folder",
+        "hint_dst": "Nén gọn thư mục bằng cách loại bỏ dữ liệu tiêu đề phụ khỏi mọi thư trong thư mục đã chọn"
+      },
+      {
+        "cmd_id": 32798,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "Tái tạo chỉ mục",
+        "hint_src": "Reconstruct an index file of the selected folder",
+        "hint_dst": "Tái tạo tệp chỉ mục cho thư mục đã chọn"
+      },
+      {
+        "cmd_id": 32799,
+        "translate": true,
+        "src": "User Registration",
+        "dst": "Đăng ký người dùng",
+        "hint_src": "User registration",
+        "hint_dst": "Đăng ký bản quyền người dùng"
+      },
+      {
+        "cmd_id": 32800,
+        "translate": true,
+        "src": "FAQ",
+        "dst": "Câu hỏi thường gặp (FAQ)",
+        "hint_src": "Frequently Asked Question",
+        "hint_dst": "Xem các câu hỏi thường gặp (FAQ)"
+      },
+      {
+        "cmd_id": 32802,
+        "translate": true,
+        "src": "Delete Mailbox",
+        "dst": "Xóa hộp thư",
+        "hint_src": "Delete the selected mailbox",
+        "hint_dst": "Xóa hộp thư đã chọn"
+      },
+      {
+        "cmd_id": 32803,
+        "translate": true,
+        "src": "Delete Folder",
+        "dst": "Xóa thư mục",
+        "hint_src": "Delete the selected folder",
+        "hint_dst": "Xóa thư mục đã chọn"
+      },
+      {"cmd_id": 32804, "translate": true, "src": "New Folder", "dst": "Tạo thư mục mới", "hint_src": "Create a new folder", "hint_dst": "Tạo một thư mục mới"},
+      {
+        "cmd_id": 32805,
+        "translate": true,
+        "src": "Go Back",
+        "dst": "Quay lại",
+        "hint_src": "Go back to the previously read message",
+        "hint_dst": "Quay lại thư đã đọc trước đó"
+      },
+      {
+        "cmd_id": 32806,
+        "translate": true,
+        "src": "Go Forward",
+        "dst": "Tiến tới",
+        "hint_src": "Go forward to the next read message",
+        "hint_dst": "Tiến tới thư đã đọc tiếp theo"
+      },
+      {
+        "cmd_id": 32807,
+        "translate": true,
+        "src": "Compose To Reply Address",
+        "dst": "Soạn thư tới địa chỉ trả lời",
+        "hint_src": "Compose new message to the replying address of the selected message",
+        "hint_dst": "Soạn thư mới tới địa chỉ trả lời của thư đã chọn"
+      },
+      {
+        "cmd_id": 32808,
+        "translate": true,
+        "src": "Compose To Selected Addresses",
+        "dst": "Soạn thư tới địa chỉ đã chọn",
+        "hint_src": "Compose to the selected addresses in the selected message",
+        "hint_dst": "Soạn thư mới tới các địa chỉ được chọn trong thư hiện tại"
+      },
+      {
+        "cmd_id": 32809,
+        "translate": true,
+        "src": "Cite Without Prefix",
+        "dst": "Trích dẫn không kèm tiền tố",
+        "hint_src": "Cite reference message without citation prefixes.",
+        "hint_dst": "Trích dẫn thư tham chiếu mà không thêm tiền tố trích dẫn"
+      },
+      {
+        "cmd_id": 32810,
+        "translate": true,
+        "src": "Default Mailbox",
+        "dst": "Đặt làm hộp thư mặc định",
+        "hint_src": "Set the active mailbox as default",
+        "hint_dst": "Đặt hộp thư hiện hành làm hộp thư mặc định"
+      },
+      {
+        "cmd_id": 32811,
+        "translate": true,
+        "src": "Attach Files",
+        "dst": "Đính kèm tệp",
+        "hint_src": "Attach files to the current outgoing message",
+        "hint_dst": "Đính kèm tệp vào thư đang soạn"
+      },
+      {
+        "cmd_id": 32814,
+        "translate": true,
+        "src": "Close",
+        "dst": "Đóng",
+        "hint_src": "Close the current composing window",
+        "hint_dst": "Đóng cửa sổ soạn thư hiện tại"
+      },
+      {
+        "cmd_id": 32816,
+        "translate": true,
+        "src": "ReEdit",
+        "dst": "Chỉnh sửa lại",
+        "hint_src": "Open the selected message as an outgoing message",
+        "hint_dst": "Mở thư đã chọn như một thư gửi đi để chỉnh sửa lại"
+      },
+      {
+        "cmd_id": 32824,
+        "translate": true,
+        "src": "Reset Toolbar",
+        "dst": "Khôi phục thanh công cụ",
+        "hint_src": "Reset tool bar to the initial state",
+        "hint_dst": "Khôi phục thanh công cụ về trạng thái ban đầu"
+      },
+      {
+        "cmd_id": 32826,
+        "translate": true,
+        "src": "Change Font",
+        "dst": "Đổi phông chữ",
+        "hint_src": "Change the font associated to the character set of the current message",
+        "hint_dst": "Thay đổi phông chữ tương ứng với bảng mã ký tự của thư hiện tại"
+      },
+      {"cmd_id": 32827, "translate": true, "src": "Dialup", "dst": "Kết nối quay số"},
+      {
+        "cmd_id": 32836,
+        "translate": true,
+        "src": "Delete Mail",
+        "dst": "Xóa thư",
+        "hint_src": "Delete the selected message items",
+        "hint_dst": "Xóa các mục thư đã chọn"
+      },
+      {
+        "cmd_id": 32838,
+        "translate": true,
+        "src": "Empty Trash",
+        "dst": "Dọn sạch Thùng rác",
+        "hint_src": "Empty Trash box",
+        "hint_dst": "Làm trống toàn bộ Thùng rác"
+      },
+      {
+        "cmd_id": 32839,
+        "translate": true,
+        "src": "Write HTML Message",
+        "dst": "Soạn thư HTML",
+        "hint_src": "Create HTML message",
+        "hint_dst": "Tạo thư định dạng HTML"
+      },
+      {
+        "cmd_id": 32856,
+        "translate": true,
+        "src": "Save As Signature",
+        "dst": "Lưu làm chữ ký",
+        "hint_src": "Save the current selection as a signature",
+        "hint_dst": "Lưu vùng đang chọn làm mẫu chữ ký"
+      },
+      {
+        "cmd_id": 32868,
+        "translate": true,
+        "src": "\"What's New\" List",
+        "dst": "Danh sách \"Thư mới đến\"",
+        "hint_src": "List recently arrived messages",
+        "hint_dst": "Liệt kê các thư mới nhận gần đây"
+      },
+      {
+        "cmd_id": 32870,
+        "translate": true,
+        "src": "Set To Mail",
+        "dst": "Đặt làm người nhận thư",
+        "hint_src": "Set the addresses to an outgoing message",
+        "hint_dst": "Đặt địa chỉ đã chọn làm người nhận cho thư gửi đi"
+      },
+      {"cmd_id": 32871, "translate": true, "src": "Close", "dst": "Đóng", "hint_src": "Close the address book", "hint_dst": "Đóng Sổ địa chỉ"},
+      {
+        "cmd_id": 32872,
+        "translate": true,
+        "src": "New Address",
+        "dst": "Địa chỉ mới",
+        "hint_src": "Add a new address entry to the current address group",
+        "hint_dst": "Thêm mục địa chỉ mới vào nhóm địa chỉ hiện tại"
+      },
+      {
+        "cmd_id": 32873,
+        "translate": true,
+        "src": "New Address Group",
+        "dst": "Nhóm địa chỉ mới",
+        "hint_src": "Add a new address group to the current address book",
+        "hint_dst": "Thêm nhóm địa chỉ mới vào sổ địa chỉ hiện tại"
+      },
+      {
+        "cmd_id": 32877,
+        "translate": true,
+        "src": "Help For Address Book",
+        "dst": "Trợ giúp Sổ địa chỉ",
+        "hint_src": "Show the help for the address book",
+        "hint_dst": "Hiển thị trợ giúp cho Sổ địa chỉ"
+      },
+      {
+        "cmd_id": 32878,
+        "translate": true,
+        "src": "Text File",
+        "dst": "Tệp văn bản",
+        "hint_src": "Import data from external files",
+        "hint_dst": "Nhập dữ liệu từ các tệp bên ngoài"
+      },
+      {
+        "cmd_id": 32879,
+        "translate": true,
+        "src": "Text File",
+        "dst": "Tệp văn bản",
+        "hint_src": "Export the selected addresses to an external file",
+        "hint_dst": "Xuất các địa chỉ đã chọn ra tệp bên ngoài"
+      },
+      {"cmd_id": 32885, "translate": true, "src": "Name <mail@address>", "dst": "Tên <mail@address>"},
+      {"cmd_id": 32886, "translate": true, "src": "mail@address (Name)", "dst": "mail@address (Tên)"},
+      {"cmd_id": 32887, "translate": true, "src": "mail@address", "dst": "mail@address"},
+      {
+        "cmd_id": 32888,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "Tái tạo chỉ mục",
+        "hint_src": "Reconstruct an index file for the current address group",
+        "hint_dst": "Tái tạo tệp chỉ mục cho nhóm địa chỉ hiện tại"
+      },
+      {
+        "cmd_id": 32894,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Import data from \"vCard\" files",
+        "hint_dst": "Nhập dữ liệu từ các tệp \"vCard\""
+      },
+      {
+        "cmd_id": 32895,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Export the selected addresses as \"vCard\" files",
+        "hint_dst": "Xuất các địa chỉ đã chọn thành tệp \"vCard\""
+      },
+      {
+        "cmd_id": 32896,
+        "translate": true,
+        "src": "Post",
+        "dst": "Đăng bài",
+        "hint_src": "Post to the related mailing list",
+        "hint_dst": "Đăng bài lên danh sách gửi thư liên quan"
+      },
+      {
+        "cmd_id": 32898,
+        "translate": true,
+        "src": "Set Addresses To List",
+        "dst": "Đưa địa chỉ vào danh sách",
+        "hint_src": "Set the selected addresses to the list at the below-left",
+        "hint_dst": "Đưa các địa chỉ đã chọn vào danh sách phía dưới bên trái"
+      },
+      {
+        "cmd_id": 32899,
+        "translate": true,
+        "src": "External Edit",
+        "dst": "Chỉnh sửa bằng trình ngoài",
+        "hint_src": "Edit the current message by an external editor",
+        "hint_dst": "Chỉnh sửa thư hiện tại bằng trình soạn thảo bên ngoài"
+      },
+      {
+        "cmd_id": 32900,
+        "translate": true,
+        "src": "External Editors",
+        "dst": "Trình chỉnh sửa ngoài",
+        "hint_src": "Register external editors",
+        "hint_dst": "Đăng ký các trình soạn thảo bên ngoài"
+      },
+      {"cmd_id": 32901, "translate": true, "src": "0: As Is", "dst": "0: Giữ nguyên gốc"},
+      {"cmd_id": 32902, "translate": true, "src": "1: Name <mail@address>", "dst": "1: Tên <mail@address>"},
+      {"cmd_id": 32903, "translate": true, "src": "2: mail@address (Name)", "dst": "2: mail@address (Tên)"},
+      {"cmd_id": 32904, "translate": true, "src": "3: mail@address", "dst": "3: Chỉ hiển thị địa chỉ thư"},
+      {"cmd_id": 32905, "translate": true, "src": "4: Name", "dst": "4: Chỉ hiển thị tên"},
+      {
+        "cmd_id": 32908,
+        "translate": true,
+        "src": "Extract Attached Messages",
+        "dst": "Trích xuất thư đính kèm",
+        "hint_src": "Extract \"message/rfc822\" attachments to a folder as incoming messages",
+        "hint_dst": "Trích xuất các tệp đính kèm \"message/rfc822\" vào thư mục thành các thư đến độc lập"
+      },
+      {
+        "cmd_id": 32912,
+        "translate": true,
+        "src": "Color Label",
+        "dst": "Nhãn màu",
+        "hint_src": "Change the color of the current message item",
+        "hint_dst": "Đổi nhãn màu cho mục thư hiện tại"
+      },
+      {
+        "cmd_id": 32913,
+        "translate": true,
+        "src": "Set Flag/Priority Level",
+        "dst": "Đặt cờ/Mức ưu tiên",
+        "hint_src": "Change the priority of the selected message items",
+        "hint_dst": "Đổi mức độ ưu tiên cho các mục thư đã chọn"
+      },
+      {
+        "cmd_id": 32914,
+        "translate": true,
+        "src": "Attach vCard",
+        "dst": "Đính kèm vCard",
+        "hint_src": "Attach your \"vCard\" to the current outgoing message",
+        "hint_dst": "Đính kèm danh thiếp \"vCard\" của bạn vào thư đang soạn"
+      },
+      {
+        "cmd_id": 32915,
+        "translate": true,
+        "src": "Edit vCard",
+        "dst": "Chỉnh sửa vCard",
+        "hint_src": "Edit your \"vCard\" property",
+        "hint_dst": "Chỉnh sửa thông tin danh thiếp \"vCard\" của bạn"
+      },
+      {
+        "cmd_id": 32916,
+        "translate": true,
+        "src": "Change Data Folder",
+        "dst": "Đổi thư mục dữ liệu",
+        "hint_src": "Change the data folder Becky! uses",
+        "hint_dst": "Thay đổi thư mục lưu trữ dữ liệu mà Becky! sử dụng"
+      },
+      {
+        "cmd_id": 32919,
+        "translate": true,
+        "src": "Hide Mailbox",
+        "dst": "Ẩn hộp thư",
+        "hint_src": "Hide the selected mailbox",
+        "hint_dst": "Ẩn hộp thư đã chọn"
+      },
+      {
+        "cmd_id": 32920,
+        "translate": true,
+        "src": "Reveal Mailbox",
+        "dst": "Hiện hộp thư đã ẩn",
+        "hint_src": "Reveal hidden mailboxes",
+        "hint_dst": "Hiển thị lại các hộp thư đã ẩn"
+      },
+      {
+        "cmd_id": 32921,
+        "translate": true,
+        "src": "Pause Periodical Check",
+        "dst": "Tạm dừng kiểm tra thư định kỳ",
+        "hint_src": "Pause all the periodical mail check temporarily",
+        "hint_dst": "Tạm dừng mọi tác vụ kiểm tra thư định kỳ"
+      },
+      {
+        "cmd_id": 32923,
+        "translate": true,
+        "src": "Import Backup Logs",
+        "dst": "Nhập nhật ký sao lưu",
+        "hint_src": "Import messages from backup logs to the selected folder",
+        "hint_dst": "Nhập lại thư từ nhật ký sao lưu vào thư mục đã chọn"
+      },
+      {
+        "cmd_id": 32924,
+        "translate": true,
+        "src": "Sorting Rules For Folder",
+        "dst": "Quy tắc lọc cho thư mục",
+        "hint_src": "Set sorting rules for the selected folder",
+        "hint_dst": "Thiết lập quy tắc lọc cho thư mục đã chọn"
+      },
+      {
+        "cmd_id": 32926,
+        "translate": true,
+        "src": "Thread Tool",
+        "dst": "Công cụ chuỗi hội thoại",
+        "hint_src": "Associate a selected message to another as a child thread",
+        "hint_dst": "Liên kết thư đã chọn vào một thư khác làm nhánh hội thoại con"
+      },
+      {
+        "cmd_id": 32929,
+        "translate": true,
+        "src": "Subscribe",
+        "dst": "Đăng ký nhận",
+        "hint_src": "Subscribe to the mailing list",
+        "hint_dst": "Đăng ký tham gia danh sách gửi thư"
+      },
+      {
+        "cmd_id": 32930,
+        "translate": true,
+        "src": "Unsubscribe",
+        "dst": "Hủy đăng ký nhận",
+        "hint_src": "Unsubscribe the mailing list",
+        "hint_dst": "Hủy đăng ký tham gia danh sách gửi thư"
+      },
+      {
+        "cmd_id": 32931,
+        "translate": true,
+        "src": "Mail To Admin",
+        "dst": "Gửi thư cho quản trị viên",
+        "hint_src": "Mail to the administrator of the mailing list",
+        "hint_dst": "Gửi thư cho quản trị viên của danh sách gửi thư"
+      },
+      {
+        "cmd_id": 32932,
+        "translate": true,
+        "src": "Web Site",
+        "dst": "Trang web",
+        "hint_src": "Open the Web site related to the mailing list",
+        "hint_dst": "Mở trang web liên quan đến danh sách gửi thư"
+      },
+      {
+        "cmd_id": 32933,
+        "translate": true,
+        "src": "Related ML:",
+        "dst": "Danh sách gửi thư liên quan:",
+        "hint_src": "Associate the folder with a mailing list",
+        "hint_dst": "Liên kết thư mục này với một danh sách gửi thư"
+      },
+      {
+        "cmd_id": 32935,
+        "translate": true,
+        "src": "Property",
+        "dst": "Thuộc tính",
+        "hint_src": "Show the property of the selected item",
+        "hint_dst": "Hiển thị thuộc tính của mục đã chọn"
+      },
+      {
+        "cmd_id": 32938,
+        "translate": true,
+        "src": "Add To Mailing Lists Manager",
+        "dst": "Thêm vào Quản lý danh sách gửi thư",
+        "hint_src": "Add an entry to the Mailing List Manager according to the information in the selected message item",
+        "hint_dst": "Thêm mục mới vào Quản lý danh sách gửi thư dựa theo thông tin của thư đã chọn"
+      },
+      {
+        "cmd_id": 32939,
+        "translate": true,
+        "src": "Print Settings",
+        "dst": "Thiết lập in",
+        "hint_src": "Setup preferences for printing",
+        "hint_dst": "Thiết lập tùy chọn in ấn"
+      },
+      {
+        "cmd_id": 32940,
+        "translate": true,
+        "src": "Folder Maintenance Combo",
+        "dst": "Bảo trì tổng hợp thư mục",
+        "hint_src": "Do \"Reorganize\", \"Compaction\", and \"Trash Duplicates\" at the same time",
+        "hint_dst": "Thực hiện đồng thời \"Tổ chức lại\", \"Nén gọn\" và \"Xóa thư trùng lặp\""
+      },
+      {
+        "cmd_id": 32942,
+        "translate": true,
+        "src": "Sort Selected Messages",
+        "dst": "Phân loại thư đã chọn",
+        "hint_src": "Sort the selected message items to folders according to the sorting rules",
+        "hint_dst": "Phân loại các thư đã chọn vào thư mục theo quy tắc lọc"
+      },
+      {
+        "cmd_id": 32943,
+        "translate": true,
+        "src": "Select Read Messages",
+        "dst": "Chọn các thư đã đọc",
+        "hint_src": "Select all the read messages in the folder",
+        "hint_dst": "Chọn toàn bộ các thư đã đọc trong thư mục"
+      },
+      {
+        "cmd_id": 32944,
+        "translate": true,
+        "src": "New Address Book",
+        "dst": "Tạo sổ địa chỉ mới",
+        "hint_src": "Create a new address book",
+        "hint_dst": "Tạo một sổ địa chỉ mới"
+      },
+      {
+        "cmd_id": 32945,
+        "translate": true,
+        "src": "Delete Addresses",
+        "dst": "Xóa địa chỉ",
+        "hint_src": "Delete the selected addresses",
+        "hint_dst": "Xóa các địa chỉ đã chọn"
+      },
+      {
+        "cmd_id": 32946,
+        "translate": true,
+        "src": "Delete Address Group/Book",
+        "dst": "Xóa nhóm/sổ địa chỉ",
+        "hint_src": "Delete the selected address book or address group",
+        "hint_dst": "Xóa sổ địa chỉ hoặc nhóm địa chỉ đã chọn"
+      },
+      {
+        "cmd_id": 32950,
+        "translate": true,
+        "src": "View Related Messages",
+        "dst": "Xem các thư liên quan",
+        "hint_src": "View only the related messages to the current message",
+        "hint_dst": "Chỉ hiển thị các thư có liên quan đến thư hiện tại"
+      },
+      {
+        "cmd_id": 32958,
+        "translate": true,
+        "src": "Close All Threads",
+        "dst": "Thu gọn mọi chuỗi hội thoại",
+        "hint_src": "Close all the message threads of the current folder",
+        "hint_dst": "Thu gọn toàn bộ chuỗi hội thoại trong thư mục hiện tại"
+      },
+      {
+        "cmd_id": 32959,
+        "translate": true,
+        "src": "Open All Threads",
+        "dst": "Mở rộng mọi chuỗi hội thoại",
+        "hint_src": "Open all the message threads of the current folder",
+        "hint_dst": "Mở rộng toàn bộ chuỗi hội thoại trong thư mục hiện tại"
+      },
+      {
+        "cmd_id": 32963,
+        "translate": true,
+        "src": "Request \"Read Receipt\"",
+        "dst": "Yêu cầu \"Xác nhận đã đọc\"",
+        "hint_src": "Request \"Read Receipt\" to the recipients.",
+        "hint_dst": "Yêu cầu người nhận gửi \"Xác nhận đã đọc\""
+      },
+      {
+        "cmd_id": 32966,
+        "translate": true,
+        "src": "Protocol Logs",
+        "dst": "Nhật ký giao thức",
+        "hint_src": "Leave protocol logs of mail sessions",
+        "hint_dst": "Ghi lại nhật ký giao thức của các phiên truyền nhận thư"
+      },
+      {
+        "cmd_id": 32968,
+        "translate": true,
+        "src": "Append To \"Quick Memo\"",
+        "dst": "Nối vào \"Ghi chú nhanh\"",
+        "hint_src": "Append the selection to \"Becky's Quick Memo\"",
+        "hint_dst": "Nối vùng đã chọn vào \"Ghi chú nhanh của Becky!\""
+      },
+      {
+        "cmd_id": 32971,
+        "translate": true,
+        "src": "View Source",
+        "dst": "Xem mã nguồn",
+        "hint_src": "View a source of the current E-mail message",
+        "hint_dst": "Xem mã nguồn nguyên bản của thư điện tử hiện tại"
+      },
+      {"cmd_id": 32972, "translate": true, "src": "Search for this \"Message-Id\"", "dst": "Tìm kiếm \"Message-Id\" này"},
+      {
+        "cmd_id": 32975,
+        "translate": true,
+        "src": "View Headers",
+        "dst": "Xem tiêu đề thư (Headers)",
+        "hint_src": "Show the header part of the message",
+        "hint_dst": "Hiển thị phần tiêu đề chi tiết (Header) của thư"
+      },
+      {
+        "cmd_id": 32976,
+        "translate": true,
+        "src": "Next Layout",
+        "dst": "Bố cục tiếp theo",
+        "hint_src": "Change the layout of the views.",
+        "hint_dst": "Thay đổi bố cục các khung nhìn"
+      },
+      {
+        "cmd_id": 32977,
+        "translate": true,
+        "src": "Abort Session",
+        "dst": "Hủy phiên kết nối",
+        "hint_src": "Abort the active session.",
+        "hint_dst": "Hủy bỏ phiên kết nối đang hoạt động"
+      },
+      {
+        "cmd_id": 32978,
+        "translate": true,
+        "src": "Quick Access",
+        "dst": "Truy cập nhanh",
+        "hint_src": "Open the message recently double-clicked or composed and saved.",
+        "hint_dst": "Mở lại thư vừa nhấp đúp xem hoặc vừa soạn và lưu gần đây"
+      },
+      {
+        "cmd_id": 32979,
+        "translate": true,
+        "src": "Separate Attachments",
+        "dst": "Tách riêng tệp đính kèm",
+        "hint_src": "Save attachment files in the folder to separate data files.",
+        "hint_dst": "Tách và lưu các tệp đính kèm trong thư mục thành tệp dữ liệu riêng"
+      },
+      {
+        "cmd_id": 32980,
+        "translate": true,
+        "src": "Combine Attachments",
+        "dst": "Gộp lại tệp đính kèm",
+        "hint_src": "Combine attachment files into mail data files.",
+        "hint_dst": "Gộp các tệp đính kèm đã tách trở lại tệp dữ liệu thư"
+      },
+      {"cmd_id": 32981, "translate": true, "src": "Delete", "dst": "Xóa", "hint_src": "Delete the selection", "hint_dst": "Xóa phần đã chọn"},
+      {
+        "cmd_id": 32982,
+        "translate": true,
+        "src": "Customize List Columns(Z)",
+        "dst": "Tùy chỉnh cột danh sách",
+        "hint_src": "Customize the columns headers of the list view.",
+        "hint_dst": "Tùy chỉnh các cột tiêu đề của khung danh sách thư"
+      },
+      {
+        "cmd_id": 32984,
+        "translate": true,
+        "src": "Select Flagged Messages",
+        "dst": "Chọn các thư gắn cờ",
+        "hint_src": "Select all the flagged messages in the folder",
+        "hint_dst": "Chọn toàn bộ các thư được gắn cờ trong thư mục"
+      },
+      {
+        "cmd_id": 32985,
+        "translate": true,
+        "src": "Switch Mailbox",
+        "dst": "Chuyển đổi hộp thư",
+        "hint_src": "Switch the mailbox that will be used to send this message.",
+        "hint_dst": "Chuyển đổi hộp thư sẽ dùng để gửi thư này"
+      },
+      {
+        "cmd_id": 32986,
+        "translate": true,
+        "src": "Toggle Flag",
+        "dst": "Bật/tắt cờ đánh dấu",
+        "hint_src": "Toggle Flag on the selected messages",
+        "hint_dst": "Bật/tắt cờ đánh dấu cho các thư đã chọn"
+      },
+      {
+        "cmd_id": 32988,
+        "translate": true,
+        "src": "Close Query Result",
+        "dst": "Đóng kết quả truy vấn",
+        "hint_src": "Close the Query dialog and Query Result folder.",
+        "hint_dst": "Đóng hộp thoại Truy vấn và thư mục Kết quả truy vấn"
+      },
+      {
+        "cmd_id": 32989,
+        "translate": true,
+        "src": "1: [ |---] Long TreeView",
+        "dst": "1: [ |---] Cây thư mục dọc dài",
+        "hint_src": "Long treeview",
+        "hint_dst": "Bố cục cây thư mục dọc dài"
+      },
+      {
+        "cmd_id": 32990,
+        "translate": true,
+        "src": "2: [-'---] Wide MessageView",
+        "dst": "2: [-'---] Khung nội dung thư rộng",
+        "hint_src": "Wide messageview",
+        "hint_dst": "Bố cục khung nội dung thư rộng"
+      },
+      {
+        "cmd_id": 32991,
+        "translate": true,
+        "src": "3: [-,---] Wide ListView",
+        "dst": "3: [-,---] Khung danh sách thư rộng",
+        "hint_src": "Wide listview",
+        "hint_dst": "Bố cục khung danh sách thư rộng"
+      },
+      {
+        "cmd_id": 32992,
+        "translate": true,
+        "src": "4: [-|   ] Maximum MessageView",
+        "dst": "4: [-|   ] Khung nội dung tối đa",
+        "hint_src": "Maximum messageview",
+        "hint_dst": "Bố cục khung nội dung thư tối đa"
+      },
+      {
+        "cmd_id": 32993,
+        "translate": true,
+        "src": "5: [ | |  ] Three Columns",
+        "dst": "5: [ | |  ] Bố cục ba cột",
+        "hint_src": "Three vertically divided panes",
+        "hint_dst": "Bố cục chia ba khung dọc"
+      },
+      {
+        "cmd_id": 32994,
+        "translate": true,
+        "src": "6: [ |2|  ] Three Columns Two Lines in a Row",
+        "dst": "6: [ |2|  ] Ba cột hai dòng mỗi mục",
+        "hint_src": "Three Columns Two Layer per Item",
+        "hint_dst": "Bố cục ba cột hiển thị hai dòng mỗi mục"
+      },
+      {
+        "cmd_id": 32995,
+        "translate": true,
+        "src": "Sync with Portable Media",
+        "dst": "Đồng bộ với thiết bị lưu trữ di động",
+        "hint_src": "Synchronize data with a portable a media or mobile PC.",
+        "hint_dst": "Đồng bộ dữ liệu với thiết bị lưu trữ di động hoặc máy tính xách tay"
+      },
+      {
+        "cmd_id": 32997,
+        "translate": true,
+        "src": "Go Next Mailbox",
+        "dst": "Tới hộp thư tiếp theo",
+        "hint_src": "Open next mailbox.",
+        "hint_dst": "Mở hộp thư tiếp theo"
+      },
+      {
+        "cmd_id": 32998,
+        "translate": true,
+        "src": "Reload Query Folder",
+        "dst": "Làm mới thư mục truy vấn",
+        "hint_src": "Query again on the Query Result or a saved Query folder.",
+        "hint_dst": "Thực hiện truy vấn lại trên Kết quả truy vấn hoặc thư mục truy vấn đã lưu"
+      },
+      {
+        "cmd_id": 32999,
+        "translate": true,
+        "src": "Select Unread Messages",
+        "dst": "Chọn các thư chưa đọc",
+        "hint_src": "Select all the unread messages in the folder.",
+        "hint_dst": "Chọn toàn bộ các thư chưa đọc trong thư mục"
+      },
+      {
+        "cmd_id": 33000,
+        "translate": true,
+        "src": "Use \"Name\" from Address Book",
+        "dst": "Dùng \"Tên\" trong Sổ địa chỉ",
+        "hint_src": "Use \"Name\" as it appears in the address book.",
+        "hint_dst": "Ưu tiên hiển thị \"Tên\" như được lưu trong Sổ địa chỉ"
+      },
+      {
+        "cmd_id": 33002,
+        "translate": true,
+        "src": "Sort By Name",
+        "dst": "Sắp xếp theo tên",
+        "hint_src": "Sort folders on the same level by name.",
+        "hint_dst": "Sắp xếp các thư mục cùng cấp theo tên"
+      },
+      {
+        "cmd_id": 33003,
+        "translate": true,
+        "src": "Go Previous Mailbox",
+        "dst": "Về hộp thư trước đó",
+        "hint_src": "Open previous mailbox.",
+        "hint_dst": "Mở hộp thư trước đó"
+      },
+      {
+        "cmd_id": 33004,
+        "translate": true,
+        "src": "View Memo(D)",
+        "dst": "Xem ghi chú đính kèm",
+        "hint_src": "Write or view a memo associated to the current message.",
+        "hint_dst": "Viết hoặc xem ghi chú gắn với thư hiện tại"
+      },
+      {
+        "cmd_id": 33007,
+        "translate": true,
+        "src": "Headlines Search",
+        "dst": "Tìm kiếm tiêu đề",
+        "hint_src": "Go to the Headlines Search bar at the right top.",
+        "hint_dst": "Di chuyển tới thanh Tìm kiếm tiêu đề ở góc trên bên phải"
+      },
+      {
+        "cmd_id": 33011,
+        "translate": true,
+        "src": "Add Agent(Z)",
+        "dst": "Thêm tác vụ Agent",
+        "hint_src": "Assign Agent to the selected messages.",
+        "hint_dst": "Gán tác vụ Agent cho các thư đã chọn"
+      },
+      {
+        "cmd_id": 33013,
+        "translate": true,
+        "src": "Bookmark",
+        "dst": "Dấu trang",
+        "hint_src": "Assign Agent with a \"Bookmark\" task to the selected messages.",
+        "hint_dst": "Gán tác vụ \"Dấu trang\" cho các thư đã chọn"
+      },
+      {"cmd_id": 33017, "translate": true, "src": "Headlines Search (K)", "dst": "Thanh tìm kiếm tiêu đề"},
+      {
+        "cmd_id": 33019,
+        "translate": true,
+        "src": "Go Previous Folder (Y)",
+        "dst": "Quay lại thư mục trước",
+        "hint_src": "Select previously open folder.",
+        "hint_dst": "Chọn lại thư mục đã mở trước đó"
+      },
+      {
+        "cmd_id": 33021,
+        "translate": true,
+        "src": "Go Original Message (J)",
+        "dst": "Đi tới thư gốc",
+        "hint_src": "Open the original message this item links.",
+        "hint_dst": "Mở thư gốc mà mục này liên kết tới"
+      },
+      {
+        "cmd_id": 33024,
+        "translate": true,
+        "src": "Follow the Topic",
+        "dst": "Theo dõi chủ đề này",
+        "hint_src": "Mark as \"Follow the Topic\" Task.",
+        "hint_dst": "Đánh dấu làm tác vụ \"Theo dõi chủ đề này\""
+      },
+      {
+        "cmd_id": 33026,
+        "translate": true,
+        "src": "Mark As Need Reply",
+        "dst": "Đánh dấu cần trả lời",
+        "hint_src": "Mark as \"Need Reply\" Task.",
+        "hint_dst": "Đánh dấu làm tác vụ \"Cần trả lời\""
+      },
+      {
+        "cmd_id": 33032,
+        "translate": true,
+        "src": "CardDAV server",
+        "dst": "Máy chủ CardDAV",
+        "hint_src": "Add CardDAV server.",
+        "hint_dst": "Thêm máy chủ CardDAV"
+      },
+      {"cmd_id": 33033, "translate": true, "src": "LDAP  server", "dst": "Máy chủ LDAP", "hint_src": "Add LDAP server.", "hint_dst": "Thêm máy chủ LDAP"},
+      {
+        "cmd_id": 33034,
+        "translate": true,
+        "src": "Becky!'s Address book",
+        "dst": "Sổ địa chỉ Becky!",
+        "hint_src": "Add Becky!'s address book.",
+        "hint_dst": "Thêm Sổ địa chỉ Becky!"
+      },
+      {"cmd_id": 33037, "translate": true, "src": "Always Two Lines in a Row", "dst": "Luôn hiển thị hai dòng mỗi mục"},
+      {
+        "cmd_id": 33039,
+        "translate": true,
+        "src": "Open Data Folder Location",
+        "dst": "Mở vị trí thư mục dữ liệu",
+        "hint_src": "Opens Becky! data folder location",
+        "hint_dst": "Mở vị trí thư mục dữ liệu của Becky! trong trình quản lý tệp"
+      },
+      {"cmd_id": 42778, "translate": true, "src": "Address Book", "dst": "Sổ địa chỉ", "hint_src": "Open Address Book", "hint_dst": "Mở Sổ địa chỉ"},
+      {
+        "cmd_id": 42787,
+        "translate": true,
+        "src": "New Mailbox",
+        "dst": "Tạo hộp thư mới",
+        "hint_src": "Create a new mailbox",
+        "hint_dst": "Tạo một hộp thư mới"
+      },
+      {
+        "cmd_id": 42796,
+        "translate": true,
+        "src": "Add To Address Book",
+        "dst": "Thêm vào Sổ địa chỉ",
+        "hint_src": "Add the sender of the current message to the Address Book",
+        "hint_dst": "Thêm người gửi của thư hiện tại vào Sổ địa chỉ"
+      },
+      {
+        "cmd_id": 42803,
+        "translate": true,
+        "src": "Load Template",
+        "dst": "Tải mẫu thư",
+        "hint_src": "Load a template file to the current outgoing message",
+        "hint_dst": "Tải tệp mẫu thư vào thư gửi đi hiện tại"
+      },
+      {
+        "cmd_id": 42804,
+        "translate": true,
+        "src": "Save As Template",
+        "dst": "Lưu làm mẫu thư",
+        "hint_src": "Save the current outgoing message as a template",
+        "hint_dst": "Lưu thư gửi đi hiện tại thành tệp mẫu thư"
+      },
+      {
+        "cmd_id": 42805,
+        "translate": true,
+        "src": "Reminder",
+        "dst": "Lời nhắc",
+        "hint_src": "Save the current outgoing message as a \"Reminder\" for yourself.",
+        "hint_dst": "Lưu thư đang soạn thành một \"Lời nhắc\" cho chính bạn"
+      },
+      {
+        "cmd_id": 42806,
+        "translate": true,
+        "src": "Edit Template",
+        "dst": "Chỉnh sửa mẫu thư",
+        "hint_src": "Create or edit a template file",
+        "hint_dst": "Tạo mới hoặc chỉnh sửa tệp mẫu thư"
+      },
+      {
+        "cmd_id": 55001,
+        "cmd_id_end": 55099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(default)",
+            "dst": "(mặc định)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Thay đổi bảng mã ngôn ngữ của thư hiện tại"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(Mặc định)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Thay đổi bảng mã ngôn ngữ của thư hiện tại"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7bit ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "Tây Âu Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "Trung Âu Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "Tây Âu Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "Tiếng Nhật (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "Tiếng Hàn UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "Tiếng Hàn RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "Tiếng Trung Phồn thể (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "Tiếng Trung Giản thể (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "Tiêu chuẩn Quốc gia Trung Quốc (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "Tiếng Trung Giản thể HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "Tiếng Nga koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "Tiếng Ukraina koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "Chữ Kirin (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"}
+        ]
+      },
+      {
+        "cmd_id": 56001,
+        "cmd_id_end": 56099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(no dialup)",
+            "dst": "(không có kết nối quay số)",
+            "hint_src": "Connect to the Internet using dialup network",
+            "hint_dst": "Kết nối Internet qua mạng quay số"
+          }
+        ]
+      },
+      {
+        "cmd_id": 56100,
+        "cmd_id_end": 56199,
+        "translate": true,
+        "rules": [
+          {"src": "(no plug-ins)", "dst": "(không có tiện ích)"},
+          {"src": "Becky2! Multicolor Icons.", "dst": "Tiện ích biểu tượng đa sắc Becky2!"},
+          {"src": "Becky! PGP Plug-In", "dst": "Tiện ích mã hóa PGP Becky!"},
+          {"src": "Becky! Voice Message Plug-in", "dst": "Tiện ích thư thoại Becky!"},
+          {"src": "Becky! UI Inspector", "dst": "Tiện ích UI Inspector Becky!"},
+          {"src": "Becky! I18n", "dst": "Tiện ích đa ngôn ngữ Becky! I18n"}
+        ]
+      },
+      {
+        "cmd_id": 57604,
+        "translate": true,
+        "rules": [{"src": "Save As", "dst": "Lưu dưới dạng"}, {"src": "Save To Folder and continue", "dst": "Lưu vào thư mục và tiếp tục"}],
+        "hint_src": "Save the active message",
+        "hint_dst": "Lưu thư hiện hành"
+      },
+      {"cmd_id": 57607, "translate": true, "src": "Print", "dst": "In", "hint_src": "Print the active document", "hint_dst": "In tài liệu hiện hành"},
+      {
+        "cmd_id": 57609,
+        "translate": true,
+        "src": "Print Preview",
+        "dst": "Xem trước khi in",
+        "hint_src": "Display full pages",
+        "hint_dst": "Hiển thị trang in toàn màn hình"
+      },
+      {
+        "cmd_id": 57634,
+        "translate": true,
+        "src": "Copy",
+        "dst": "Sao chép",
+        "hint_src": "Copy the selection and put it on the Clipboard",
+        "hint_dst": "Sao chép vùng đã chọn và đưa vào Bộ nhớ tạm"
+      },
+      {
+        "cmd_id": 57635,
+        "translate": true,
+        "src": "Cut",
+        "dst": "Cắt",
+        "hint_src": "Cut the selection and put it on the Clipboard",
+        "hint_dst": "Cắt vùng đã chọn và đưa vào Bộ nhớ tạm"
+      },
+      {
+        "cmd_id": 57636,
+        "translate": true,
+        "rules": [{"src": "Find", "dst": "Tìm kiếm"}, {"src": "Search Address", "dst": "Tìm địa chỉ"}, {"src": "Find Address", "dst": "Tìm địa chỉ"}],
+        "hint_src": "Find the specified text",
+        "hint_dst": "Tìm văn bản chỉ định"
+      },
+      {"cmd_id": 57637, "translate": true, "src": "Paste", "dst": "Dán", "hint_src": "Insert Clipboard contents", "hint_dst": "Chèn nội dung từ Bộ nhớ tạm"},
+      {
+        "cmd_id": 57640,
+        "translate": true,
+        "src": "Repeat",
+        "dst": "Lặp lại",
+        "hint_src": "Repeat the last action",
+        "hint_dst": "Lặp lại thao tác vừa thực hiện"
+      },
+      {
+        "cmd_id": 57641,
+        "translate": true,
+        "src": "Replace",
+        "dst": "Thay thế",
+        "hint_src": "Replace specific text with different text",
+        "hint_dst": "Thay thế văn bản chỉ định bằng văn bản khác"
+      },
+      {"cmd_id": 57642, "translate": true, "src": "Select All", "dst": "Chọn tất cả", "hint_src": "Select entirely", "hint_dst": "Chọn toàn bộ"},
+      {"cmd_id": 57643, "translate": true, "src": "Undo", "dst": "Hoàn tác", "hint_src": "Undo the last action", "hint_dst": "Hoàn tác thao tác vừa thực hiện"},
+      {
+        "cmd_id": 57644,
+        "translate": true,
+        "src": "Redo",
+        "dst": "Làm lại",
+        "hint_src": "Redo the previously undone action",
+        "hint_dst": "Làm lại thao tác vừa hoàn tác"
+      },
+      {
+        "cmd_id": 57664,
+        "translate": true,
+        "src": "About \"Becky!\"",
+        "dst": "Giới thiệu về \"Becky!\"",
+        "hint_src": "Display program information, version number and copyright",
+        "hint_dst": "Hiển thị thông tin chương trình, số phiên bản và bản quyền"
+      },
+      {"cmd_id": 57665, "translate": true, "src": "Exit", "dst": "Thoát", "hint_src": "Quit the application", "hint_dst": "Thoát khỏi ứng dụng"},
+      {
+        "cmd_id": 57667,
+        "translate": true,
+        "src": "Help Topics",
+        "dst": "Chủ đề trợ giúp",
+        "hint_src": "List Help topics",
+        "hint_dst": "Liệt kê các chủ đề Trợ giúp"
+      },
+      {
+        "cmd_id": 59392,
+        "translate": true,
+        "src": "Tool Bar",
+        "dst": "Thanh công cụ",
+        "hint_src": "Show or hide the toolbar",
+        "hint_dst": "Hiện hoặc ẩn thanh công cụ"
+      },
+      {
+        "cmd_id": 59393,
+        "translate": true,
+        "src": "Status Bar",
+        "dst": "Thanh trạng thái",
+        "hint_src": "Show or hide the status bar",
+        "hint_dst": "Hiện hoặc ẩn thanh trạng thái"
+      }
+    ]
+  },
+  "windows": {
+    "Becky2MainFrame": {
+      "class_name": "Becky2MainFrame",
+      "sdk_role": "BKA_MainWindow",
+      "properties": {"window_title": {"translate": false, "comment": "Format: '<AccountName> - Becky!' (contains user mailbox name)"}},
+      "children": [
+        {"class_name": "#32770", "ctrl_id": 0, "control_subtype": "ChildDialog", "translate": false},
+        {
+          "class_name": "AfxMDIFrame42s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame42s",
+          "translate": false,
+          "children": [
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59648,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysTreeView32",
+                  "ctrl_id": 1000,
+                  "control_subtype": "SysTreeView32",
+                  "sdk_role": "BKA_FolderTreeView",
+                  "translate": true,
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "root_nodes": [{"src": "Query Result", "dst": "Kết quả truy vấn"}],
+                  "items": [
+                    {"src": "Inbox", "dst": "Hộp thư đến"},
+                    {"src": "Outbox", "dst": "Hộp thư đi"},
+                    {"src": "Draft", "dst": "Thư nháp"},
+                    {"src": "Sent", "dst": "Đã gửi"},
+                    {"src": "Reminder", "dst": "Ghi nhớ"},
+                    {"src": "Trash", "dst": "Thùng rác"}
+                  ]
+                },
+                {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
+                {"class_name": "ComboBox", "ctrl_id": 112, "control_subtype": "DropDownListCombo", "translate": false}
+              ]
+            },
+            {
+              "class_name": "AfxMDIFrame42s",
+              "ctrl_id": 59649,
+              "control_subtype": "AfxMDIFrame42s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysListView32",
+                  "ctrl_id": 59648,
+                  "control_subtype": "SysListView32",
+                  "sdk_role": "BKA_MailListView",
+                  "translate": false,
+                  "children": [
+                    {
+                      "class_name": "SysHeader32",
+                      "ctrl_id": 0,
+                      "control_subtype": "SysHeader32",
+                      "translate": true,
+                      "columns": [
+                        {"translate": false, "src": " "},
+                        {"translate": true, "src": "Subject", "dst": "Chủ đề"},
+                        {"translate": true, "src": "From", "dst": "Người gửi"},
+                        {"translate": true, "src": "To", "dst": "Người nhận"},
+                        {"translate": true, "src": "Sent Date", "dst": "Ngày gửi"},
+                        {"translate": true, "src": "Received Date", "dst": "Ngày nhận"},
+                        {"translate": true, "src": "Delivered Date", "dst": "Ngày chuyển phát"},
+                        {"translate": true, "src": "Size", "dst": "Kích thước"},
+                        {"translate": true, "src": "Profile Name", "dst": "Tên cấu hình"},
+                        {"translate": true, "src": "Connection", "dst": "Kết nối"},
+                        {"translate": true, "src": "Protocol", "dst": "Giao thức"},
+                        {"translate": true, "src": "Name", "dst": "Họ tên"},
+                        {"translate": true, "src": "E-mail Address", "dst": "Địa chỉ e-mail"},
+                        {"translate": true, "src": "Mail Server", "dst": "Máy chủ nhận thư"},
+                        {"translate": true, "src": "SMTP Server", "dst": "Máy chủ gửi thư (SMTP)"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {"class_name": "Button", "ctrl_id": 148, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 166, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "DanaEditWindowClass",
+                      "ctrl_id": 103,
+                      "control_subtype": "DanaEditWindowClass",
+                      "sdk_role": "BKA_MailBodyView",
+                      "translate": false
+                    },
+                    {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false},
+                    {
+                      "class_name": "AfxWnd",
+                      "ctrl_id": 12562,
+                      "control_subtype": "AfxWnd",
+                      "translate": true,
+                      "rules": [
+                        {"src": "Body", "dst": "Nội dung"},
+                        {"src": "plain", "dst": "văn bản thuần"},
+                        {"src": "html", "dst": "HTML"},
+                        {"src": "delivery-status", "dst": "trạng-thái-chuyển-phát"},
+                        {"src": "Headers", "dst": "Tiêu đề thư"},
+                        {"src": "Memo", "dst": "Ghi chú"},
+                        {"src": "disposition-notification", "dst": "thông-báo-đã-đọc"},
+                        {"src": "rfc822-headers", "dst": "tiêu-đề-rfc822"}
+                      ],
+                      "children": [{"class_name": "msctls_updown32", "ctrl_id": 1053, "control_subtype": "msctls_updown32", "translate": false}]
+                    },
+                    {"class_name": "Static", "ctrl_id": 1006, "control_subtype": "TextStatic", "translate": true, "src": "From: ", "dst": "Từ: "},
+                    {"class_name": "Edit", "ctrl_id": 1005, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To: ", "dst": "To: "},
+                    {"class_name": "Edit", "ctrl_id": 115, "control_subtype": "Edit", "translate": true, "mode": "regex", "pattern": "Cc: ", "replace": "Cc: "},
+                    {"class_name": "Static", "ctrl_id": 1008, "control_subtype": "TextStatic", "translate": true, "src": "Subject: ", "dst": "Chủ đề: "},
+                    {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "Ngày: "},
+                    {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "Status:"},
+                    {
+                      "class_name": "ComboBox",
+                      "ctrl_id": 1532,
+                      "control_subtype": "DropDownListCombo",
+                      "translate": true,
+                      "items": [
+                        {"index": 0, "src": "Active", "dst": "Đang thực hiện"},
+                        {"index": 1, "src": "Done", "dst": "Hoàn thành"},
+                        {"index": 2, "src": "Suspended", "dst": "Tạm hoãn"}
+                      ]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Edit Task", "dst": "Sửa tác vụ"},
+                    {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete Task", "dst": "Xóa tác vụ"},
+                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "Tiếp->"},
+                    {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
+                    {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false},
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {"index": 0, "translate": false, "sample": ""},
+            {"index": 1, "translate": false, "sample": ""},
+            {"index": 2, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "D:$1$2C:$3$4Dòng:$5$6"},
+            {"index": 3, "translate": true, "mode": "regex", "pattern": "^Unread:(\\s*\\d+)\\s*/\\s*Total:(\\s*\\d+)$", "replace": "Chưa đọc:$1 / Tổng:$2"},
+            {"index": 4, "translate": false, "sample": "    "},
+            {"index": 5, "translate": false, "sample": "    "}
+          ],
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false, "src": "Fn"},
+            {"class_name": "Static", "ctrl_id": 2424, "control_subtype": "ImageStatic", "translate": false, "src": "Qu"},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 0,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": false, "src": ""},
+                {"class_name": "msctls_progress32", "ctrl_id": 1045, "control_subtype": "msctls_progress32", "translate": false},
+                {"class_name": "Static", "ctrl_id": 1046, "control_subtype": "TextStatic", "translate": false, "src": "0/0"},
+                {"class_name": "Static", "ctrl_id": 1047, "control_subtype": "TextStatic", "translate": false, "src": ""}
+              ]
+            }
+          ]
+        },
+        {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    }
+  }
+}

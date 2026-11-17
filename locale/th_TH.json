@@ -1,0 +1,1830 @@
+{
+  "meta": {"locale": "th_TH", "name": "ไทย (th_TH)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "menus": {
+    "popups": {
+      "main_frame": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "ไฟล์",
+          "children": [
+            {"translate": true, "src": "Folder", "dst": "โฟลเดอร์"},
+            {"translate": true, "src": "Mailbox", "dst": "กล่องจดหมาย"},
+            {"translate": true, "src": "System", "dst": "ระบบ"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "แก้ไข"},
+        {
+          "translate": true,
+          "src": "View",
+          "dst": "มุมมอง",
+          "children": [
+            {"translate": true, "src": "Change Layout", "dst": "เปลี่ยนเค้าโครง"},
+            {"translate": true, "src": "Language", "dst": "รหัสภาษา"},
+            {"translate": true, "src": "Mail Address Format", "dst": "รูปแบบที่อยู่อีเมล"}
+          ]
+        },
+        {
+          "translate": true,
+          "src": "Mail",
+          "dst": "จดหมาย",
+          "children": [{"translate": true, "src": "Compose To", "dst": "เขียนจดหมายถึง"}, {"translate": true, "src": "Reply To", "dst": "ตอบกลับไปยัง"}]
+        },
+        {
+          "translate": true,
+          "src": "Tools",
+          "dst": "เครื่องมือ",
+          "children": [
+            {"translate": true, "src": "Plug-Ins Setup", "dst": "ตั้งค่าปลั๊กอิน"},
+            {"translate": true, "src": "Decode", "dst": "ถอดรหัส"},
+            {"translate": true, "src": "Dialup", "dst": "การเชื่อมต่อผ่านสายโทรศัพท์"}
+          ]
+        },
+        {"translate": true, "src": "Help", "dst": "วิธีใช้"},
+        {"translate": true, "src": "Mailing List", "dst": "รายชื่อส่งเมล"},
+        {"translate": true, "src": "Special Copy/Paste", "dst": "คัดลอก/วางแบบพิเศษ"},
+        {"translate": true, "src": "Paragraph Formatting", "dst": "การจัดรูปแบบย่อหน้า"}
+      ],
+      "compose": [
+        {"translate": true, "src": "File", "dst": "ไฟล์"},
+        {
+          "translate": true,
+          "src": "Edit",
+          "dst": "แก้ไข",
+          "children": [
+            {"translate": true, "src": "Special Copy/Paste", "dst": "คัดลอก/วางแบบพิเศษ"},
+            {"translate": true, "src": "Paragraph Formatting", "dst": "การจัดรูปแบบย่อหน้า"}
+          ]
+        },
+        {"translate": true, "src": "View", "dst": "มุมมอง", "children": [{"translate": true, "src": "Language", "dst": "รหัสภาษา"}]},
+        {"translate": true, "src": "Tools", "dst": "เครื่องมือ"},
+        {"translate": true, "src": "Help", "dst": "วิธีใช้"}
+      ],
+      "address": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "ไฟล์",
+          "children": [
+            {"translate": true, "src": "Add Address Book", "dst": "เพิ่มสมุดรายชื่อ"},
+            {"translate": true, "src": "Import", "dst": "นำเข้า"},
+            {"translate": true, "src": "Export", "dst": "ส่งออก"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "แก้ไข"},
+        {"translate": true, "src": "View", "dst": "มุมมอง"},
+        {"translate": true, "src": "Tools", "dst": "เครื่องมือ", "children": [{"translate": true, "src": "Input Format", "dst": "รูปแบบการป้อนข้อมูล"}]},
+        {"translate": true, "src": "Help", "dst": "วิธีใช้"}
+      ]
+    },
+    "commands": [
+      {
+        "cmd_id": 1,
+        "cmd_id_end": 100,
+        "ownerdraw": true,
+        "translate": true,
+        "rules": [
+          {"src": "From:", "dst": "จาก:"},
+          {"src": "Reply-To:", "dst": "ตอบกลับไปที่:"},
+          {"src": "Sender:", "dst": "ผู้ส่ง:"},
+          {"src": "To:", "dst": "ถึง:"},
+          {"src": "Cc:", "dst": "สำเนาถึง (Cc):"},
+          {"src": "Bcc:", "dst": "สำเนาลับ (Bcc):"},
+          {"src": "Subject:", "dst": "เรื่อง:"},
+          {"src": "Return-Path:", "dst": "ที่อยู่ตีกลับ:"},
+          {"src": "Message-Id:", "dst": "รหัสข้อความ:"},
+          {"src": "In-Reply-To:", "dst": "ตอบกลับข้อความ:"},
+          {"src": "References:", "dst": "อ้างอิง:"},
+          {"src": "X-Mailer:", "dst": "โปรแกรมส่งเมล:"},
+          {"src": "X-SMTP-Result:", "dst": "ผลการส่ง SMTP:"},
+          {"src": "Sent Date:", "dst": "วันที่ส่ง:"},
+          {"src": "Delivered Date:", "dst": "วันที่นำส่ง:"},
+          {"src": "Received Date:", "dst": "วันที่ได้รับ:"},
+          {"src": "Resent Date:", "dst": "วันที่ส่งซ้ำ:"},
+          {"src": "Local Time:", "dst": "เวลาท้องถิ่น:"},
+          {"src": "Time Difference:", "dst": "ส่วนต่างเวลา:"},
+          {"src": "** Clear All (To delete one by one, right click the item.) **", "dst": "** ล้างทั้งหมด (หากต้องการลบทีละรายการ ให้คลิกขวาที่รายการนั้น) **"}
+        ]
+      },
+      {"cmd_id": 101, "translate": true, "src": "Display as Domestic Time", "dst": "แสดงเป็นเวลาท้องถิ่น"},
+      {
+        "cmd_id": 108,
+        "translate": true,
+        "src": "Direct Edit Mode",
+        "dst": "โหมดแก้ไขโดยตรง",
+        "hint_src": "Toggle direct editing mode",
+        "hint_dst": "สลับโหมดแก้ไขเนื้อหาจดหมายโดยตรง"
+      },
+      {
+        "cmd_id": 10000,
+        "cmd_id_end": 10099,
+        "translate": true,
+        "rules": [
+          {"src": "Find Next", "dst": "ค้นหาถัดไป", "hint_src": "Search next candidate", "hint_dst": "ค้นหารายการที่ตรงกันถัดไป"},
+          {"src": "Find Previous", "dst": "ค้นหาก่อนหน้า", "hint_src": "Search previous candidate", "hint_dst": "ค้นหารายการที่ตรงกันก่อนหน้า"},
+          {"src": "uudecode", "dst": "uudecode", "hint_src": "Decode uuencoded text in the message", "hint_dst": "ถอดรหัสข้อความแบบ uuencoded ในจดหมาย"},
+          {"src": "BinHex", "dst": "BinHex", "hint_src": "Decode BinHex encoded text in the message", "hint_dst": "ถอดรหัสข้อความแบบ BinHex ในจดหมาย"},
+          {
+            "src": "Step Undo/Redo",
+            "dst": "เลิกทำ/ทำซ้ำตามจำนวนขั้น",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "เลิกทำหรือทำซ้ำตามจำนวนขั้นตอนที่ระบุ"
+          },
+          {
+            "src": "Paste From History",
+            "dst": "วางจากประวัติคลิปบอร์ด",
+            "hint_src": "Paste from the clipboard history",
+            "hint_dst": "วางข้อความจากประวัติคลิปบอร์ด"
+          },
+          {
+            "src": "Begin Box Selection",
+            "dst": "เริ่มการเลือกแบบกล่อง",
+            "hint_src": "Begin the box selection",
+            "hint_dst": "เริ่มการเลือกข้อความแบบสี่เหลี่ยม"
+          },
+          {
+            "src": "Paste Box",
+            "dst": "วางข้อความแบบกล่อง",
+            "hint_src": "Paste a box text previously copied or cut",
+            "hint_dst": "วางข้อความแบบกล่องที่ได้คัดลอกหรือตัดไว้ก่อนหน้า"
+          },
+          {"src": "Copy To File", "dst": "คัดลอกไปยังไฟล์", "hint_src": "Copy the selection to a file", "hint_dst": "คัดลอกส่วนที่เลือกไปยังไฟล์"},
+          {
+            "src": "Append To File",
+            "dst": "ต่อท้ายไฟล์",
+            "hint_src": "Append the selection to an existing file",
+            "hint_dst": "เพิ่มส่วนที่เลือกต่อท้ายไฟล์ที่มีอยู่"
+          },
+          {
+            "src": "Paste From File",
+            "dst": "วางจากไฟล์",
+            "hint_src": "Paste an existing text file at the caret position",
+            "hint_dst": "แทรกไฟล์ข้อความที่มีอยู่ตรงตำแหน่งเคอร์เซอร์"
+          },
+          {"src": "Left", "dst": "ชิดซ้าย", "hint_src": "Bring the selection to the left", "hint_dst": "จัดส่วนที่เลือกให้ชิดซ้าย"},
+          {"src": "Right", "dst": "ชิดขวา", "hint_src": "Bring the selection to the right", "hint_dst": "จัดส่วนที่เลือกให้ชิดขวา"},
+          {"src": "Center", "dst": "กึ่งกลาง", "hint_src": "Bring the selection to the center", "hint_dst": "จัดส่วนที่เลือกให้อยู่กึ่งกลาง"},
+          {"src": "Indent", "dst": "เพิ่มระยะเยื้อง", "hint_src": "Indent the selection by one level", "hint_dst": "เพิ่มระยะเยื้องของส่วนที่เลือกหนึ่งระดับ"},
+          {"src": "Unindent", "dst": "ลดระยะเยื้อง", "hint_src": "UnIndent the selection by one level", "hint_dst": "ลดระยะเยื้องของส่วนที่เลือกหนึ่งระดับ"},
+          {
+            "src": "Add Strings",
+            "dst": "เพิ่มข้อความสายอักขระ",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "เพิ่มสายอักขระที่ระบุไว้ที่ต้นหรือท้ายส่วนที่เลือก"
+          },
+          {"src": "Sort", "dst": "เรียงลำดับ", "hint_src": "Sort the selection", "hint_dst": "เรียงลำดับข้อความที่เลือก"},
+          {
+            "src": "Format",
+            "dst": "จัดรูปแบบ",
+            "hint_src": "Format the selection or a text block which ends with an empty line",
+            "hint_dst": "จัดรูปแบบส่วนที่เลือกหรือบล็อกข้อความที่จบด้วยบรรทัดว่าง"
+          },
+          {
+            "src": "Deformat",
+            "dst": "ยกเลิกการจัดรูปแบบ",
+            "hint_src": "Remove return codes from the selection or a text block which ends with an empty line",
+            "hint_dst": "ลบรหัสขึ้นบรรทัดใหม่ออกจากส่วนที่เลือกหรือบล็อกข้อความที่จบด้วยบรรทัดว่าง"
+          },
+          {"src": "Convert", "dst": "แปลงข้อความ", "hint_src": "Convert the selection", "hint_dst": "แปลงข้อความที่เลือก"},
+          {
+            "src": "Auto Formatting Mode",
+            "dst": "โหมดจัดรูปแบบอัตโนมัติ",
+            "hint_src": "Toggle Auto Formatting mode",
+            "hint_dst": "สลับโหมดการจัดรูปแบบอัตโนมัติ"
+          },
+          {"src": "Overwrite Mode", "dst": "โหมดพิมพ์ทับ", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "สลับโหมดแทรก/พิมพ์ทับ"},
+          {
+            "src": "Spelling-Check",
+            "dst": "ตรวจการสะกดคำ",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "ตรวจสอบการสะกดคำของข้อความทั้งหมดหรือส่วนที่เลือก"
+          },
+          {
+            "src": "(default)",
+            "dst": "(ค่าเริ่มต้น)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "เปลี่ยนรหัสภาษาของจดหมายปัจจุบัน"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(ค่าเริ่มต้น)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "เปลี่ยนรหัสภาษาของจดหมายปัจจุบัน"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7 บิต ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "ยุโรปตะวันตก Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "ยุโรปกลาง Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "ยุโรปตะวันตก Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "ญี่ปุ่น (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "เกาหลี UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "เกาหลี RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "จีนตัวเต็ม (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "จีนตัวย่อ (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "มาตรฐานแห่งชาติจีน (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "จีนตัวย่อ HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "รัสเซีย koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "ยูเครน koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "ซีริลลิก (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"},
+          {"src": "StepDo", "dst": "เลิกทำ/ทำซ้ำตามขั้น", "hint_src": "Undo/Redo by the specified steps", "hint_dst": "เลิกทำหรือทำซ้ำตามจำนวนขั้นตอนที่ระบุ"},
+          {"src": "Box Begin", "dst": "เริ่มเลือกแบบกล่อง", "hint_src": "Begin the box selection", "hint_dst": "เริ่มการเลือกข้อความแบบสี่เหลี่ยม"},
+          {
+            "src": "Append String",
+            "dst": "เพิ่มสายอักขระ",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "เพิ่มสายอักขระที่ระบุไว้ที่ต้นหรือท้ายส่วนที่เลือก"
+          },
+          {"src": "Auto Formatting", "dst": "จัดรูปแบบอัตโนมัติ", "hint_src": "Toggle Auto Formatting mode", "hint_dst": "สลับโหมดการจัดรูปแบบอัตโนมัติ"},
+          {"src": "Insert/Overwrite", "dst": "แทรก/พิมพ์ทับ", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "สลับโหมดแทรก/พิมพ์ทับ"},
+          {
+            "src": "Spell Check",
+            "dst": "ตรวจการสะกดคำ",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "ตรวจสอบการสะกดคำของข้อความทั้งหมดหรือส่วนที่เลือก"
+          },
+          {
+            "src": "Spelling Check",
+            "dst": "ตรวจการสะกดคำ",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "ตรวจสอบการสะกดคำของข้อความทั้งหมดหรือส่วนที่เลือก"
+          }
+        ]
+      },
+      {
+        "cmd_id": 10102,
+        "translate": true,
+        "src": "General Setup",
+        "dst": "ตั้งค่าทั่วไป",
+        "hint_src": "Set up general preferences",
+        "hint_dst": "ตั้งค่าตัวเลือกทั่วไปของโปรแกรม"
+      },
+      {
+        "cmd_id": 10103,
+        "translate": true,
+        "src": "Paste With Citation Prefix",
+        "dst": "วางพร้อมเครื่องหมายอ้างอิง",
+        "hint_src": "Paste text adding citation prefix at each top of a line",
+        "hint_dst": "วางข้อความโดยเพิ่มเครื่องหมายอ้างอิงที่ต้นบรรทัดทุกบรรทัด"
+      },
+      {
+        "cmd_id": 10501,
+        "translate": true,
+        "src": "Receive New Mail",
+        "dst": "รับจดหมายใหม่",
+        "hint_src": "Retrieve new messages from the server",
+        "hint_dst": "รับจดหมายใหม่จากเซิร์ฟเวอร์"
+      },
+      {
+        "cmd_id": 10502,
+        "translate": true,
+        "src": "Send From Outbox",
+        "dst": "ส่งจากกล่องขาออก",
+        "hint_src": "Send outgoing messages from Outbox",
+        "hint_dst": "ส่งจดหมายที่รอส่งในกล่องขาออก"
+      },
+      {
+        "cmd_id": 10503,
+        "translate": true,
+        "src": "Remote Mailbox",
+        "dst": "จัดการกล่องจดหมายระยะไกล",
+        "hint_src": "List messages on the server",
+        "hint_dst": "แสดงรายการจดหมายที่อยู่บนเซิร์ฟเวอร์"
+      },
+      {
+        "cmd_id": 10504,
+        "translate": true,
+        "src": "Collection And Delivery",
+        "dst": "รับและส่งหลายบัญชี",
+        "hint_src": "Send and receive messages for multiple mailboxes",
+        "hint_dst": "ส่งและรับจดหมายสำหรับหลายกล่องจดหมายพร้อมกัน"
+      },
+      {"cmd_id": 10505, "translate": true, "src": "Reply", "dst": "ตอบกลับ", "hint_src": "Reply to the selected message", "hint_dst": "ตอบกลับจดหมายที่เลือก"},
+      {
+        "cmd_id": 10506,
+        "translate": true,
+        "src": "Reply To All",
+        "dst": "ตอบกลับทั้งหมด",
+        "hint_src": "Reply to not only the replying address but also the addresses in \"To\" and \"Cc\" field",
+        "hint_dst": "ตอบกลับไปยังผู้ส่งรวมถึงที่อยู่ทั้งหมดในช่อง \"ถึง\" และ \"สำเนาถึง (Cc)\""
+      },
+      {"cmd_id": 10507, "translate": true, "src": "Compose", "dst": "เขียนจดหมายใหม่", "hint_src": "Compose new message", "hint_dst": "เขียนจดหมายอีเมลใหม่"},
+      {
+        "cmd_id": 10508,
+        "translate": true,
+        "src": "Forward",
+        "dst": "ส่งต่อ",
+        "hint_src": "Forward the selected message to others",
+        "hint_dst": "ส่งต่อจดหมายที่เลือกไปยังผู้อื่น"
+      },
+      {
+        "cmd_id": 10510,
+        "translate": true,
+        "src": "Mail Query",
+        "dst": "ค้นหาจดหมาย",
+        "hint_src": "Search the specified string in e-mail messages and show results",
+        "hint_dst": "ค้นหาสายอักขระที่ระบุในจดหมายและแสดงผลลัพธ์"
+      },
+      {
+        "cmd_id": 10511,
+        "translate": true,
+        "src": "Mark As Read",
+        "dst": "ทำเครื่องหมายว่าอ่านแล้ว",
+        "hint_src": "Mark the selected messages read",
+        "hint_dst": "ทำเครื่องหมายจดหมายที่เลือกว่าอ่านแล้ว"
+      },
+      {
+        "cmd_id": 10512,
+        "translate": true,
+        "src": "Mark As Unread",
+        "dst": "ทำเครื่องหมายว่ายังไม่ได้อ่าน",
+        "hint_src": "Mark the selected messages unread",
+        "hint_dst": "ทำเครื่องหมายจดหมายที่เลือกว่ายังไม่ได้อ่าน"
+      },
+      {
+        "cmd_id": 10513,
+        "translate": true,
+        "src": "Rename Folder",
+        "dst": "เปลี่ยนชื่อโฟลเดอร์",
+        "hint_src": "Change the name of the current folder",
+        "hint_dst": "เปลี่ยนชื่อของโฟลเดอร์ปัจจุบัน"
+      },
+      {
+        "cmd_id": 10517,
+        "translate": true,
+        "src": "Sort New Messages",
+        "dst": "คัดกรองจดหมายใหม่",
+        "hint_src": "Sort messages from Inbox and Sent box to folders according to the sorting rules",
+        "hint_dst": "คัดแยกจดหมายจากกล่องขาเข้าและส่งแล้วไปยังโฟลเดอร์ต่างๆ ตามกฎการคัดกรอง"
+      },
+      {
+        "cmd_id": 10518,
+        "translate": true,
+        "src": "Save To Outbox",
+        "dst": "บันทึกลงในกล่องขาออก",
+        "hint_src": "Save the currently editing message to Outbox",
+        "hint_dst": "บันทึกจดหมายที่กำลังแก้ไขลงในกล่องขาออก"
+      },
+      {
+        "cmd_id": 10519,
+        "translate": true,
+        "src": "Send Now",
+        "dst": "ส่งทันที",
+        "hint_src": "Send the currently editing message immediately.",
+        "hint_dst": "ส่งจดหมายที่กำลังแก้ไขทันที"
+      },
+      {
+        "cmd_id": 10520,
+        "translate": true,
+        "src": "Save To Draft",
+        "dst": "บันทึกลงในร่างจดหมาย",
+        "hint_src": "Save the currently editing message to Draft box",
+        "hint_dst": "บันทึกจดหมายที่กำลังแก้ไขลงในโฟลเดอร์ร่างจดหมาย"
+      },
+      {
+        "cmd_id": 10522,
+        "translate": true,
+        "src": "Maxmize View",
+        "dst": "ขยายมุมมองข้อความสูงสุด",
+        "hint_src": "Toggle the size of the message view between maximized and normal",
+        "hint_dst": "สลับขนาดมุมมองเนื้อหาจดหมายระหว่างขนาดใหญ่สุดและขนาดปกติ"
+      },
+      {
+        "cmd_id": 10523,
+        "translate": true,
+        "src": "Mail To",
+        "dst": "เขียนจดหมายถึง",
+        "hint_src": "Write a message to this e-mail address",
+        "hint_dst": "เขียนจดหมายไปยังที่อยู่อีเมลนี้"
+      },
+      {"cmd_id": 10524, "translate": true, "src": "Add To Address Book", "dst": "เพิ่มลงในสมุดรายชื่อ"},
+      {
+        "cmd_id": 10525,
+        "translate": true,
+        "src": "Copy Address",
+        "dst": "คัดลอกที่อยู่อีเมล",
+        "hint_src": "Highlight a e-mail address and copy to the clipboard",
+        "hint_dst": "เน้นที่อยู่อีเมลและคัดลอกไปยังคลิปบอร์ด"
+      },
+      {"cmd_id": 10526, "translate": true, "src": "Highlight Word", "dst": "เน้นคำ", "hint_src": "Highlight word", "hint_dst": "เน้นคำ"},
+      {
+        "cmd_id": 10527,
+        "translate": true,
+        "src": "Open URL",
+        "dst": "เปิด URL",
+        "hint_src": "Open URL with a Web browser",
+        "hint_dst": "เปิด URL ด้วยเว็บเบราว์เซอร์"
+      },
+      {
+        "cmd_id": 10528,
+        "translate": true,
+        "src": "Copy URL",
+        "dst": "คัดลอก URL",
+        "hint_src": "Highlight URL and copy to the clipboard",
+        "hint_dst": "เน้น URL และคัดลอกไปยังคลิปบอร์ด"
+      },
+      {"cmd_id": 10529, "translate": true, "src": "Highlight Word", "dst": "เน้นคำ", "hint_src": "Highlight word", "hint_dst": "เน้นคำ"},
+      {
+        "cmd_id": 10549,
+        "translate": true,
+        "src": "Set Priority",
+        "dst": "ตั้งระดับความสำคัญ",
+        "hint_src": "Set the priority mark for the outgoing message.",
+        "hint_dst": "ตั้งค่าระดับความสำคัญสำหรับจดหมายขาออก"
+      },
+      {
+        "cmd_id": 20000,
+        "cmd_id_end": 31999,
+        "translate": true,
+        "rules": [
+          {
+            "src": "PGP: Decrypt And Verify",
+            "dst": "PGP: ถอดรหัสและตรวจสอบลายเซ็น",
+            "hint_src": "Decrypt and Verify PGP message",
+            "hint_dst": "ถอดรหัสและตรวจสอบลายเซ็นของข้อความ PGP"
+          },
+          {"src": "PGP: Setup", "dst": "PGP: ตั้งค่า", "hint_src": "Setup PGP plugin", "hint_dst": "ตั้งค่าปลั๊กอิน PGP"},
+          {"src": "PGP: Encrypt", "dst": "PGP: เข้ารหัส", "hint_src": "Encrypt with PGP", "hint_dst": "เข้ารหัสด้วย PGP"},
+          {"src": "PGP: Sign", "dst": "PGP: ลงลายเซ็นดิจิทัล", "hint_src": "Sign with PGP", "hint_dst": "ลงลายเซ็นด้วย PGP"},
+          {
+            "src": "PGP: Sign And Encrypt",
+            "dst": "PGP: ลงลายเซ็นและเข้ารหัส",
+            "hint_src": "Encrypt And Sign with PGP",
+            "hint_dst": "เข้ารหัสและลงลายเซ็นด้วย PGP"
+          },
+          {"src": "PGP: Attach Public Key", "dst": "PGP: แนบกุญแจสาธารณะ", "hint_src": "Attach a PGP public key", "hint_dst": "แนบกุญแจสาธารณะ PGP"},
+          {"src": "UI Language", "dst": "ภาษาส่วนติดต่อผู้ใช้", "hint_src": "Select the user interface language", "hint_dst": "เลือกภาษาส่วนติดต่อผู้ใช้"},
+          {
+            "src": "Voice Attachment",
+            "dst": "แนบไฟล์เสียง",
+            "hint_src": "Record your voice and attach it to the outgoing message.",
+            "hint_dst": "บันทึกเสียงของคุณและแนบไปกับจดหมายขาออก"
+          }
+        ]
+      },
+      {
+        "cmd_id": 32773,
+        "translate": true,
+        "src": "Import",
+        "dst": "นำเข้า",
+        "hint_src": "Import e-mail messages from external files",
+        "hint_dst": "นำเข้าจดหมายอีเมลจากไฟล์ภายนอก"
+      },
+      {
+        "cmd_id": 32774,
+        "translate": true,
+        "src": "Export",
+        "dst": "ส่งออก",
+        "hint_src": "Export e-mail messages to external files",
+        "hint_dst": "ส่งออกจดหมายอีเมลไปยังไฟล์ภายนอก"
+      },
+      {
+        "cmd_id": 32775,
+        "translate": true,
+        "src": "Mailbox Setup",
+        "dst": "ตั้งค่ากล่องจดหมาย",
+        "hint_src": "Set up mailbox preferences",
+        "hint_dst": "ตั้งค่าพารามิเตอร์ของกล่องจดหมายปัจจุบัน"
+      },
+      {
+        "cmd_id": 32776,
+        "translate": true,
+        "src": "Reorganize",
+        "dst": "จัดระเบียบโฟลเดอร์ใหม่",
+        "hint_src": "Organize the messages according to the sent date",
+        "hint_dst": "จัดระเบียบลำดับจดหมายใหม่ตามวันที่ส่ง"
+      },
+      {
+        "cmd_id": 32777,
+        "translate": true,
+        "src": "Thread Mode",
+        "dst": "โหมดแสดงผลตามเธรดการสนทนา",
+        "hint_src": "Toggle message-threading mode",
+        "hint_dst": "สลับโหมดการแสดงผลตามเธรดการสนทนา"
+      },
+      {
+        "cmd_id": 32778,
+        "translate": true,
+        "src": "Send And Receive",
+        "dst": "ส่งและรับ",
+        "hint_src": "Send and receive messages",
+        "hint_dst": "ส่งและรับจดหมาย"
+      },
+      {
+        "cmd_id": 32779,
+        "translate": true,
+        "src": "Mailboxes For Collection",
+        "dst": "เลือกกล่องจดหมายสำหรับรับส่งรวม",
+        "hint_src": "Select the mailboxes that will be checked by \"Collection And Delivery\" command",
+        "hint_dst": "เลือกกล่องจดหมายที่จะตรวจสอบเมื่อใช้คำสั่ง \"รับและส่งหลายบัญชี\""
+      },
+      {
+        "cmd_id": 32780,
+        "translate": true,
+        "src": "Receive All",
+        "dst": "รับจดหมายทั้งหมด",
+        "hint_src": "Retrieve all the messages on the server including the ones you have already received",
+        "hint_dst": "รับจดหมายทั้งหมดบนเซิร์ฟเวอร์รวมถึงจดหมายที่เคยได้รับแล้ว"
+      },
+      {
+        "cmd_id": 32782,
+        "translate": true,
+        "src": "Redirect",
+        "dst": "ส่งต่อคงค่าเดิม (Redirect)",
+        "hint_src": "Forward the selected message keeping \"From\", \"To\", etc. fields intact",
+        "hint_dst": "ส่งต่อจดหมายที่เลือกโดยคงข้อมูลช่อง \"จาก\", \"ถึง\" ฯลฯ ไว้ตามเดิม"
+      },
+      {
+        "cmd_id": 32784,
+        "translate": true,
+        "src": "Reply To Selected Addresses",
+        "dst": "ตอบกลับไปยังที่อยู่ที่เลือก",
+        "hint_src": "Reply to the selected e-mail addresses",
+        "hint_dst": "ตอบกลับไปยังที่อยู่อีเมลที่เลือก"
+      },
+      {
+        "cmd_id": 32785,
+        "translate": true,
+        "src": "Forward As Attachment",
+        "dst": "ส่งต่อเป็นไฟล์แนบ",
+        "hint_src": "Forward the selected message as \"message/rfc822\" attachments",
+        "hint_dst": "ส่งต่อจดหมายที่เลือกเป็นไฟล์แนบแบบ \"message/rfc822\""
+      },
+      {
+        "cmd_id": 32788,
+        "translate": true,
+        "src": "Delete Downloaded Messages From Server",
+        "dst": "ลบจดหมายที่ดาวน์โหลดแล้วออกจากเซิร์ฟเวอร์",
+        "hint_src": "Delete messages that you have already received from the server",
+        "hint_dst": "ลบจดหมายที่คุณได้รับแล้วออกจากเซิร์ฟเวอร์"
+      },
+      {
+        "cmd_id": 32789,
+        "translate": true,
+        "src": "Customize Tool Bar",
+        "dst": "ปรับแต่งแถบเครื่องมือ",
+        "hint_src": "Customize the toolbar",
+        "hint_dst": "ปรับแต่งปุ่มบนแถบเครื่องมือ"
+      },
+      {
+        "cmd_id": 32790,
+        "translate": true,
+        "src": "Cite Message",
+        "dst": "อ้างอิงข้อความ",
+        "hint_src": "Cite the selection in the reference window",
+        "hint_dst": "อ้างอิงส่วนที่เลือกในหน้าต่างอ้างอิง"
+      },
+      {
+        "cmd_id": 32792,
+        "translate": true,
+        "src": "Filtering Manager",
+        "dst": "จัดการกฎการคัดกรอง",
+        "hint_src": "Maintain sorting/filtering rules",
+        "hint_dst": "จัดการกฎการจัดเรียงและการคัดกรองจดหมาย"
+      },
+      {
+        "cmd_id": 32793,
+        "translate": true,
+        "src": "Mailing Lists Manager",
+        "dst": "จัดการรายชื่อส่งเมล",
+        "hint_src": "Maintain subscription information of mailing lists",
+        "hint_dst": "จัดการข้อมูลการสมัครรับรายชื่อส่งเมล (Mailing Lists)"
+      },
+      {
+        "cmd_id": 32794,
+        "translate": true,
+        "src": "EUC-JP",
+        "dst": "EUC-JP",
+        "hint_src": "Convert EUC-JP text to Shift-JIS",
+        "hint_dst": "แปลงข้อความรหัส EUC-JP เป็น Shift-JIS"
+      },
+      {
+        "cmd_id": 32796,
+        "translate": true,
+        "src": "Trash Duplicates",
+        "dst": "ย้ายจดหมายซ้ำลงถังขยะ",
+        "hint_src": "Trash messages whose Message-Id and Date is duplicate",
+        "hint_dst": "ย้ายจดหมายที่มี Message-Id และวันที่ซ้ำกันลงถังขยะ"
+      },
+      {
+        "cmd_id": 32797,
+        "translate": true,
+        "src": "Compaction",
+        "dst": "บีบอัดโฟลเดอร์",
+        "hint_src": "Remove additional header data from all the messages in the selected folder",
+        "hint_dst": "บีบอัดโฟลเดอร์โดยลบข้อมูลส่วนหัวเพิ่มเติมออกจากจดหมายทั้งหมดในโฟลเดอร์ที่เลือก"
+      },
+      {
+        "cmd_id": 32798,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "สร้างดัชนีใหม่",
+        "hint_src": "Reconstruct an index file of the selected folder",
+        "hint_dst": "สร้างไฟล์ดัชนีใหม่สำหรับโฟลเดอร์ที่เลือก"
+      },
+      {
+        "cmd_id": 32799,
+        "translate": true,
+        "src": "User Registration",
+        "dst": "ลงทะเบียนผู้ใช้",
+        "hint_src": "User registration",
+        "hint_dst": "การลงทะเบียนผู้ใช้"
+      },
+      {
+        "cmd_id": 32800,
+        "translate": true,
+        "src": "FAQ",
+        "dst": "คำถามที่พบบ่อย (FAQ)",
+        "hint_src": "Frequently Asked Question",
+        "hint_dst": "คำถามที่พบบ่อย (FAQ)"
+      },
+      {
+        "cmd_id": 32802,
+        "translate": true,
+        "src": "Delete Mailbox",
+        "dst": "ลบกล่องจดหมาย",
+        "hint_src": "Delete the selected mailbox",
+        "hint_dst": "ลบกล่องจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 32803,
+        "translate": true,
+        "src": "Delete Folder",
+        "dst": "ลบโฟลเดอร์",
+        "hint_src": "Delete the selected folder",
+        "hint_dst": "ลบโฟลเดอร์ที่เลือก"
+      },
+      {"cmd_id": 32804, "translate": true, "src": "New Folder", "dst": "สร้างโฟลเดอร์ใหม่", "hint_src": "Create a new folder", "hint_dst": "สร้างโฟลเดอร์ใหม่"},
+      {
+        "cmd_id": 32805,
+        "translate": true,
+        "src": "Go Back",
+        "dst": "ย้อนกลับ",
+        "hint_src": "Go back to the previously read message",
+        "hint_dst": "ย้อนกลับไปยังจดหมายที่อ่านก่อนหน้า"
+      },
+      {
+        "cmd_id": 32806,
+        "translate": true,
+        "src": "Go Forward",
+        "dst": "ไปข้างหน้า",
+        "hint_src": "Go forward to the next read message",
+        "hint_dst": "ไปยังจดหมายที่อ่านถัดไป"
+      },
+      {
+        "cmd_id": 32807,
+        "translate": true,
+        "src": "Compose To Reply Address",
+        "dst": "เขียนจดหมายถึงที่อยู่ตอบกลับ",
+        "hint_src": "Compose new message to the replying address of the selected message",
+        "hint_dst": "เขียนจดหมายใหม่ไปยังที่อยู่ตอบกลับของจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 32808,
+        "translate": true,
+        "src": "Compose To Selected Addresses",
+        "dst": "เขียนจดหมายถึงที่อยู่ที่เลือก",
+        "hint_src": "Compose to the selected addresses in the selected message",
+        "hint_dst": "เขียนจดหมายใหม่ไปยังที่อยู่ที่เลือกไว้ในจดหมาย"
+      },
+      {
+        "cmd_id": 32809,
+        "translate": true,
+        "src": "Cite Without Prefix",
+        "dst": "อ้างอิงโดยไม่มีเครื่องหมายนำหน้า",
+        "hint_src": "Cite reference message without citation prefixes.",
+        "hint_dst": "อ้างอิงจดหมายโดยไม่ใส่เครื่องหมายอ้างอิงนำหน้า"
+      },
+      {
+        "cmd_id": 32810,
+        "translate": true,
+        "src": "Default Mailbox",
+        "dst": "ตั้งเป็นกล่องจดหมายเริ่มต้น",
+        "hint_src": "Set the active mailbox as default",
+        "hint_dst": "ตั้งกล่องจดหมายที่ใช้งานอยู่เป็นค่าเริ่มต้น"
+      },
+      {
+        "cmd_id": 32811,
+        "translate": true,
+        "src": "Attach Files",
+        "dst": "แนบไฟล์",
+        "hint_src": "Attach files to the current outgoing message",
+        "hint_dst": "แนบไฟล์ไปกับจดหมายขาออกปัจจุบัน"
+      },
+      {
+        "cmd_id": 32814,
+        "translate": true,
+        "src": "Close",
+        "dst": "ปิด",
+        "hint_src": "Close the current composing window",
+        "hint_dst": "ปิดหน้าต่างเขียนจดหมายปัจจุบัน"
+      },
+      {
+        "cmd_id": 32816,
+        "translate": true,
+        "src": "ReEdit",
+        "dst": "แก้ไขใหม่",
+        "hint_src": "Open the selected message as an outgoing message",
+        "hint_dst": "เปิดจดหมายที่เลือกเป็นจดหมายขาออกเพื่อแก้ไขใหม่"
+      },
+      {
+        "cmd_id": 32824,
+        "translate": true,
+        "src": "Reset Toolbar",
+        "dst": "รีเซ็ตแถบเครื่องมือ",
+        "hint_src": "Reset tool bar to the initial state",
+        "hint_dst": "รีเซ็ตแถบเครื่องมือกลับสู่สถานะเริ่มต้น"
+      },
+      {
+        "cmd_id": 32826,
+        "translate": true,
+        "src": "Change Font",
+        "dst": "เปลี่ยนแบบอักษร",
+        "hint_src": "Change the font associated to the character set of the current message",
+        "hint_dst": "เปลี่ยนแบบอักษรที่เชื่อมโยงกับชุดอักขระของจดหมายปัจจุบัน"
+      },
+      {"cmd_id": 32827, "translate": true, "src": "Dialup", "dst": "การเชื่อมต่อผ่านสายโทรศัพท์"},
+      {
+        "cmd_id": 32836,
+        "translate": true,
+        "src": "Delete Mail",
+        "dst": "ลบจดหมาย",
+        "hint_src": "Delete the selected message items",
+        "hint_dst": "ลบรายการจดหมายที่เลือก"
+      },
+      {"cmd_id": 32838, "translate": true, "src": "Empty Trash", "dst": "ล้างถังขยะ", "hint_src": "Empty Trash box", "hint_dst": "ล้างข้อมูลในถังขยะทั้งหมด"},
+      {
+        "cmd_id": 32839,
+        "translate": true,
+        "src": "Write HTML Message",
+        "dst": "เขียนจดหมายแบบ HTML",
+        "hint_src": "Create HTML message",
+        "hint_dst": "สร้างจดหมายรูปแบบ HTML"
+      },
+      {
+        "cmd_id": 32856,
+        "translate": true,
+        "src": "Save As Signature",
+        "dst": "บันทึกเป็นลายเซ็น",
+        "hint_src": "Save the current selection as a signature",
+        "hint_dst": "บันทึกส่วนที่เลือกในปัจจุบันเป็นลายเซ็น"
+      },
+      {
+        "cmd_id": 32868,
+        "translate": true,
+        "src": "\"What's New\" List",
+        "dst": "รายการ \"จดหมายมาใหม่\"",
+        "hint_src": "List recently arrived messages",
+        "hint_dst": "แสดงรายการจดหมายที่เพิ่งได้รับล่าสุด"
+      },
+      {
+        "cmd_id": 32870,
+        "translate": true,
+        "src": "Set To Mail",
+        "dst": "ตั้งเป็นผู้รับจดหมาย",
+        "hint_src": "Set the addresses to an outgoing message",
+        "hint_dst": "กำหนดที่อยู่ให้เป็นผู้รับในจดหมายขาออก"
+      },
+      {"cmd_id": 32871, "translate": true, "src": "Close", "dst": "ปิด", "hint_src": "Close the address book", "hint_dst": "ปิดสมุดรายชื่อ"},
+      {
+        "cmd_id": 32872,
+        "translate": true,
+        "src": "New Address",
+        "dst": "สร้างรายชื่อใหม่",
+        "hint_src": "Add a new address entry to the current address group",
+        "hint_dst": "เพิ่มรายชื่อใหม่ลงในกลุ่มรายชื่อปัจจุบัน"
+      },
+      {
+        "cmd_id": 32873,
+        "translate": true,
+        "src": "New Address Group",
+        "dst": "สร้างกลุ่มรายชื่อใหม่",
+        "hint_src": "Add a new address group to the current address book",
+        "hint_dst": "เพิ่มกลุ่มรายชื่อใหม่ลงในสมุดรายชื่อปัจจุบัน"
+      },
+      {
+        "cmd_id": 32877,
+        "translate": true,
+        "src": "Help For Address Book",
+        "dst": "วิธีใช้สมุดรายชื่อ",
+        "hint_src": "Show the help for the address book",
+        "hint_dst": "แสดงวิธีใช้สำหรับสมุดรายชื่อ"
+      },
+      {
+        "cmd_id": 32878,
+        "translate": true,
+        "src": "Text File",
+        "dst": "ไฟล์ข้อความ",
+        "hint_src": "Import data from external files",
+        "hint_dst": "นำเข้าข้อมูลจากไฟล์ภายนอก"
+      },
+      {
+        "cmd_id": 32879,
+        "translate": true,
+        "src": "Text File",
+        "dst": "ไฟล์ข้อความ",
+        "hint_src": "Export the selected addresses to an external file",
+        "hint_dst": "ส่งออกรายชื่อที่เลือกไปยังไฟล์ภายนอก"
+      },
+      {"cmd_id": 32885, "translate": true, "src": "Name <mail@address>", "dst": "ชื่อ <mail@address>"},
+      {"cmd_id": 32886, "translate": true, "src": "mail@address (Name)", "dst": "mail@address (ชื่อ)"},
+      {"cmd_id": 32887, "translate": true, "src": "mail@address", "dst": "mail@address"},
+      {
+        "cmd_id": 32888,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "สร้างดัชนีใหม่",
+        "hint_src": "Reconstruct an index file for the current address group",
+        "hint_dst": "สร้างไฟล์ดัชนีใหม่สำหรับกลุ่มรายชื่อปัจจุบัน"
+      },
+      {
+        "cmd_id": 32894,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Import data from \"vCard\" files",
+        "hint_dst": "นำเข้าข้อมูลจากไฟล์ \"vCard\""
+      },
+      {
+        "cmd_id": 32895,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Export the selected addresses as \"vCard\" files",
+        "hint_dst": "ส่งออกรายชื่อที่เลือกเป็นไฟล์ \"vCard\""
+      },
+      {
+        "cmd_id": 32896,
+        "translate": true,
+        "src": "Post",
+        "dst": "โพสต์ไปยังรายชื่อส่งเมล",
+        "hint_src": "Post to the related mailing list",
+        "hint_dst": "โพสต์ข้อความไปยังรายชื่อส่งเมลที่เกี่ยวข้อง"
+      },
+      {
+        "cmd_id": 32898,
+        "translate": true,
+        "src": "Set Addresses To List",
+        "dst": "เพิ่มที่อยู่ลงในรายการ",
+        "hint_src": "Set the selected addresses to the list at the below-left",
+        "hint_dst": "เพิ่มที่อยู่ที่เลือกลงในรายการด้านล่างซ้าย"
+      },
+      {
+        "cmd_id": 32899,
+        "translate": true,
+        "src": "External Edit",
+        "dst": "แก้ไขด้วยโปรแกรมภายนอก",
+        "hint_src": "Edit the current message by an external editor",
+        "hint_dst": "แก้ไขจดหมายปัจจุบันด้วยโปรแกรมแก้ไขภายนอก"
+      },
+      {
+        "cmd_id": 32900,
+        "translate": true,
+        "src": "External Editors",
+        "dst": "ตั้งค่าโปรแกรมแก้ไขภายนอก",
+        "hint_src": "Register external editors",
+        "hint_dst": "ลงทะเบียนโปรแกรมแก้ไขภายนอก"
+      },
+      {"cmd_id": 32901, "translate": true, "src": "0: As Is", "dst": "0: แสดงตามเดิม"},
+      {"cmd_id": 32902, "translate": true, "src": "1: Name <mail@address>", "dst": "1: ชื่อ <mail@address>"},
+      {"cmd_id": 32903, "translate": true, "src": "2: mail@address (Name)", "dst": "2: mail@address (ชื่อ)"},
+      {"cmd_id": 32904, "translate": true, "src": "3: mail@address", "dst": "3: แสดงเฉพาะที่อยู่อีเมล"},
+      {"cmd_id": 32905, "translate": true, "src": "4: Name", "dst": "4: แสดงเฉพาะชื่อ"},
+      {
+        "cmd_id": 32908,
+        "translate": true,
+        "src": "Extract Attached Messages",
+        "dst": "แยกจดหมายที่แนบมา",
+        "hint_src": "Extract \"message/rfc822\" attachments to a folder as incoming messages",
+        "hint_dst": "แยกไฟล์แนบแบบ \"message/rfc822\" ออกเป็นจดหมายขาเข้าในโฟลเดอร์"
+      },
+      {
+        "cmd_id": 32912,
+        "translate": true,
+        "src": "Color Label",
+        "dst": "ป้ายกำกับสี",
+        "hint_src": "Change the color of the current message item",
+        "hint_dst": "เปลี่ยนป้ายกำกับสีของรายการจดหมายปัจจุบัน"
+      },
+      {
+        "cmd_id": 32913,
+        "translate": true,
+        "src": "Set Flag/Priority Level",
+        "dst": "ตั้งค่าธง/ระดับความสำคัญ",
+        "hint_src": "Change the priority of the selected message items",
+        "hint_dst": "เปลี่ยนระดับความสำคัญของรายการจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 32914,
+        "translate": true,
+        "src": "Attach vCard",
+        "dst": "แนบ vCard",
+        "hint_src": "Attach your \"vCard\" to the current outgoing message",
+        "hint_dst": "แนบ \"vCard\" ของคุณไปกับจดหมายขาออกปัจจุบัน"
+      },
+      {
+        "cmd_id": 32915,
+        "translate": true,
+        "src": "Edit vCard",
+        "dst": "แก้ไข vCard",
+        "hint_src": "Edit your \"vCard\" property",
+        "hint_dst": "แก้ไขข้อมูล \"vCard\" ของคุณ"
+      },
+      {
+        "cmd_id": 32916,
+        "translate": true,
+        "src": "Change Data Folder",
+        "dst": "เปลี่ยนโฟลเดอร์เก็บข้อมูล",
+        "hint_src": "Change the data folder Becky! uses",
+        "hint_dst": "เปลี่ยนโฟลเดอร์เก็บข้อมูลที่ Becky! ใช้งาน"
+      },
+      {
+        "cmd_id": 32919,
+        "translate": true,
+        "src": "Hide Mailbox",
+        "dst": "ซ่อนกล่องจดหมาย",
+        "hint_src": "Hide the selected mailbox",
+        "hint_dst": "ซ่อนกล่องจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 32920,
+        "translate": true,
+        "src": "Reveal Mailbox",
+        "dst": "แสดงกล่องจดหมายที่ซ่อนไว้",
+        "hint_src": "Reveal hidden mailboxes",
+        "hint_dst": "แสดงกล่องจดหมายที่ซ่อนไว้ทั้งหมด"
+      },
+      {
+        "cmd_id": 32921,
+        "translate": true,
+        "src": "Pause Periodical Check",
+        "dst": "หยุดการตรวจเช็คเมลตามกำหนดเวลาชั่วคราว",
+        "hint_src": "Pause all the periodical mail check temporarily",
+        "hint_dst": "หยุดการตรวจเช็คจดหมายตามกำหนดเวลาทั้งหมดชั่วคราว"
+      },
+      {
+        "cmd_id": 32923,
+        "translate": true,
+        "src": "Import Backup Logs",
+        "dst": "นำเข้าบันทึกสำรองข้อมูล",
+        "hint_src": "Import messages from backup logs to the selected folder",
+        "hint_dst": "นำเข้าจดหมายจากบันทึกสำรองข้อมูลไปยังโฟลเดอร์ที่เลือก"
+      },
+      {
+        "cmd_id": 32924,
+        "translate": true,
+        "src": "Sorting Rules For Folder",
+        "dst": "กฎการคัดกรองสำหรับโฟลเดอร์",
+        "hint_src": "Set sorting rules for the selected folder",
+        "hint_dst": "ตั้งกฎการคัดกรองสำหรับโฟลเดอร์ที่เลือก"
+      },
+      {
+        "cmd_id": 32926,
+        "translate": true,
+        "src": "Thread Tool",
+        "dst": "เครื่องมือจัดการเธรดการสนทนา",
+        "hint_src": "Associate a selected message to another as a child thread",
+        "hint_dst": "เชื่อมโยงจดหมายที่เลือกเข้ากับจดหมายอื่นเป็นเธรดย่อย"
+      },
+      {
+        "cmd_id": 32929,
+        "translate": true,
+        "src": "Subscribe",
+        "dst": "สมัครรับข้อมูล",
+        "hint_src": "Subscribe to the mailing list",
+        "hint_dst": "สมัครรับข้อมูลรายชื่อส่งเมล"
+      },
+      {
+        "cmd_id": 32930,
+        "translate": true,
+        "src": "Unsubscribe",
+        "dst": "ยกเลิกการสมัครรับข้อมูล",
+        "hint_src": "Unsubscribe the mailing list",
+        "hint_dst": "ยกเลิกการสมัครรับข้อมูลรายชื่อส่งเมล"
+      },
+      {
+        "cmd_id": 32931,
+        "translate": true,
+        "src": "Mail To Admin",
+        "dst": "ส่งเมลถึงผู้ดูแลระบบ",
+        "hint_src": "Mail to the administrator of the mailing list",
+        "hint_dst": "ส่งอีเมลถึงผู้ดูแลรายชื่อส่งเมล"
+      },
+      {
+        "cmd_id": 32932,
+        "translate": true,
+        "src": "Web Site",
+        "dst": "เว็บไซต์",
+        "hint_src": "Open the Web site related to the mailing list",
+        "hint_dst": "เปิดเว็บไซต์ที่เกี่ยวข้องกับรายชื่อส่งเมล"
+      },
+      {
+        "cmd_id": 32933,
+        "translate": true,
+        "src": "Related ML:",
+        "dst": "รายชื่อส่งเมลที่เกี่ยวข้อง:",
+        "hint_src": "Associate the folder with a mailing list",
+        "hint_dst": "เชื่อมโยงโฟลเดอร์เข้ากับรายชื่อส่งเมล"
+      },
+      {
+        "cmd_id": 32935,
+        "translate": true,
+        "src": "Property",
+        "dst": "คุณสมบัติ",
+        "hint_src": "Show the property of the selected item",
+        "hint_dst": "แสดงคุณสมบัติของรายการที่เลือก"
+      },
+      {
+        "cmd_id": 32938,
+        "translate": true,
+        "src": "Add To Mailing Lists Manager",
+        "dst": "เพิ่มลงในตัวจัดการรายชื่อส่งเมล",
+        "hint_src": "Add an entry to the Mailing List Manager according to the information in the selected message item",
+        "hint_dst": "เพิ่มรายการลงในตัวจัดการรายชื่อส่งเมลตามข้อมูลในจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 32939,
+        "translate": true,
+        "src": "Print Settings",
+        "dst": "ตั้งค่าการพิมพ์",
+        "hint_src": "Setup preferences for printing",
+        "hint_dst": "ตั้งค่าตัวเลือกสำหรับการพิมพ์"
+      },
+      {
+        "cmd_id": 32940,
+        "translate": true,
+        "src": "Folder Maintenance Combo",
+        "dst": "บำรุงรักษาโฟลเดอร์แบบรวม",
+        "hint_src": "Do \"Reorganize\", \"Compaction\", and \"Trash Duplicates\" at the same time",
+        "hint_dst": "ดำเนินการ \"จัดระเบียบใหม่\", \"บีบอัดโฟลเดอร์\" และ \"ย้ายจดหมายซ้ำลงถังขยะ\" พร้อมกัน"
+      },
+      {
+        "cmd_id": 32942,
+        "translate": true,
+        "src": "Sort Selected Messages",
+        "dst": "คัดกรองจดหมายที่เลือก",
+        "hint_src": "Sort the selected message items to folders according to the sorting rules",
+        "hint_dst": "คัดแยกจดหมายที่เลือกไปยังโฟลเดอร์ต่างๆ ตามกฎการคัดกรอง"
+      },
+      {
+        "cmd_id": 32943,
+        "translate": true,
+        "src": "Select Read Messages",
+        "dst": "เลือกจดหมายที่อ่านแล้ว",
+        "hint_src": "Select all the read messages in the folder",
+        "hint_dst": "เลือกจดหมายที่อ่านแล้วทั้งหมดในโฟลเดอร์"
+      },
+      {
+        "cmd_id": 32944,
+        "translate": true,
+        "src": "New Address Book",
+        "dst": "สร้างสมุดรายชื่อใหม่",
+        "hint_src": "Create a new address book",
+        "hint_dst": "สร้างสมุดรายชื่อใหม่"
+      },
+      {
+        "cmd_id": 32945,
+        "translate": true,
+        "src": "Delete Addresses",
+        "dst": "ลบรายชื่อ",
+        "hint_src": "Delete the selected addresses",
+        "hint_dst": "ลบรายชื่อที่เลือก"
+      },
+      {
+        "cmd_id": 32946,
+        "translate": true,
+        "src": "Delete Address Group/Book",
+        "dst": "ลบกลุ่มรายชื่อ/สมุดรายชื่อ",
+        "hint_src": "Delete the selected address book or address group",
+        "hint_dst": "ลบสมุดรายชื่อหรือกลุ่มรายชื่อที่เลือก"
+      },
+      {
+        "cmd_id": 32950,
+        "translate": true,
+        "src": "View Related Messages",
+        "dst": "ดูจดหมายที่เกี่ยวข้อง",
+        "hint_src": "View only the related messages to the current message",
+        "hint_dst": "แสดงเฉพาะจดหมายที่เกี่ยวข้องกับจดหมายปัจจุบัน"
+      },
+      {
+        "cmd_id": 32958,
+        "translate": true,
+        "src": "Close All Threads",
+        "dst": "ยุบเธรดการสนทนาทั้งหมด",
+        "hint_src": "Close all the message threads of the current folder",
+        "hint_dst": "ยุบเธรดการสนทนาทั้งหมดในโฟลเดอร์ปัจจุบัน"
+      },
+      {
+        "cmd_id": 32959,
+        "translate": true,
+        "src": "Open All Threads",
+        "dst": "ขยายเธรดการสนทนาทั้งหมด",
+        "hint_src": "Open all the message threads of the current folder",
+        "hint_dst": "ขยายเธรดการสนทนาทั้งหมดในโฟลเดอร์ปัจจุบัน"
+      },
+      {
+        "cmd_id": 32963,
+        "translate": true,
+        "src": "Request \"Read Receipt\"",
+        "dst": "ขอ \"ใบตอบรับการอ่าน\"",
+        "hint_src": "Request \"Read Receipt\" to the recipients.",
+        "hint_dst": "ขอ \"ใบตอบรับการอ่าน\" จากผู้รับ"
+      },
+      {
+        "cmd_id": 32966,
+        "translate": true,
+        "src": "Protocol Logs",
+        "dst": "บันทึกโปรโตคอล",
+        "hint_src": "Leave protocol logs of mail sessions",
+        "hint_dst": "เก็บประวัติบันทึกโปรโตคอลของการเชื่อมต่อรับส่งเมล"
+      },
+      {
+        "cmd_id": 32968,
+        "translate": true,
+        "src": "Append To \"Quick Memo\"",
+        "dst": "เพิ่มต่อท้ายใน \"บันทึกด่วน\"",
+        "hint_src": "Append the selection to \"Becky's Quick Memo\"",
+        "hint_dst": "เพิ่มส่วนที่เลือกต่อท้ายใน \"บันทึกด่วนของ Becky!\""
+      },
+      {
+        "cmd_id": 32971,
+        "translate": true,
+        "src": "View Source",
+        "dst": "ดูซอร์สโค้ดของจดหมาย",
+        "hint_src": "View a source of the current E-mail message",
+        "hint_dst": "ดูซอร์สโค้ดต้นฉบับของจดหมายอีเมลปัจจุบัน"
+      },
+      {"cmd_id": 32972, "translate": true, "src": "Search for this \"Message-Id\"", "dst": "ค้นหา \"Message-Id\" นี้"},
+      {
+        "cmd_id": 32975,
+        "translate": true,
+        "src": "View Headers",
+        "dst": "ดูส่วนหัวของจดหมาย",
+        "hint_src": "Show the header part of the message",
+        "hint_dst": "แสดงส่วนหัวของจดหมาย"
+      },
+      {
+        "cmd_id": 32976,
+        "translate": true,
+        "src": "Next Layout",
+        "dst": "เค้าโครงถัดไป",
+        "hint_src": "Change the layout of the views.",
+        "hint_dst": "เปลี่ยนเค้าโครงของมุมมอง"
+      },
+      {
+        "cmd_id": 32977,
+        "translate": true,
+        "src": "Abort Session",
+        "dst": "ยกเลิกการเชื่อมต่อ",
+        "hint_src": "Abort the active session.",
+        "hint_dst": "ยกเลิกการเชื่อมต่อที่กำลังทำงานอยู่"
+      },
+      {
+        "cmd_id": 32978,
+        "translate": true,
+        "src": "Quick Access",
+        "dst": "การเข้าถึงด่วน",
+        "hint_src": "Open the message recently double-clicked or composed and saved.",
+        "hint_dst": "เปิดจดหมายที่เพิ่งดับเบิลคลิกดูหรือเพิ่งเขียนและบันทึกไว้ล่าสุด"
+      },
+      {
+        "cmd_id": 32979,
+        "translate": true,
+        "src": "Separate Attachments",
+        "dst": "แยกไฟล์แนบ",
+        "hint_src": "Save attachment files in the folder to separate data files.",
+        "hint_dst": "บันทึกไฟล์แนบในโฟลเดอร์แยกเป็นไฟล์ข้อมูลอิสระ"
+      },
+      {
+        "cmd_id": 32980,
+        "translate": true,
+        "src": "Combine Attachments",
+        "dst": "รวมไฟล์แนบกลับ",
+        "hint_src": "Combine attachment files into mail data files.",
+        "hint_dst": "รวมไฟล์แนบที่แยกไว้กลับเข้าสู่ไฟล์ข้อมูลจดหมาย"
+      },
+      {"cmd_id": 32981, "translate": true, "src": "Delete", "dst": "ลบ", "hint_src": "Delete the selection", "hint_dst": "ลบส่วนที่เลือก"},
+      {
+        "cmd_id": 32982,
+        "translate": true,
+        "src": "Customize List Columns(Z)",
+        "dst": "ปรับแต่งคอลัมน์รายการ",
+        "hint_src": "Customize the columns headers of the list view.",
+        "hint_dst": "ปรับแต่งหัวคอลัมน์ของมุมมองรายการจดหมาย"
+      },
+      {
+        "cmd_id": 32984,
+        "translate": true,
+        "src": "Select Flagged Messages",
+        "dst": "เลือกจดหมายที่ปักธง",
+        "hint_src": "Select all the flagged messages in the folder",
+        "hint_dst": "เลือกจดหมายที่ปักธงทั้งหมดในโฟลเดอร์"
+      },
+      {
+        "cmd_id": 32985,
+        "translate": true,
+        "src": "Switch Mailbox",
+        "dst": "สลับกล่องจดหมาย",
+        "hint_src": "Switch the mailbox that will be used to send this message.",
+        "hint_dst": "สลับกล่องจดหมายที่จะใช้ส่งจดหมายฉบับนี้"
+      },
+      {
+        "cmd_id": 32986,
+        "translate": true,
+        "src": "Toggle Flag",
+        "dst": "สลับการปักธง",
+        "hint_src": "Toggle Flag on the selected messages",
+        "hint_dst": "สลับการปักธงสำหรับจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 32988,
+        "translate": true,
+        "src": "Close Query Result",
+        "dst": "ปิดผลการค้นหา",
+        "hint_src": "Close the Query dialog and Query Result folder.",
+        "hint_dst": "ปิดหน้าต่างค้นหาและโฟลเดอร์ผลการค้นหา"
+      },
+      {
+        "cmd_id": 32989,
+        "translate": true,
+        "src": "1: [ |---] Long TreeView",
+        "dst": "1: [ |---] ผังโฟลเดอร์แนวยาว",
+        "hint_src": "Long treeview",
+        "hint_dst": "เค้าโครงผังโฟลเดอร์แนวยาว"
+      },
+      {
+        "cmd_id": 32990,
+        "translate": true,
+        "src": "2: [-'---] Wide MessageView",
+        "dst": "2: [-'---] มุมมองเนื้อหาแบบกว้าง",
+        "hint_src": "Wide messageview",
+        "hint_dst": "เค้าโครงมุมมองเนื้อหาแบบกว้าง"
+      },
+      {
+        "cmd_id": 32991,
+        "translate": true,
+        "src": "3: [-,---] Wide ListView",
+        "dst": "3: [-,---] มุมมองรายการแบบกว้าง",
+        "hint_src": "Wide listview",
+        "hint_dst": "เค้าโครงมุมมองรายการแบบกว้าง"
+      },
+      {
+        "cmd_id": 32992,
+        "translate": true,
+        "src": "4: [-|   ] Maximum MessageView",
+        "dst": "4: [-|   ] มุมมองเนื้อหาขนาดใหญ่สุด",
+        "hint_src": "Maximum messageview",
+        "hint_dst": "เค้าโครงมุมมองเนื้อหาขนาดใหญ่สุด"
+      },
+      {
+        "cmd_id": 32993,
+        "translate": true,
+        "src": "5: [ | |  ] Three Columns",
+        "dst": "5: [ | |  ] เค้าโครงสามคอลัมน์",
+        "hint_src": "Three vertically divided panes",
+        "hint_dst": "เค้าโครงแบ่งสามช่องแนวตั้ง"
+      },
+      {
+        "cmd_id": 32994,
+        "translate": true,
+        "src": "6: [ |2|  ] Three Columns Two Lines in a Row",
+        "dst": "6: [ |2|  ] สามคอลัมน์แสดงรายการสองบรรทัด",
+        "hint_src": "Three Columns Two Layer per Item",
+        "hint_dst": "เค้าโครงสามคอลัมน์แสดงรายการสองบรรทัด"
+      },
+      {
+        "cmd_id": 32995,
+        "translate": true,
+        "src": "Sync with Portable Media",
+        "dst": "ซิงค์กับสื่อพกพา",
+        "hint_src": "Synchronize data with a portable a media or mobile PC.",
+        "hint_dst": "ซิงค์ข้อมูลกับสื่อพกพาหรือคอมพิวเตอร์พกพา"
+      },
+      {
+        "cmd_id": 32997,
+        "translate": true,
+        "src": "Go Next Mailbox",
+        "dst": "ไปยังกล่องจดหมายถัดไป",
+        "hint_src": "Open next mailbox.",
+        "hint_dst": "เปิดกล่องจดหมายถัดไป"
+      },
+      {
+        "cmd_id": 32998,
+        "translate": true,
+        "src": "Reload Query Folder",
+        "dst": "รีเฟรชโฟลเดอร์ค้นหา",
+        "hint_src": "Query again on the Query Result or a saved Query folder.",
+        "hint_dst": "ค้นหาซ้ำอีกครั้งในผลการค้นหาหรือโฟลเดอร์ค้นหาที่บันทึกไว้"
+      },
+      {
+        "cmd_id": 32999,
+        "translate": true,
+        "src": "Select Unread Messages",
+        "dst": "เลือกจดหมายที่ยังไม่ได้อ่าน",
+        "hint_src": "Select all the unread messages in the folder.",
+        "hint_dst": "เลือกจดหมายที่ยังไม่ได้อ่านทั้งหมดในโฟลเดอร์"
+      },
+      {
+        "cmd_id": 33000,
+        "translate": true,
+        "src": "Use \"Name\" from Address Book",
+        "dst": "ใช้ \"ชื่อ\" จากสมุดรายชื่อ",
+        "hint_src": "Use \"Name\" as it appears in the address book.",
+        "hint_dst": "ใช้ \"ชื่อ\" ตามที่ปรากฏในสมุดรายชื่อ"
+      },
+      {
+        "cmd_id": 33002,
+        "translate": true,
+        "src": "Sort By Name",
+        "dst": "เรียงตามชื่อ",
+        "hint_src": "Sort folders on the same level by name.",
+        "hint_dst": "เรียงลำดับโฟลเดอร์ในระดับเดียวกันตามชื่อ"
+      },
+      {
+        "cmd_id": 33003,
+        "translate": true,
+        "src": "Go Previous Mailbox",
+        "dst": "ไปยังกล่องจดหมายก่อนหน้า",
+        "hint_src": "Open previous mailbox.",
+        "hint_dst": "เปิดกล่องจดหมายก่อนหน้า"
+      },
+      {
+        "cmd_id": 33004,
+        "translate": true,
+        "src": "View Memo(D)",
+        "dst": "ดูบันทึกช่วยจำ",
+        "hint_src": "Write or view a memo associated to the current message.",
+        "hint_dst": "เขียนหรือดูบันทึกช่วยจำที่เชื่อมโยงกับจดหมายปัจจุบัน"
+      },
+      {
+        "cmd_id": 33007,
+        "translate": true,
+        "src": "Headlines Search",
+        "dst": "ค้นหาหัวข้อจดหมาย",
+        "hint_src": "Go to the Headlines Search bar at the right top.",
+        "hint_dst": "ไปยังแถบค้นหาหัวข้อจดหมายที่มุมขวาบน"
+      },
+      {
+        "cmd_id": 33011,
+        "translate": true,
+        "src": "Add Agent(Z)",
+        "dst": "เพิ่มงานตัวแทน (Agent)",
+        "hint_src": "Assign Agent to the selected messages.",
+        "hint_dst": "กำหนดงานตัวแทน (Agent) ให้กับจดหมายที่เลือก"
+      },
+      {
+        "cmd_id": 33013,
+        "translate": true,
+        "src": "Bookmark",
+        "dst": "บุ๊กมาร์ก",
+        "hint_src": "Assign Agent with a \"Bookmark\" task to the selected messages.",
+        "hint_dst": "กำหนดงาน \"บุ๊กมาร์ก\" ให้กับจดหมายที่เลือก"
+      },
+      {"cmd_id": 33017, "translate": true, "src": "Headlines Search (K)", "dst": "แถบค้นหาหัวข้อจดหมาย"},
+      {
+        "cmd_id": 33019,
+        "translate": true,
+        "src": "Go Previous Folder (Y)",
+        "dst": "กลับไปยังโฟลเดอร์ก่อนหน้า",
+        "hint_src": "Select previously open folder.",
+        "hint_dst": "เลือกโฟลเดอร์ที่เปิดก่อนหน้านี้"
+      },
+      {
+        "cmd_id": 33021,
+        "translate": true,
+        "src": "Go Original Message (J)",
+        "dst": "ไปยังจดหมายต้นฉบับ",
+        "hint_src": "Open the original message this item links.",
+        "hint_dst": "เปิดจดหมายต้นฉบับที่รายการนี้เชื่อมโยงอยู่"
+      },
+      {
+        "cmd_id": 33024,
+        "translate": true,
+        "src": "Follow the Topic",
+        "dst": "ติดตามหัวข้อนี้",
+        "hint_src": "Mark as \"Follow the Topic\" Task.",
+        "hint_dst": "ทำเครื่องหมายเป็นงาน \"ติดตามหัวข้อนี้\""
+      },
+      {
+        "cmd_id": 33026,
+        "translate": true,
+        "src": "Mark As Need Reply",
+        "dst": "ทำเครื่องหมายว่าต้องตอบกลับ",
+        "hint_src": "Mark as \"Need Reply\" Task.",
+        "hint_dst": "ทำเครื่องหมายเป็นงาน \"ต้องตอบกลับ\""
+      },
+      {
+        "cmd_id": 33032,
+        "translate": true,
+        "src": "CardDAV server",
+        "dst": "เซิร์ฟเวอร์ CardDAV",
+        "hint_src": "Add CardDAV server.",
+        "hint_dst": "เพิ่มเซิร์ฟเวอร์ CardDAV"
+      },
+      {
+        "cmd_id": 33033,
+        "translate": true,
+        "src": "LDAP  server",
+        "dst": "เซิร์ฟเวอร์ LDAP",
+        "hint_src": "Add LDAP server.",
+        "hint_dst": "เพิ่มเซิร์ฟเวอร์ LDAP"
+      },
+      {
+        "cmd_id": 33034,
+        "translate": true,
+        "src": "Becky!'s Address book",
+        "dst": "สมุดรายชื่อของ Becky!",
+        "hint_src": "Add Becky!'s address book.",
+        "hint_dst": "เพิ่มสมุดรายชื่อของ Becky!"
+      },
+      {"cmd_id": 33037, "translate": true, "src": "Always Two Lines in a Row", "dst": "แสดงรายการแบบสองบรรทัดเสมอ"},
+      {
+        "cmd_id": 33039,
+        "translate": true,
+        "src": "Open Data Folder Location",
+        "dst": "เปิดตำแหน่งโฟลเดอร์เก็บข้อมูล",
+        "hint_src": "Opens Becky! data folder location",
+        "hint_dst": "เปิดตำแหน่งโฟลเดอร์เก็บข้อมูลของ Becky!"
+      },
+      {"cmd_id": 42778, "translate": true, "src": "Address Book", "dst": "สมุดรายชื่อ", "hint_src": "Open Address Book", "hint_dst": "เปิดสมุดรายชื่อ"},
+      {
+        "cmd_id": 42787,
+        "translate": true,
+        "src": "New Mailbox",
+        "dst": "สร้างกล่องจดหมายใหม่",
+        "hint_src": "Create a new mailbox",
+        "hint_dst": "สร้างกล่องจดหมายใหม่"
+      },
+      {
+        "cmd_id": 42796,
+        "translate": true,
+        "src": "Add To Address Book",
+        "dst": "เพิ่มลงในสมุดรายชื่อ",
+        "hint_src": "Add the sender of the current message to the Address Book",
+        "hint_dst": "เพิ่มผู้ส่งของจดหมายปัจจุบันลงในสมุดรายชื่อ"
+      },
+      {
+        "cmd_id": 42803,
+        "translate": true,
+        "src": "Load Template",
+        "dst": "โหลดแม่แบบ",
+        "hint_src": "Load a template file to the current outgoing message",
+        "hint_dst": "โหลดไฟล์แม่แบบเข้าสู่จดหมายขาออกปัจจุบัน"
+      },
+      {
+        "cmd_id": 42804,
+        "translate": true,
+        "src": "Save As Template",
+        "dst": "บันทึกเป็นแม่แบบ",
+        "hint_src": "Save the current outgoing message as a template",
+        "hint_dst": "บันทึกจดหมายขาออกปัจจุบันเป็นแม่แบบ"
+      },
+      {
+        "cmd_id": 42805,
+        "translate": true,
+        "src": "Reminder",
+        "dst": "การแจ้งเตือน",
+        "hint_src": "Save the current outgoing message as a \"Reminder\" for yourself.",
+        "hint_dst": "บันทึกจดหมายขาออกปัจจุบันเป็น \"การแจ้งเตือน\" สำหรับตัวคุณเอง"
+      },
+      {
+        "cmd_id": 42806,
+        "translate": true,
+        "src": "Edit Template",
+        "dst": "แก้ไขแม่แบบ",
+        "hint_src": "Create or edit a template file",
+        "hint_dst": "สร้างหรือแก้ไขไฟล์แม่แบบ"
+      },
+      {
+        "cmd_id": 55001,
+        "cmd_id_end": 55099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(default)",
+            "dst": "(ค่าเริ่มต้น)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "เปลี่ยนรหัสภาษาของจดหมายปัจจุบัน"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(ค่าเริ่มต้น)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "เปลี่ยนรหัสภาษาของจดหมายปัจจุบัน"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7 บิต ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "ยุโรปตะวันตก Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "ยุโรปกลาง Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "ยุโรปตะวันตก Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "ญี่ปุ่น (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "เกาหลี UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "เกาหลี RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "จีนตัวเต็ม (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "จีนตัวย่อ (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "มาตรฐานแห่งชาติจีน (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "จีนตัวย่อ HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "รัสเซีย koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "ยูเครน koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "ซีริลลิก (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"}
+        ]
+      },
+      {
+        "cmd_id": 56001,
+        "cmd_id_end": 56099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(no dialup)",
+            "dst": "(ไม่มีการเชื่อมต่อสายโทรศัพท์)",
+            "hint_src": "Connect to the Internet using dialup network",
+            "hint_dst": "เชื่อมต่ออินเทอร์เน็ตผ่านเครือข่ายสายโทรศัพท์"
+          }
+        ]
+      },
+      {
+        "cmd_id": 56100,
+        "cmd_id_end": 56199,
+        "translate": true,
+        "rules": [
+          {"src": "(no plug-ins)", "dst": "(ไม่มีปลั๊กอิน)"},
+          {"src": "Becky2! Multicolor Icons.", "dst": "ปลั๊กอินไอคอนหลากสี Becky2!"},
+          {"src": "Becky! PGP Plug-In", "dst": "ปลั๊กอินเข้ารหัส PGP ของ Becky!"},
+          {"src": "Becky! Voice Message Plug-in", "dst": "ปลั๊กอินข้อความเสียงของ Becky!"},
+          {"src": "Becky! UI Inspector", "dst": "ปลั๊กอินตรวจสอบ UI ของ Becky!"},
+          {"src": "Becky! I18n", "dst": "ปลั๊กอินภาษาสากล (I18n) ของ Becky!"}
+        ]
+      },
+      {
+        "cmd_id": 57604,
+        "translate": true,
+        "rules": [{"src": "Save As", "dst": "บันทึกเป็น"}, {"src": "Save To Folder and continue", "dst": "บันทึกลงในโฟลเดอร์และทำต่อ"}],
+        "hint_src": "Save the active message",
+        "hint_dst": "บันทึกจดหมายปัจจุบัน"
+      },
+      {"cmd_id": 57607, "translate": true, "src": "Print", "dst": "พิมพ์", "hint_src": "Print the active document", "hint_dst": "พิมพ์เอกสารปัจจุบัน"},
+      {
+        "cmd_id": 57609,
+        "translate": true,
+        "src": "Print Preview",
+        "dst": "ตัวอย่างก่อนพิมพ์",
+        "hint_src": "Display full pages",
+        "hint_dst": "แสดงตัวอย่างแบบเต็มหน้า"
+      },
+      {
+        "cmd_id": 57634,
+        "translate": true,
+        "src": "Copy",
+        "dst": "คัดลอก",
+        "hint_src": "Copy the selection and put it on the Clipboard",
+        "hint_dst": "คัดลอกส่วนที่เลือกและเก็บไว้ในคลิปบอร์ด"
+      },
+      {
+        "cmd_id": 57635,
+        "translate": true,
+        "src": "Cut",
+        "dst": "ตัด",
+        "hint_src": "Cut the selection and put it on the Clipboard",
+        "hint_dst": "ตัดส่วนที่เลือกและเก็บไว้ในคลิปบอร์ด"
+      },
+      {
+        "cmd_id": 57636,
+        "translate": true,
+        "rules": [{"src": "Find", "dst": "ค้นหา"}, {"src": "Search Address", "dst": "ค้นหาที่อยู่"}, {"src": "Find Address", "dst": "ค้นหาที่อยู่"}],
+        "hint_src": "Find the specified text",
+        "hint_dst": "ค้นหาข้อความที่ระบุ"
+      },
+      {"cmd_id": 57637, "translate": true, "src": "Paste", "dst": "วาง", "hint_src": "Insert Clipboard contents", "hint_dst": "แทรกเนื้อหาจากคลิปบอร์ด"},
+      {"cmd_id": 57640, "translate": true, "src": "Repeat", "dst": "ทำซ้ำ", "hint_src": "Repeat the last action", "hint_dst": "ทำซ้ำการกระทำล่าสุด"},
+      {
+        "cmd_id": 57641,
+        "translate": true,
+        "src": "Replace",
+        "dst": "แทนที่",
+        "hint_src": "Replace specific text with different text",
+        "hint_dst": "แทนที่ข้อความที่ระบุด้วยข้อความอื่น"
+      },
+      {"cmd_id": 57642, "translate": true, "src": "Select All", "dst": "เลือกทั้งหมด", "hint_src": "Select entirely", "hint_dst": "เลือกทั้งหมด"},
+      {"cmd_id": 57643, "translate": true, "src": "Undo", "dst": "เลิกทำ", "hint_src": "Undo the last action", "hint_dst": "เลิกทำการกระทำล่าสุด"},
+      {
+        "cmd_id": 57644,
+        "translate": true,
+        "src": "Redo",
+        "dst": "ทำซ้ำการเลิกทำ",
+        "hint_src": "Redo the previously undone action",
+        "hint_dst": "ทำซ้ำการกระทำที่เพิ่งเลิกทำไป"
+      },
+      {
+        "cmd_id": 57664,
+        "translate": true,
+        "src": "About \"Becky!\"",
+        "dst": "เกี่ยวกับ \"Becky!\"",
+        "hint_src": "Display program information, version number and copyright",
+        "hint_dst": "แสดงข้อมูลโปรแกรม หมายเลขรุ่น และลิขสิทธิ์"
+      },
+      {"cmd_id": 57665, "translate": true, "src": "Exit", "dst": "ออกจากโปรแกรม", "hint_src": "Quit the application", "hint_dst": "ออกจากโปรแกรม"},
+      {"cmd_id": 57667, "translate": true, "src": "Help Topics", "dst": "หัวข้อวิธีใช้", "hint_src": "List Help topics", "hint_dst": "แสดงหัวข้อวิธีใช้"},
+      {
+        "cmd_id": 59392,
+        "translate": true,
+        "src": "Tool Bar",
+        "dst": "แถบเครื่องมือ",
+        "hint_src": "Show or hide the toolbar",
+        "hint_dst": "แสดงหรือซ่อนแถบเครื่องมือ"
+      },
+      {
+        "cmd_id": 59393,
+        "translate": true,
+        "src": "Status Bar",
+        "dst": "แถบสถานะ",
+        "hint_src": "Show or hide the status bar",
+        "hint_dst": "แสดงหรือซ่อนแถบสถานะ"
+      }
+    ]
+  },
+  "windows": {
+    "Becky2MainFrame": {
+      "class_name": "Becky2MainFrame",
+      "sdk_role": "BKA_MainWindow",
+      "properties": {"window_title": {"translate": false, "comment": "Format: '<AccountName> - Becky!' (contains user mailbox name)"}},
+      "children": [
+        {"class_name": "#32770", "ctrl_id": 0, "control_subtype": "ChildDialog", "translate": false},
+        {
+          "class_name": "AfxMDIFrame42s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame42s",
+          "translate": false,
+          "children": [
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59648,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysTreeView32",
+                  "ctrl_id": 1000,
+                  "control_subtype": "SysTreeView32",
+                  "sdk_role": "BKA_FolderTreeView",
+                  "translate": true,
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "root_nodes": [{"src": "Query Result", "dst": "ผลการค้นหา"}],
+                  "items": [
+                    {"src": "Inbox", "dst": "กล่องขาเข้า"},
+                    {"src": "Outbox", "dst": "กล่องขาออก"},
+                    {"src": "Draft", "dst": "ร่างจดหมาย"},
+                    {"src": "Sent", "dst": "ส่งแล้ว"},
+                    {"src": "Reminder", "dst": "บันทึกช่วยจำ"},
+                    {"src": "Trash", "dst": "ถังขยะ"}
+                  ]
+                },
+                {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
+                {"class_name": "ComboBox", "ctrl_id": 112, "control_subtype": "DropDownListCombo", "translate": false}
+              ]
+            },
+            {
+              "class_name": "AfxMDIFrame42s",
+              "ctrl_id": 59649,
+              "control_subtype": "AfxMDIFrame42s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysListView32",
+                  "ctrl_id": 59648,
+                  "control_subtype": "SysListView32",
+                  "sdk_role": "BKA_MailListView",
+                  "translate": false,
+                  "children": [
+                    {
+                      "class_name": "SysHeader32",
+                      "ctrl_id": 0,
+                      "control_subtype": "SysHeader32",
+                      "translate": true,
+                      "columns": [
+                        {"translate": false, "src": " "},
+                        {"translate": true, "src": "Subject", "dst": "เรื่อง"},
+                        {"translate": true, "src": "From", "dst": "ผู้ส่ง"},
+                        {"translate": true, "src": "To", "dst": "ผู้รับ"},
+                        {"translate": true, "src": "Sent Date", "dst": "วันที่ส่ง"},
+                        {"translate": true, "src": "Received Date", "dst": "วันที่ได้รับ"},
+                        {"translate": true, "src": "Delivered Date", "dst": "วันที่นำส่ง"},
+                        {"translate": true, "src": "Size", "dst": "ขนาด"},
+                        {"translate": true, "src": "Profile Name", "dst": "ชื่อโปรไฟล์"},
+                        {"translate": true, "src": "Connection", "dst": "การเชื่อมต่อ"},
+                        {"translate": true, "src": "Protocol", "dst": "โปรโตคอล"},
+                        {"translate": true, "src": "Name", "dst": "ชื่อ"},
+                        {"translate": true, "src": "E-mail Address", "dst": "ที่อยู่อีเมล"},
+                        {"translate": true, "src": "Mail Server", "dst": "เซิร์ฟเวอร์รับเมล"},
+                        {"translate": true, "src": "SMTP Server", "dst": "เซิร์ฟเวอร์ส่งเมล (SMTP)"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {"class_name": "Button", "ctrl_id": 148, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 166, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "DanaEditWindowClass",
+                      "ctrl_id": 103,
+                      "control_subtype": "DanaEditWindowClass",
+                      "sdk_role": "BKA_MailBodyView",
+                      "translate": false
+                    },
+                    {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false},
+                    {
+                      "class_name": "AfxWnd",
+                      "ctrl_id": 12562,
+                      "control_subtype": "AfxWnd",
+                      "translate": true,
+                      "rules": [
+                        {"src": "Body", "dst": "เนื้อหา"},
+                        {"src": "plain", "dst": "ข้อความธรรมดา"},
+                        {"src": "html", "dst": "HTML"},
+                        {"src": "delivery-status", "dst": "สถานะการส่ง"},
+                        {"src": "Headers", "dst": "ส่วนหัว"},
+                        {"src": "Memo", "dst": "บันทึก"},
+                        {"src": "disposition-notification", "dst": "การแจ้งเปิดอ่าน"},
+                        {"src": "rfc822-headers", "dst": "ส่วนหัว RFC822"}
+                      ],
+                      "children": [{"class_name": "msctls_updown32", "ctrl_id": 1053, "control_subtype": "msctls_updown32", "translate": false}]
+                    },
+                    {"class_name": "Static", "ctrl_id": 1006, "control_subtype": "TextStatic", "translate": true, "src": "From: ", "dst": "จาก: "},
+                    {"class_name": "Edit", "ctrl_id": 1005, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To: ", "dst": "ถึง: "},
+                    {"class_name": "Edit", "ctrl_id": 115, "control_subtype": "Edit", "translate": true, "mode": "regex", "pattern": "Cc: ", "replace": "Cc: "},
+                    {"class_name": "Static", "ctrl_id": 1008, "control_subtype": "TextStatic", "translate": true, "src": "Subject: ", "dst": "เรื่อง: "},
+                    {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "วันที่: "},
+                    {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "Status:"},
+                    {
+                      "class_name": "ComboBox",
+                      "ctrl_id": 1532,
+                      "control_subtype": "DropDownListCombo",
+                      "translate": true,
+                      "items": [
+                        {"index": 0, "src": "Active", "dst": "กำลังดำเนินการ"},
+                        {"index": 1, "src": "Done", "dst": "เสร็จสิ้น"},
+                        {"index": 2, "src": "Suspended", "dst": "ระงับชั่วคราว"}
+                      ]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Edit Task", "dst": "แก้ไขงาน"},
+                    {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete Task", "dst": "ลบงาน"},
+                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "ถัดไป->"},
+                    {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
+                    {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false},
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {"index": 0, "translate": false, "sample": ""},
+            {"index": 1, "translate": false, "sample": ""},
+            {"index": 2, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "บ:$1$2ค:$3$4รวม:$5$6"},
+            {
+              "index": 3,
+              "translate": true,
+              "mode": "regex",
+              "pattern": "^Unread:(\\s*\\d+)\\s*/\\s*Total:(\\s*\\d+)$",
+              "replace": "ยังไม่อ่าน:$1 / ทั้งหมด:$2"
+            },
+            {"index": 4, "translate": false, "sample": "    "},
+            {"index": 5, "translate": false, "sample": "    "}
+          ],
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false, "src": "Fn"},
+            {"class_name": "Static", "ctrl_id": 2424, "control_subtype": "ImageStatic", "translate": false, "src": "Qu"},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 0,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": false, "src": ""},
+                {"class_name": "msctls_progress32", "ctrl_id": 1045, "control_subtype": "msctls_progress32", "translate": false},
+                {"class_name": "Static", "ctrl_id": 1046, "control_subtype": "TextStatic", "translate": false, "src": "0/0"},
+                {"class_name": "Static", "ctrl_id": 1047, "control_subtype": "TextStatic", "translate": false, "src": ""}
+              ]
+            }
+          ]
+        },
+        {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    }
+  }
+}

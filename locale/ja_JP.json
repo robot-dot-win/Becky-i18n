@@ -1,0 +1,1429 @@
+{
+  "meta": {"locale": "ja_JP", "name": "日本語 (ja_JP)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "menus": {
+    "popups": {
+      "main_frame": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "ファイル",
+          "children": [
+            {"translate": true, "src": "Folder", "dst": "フォルダ"},
+            {"translate": true, "src": "Mailbox", "dst": "メールボックス"},
+            {"translate": true, "src": "System", "dst": "システム"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "編集"},
+        {
+          "translate": true,
+          "src": "View",
+          "dst": "表示",
+          "children": [
+            {"translate": true, "src": "Change Layout", "dst": "画面配置変更"},
+            {"translate": true, "src": "Language", "dst": "文字コード"},
+            {"translate": true, "src": "Mail Address Format", "dst": "宛先表示形式"}
+          ]
+        },
+        {
+          "translate": true,
+          "src": "Mail",
+          "dst": "メール",
+          "children": [{"translate": true, "src": "Compose To", "dst": "指定宛先へ作成"}, {"translate": true, "src": "Reply To", "dst": "返信方法"}]
+        },
+        {
+          "translate": true,
+          "src": "Tools",
+          "dst": "ツール",
+          "children": [
+            {"translate": true, "src": "Plug-Ins Setup", "dst": "プラグイン設定"},
+            {"translate": true, "src": "Decode", "dst": "復号 (Decode)"},
+            {"translate": true, "src": "Dialup", "dst": "ダイヤルアップ接続"}
+          ]
+        },
+        {"translate": true, "src": "Help", "dst": "ヘルプ"},
+        {"translate": true, "src": "Mailing List", "dst": "メーリングリスト"},
+        {"translate": true, "src": "Special Copy/Paste", "dst": "特殊複写/貼付"},
+        {"translate": true, "src": "Paragraph Formatting", "dst": "段落整形"}
+      ],
+      "compose": [
+        {"translate": true, "src": "File", "dst": "ファイル"},
+        {
+          "translate": true,
+          "src": "Edit",
+          "dst": "編集",
+          "children": [{"translate": true, "src": "Special Copy/Paste", "dst": "特殊複写/貼付"}, {"translate": true, "src": "Paragraph Formatting", "dst": "段落整形"}]
+        },
+        {"translate": true, "src": "View", "dst": "表示", "children": [{"translate": true, "src": "Language", "dst": "文字コード"}]},
+        {"translate": true, "src": "Tools", "dst": "ツール"},
+        {"translate": true, "src": "Help", "dst": "ヘルプ"}
+      ],
+      "address": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "ファイル",
+          "children": [
+            {"translate": true, "src": "Add Address Book", "dst": "住所録追加"},
+            {"translate": true, "src": "Import", "dst": "取込 (Import)"},
+            {"translate": true, "src": "Export", "dst": "書出 (Export)"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "編集"},
+        {"translate": true, "src": "View", "dst": "表示"},
+        {"translate": true, "src": "Tools", "dst": "ツール", "children": [{"translate": true, "src": "Input Format", "dst": "入力形式"}]},
+        {"translate": true, "src": "Help", "dst": "ヘルプ"}
+      ]
+    },
+    "commands": [
+      {
+        "cmd_id": 1,
+        "cmd_id_end": 100,
+        "ownerdraw": true,
+        "translate": true,
+        "rules": [
+          {"src": "From:", "dst": "差出人:"},
+          {"src": "Reply-To:", "dst": "返信先:"},
+          {"src": "Sender:", "dst": "送信者:"},
+          {"src": "To:", "dst": "宛先:"},
+          {"src": "Cc:", "dst": "同報 (Cc):"},
+          {"src": "Bcc:", "dst": "暗黙 (Bcc):"},
+          {"src": "Subject:", "dst": "件名:"},
+          {"src": "Return-Path:", "dst": "返送先:"},
+          {"src": "Message-Id:", "dst": "メール識別子:"},
+          {"src": "In-Reply-To:", "dst": "返信元:"},
+          {"src": "References:", "dst": "参照メール:"},
+          {"src": "X-Mailer:", "dst": "送信ソフト:"},
+          {"src": "X-SMTP-Result:", "dst": "配送結果:"},
+          {"src": "Sent Date:", "dst": "送信日時:"},
+          {"src": "Delivered Date:", "dst": "配信日時:"},
+          {"src": "Received Date:", "dst": "受信日時:"},
+          {"src": "Resent Date:", "dst": "再送日時:"},
+          {"src": "Local Time:", "dst": "現地時間:"},
+          {"src": "Time Difference:", "dst": "時差:"},
+          {"src": "** Clear All (To delete one by one, right click the item.) **", "dst": "** 全履歴消去（個別削除は項目を右クリック）**"}
+        ]
+      },
+      {"cmd_id": 101, "translate": true, "src": "Display as Domestic Time", "dst": "自国時間で表示"},
+      {"cmd_id": 108, "translate": true, "src": "Direct Edit Mode", "dst": "直接編集モード", "hint_src": "Toggle direct editing mode", "hint_dst": "メール本文の直接編集モードを切替"},
+      {
+        "cmd_id": 10000,
+        "cmd_id_end": 10099,
+        "translate": true,
+        "rules": [
+          {"src": "Find Next", "dst": "次を検索", "hint_src": "Search next candidate", "hint_dst": "次の該当箇所を検索"},
+          {"src": "Find Previous", "dst": "前を検索", "hint_src": "Search previous candidate", "hint_dst": "前の該当箇所を検索"},
+          {"src": "uudecode", "dst": "uudecode", "hint_src": "Decode uuencoded text in the message", "hint_dst": "メール内の uuencode 文字列を復号"},
+          {"src": "BinHex", "dst": "BinHex", "hint_src": "Decode BinHex encoded text in the message", "hint_dst": "メール内の BinHex 文字列を復号"},
+          {"src": "Step Undo/Redo", "dst": "段階元に戻す/やり直し", "hint_src": "Undo/Redo by the specified steps", "hint_dst": "指定段階数だけ元に戻す/やり直す"},
+          {"src": "Paste From History", "dst": "履歴から貼付", "hint_src": "Paste from the clipboard history", "hint_dst": "クリップボード履歴から貼付"},
+          {"src": "Begin Box Selection", "dst": "矩形選択開始", "hint_src": "Begin the box selection", "hint_dst": "矩形範囲選択を開始"},
+          {"src": "Paste Box", "dst": "矩形貼付", "hint_src": "Paste a box text previously copied or cut", "hint_dst": "複写または切り取った矩形文字列を貼付"},
+          {"src": "Copy To File", "dst": "ファイルへ複写", "hint_src": "Copy the selection to a file", "hint_dst": "選択範囲をファイルへ複写"},
+          {"src": "Append To File", "dst": "ファイルへ追記", "hint_src": "Append the selection to an existing file", "hint_dst": "選択範囲を既存ファイルへ追記"},
+          {"src": "Paste From File", "dst": "ファイルから貼付", "hint_src": "Paste an existing text file at the caret position", "hint_dst": "カーソル位置にテキストファイルを挿入"},
+          {"src": "Left", "dst": "左寄せ", "hint_src": "Bring the selection to the left", "hint_dst": "選択範囲を左寄せ"},
+          {"src": "Right", "dst": "右寄せ", "hint_src": "Bring the selection to the right", "hint_dst": "選択範囲を右寄せ"},
+          {"src": "Center", "dst": "中央揃え", "hint_src": "Bring the selection to the center", "hint_dst": "選択範囲を中央揃え"},
+          {"src": "Indent", "dst": "字下げ追加", "hint_src": "Indent the selection by one level", "hint_dst": "選択範囲を1段階字下げ"},
+          {"src": "Unindent", "dst": "字下げ解除", "hint_src": "UnIndent the selection by one level", "hint_dst": "選択範囲の字下げを1段階解除"},
+          {"src": "Add Strings", "dst": "文字列付加", "hint_src": "Append specified string at the top/end of the selection", "hint_dst": "選択範囲の先頭または末尾に指定文字列を付加"},
+          {"src": "Sort", "dst": "並べ替え", "hint_src": "Sort the selection", "hint_dst": "選択範囲の行を並べ替え"},
+          {"src": "Format", "dst": "段落整形", "hint_src": "Format the selection or a text block which ends with an empty line", "hint_dst": "選択範囲または空行で終わる段落を整形"},
+          {
+            "src": "Deformat",
+            "dst": "整形解除",
+            "hint_src": "Remove return codes from the selection or a text block which ends with an empty line",
+            "hint_dst": "選択範囲または空行で終わる段落の改行を除去"
+          },
+          {"src": "Convert", "dst": "文字変換", "hint_src": "Convert the selection", "hint_dst": "選択範囲の文字列を変換"},
+          {"src": "Auto Formatting Mode", "dst": "自動整形モード", "hint_src": "Toggle Auto Formatting mode", "hint_dst": "自動段落整形モードを切替"},
+          {"src": "Overwrite Mode", "dst": "上書モード", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "挿入/上書モードを切替"},
+          {"src": "Spelling-Check", "dst": "綴り検査", "hint_src": "Check the spelling of the entire text or the current selection", "hint_dst": "全文または選択範囲の綴りを検査"},
+          {"src": "(default)", "dst": "（既定）", "hint_src": "Change the language of the current message", "hint_dst": "表示中メールの文字コードを変更"},
+          {"src": "(Default)", "dst": "（既定）", "hint_src": "Change the language of the current message", "hint_dst": "表示中メールの文字コードを変更"},
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7bit ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "西欧言語 Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "中欧言語 Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "西欧言語 Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "日本語 (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "韓国語 UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "韓国語 RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "中国語繁体字 (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "中国語簡体字 (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "中国国家標準 (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "中国語簡体字 HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "ロシア語 koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "ウクライナ語 koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "キリル文字 (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"},
+          {"src": "StepDo", "dst": "段階取消/再実行", "hint_src": "Undo/Redo by the specified steps", "hint_dst": "指定段階数だけ元に戻す/やり直す"},
+          {"src": "Box Begin", "dst": "矩形選択開始", "hint_src": "Begin the box selection", "hint_dst": "矩形範囲選択を開始"},
+          {"src": "Append String", "dst": "文字列付加", "hint_src": "Append specified string at the top/end of the selection", "hint_dst": "選択範囲の先頭または末尾に指定文字列を付加"},
+          {"src": "Auto Formatting", "dst": "自動整形", "hint_src": "Toggle Auto Formatting mode", "hint_dst": "自動段落整形モードを切替"},
+          {"src": "Insert/Overwrite", "dst": "挿入/上書", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "挿入/上書モードを切替"},
+          {"src": "Spell Check", "dst": "綴り検査", "hint_src": "Check the spelling of the entire text or the current selection", "hint_dst": "全文または選択範囲の綴りを検査"},
+          {"src": "Spelling Check", "dst": "綴り検査", "hint_src": "Check the spelling of the entire text or the current selection", "hint_dst": "全文または選択範囲の綴りを検査"}
+        ]
+      },
+      {"cmd_id": 10102, "translate": true, "src": "General Setup", "dst": "全般設定", "hint_src": "Set up general preferences", "hint_dst": "全体的な基本設定を構成"},
+      {
+        "cmd_id": 10103,
+        "translate": true,
+        "src": "Paste With Citation Prefix",
+        "dst": "引用記号付き貼付",
+        "hint_src": "Paste text adding citation prefix at each top of a line",
+        "hint_dst": "各行頭に引用記号を付けて貼付"
+      },
+      {
+        "cmd_id": 10501,
+        "translate": true,
+        "src": "Receive New Mail",
+        "dst": "新着メール受信",
+        "hint_src": "Retrieve new messages from the server",
+        "hint_dst": "サーバから新着メールを受信"
+      },
+      {
+        "cmd_id": 10502,
+        "translate": true,
+        "src": "Send From Outbox",
+        "dst": "送信箱から送信",
+        "hint_src": "Send outgoing messages from Outbox",
+        "hint_dst": "送信箱内の未送信メールを送信"
+      },
+      {
+        "cmd_id": 10503,
+        "translate": true,
+        "src": "Remote Mailbox",
+        "dst": "遠隔メールボックス管理",
+        "hint_src": "List messages on the server",
+        "hint_dst": "サーバ上のメール一覧を表示・管理"
+      },
+      {
+        "cmd_id": 10504,
+        "translate": true,
+        "src": "Collection And Delivery",
+        "dst": "一括送受信",
+        "hint_src": "Send and receive messages for multiple mailboxes",
+        "hint_dst": "複数メールボックスの送受信を一括実行"
+      },
+      {"cmd_id": 10505, "translate": true, "src": "Reply", "dst": "返信", "hint_src": "Reply to the selected message", "hint_dst": "選択メールに返信"},
+      {
+        "cmd_id": 10506,
+        "translate": true,
+        "src": "Reply To All",
+        "dst": "全員へ返信",
+        "hint_src": "Reply to not only the replying address but also the addresses in \"To\" and \"Cc\" field",
+        "hint_dst": "差出人および「宛先」「同報(Cc)」の全宛先へ返信"
+      },
+      {"cmd_id": 10507, "translate": true, "src": "Compose", "dst": "新規メール作成", "hint_src": "Compose new message", "hint_dst": "新規メールを作成"},
+      {"cmd_id": 10508, "translate": true, "src": "Forward", "dst": "転送", "hint_src": "Forward the selected message to others", "hint_dst": "選択メールを第三者へ転送"},
+      {
+        "cmd_id": 10510,
+        "translate": true,
+        "src": "Mail Query",
+        "dst": "メール検索",
+        "hint_src": "Search the specified string in e-mail messages and show results",
+        "hint_dst": "メール内の指定文字列を検索し結果を表示"
+      },
+      {"cmd_id": 10511, "translate": true, "src": "Mark As Read", "dst": "既読にする", "hint_src": "Mark the selected messages read", "hint_dst": "選択メールを既読に設定"},
+      {"cmd_id": 10512, "translate": true, "src": "Mark As Unread", "dst": "未読にする", "hint_src": "Mark the selected messages unread", "hint_dst": "選択メールを未読に設定"},
+      {
+        "cmd_id": 10513,
+        "translate": true,
+        "src": "Rename Folder",
+        "dst": "フォルダ名変更",
+        "hint_src": "Change the name of the current folder",
+        "hint_dst": "現在のフォルダ名を変更"
+      },
+      {
+        "cmd_id": 10517,
+        "translate": true,
+        "src": "Sort New Messages",
+        "dst": "新着メール振分",
+        "hint_src": "Sort messages from Inbox and Sent box to folders according to the sorting rules",
+        "hint_dst": "振分規則に従い受信箱と送信済のメールを各フォルダへ自動振分"
+      },
+      {
+        "cmd_id": 10518,
+        "translate": true,
+        "src": "Save To Outbox",
+        "dst": "送信箱へ保存",
+        "hint_src": "Save the currently editing message to Outbox",
+        "hint_dst": "編集中のメールを送信箱へ保存"
+      },
+      {
+        "cmd_id": 10519,
+        "translate": true,
+        "src": "Send Now",
+        "dst": "直ちに送信",
+        "hint_src": "Send the currently editing message immediately.",
+        "hint_dst": "編集中のメールを直ちに送信"
+      },
+      {
+        "cmd_id": 10520,
+        "translate": true,
+        "src": "Save To Draft",
+        "dst": "下書箱へ保存",
+        "hint_src": "Save the currently editing message to Draft box",
+        "hint_dst": "編集中のメールを下書箱へ保存"
+      },
+      {
+        "cmd_id": 10522,
+        "translate": true,
+        "src": "Maxmize View",
+        "dst": "閲覧枠最大化",
+        "hint_src": "Toggle the size of the message view between maximized and normal",
+        "hint_dst": "メール本文枠の最大化と通常表示を切替"
+      },
+      {
+        "cmd_id": 10523,
+        "translate": true,
+        "src": "Mail To",
+        "dst": "メール作成",
+        "hint_src": "Write a message to this e-mail address",
+        "hint_dst": "このメールアドレス宛に新規メールを作成"
+      },
+      {"cmd_id": 10524, "translate": true, "src": "Add To Address Book", "dst": "住所録へ追加"},
+      {
+        "cmd_id": 10525,
+        "translate": true,
+        "src": "Copy Address",
+        "dst": "宛先複写",
+        "hint_src": "Highlight a e-mail address and copy to the clipboard",
+        "hint_dst": "メールアドレスを選択してクリップボードへ複写"
+      },
+      {"cmd_id": 10526, "translate": true, "src": "Highlight Word", "dst": "語句強調表示", "hint_src": "Highlight word", "hint_dst": "語句を強調表示"},
+      {"cmd_id": 10527, "translate": true, "src": "Open URL", "dst": "URLを開く", "hint_src": "Open URL with a Web browser", "hint_dst": "WebブラウザでURLを開く"},
+      {
+        "cmd_id": 10528,
+        "translate": true,
+        "src": "Copy URL",
+        "dst": "URLを複写",
+        "hint_src": "Highlight URL and copy to the clipboard",
+        "hint_dst": "URLを選択してクリップボードへ複写"
+      },
+      {"cmd_id": 10529, "translate": true, "src": "Highlight Word", "dst": "語句強調表示", "hint_src": "Highlight word", "hint_dst": "語句を強調表示"},
+      {
+        "cmd_id": 10549,
+        "translate": true,
+        "src": "Set Priority",
+        "dst": "重要度設定",
+        "hint_src": "Set the priority mark for the outgoing message.",
+        "hint_dst": "送信メールの重要度を設定"
+      },
+      {
+        "cmd_id": 20000,
+        "cmd_id_end": 31999,
+        "translate": true,
+        "rules": [
+          {"src": "PGP: Decrypt And Verify", "dst": "PGP: 復号および署名検証", "hint_src": "Decrypt and Verify PGP message", "hint_dst": "PGP暗号メールを復号し署名を検証"},
+          {"src": "PGP: Setup", "dst": "PGP: 設定", "hint_src": "Setup PGP plugin", "hint_dst": "PGPプラグインを設定"},
+          {"src": "PGP: Encrypt", "dst": "PGP: 暗号化", "hint_src": "Encrypt with PGP", "hint_dst": "PGPで暗号化"},
+          {"src": "PGP: Sign", "dst": "PGP: 署名", "hint_src": "Sign with PGP", "hint_dst": "PGPで電子署名"},
+          {"src": "PGP: Sign And Encrypt", "dst": "PGP: 署名および暗号化", "hint_src": "Encrypt And Sign with PGP", "hint_dst": "PGPで暗号化および電子署名"},
+          {"src": "PGP: Attach Public Key", "dst": "PGP: 公開鍵添付", "hint_src": "Attach a PGP public key", "hint_dst": "PGP公開鍵を添付"},
+          {"src": "UI Language", "dst": "表示言語", "hint_src": "Select the user interface language", "hint_dst": "表示言語を選択"},
+          {"src": "Voice Attachment", "dst": "音声ファイル添付", "hint_src": "Record your voice and attach it to the outgoing message.", "hint_dst": "音声を録音し送信メールへ添付"}
+        ]
+      },
+      {
+        "cmd_id": 32773,
+        "translate": true,
+        "src": "Import",
+        "dst": "取込 (Import)",
+        "hint_src": "Import e-mail messages from external files",
+        "hint_dst": "外部ファイルからメールを取込"
+      },
+      {
+        "cmd_id": 32774,
+        "translate": true,
+        "src": "Export",
+        "dst": "書出 (Export)",
+        "hint_src": "Export e-mail messages to external files",
+        "hint_dst": "メールを外部ファイルへ書出"
+      },
+      {
+        "cmd_id": 32775,
+        "translate": true,
+        "src": "Mailbox Setup",
+        "dst": "メールボックス設定",
+        "hint_src": "Set up mailbox preferences",
+        "hint_dst": "現在のメールボックスの設定を変更"
+      },
+      {
+        "cmd_id": 32776,
+        "translate": true,
+        "src": "Reorganize",
+        "dst": "フォルダ再編成",
+        "hint_src": "Organize the messages according to the sent date",
+        "hint_dst": "送信日時に従いフォルダ内のメール順序を再編成"
+      },
+      {"cmd_id": 32777, "translate": true, "src": "Thread Mode", "dst": "スレッド表示", "hint_src": "Toggle message-threading mode", "hint_dst": "スレッド表示モードを切替"},
+      {"cmd_id": 32778, "translate": true, "src": "Send And Receive", "dst": "送受信", "hint_src": "Send and receive messages", "hint_dst": "メールを送受信"},
+      {
+        "cmd_id": 32779,
+        "translate": true,
+        "src": "Mailboxes For Collection",
+        "dst": "一括送受信対象設定",
+        "hint_src": "Select the mailboxes that will be checked by \"Collection And Delivery\" command",
+        "hint_dst": "「一括送受信」で対象とするメールボックスを選択"
+      },
+      {
+        "cmd_id": 32780,
+        "translate": true,
+        "src": "Receive All",
+        "dst": "全メール受信",
+        "hint_src": "Retrieve all the messages on the server including the ones you have already received",
+        "hint_dst": "受信済を含むサーバ上の全メールを受信"
+      },
+      {
+        "cmd_id": 32782,
+        "translate": true,
+        "src": "Redirect",
+        "dst": "そのまま転送 (Redirect)",
+        "hint_src": "Forward the selected message keeping \"From\", \"To\", etc. fields intact",
+        "hint_dst": "差出人・宛先等のヘッダを維持したまま別宛先へ再送"
+      },
+      {
+        "cmd_id": 32784,
+        "translate": true,
+        "src": "Reply To Selected Addresses",
+        "dst": "選択宛先へ返信",
+        "hint_src": "Reply to the selected e-mail addresses",
+        "hint_dst": "指定したメールアドレスへ返信"
+      },
+      {
+        "cmd_id": 32785,
+        "translate": true,
+        "src": "Forward As Attachment",
+        "dst": "添付形式で転送",
+        "hint_src": "Forward the selected message as \"message/rfc822\" attachments",
+        "hint_dst": "選択メールを「message/rfc822」添付形式で転送"
+      },
+      {
+        "cmd_id": 32788,
+        "translate": true,
+        "src": "Delete Downloaded Messages From Server",
+        "dst": "受信済メールをサーバから削除",
+        "hint_src": "Delete messages that you have already received from the server",
+        "hint_dst": "受信済メールをサーバから削除"
+      },
+      {"cmd_id": 32789, "translate": true, "src": "Customize Tool Bar", "dst": "ツールバー設定", "hint_src": "Customize the toolbar", "hint_dst": "ツールバーのボタン構成を設定"},
+      {
+        "cmd_id": 32790,
+        "translate": true,
+        "src": "Cite Message",
+        "dst": "メール引用",
+        "hint_src": "Cite the selection in the reference window",
+        "hint_dst": "参照枠の選択範囲を引用"
+      },
+      {
+        "cmd_id": 32792,
+        "translate": true,
+        "src": "Filtering Manager",
+        "dst": "振分規則管理",
+        "hint_src": "Maintain sorting/filtering rules",
+        "hint_dst": "メール振分規則を管理"
+      },
+      {
+        "cmd_id": 32793,
+        "translate": true,
+        "src": "Mailing Lists Manager",
+        "dst": "メーリングリスト管理",
+        "hint_src": "Maintain subscription information of mailing lists",
+        "hint_dst": "メーリングリスト購読情報を管理"
+      },
+      {
+        "cmd_id": 32794,
+        "translate": true,
+        "src": "EUC-JP",
+        "dst": "EUC-JP",
+        "hint_src": "Convert EUC-JP text to Shift-JIS",
+        "hint_dst": "EUC-JP文字列をShift-JISへ変換"
+      },
+      {
+        "cmd_id": 32796,
+        "translate": true,
+        "src": "Trash Duplicates",
+        "dst": "重複メール整理",
+        "hint_src": "Trash messages whose Message-Id and Date is duplicate",
+        "hint_dst": "Message-Idと日時が重複するメールを塵箱へ移動"
+      },
+      {
+        "cmd_id": 32797,
+        "translate": true,
+        "src": "Compaction",
+        "dst": "フォルダ最適化",
+        "hint_src": "Remove additional header data from all the messages in the selected folder",
+        "hint_dst": "選択フォルダ内の全メールから不要領域を除去し最適化"
+      },
+      {
+        "cmd_id": 32798,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "索引再構築",
+        "hint_src": "Reconstruct an index file of the selected folder",
+        "hint_dst": "選択フォルダの索引ファイルを再構築"
+      },
+      {"cmd_id": 32799, "translate": true, "src": "User Registration", "dst": "利用者登録", "hint_src": "User registration", "hint_dst": "利用者登録番号を入力"},
+      {"cmd_id": 32800, "translate": true, "src": "FAQ", "dst": "よくある質問 (FAQ)", "hint_src": "Frequently Asked Question", "hint_dst": "よくある質問と回答 (FAQ) を表示"},
+      {
+        "cmd_id": 32802,
+        "translate": true,
+        "src": "Delete Mailbox",
+        "dst": "メールボックス削除",
+        "hint_src": "Delete the selected mailbox",
+        "hint_dst": "選択したメールボックスを削除"
+      },
+      {"cmd_id": 32803, "translate": true, "src": "Delete Folder", "dst": "フォルダ削除", "hint_src": "Delete the selected folder", "hint_dst": "選択したフォルダを削除"},
+      {"cmd_id": 32804, "translate": true, "src": "New Folder", "dst": "新規フォルダ作成", "hint_src": "Create a new folder", "hint_dst": "新規フォルダを作成"},
+      {"cmd_id": 32805, "translate": true, "src": "Go Back", "dst": "前へ戻る", "hint_src": "Go back to the previously read message", "hint_dst": "前に閲覧したメールへ戻る"},
+      {"cmd_id": 32806, "translate": true, "src": "Go Forward", "dst": "次へ進む", "hint_src": "Go forward to the next read message", "hint_dst": "次に閲覧したメールへ進む"},
+      {
+        "cmd_id": 32807,
+        "translate": true,
+        "src": "Compose To Reply Address",
+        "dst": "返信先へ新規作成",
+        "hint_src": "Compose new message to the replying address of the selected message",
+        "hint_dst": "選択メールの返信先へ新規メールを作成"
+      },
+      {
+        "cmd_id": 32808,
+        "translate": true,
+        "src": "Compose To Selected Addresses",
+        "dst": "選択宛先へ新規作成",
+        "hint_src": "Compose to the selected addresses in the selected message",
+        "hint_dst": "選択メール内の指定宛先へ新規メールを作成"
+      },
+      {
+        "cmd_id": 32809,
+        "translate": true,
+        "src": "Cite Without Prefix",
+        "dst": "引用記号なしで引用",
+        "hint_src": "Cite reference message without citation prefixes.",
+        "hint_dst": "引用記号を付けずに参照メールを引用"
+      },
+      {
+        "cmd_id": 32810,
+        "translate": true,
+        "src": "Default Mailbox",
+        "dst": "既定メールボックスに設定",
+        "hint_src": "Set the active mailbox as default",
+        "hint_dst": "現在のメールボックスを既定に設定"
+      },
+      {
+        "cmd_id": 32811,
+        "translate": true,
+        "src": "Attach Files",
+        "dst": "ファイル添付",
+        "hint_src": "Attach files to the current outgoing message",
+        "hint_dst": "作成中の送信メールにファイルを添付"
+      },
+      {"cmd_id": 32814, "translate": true, "src": "Close", "dst": "閉じる", "hint_src": "Close the current composing window", "hint_dst": "メール作成画面を閉じる"},
+      {
+        "cmd_id": 32816,
+        "translate": true,
+        "src": "ReEdit",
+        "dst": "再編集",
+        "hint_src": "Open the selected message as an outgoing message",
+        "hint_dst": "選択メールを送信メールとして再編集"
+      },
+      {
+        "cmd_id": 32824,
+        "translate": true,
+        "src": "Reset Toolbar",
+        "dst": "ツールバー初期化",
+        "hint_src": "Reset tool bar to the initial state",
+        "hint_dst": "ツールバーを初期状態に戻す"
+      },
+      {
+        "cmd_id": 32826,
+        "translate": true,
+        "src": "Change Font",
+        "dst": "書体変更",
+        "hint_src": "Change the font associated to the character set of the current message",
+        "hint_dst": "現在のメール文字コードに対応する表示書体を変更"
+      },
+      {"cmd_id": 32827, "translate": true, "src": "Dialup", "dst": "ダイヤルアップ接続"},
+      {"cmd_id": 32836, "translate": true, "src": "Delete Mail", "dst": "メール削除", "hint_src": "Delete the selected message items", "hint_dst": "選択メールを削除"},
+      {"cmd_id": 32838, "translate": true, "src": "Empty Trash", "dst": "塵箱を空にする", "hint_src": "Empty Trash box", "hint_dst": "塵箱を空にする"},
+      {"cmd_id": 32839, "translate": true, "src": "Write HTML Message", "dst": "HTMLメール作成", "hint_src": "Create HTML message", "hint_dst": "HTML形式のメールを作成"},
+      {
+        "cmd_id": 32856,
+        "translate": true,
+        "src": "Save As Signature",
+        "dst": "署名として保存",
+        "hint_src": "Save the current selection as a signature",
+        "hint_dst": "選択範囲を署名として保存"
+      },
+      {
+        "cmd_id": 32868,
+        "translate": true,
+        "src": "\"What's New\" List",
+        "dst": "「新着一覧」表示",
+        "hint_src": "List recently arrived messages",
+        "hint_dst": "最近到着した新着メールを一覧表示"
+      },
+      {
+        "cmd_id": 32870,
+        "translate": true,
+        "src": "Set To Mail",
+        "dst": "メール宛先に設定",
+        "hint_src": "Set the addresses to an outgoing message",
+        "hint_dst": "選択した連絡先を作成中メールの宛先に設定"
+      },
+      {"cmd_id": 32871, "translate": true, "src": "Close", "dst": "閉じる", "hint_src": "Close the address book", "hint_dst": "住所録を閉じる"},
+      {
+        "cmd_id": 32872,
+        "translate": true,
+        "src": "New Address",
+        "dst": "新規連絡先",
+        "hint_src": "Add a new address entry to the current address group",
+        "hint_dst": "現在のグループに新規連絡先を追加"
+      },
+      {
+        "cmd_id": 32873,
+        "translate": true,
+        "src": "New Address Group",
+        "dst": "新規グループ作成",
+        "hint_src": "Add a new address group to the current address book",
+        "hint_dst": "現在の住所録に新規グループを追加"
+      },
+      {
+        "cmd_id": 32877,
+        "translate": true,
+        "src": "Help For Address Book",
+        "dst": "住所録ヘルプ",
+        "hint_src": "Show the help for the address book",
+        "hint_dst": "住所録のヘルプを表示"
+      },
+      {"cmd_id": 32878, "translate": true, "src": "Text File", "dst": "テキストファイル", "hint_src": "Import data from external files", "hint_dst": "外部ファイルからデータを取込"},
+      {
+        "cmd_id": 32879,
+        "translate": true,
+        "src": "Text File",
+        "dst": "テキストファイル",
+        "hint_src": "Export the selected addresses to an external file",
+        "hint_dst": "選択した連絡先を外部ファイルへ書出"
+      },
+      {"cmd_id": 32885, "translate": true, "src": "Name <mail@address>", "dst": "氏名 <mail@address>"},
+      {"cmd_id": 32886, "translate": true, "src": "mail@address (Name)", "dst": "mail@address (氏名)"},
+      {"cmd_id": 32887, "translate": true, "src": "mail@address", "dst": "mail@address"},
+      {
+        "cmd_id": 32888,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "索引再構築",
+        "hint_src": "Reconstruct an index file for the current address group",
+        "hint_dst": "現在の連絡先グループの索引ファイルを再構築"
+      },
+      {"cmd_id": 32894, "translate": true, "src": "vCard", "dst": "vCard", "hint_src": "Import data from \"vCard\" files", "hint_dst": "「vCard」ファイルからデータを取込"},
+      {
+        "cmd_id": 32895,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Export the selected addresses as \"vCard\" files",
+        "hint_dst": "選択した連絡先を「vCard」形式で書出"
+      },
+      {"cmd_id": 32896, "translate": true, "src": "Post", "dst": "投稿 (Post)", "hint_src": "Post to the related mailing list", "hint_dst": "関連付けられたメーリングリストへ投稿"},
+      {
+        "cmd_id": 32898,
+        "translate": true,
+        "src": "Set Addresses To List",
+        "dst": "選択宛先を一覧へ追加",
+        "hint_src": "Set the selected addresses to the list at the below-left",
+        "hint_dst": "選択した連絡先を左下の一覧へ追加"
+      },
+      {
+        "cmd_id": 32899,
+        "translate": true,
+        "src": "External Edit",
+        "dst": "外部エディタ起動",
+        "hint_src": "Edit the current message by an external editor",
+        "hint_dst": "外部エディタで現在のメールを編集"
+      },
+      {"cmd_id": 32900, "translate": true, "src": "External Editors", "dst": "外部エディタ登録", "hint_src": "Register external editors", "hint_dst": "外部エディタを登録"},
+      {"cmd_id": 32901, "translate": true, "src": "0: As Is", "dst": "0: そのまま表示"},
+      {"cmd_id": 32902, "translate": true, "src": "1: Name <mail@address>", "dst": "1: 氏名 <mail@address>"},
+      {"cmd_id": 32903, "translate": true, "src": "2: mail@address (Name)", "dst": "2: mail@address (氏名)"},
+      {"cmd_id": 32904, "translate": true, "src": "3: mail@address", "dst": "3: メールアドレスのみ"},
+      {"cmd_id": 32905, "translate": true, "src": "4: Name", "dst": "4: 氏名のみ"},
+      {
+        "cmd_id": 32908,
+        "translate": true,
+        "src": "Extract Attached Messages",
+        "dst": "添付メールを展開",
+        "hint_src": "Extract \"message/rfc822\" attachments to a folder as incoming messages",
+        "hint_dst": "「message/rfc822」形式の添付メールを受信メールとしてフォルダへ展開"
+      },
+      {
+        "cmd_id": 32912,
+        "translate": true,
+        "src": "Color Label",
+        "dst": "色ラベル",
+        "hint_src": "Change the color of the current message item",
+        "hint_dst": "選択メールの色ラベルを変更"
+      },
+      {
+        "cmd_id": 32913,
+        "translate": true,
+        "src": "Set Flag/Priority Level",
+        "dst": "フラグ/重要度設定",
+        "hint_src": "Change the priority of the selected message items",
+        "hint_dst": "選択メールの重要度を変更"
+      },
+      {
+        "cmd_id": 32914,
+        "translate": true,
+        "src": "Attach vCard",
+        "dst": "vCard添付",
+        "hint_src": "Attach your \"vCard\" to the current outgoing message",
+        "hint_dst": "自身の「vCard」を送信メールに添付"
+      },
+      {"cmd_id": 32915, "translate": true, "src": "Edit vCard", "dst": "vCard編集", "hint_src": "Edit your \"vCard\" property", "hint_dst": "自身の「vCard」情報を編集"},
+      {
+        "cmd_id": 32916,
+        "translate": true,
+        "src": "Change Data Folder",
+        "dst": "データフォルダ変更",
+        "hint_src": "Change the data folder Becky! uses",
+        "hint_dst": "Becky! が使用するデータ保存先フォルダを変更"
+      },
+      {
+        "cmd_id": 32919,
+        "translate": true,
+        "src": "Hide Mailbox",
+        "dst": "メールボックス非表示",
+        "hint_src": "Hide the selected mailbox",
+        "hint_dst": "選択したメールボックスを非表示にする"
+      },
+      {
+        "cmd_id": 32920,
+        "translate": true,
+        "src": "Reveal Mailbox",
+        "dst": "非表示メールボックス再表示",
+        "hint_src": "Reveal hidden mailboxes",
+        "hint_dst": "非表示のメールボックスを再表示"
+      },
+      {
+        "cmd_id": 32921,
+        "translate": true,
+        "src": "Pause Periodical Check",
+        "dst": "定期新着確認の一時停止",
+        "hint_src": "Pause all the periodical mail check temporarily",
+        "hint_dst": "すべての定期新着確認を一時停止"
+      },
+      {
+        "cmd_id": 32923,
+        "translate": true,
+        "src": "Import Backup Logs",
+        "dst": "バックアップ記録取込",
+        "hint_src": "Import messages from backup logs to the selected folder",
+        "hint_dst": "バックアップ記録から選択フォルダへメールを復元"
+      },
+      {
+        "cmd_id": 32924,
+        "translate": true,
+        "src": "Sorting Rules For Folder",
+        "dst": "フォルダ振分規則",
+        "hint_src": "Set sorting rules for the selected folder",
+        "hint_dst": "選択フォルダの振分規則を設定"
+      },
+      {
+        "cmd_id": 32926,
+        "translate": true,
+        "src": "Thread Tool",
+        "dst": "スレッド関連付けツール",
+        "hint_src": "Associate a selected message to another as a child thread",
+        "hint_dst": "選択メールを別メールの子スレッドとして関連付け"
+      },
+      {"cmd_id": 32929, "translate": true, "src": "Subscribe", "dst": "購読登録", "hint_src": "Subscribe to the mailing list", "hint_dst": "メーリングリストに購読登録"},
+      {"cmd_id": 32930, "translate": true, "src": "Unsubscribe", "dst": "購読解除", "hint_src": "Unsubscribe the mailing list", "hint_dst": "メーリングリストの購読を解除"},
+      {
+        "cmd_id": 32931,
+        "translate": true,
+        "src": "Mail To Admin",
+        "dst": "管理者へメール作成",
+        "hint_src": "Mail to the administrator of the mailing list",
+        "hint_dst": "メーリングリスト管理者へメールを作成"
+      },
+      {
+        "cmd_id": 32932,
+        "translate": true,
+        "src": "Web Site",
+        "dst": "ウェブサイト",
+        "hint_src": "Open the Web site related to the mailing list",
+        "hint_dst": "メーリングリスト関連ウェブサイトを開く"
+      },
+      {
+        "cmd_id": 32933,
+        "translate": true,
+        "src": "Related ML:",
+        "dst": "関連ML：",
+        "hint_src": "Associate the folder with a mailing list",
+        "hint_dst": "フォルダをメーリングリストと関連付け"
+      },
+      {
+        "cmd_id": 32935,
+        "translate": true,
+        "src": "Property",
+        "dst": "プロパティ",
+        "hint_src": "Show the property of the selected item",
+        "hint_dst": "選択項目のプロパティを表示"
+      },
+      {
+        "cmd_id": 32938,
+        "translate": true,
+        "src": "Add To Mailing Lists Manager",
+        "dst": "メーリングリスト管理へ追加",
+        "hint_src": "Add an entry to the Mailing List Manager according to the information in the selected message item",
+        "hint_dst": "選択メールの情報に基づきメーリングリスト管理へ登録"
+      },
+      {"cmd_id": 32939, "translate": true, "src": "Print Settings", "dst": "印刷設定", "hint_src": "Setup preferences for printing", "hint_dst": "印刷設定を構成"},
+      {
+        "cmd_id": 32940,
+        "translate": true,
+        "src": "Folder Maintenance Combo",
+        "dst": "フォルダ一括保守",
+        "hint_src": "Do \"Reorganize\", \"Compaction\", and \"Trash Duplicates\" at the same time",
+        "hint_dst": "「フォルダ再編成」「フォルダ最適化」「重複メール整理」を一括実行"
+      },
+      {
+        "cmd_id": 32942,
+        "translate": true,
+        "src": "Sort Selected Messages",
+        "dst": "選択メール振分",
+        "hint_src": "Sort the selected message items to folders according to the sorting rules",
+        "hint_dst": "振分規則に従い選択メールを各フォルダへ自動振分"
+      },
+      {
+        "cmd_id": 32943,
+        "translate": true,
+        "src": "Select Read Messages",
+        "dst": "既読メール選択",
+        "hint_src": "Select all the read messages in the folder",
+        "hint_dst": "フォルダ内の全既読メールを選択"
+      },
+      {"cmd_id": 32944, "translate": true, "src": "New Address Book", "dst": "新規住所録作成", "hint_src": "Create a new address book", "hint_dst": "新規住所録を作成"},
+      {"cmd_id": 32945, "translate": true, "src": "Delete Addresses", "dst": "連絡先削除", "hint_src": "Delete the selected addresses", "hint_dst": "選択した連絡先を削除"},
+      {
+        "cmd_id": 32946,
+        "translate": true,
+        "src": "Delete Address Group/Book",
+        "dst": "グループ/住所録削除",
+        "hint_src": "Delete the selected address book or address group",
+        "hint_dst": "選択した住所録またはグループを削除"
+      },
+      {
+        "cmd_id": 32950,
+        "translate": true,
+        "src": "View Related Messages",
+        "dst": "関連メール表示",
+        "hint_src": "View only the related messages to the current message",
+        "hint_dst": "現在のメールに関連するメールのみを表示"
+      },
+      {
+        "cmd_id": 32958,
+        "translate": true,
+        "src": "Close All Threads",
+        "dst": "全スレッド折畳",
+        "hint_src": "Close all the message threads of the current folder",
+        "hint_dst": "現在のフォルダ内の全スレッドを折りたたむ"
+      },
+      {
+        "cmd_id": 32959,
+        "translate": true,
+        "src": "Open All Threads",
+        "dst": "全スレッド展開",
+        "hint_src": "Open all the message threads of the current folder",
+        "hint_dst": "現在のフォルダ内の全スレッドを展開"
+      },
+      {
+        "cmd_id": 32963,
+        "translate": true,
+        "src": "Request \"Read Receipt\"",
+        "dst": "「開封確認」を要求",
+        "hint_src": "Request \"Read Receipt\" to the recipients.",
+        "hint_dst": "宛先に「開封確認」を要求"
+      },
+      {
+        "cmd_id": 32966,
+        "translate": true,
+        "src": "Protocol Logs",
+        "dst": "通信記録 (Log)",
+        "hint_src": "Leave protocol logs of mail sessions",
+        "hint_dst": "メール通信セッションの記録を残す"
+      },
+      {
+        "cmd_id": 32968,
+        "translate": true,
+        "src": "Append To \"Quick Memo\"",
+        "dst": "「クイックメモ」へ追記",
+        "hint_src": "Append the selection to \"Becky's Quick Memo\"",
+        "hint_dst": "選択範囲を「Becky! クイックメモ」へ追記"
+      },
+      {
+        "cmd_id": 32971,
+        "translate": true,
+        "src": "View Source",
+        "dst": "ソース表示",
+        "hint_src": "View a source of the current E-mail message",
+        "hint_dst": "現在のメールのソースを表示"
+      },
+      {"cmd_id": 32972, "translate": true, "src": "Search for this \"Message-Id\"", "dst": "この「Message-Id」を検索"},
+      {
+        "cmd_id": 32975,
+        "translate": true,
+        "src": "View Headers",
+        "dst": "ヘッダ表示",
+        "hint_src": "Show the header part of the message",
+        "hint_dst": "メールのヘッダ部分を表示"
+      },
+      {"cmd_id": 32976, "translate": true, "src": "Next Layout", "dst": "次の画面配置", "hint_src": "Change the layout of the views.", "hint_dst": "画面配置を切替"},
+      {"cmd_id": 32977, "translate": true, "src": "Abort Session", "dst": "通信中断", "hint_src": "Abort the active session.", "hint_dst": "実行中の通信セッションを中断"},
+      {
+        "cmd_id": 32978,
+        "translate": true,
+        "src": "Quick Access",
+        "dst": "クイックアクセス",
+        "hint_src": "Open the message recently double-clicked or composed and saved.",
+        "hint_dst": "最近開いたメールまたは作成・保存したメールを開く"
+      },
+      {
+        "cmd_id": 32979,
+        "translate": true,
+        "src": "Separate Attachments",
+        "dst": "添付ファイル分離",
+        "hint_src": "Save attachment files in the folder to separate data files.",
+        "hint_dst": "フォルダ内の添付ファイルを個別ファイルとして分離保存"
+      },
+      {
+        "cmd_id": 32980,
+        "translate": true,
+        "src": "Combine Attachments",
+        "dst": "添付ファイル結合",
+        "hint_src": "Combine attachment files into mail data files.",
+        "hint_dst": "分離された添付ファイルをメールデータへ再結合"
+      },
+      {"cmd_id": 32981, "translate": true, "src": "Delete", "dst": "削除", "hint_src": "Delete the selection", "hint_dst": "選択範囲を削除"},
+      {
+        "cmd_id": 32982,
+        "translate": true,
+        "src": "Customize List Columns(Z)",
+        "dst": "一覧表示項目設定",
+        "hint_src": "Customize the columns headers of the list view.",
+        "hint_dst": "一覧画面の列項目を設定"
+      },
+      {
+        "cmd_id": 32984,
+        "translate": true,
+        "src": "Select Flagged Messages",
+        "dst": "フラグ付きメール選択",
+        "hint_src": "Select all the flagged messages in the folder",
+        "hint_dst": "フォルダ内の全フラグ付きメールを選択"
+      },
+      {
+        "cmd_id": 32985,
+        "translate": true,
+        "src": "Switch Mailbox",
+        "dst": "送信メールボックス切替",
+        "hint_src": "Switch the mailbox that will be used to send this message.",
+        "hint_dst": "このメールの送信に使用するメールボックスを切替"
+      },
+      {
+        "cmd_id": 32986,
+        "translate": true,
+        "src": "Toggle Flag",
+        "dst": "フラグ切替",
+        "hint_src": "Toggle Flag on the selected messages",
+        "hint_dst": "選択メールのフラグを切替"
+      },
+      {
+        "cmd_id": 32988,
+        "translate": true,
+        "src": "Close Query Result",
+        "dst": "検索結果を閉じる",
+        "hint_src": "Close the Query dialog and Query Result folder.",
+        "hint_dst": "検索ダイアログと検索結果フォルダを閉じる"
+      },
+      {
+        "cmd_id": 32989,
+        "translate": true,
+        "src": "1: [ |---] Long TreeView",
+        "dst": "1: [ |---] 縦長フォルダ木",
+        "hint_src": "Long treeview",
+        "hint_dst": "縦長フォルダ木配置"
+      },
+      {
+        "cmd_id": 32990,
+        "translate": true,
+        "src": "2: [-'---] Wide MessageView",
+        "dst": "2: [-'---] 広域本文枠",
+        "hint_src": "Wide messageview",
+        "hint_dst": "広域本文枠配置"
+      },
+      {"cmd_id": 32991, "translate": true, "src": "3: [-,---] Wide ListView", "dst": "3: [-,---] 広域一覧枠", "hint_src": "Wide listview", "hint_dst": "広域一覧枠配置"},
+      {
+        "cmd_id": 32992,
+        "translate": true,
+        "src": "4: [-|   ] Maximum MessageView",
+        "dst": "4: [-|   ] 最大本文枠",
+        "hint_src": "Maximum messageview",
+        "hint_dst": "最大本文枠配置"
+      },
+      {
+        "cmd_id": 32993,
+        "translate": true,
+        "src": "5: [ | |  ] Three Columns",
+        "dst": "5: [ | |  ] 三列分割配置",
+        "hint_src": "Three vertically divided panes",
+        "hint_dst": "垂直三列分割配置"
+      },
+      {
+        "cmd_id": 32994,
+        "translate": true,
+        "src": "6: [ |2|  ] Three Columns Two Lines in a Row",
+        "dst": "6: [ |2|  ] 三列二段一覧配置",
+        "hint_src": "Three Columns Two Layer per Item",
+        "hint_dst": "三列二段一覧配置"
+      },
+      {
+        "cmd_id": 32995,
+        "translate": true,
+        "src": "Sync with Portable Media",
+        "dst": "外部記憶媒体と同期",
+        "hint_src": "Synchronize data with a portable a media or mobile PC.",
+        "hint_dst": "外部記憶媒体やモバイルPCとメールデータを同期"
+      },
+      {"cmd_id": 32997, "translate": true, "src": "Go Next Mailbox", "dst": "次のメールボックスへ", "hint_src": "Open next mailbox.", "hint_dst": "次のメールボックスを開く"},
+      {
+        "cmd_id": 32998,
+        "translate": true,
+        "src": "Reload Query Folder",
+        "dst": "検索フォルダ再実行",
+        "hint_src": "Query again on the Query Result or a saved Query folder.",
+        "hint_dst": "検索結果または保存済検索フォルダで再検索を実行"
+      },
+      {
+        "cmd_id": 32999,
+        "translate": true,
+        "src": "Select Unread Messages",
+        "dst": "未読メール選択",
+        "hint_src": "Select all the unread messages in the folder.",
+        "hint_dst": "フォルダ内の全未読メールを選択"
+      },
+      {
+        "cmd_id": 33000,
+        "translate": true,
+        "src": "Use \"Name\" from Address Book",
+        "dst": "住所録の「氏名」を優先表示",
+        "hint_src": "Use \"Name\" as it appears in the address book.",
+        "hint_dst": "住所録に登録された「氏名」を優先表示"
+      },
+      {
+        "cmd_id": 33002,
+        "translate": true,
+        "src": "Sort By Name",
+        "dst": "名称順並べ替え",
+        "hint_src": "Sort folders on the same level by name.",
+        "hint_dst": "同階層のフォルダを名称順に並べ替え"
+      },
+      {"cmd_id": 33003, "translate": true, "src": "Go Previous Mailbox", "dst": "前のメールボックスへ", "hint_src": "Open previous mailbox.", "hint_dst": "前のメールボックスを開く"},
+      {
+        "cmd_id": 33004,
+        "translate": true,
+        "src": "View Memo(D)",
+        "dst": "メモ表示",
+        "hint_src": "Write or view a memo associated to the current message.",
+        "hint_dst": "現在のメールに関連付けられたメモを記入・閲覧"
+      },
+      {
+        "cmd_id": 33007,
+        "translate": true,
+        "src": "Headlines Search",
+        "dst": "見出し検索",
+        "hint_src": "Go to the Headlines Search bar at the right top.",
+        "hint_dst": "右上の見出し検索欄へ移動"
+      },
+      {
+        "cmd_id": 33011,
+        "translate": true,
+        "src": "Add Agent(Z)",
+        "dst": "エージェント課題追加",
+        "hint_src": "Assign Agent to the selected messages.",
+        "hint_dst": "選択メールにエージェント課題を割当"
+      },
+      {
+        "cmd_id": 33013,
+        "translate": true,
+        "src": "Bookmark",
+        "dst": "栞 (Bookmark)",
+        "hint_src": "Assign Agent with a \"Bookmark\" task to the selected messages.",
+        "hint_dst": "選択メールに「栞 (Bookmark)」課題を割当"
+      },
+      {"cmd_id": 33017, "translate": true, "src": "Headlines Search (K)", "dst": "見出し検索欄"},
+      {
+        "cmd_id": 33019,
+        "translate": true,
+        "src": "Go Previous Folder (Y)",
+        "dst": "前のフォルダへ戻る",
+        "hint_src": "Select previously open folder.",
+        "hint_dst": "前回開いていたフォルダを選択"
+      },
+      {
+        "cmd_id": 33021,
+        "translate": true,
+        "src": "Go Original Message (J)",
+        "dst": "元メールへ移動",
+        "hint_src": "Open the original message this item links.",
+        "hint_dst": "この項目が参照する元メールを開く"
+      },
+      {
+        "cmd_id": 33024,
+        "translate": true,
+        "src": "Follow the Topic",
+        "dst": "この話題を追跡",
+        "hint_src": "Mark as \"Follow the Topic\" Task.",
+        "hint_dst": "「この話題を追跡」課題に設定"
+      },
+      {"cmd_id": 33026, "translate": true, "src": "Mark As Need Reply", "dst": "要返信に設定", "hint_src": "Mark as \"Need Reply\" Task.", "hint_dst": "「要返信」課題に設定"},
+      {"cmd_id": 33032, "translate": true, "src": "CardDAV server", "dst": "CardDAV サーバ", "hint_src": "Add CardDAV server.", "hint_dst": "CardDAV サーバを追加"},
+      {"cmd_id": 33033, "translate": true, "src": "LDAP  server", "dst": "LDAP サーバ", "hint_src": "Add LDAP server.", "hint_dst": "LDAP サーバを追加"},
+      {
+        "cmd_id": 33034,
+        "translate": true,
+        "src": "Becky!'s Address book",
+        "dst": "Becky! 住所録",
+        "hint_src": "Add Becky!'s address book.",
+        "hint_dst": "Becky! 住所録を追加"
+      },
+      {"cmd_id": 33037, "translate": true, "src": "Always Two Lines in a Row", "dst": "一覧を常に二行表示"},
+      {
+        "cmd_id": 33039,
+        "translate": true,
+        "src": "Open Data Folder Location",
+        "dst": "データ保存先を開く",
+        "hint_src": "Opens Becky! data folder location",
+        "hint_dst": "エクスプローラで Becky! データ保存先を開く"
+      },
+      {"cmd_id": 42778, "translate": true, "src": "Address Book", "dst": "住所録", "hint_src": "Open Address Book", "hint_dst": "住所録を開く"},
+      {"cmd_id": 42787, "translate": true, "src": "New Mailbox", "dst": "新規メールボックス作成", "hint_src": "Create a new mailbox", "hint_dst": "新規メールボックスを作成"},
+      {
+        "cmd_id": 42796,
+        "translate": true,
+        "src": "Add To Address Book",
+        "dst": "住所録へ追加",
+        "hint_src": "Add the sender of the current message to the Address Book",
+        "hint_dst": "現在のメールの差出人を住所録へ追加"
+      },
+      {
+        "cmd_id": 42803,
+        "translate": true,
+        "src": "Load Template",
+        "dst": "定型文読込",
+        "hint_src": "Load a template file to the current outgoing message",
+        "hint_dst": "作成中の送信メールに定型文ファイルを読込"
+      },
+      {
+        "cmd_id": 42804,
+        "translate": true,
+        "src": "Save As Template",
+        "dst": "定型文として保存",
+        "hint_src": "Save the current outgoing message as a template",
+        "hint_dst": "作成中の送信メールを定型文として保存"
+      },
+      {
+        "cmd_id": 42805,
+        "translate": true,
+        "src": "Reminder",
+        "dst": "リマインダ保存",
+        "hint_src": "Save the current outgoing message as a \"Reminder\" for yourself.",
+        "hint_dst": "作成中のメールを自分宛の「備忘録」として保存"
+      },
+      {"cmd_id": 42806, "translate": true, "src": "Edit Template", "dst": "定型文編集", "hint_src": "Create or edit a template file", "hint_dst": "定型文ファイルを作成または編集"},
+      {
+        "cmd_id": 55001,
+        "cmd_id_end": 55099,
+        "translate": true,
+        "rules": [
+          {"src": "(default)", "dst": "（既定）", "hint_src": "Change the language of the current message", "hint_dst": "表示中メールの文字コードを変更"},
+          {"src": "(Default)", "dst": "（既定）", "hint_src": "Change the language of the current message", "hint_dst": "表示中メールの文字コードを変更"},
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7bit ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "西欧言語 Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "中欧言語 Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "西欧言語 Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "日本語 (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "韓国語 UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "韓国語 RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "中国語繁体字 (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "中国語簡体字 (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "中国国家標準 (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "中国語簡体字 HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "ロシア語 koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "ウクライナ語 koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "キリル文字 (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"}
+        ]
+      },
+      {
+        "cmd_id": 56001,
+        "cmd_id_end": 56099,
+        "translate": true,
+        "rules": [
+          {"src": "(no dialup)", "dst": "(ダイヤルアップ接続なし)", "hint_src": "Connect to the Internet using dialup network", "hint_dst": "ダイヤルアップ接続でインターネットへ接続"}
+        ]
+      },
+      {
+        "cmd_id": 56100,
+        "cmd_id_end": 56199,
+        "translate": true,
+        "rules": [
+          {"src": "(no plug-ins)", "dst": "（プラグインなし）"},
+          {"src": "Becky2! Multicolor Icons.", "dst": "多色アイコンプラグイン"},
+          {"src": "Becky! PGP Plug-In", "dst": "PGP暗号化プラグイン"},
+          {"src": "Becky! Voice Message Plug-in", "dst": "音声メールプラグイン"},
+          {"src": "Becky! UI Inspector", "dst": "UI検査プラグイン"},
+          {"src": "Becky! I18n", "dst": "多言語化プラグイン"}
+        ]
+      },
+      {
+        "cmd_id": 57604,
+        "translate": true,
+        "rules": [{"src": "Save As", "dst": "名前を付けて保存"}, {"src": "Save To Folder and continue", "dst": "フォルダへ保存して継続"}],
+        "hint_src": "Save the active message",
+        "hint_dst": "現在のメールを保存"
+      },
+      {"cmd_id": 57607, "translate": true, "src": "Print", "dst": "印刷", "hint_src": "Print the active document", "hint_dst": "現在のメールを印刷"},
+      {"cmd_id": 57609, "translate": true, "src": "Print Preview", "dst": "印刷プレビュー", "hint_src": "Display full pages", "hint_dst": "印刷プレビューを表示"},
+      {
+        "cmd_id": 57634,
+        "translate": true,
+        "src": "Copy",
+        "dst": "複写",
+        "hint_src": "Copy the selection and put it on the Clipboard",
+        "hint_dst": "選択範囲をクリップボードへ複写"
+      },
+      {
+        "cmd_id": 57635,
+        "translate": true,
+        "src": "Cut",
+        "dst": "切り取り",
+        "hint_src": "Cut the selection and put it on the Clipboard",
+        "hint_dst": "選択範囲を切り取りクリップボードへ格納"
+      },
+      {
+        "cmd_id": 57636,
+        "translate": true,
+        "rules": [{"src": "Find", "dst": "検索"}, {"src": "Search Address", "dst": "宛先検索"}, {"src": "Find Address", "dst": "宛先検索"}],
+        "hint_src": "Find the specified text",
+        "hint_dst": "指定文字列を検索"
+      },
+      {"cmd_id": 57637, "translate": true, "src": "Paste", "dst": "貼り付け", "hint_src": "Insert Clipboard contents", "hint_dst": "クリップボードの内容を貼付"},
+      {"cmd_id": 57640, "translate": true, "src": "Repeat", "dst": "繰り返し", "hint_src": "Repeat the last action", "hint_dst": "直前の操作を繰り返す"},
+      {
+        "cmd_id": 57641,
+        "translate": true,
+        "src": "Replace",
+        "dst": "置換",
+        "hint_src": "Replace specific text with different text",
+        "hint_dst": "指定文字列を別の文字列に置換"
+      },
+      {"cmd_id": 57642, "translate": true, "src": "Select All", "dst": "すべて選択", "hint_src": "Select entirely", "hint_dst": "すべて選択"},
+      {"cmd_id": 57643, "translate": true, "src": "Undo", "dst": "元に戻す", "hint_src": "Undo the last action", "hint_dst": "直前の操作を元に戻す"},
+      {"cmd_id": 57644, "translate": true, "src": "Redo", "dst": "やり直し", "hint_src": "Redo the previously undone action", "hint_dst": "元に戻した操作をやり直す"},
+      {
+        "cmd_id": 57664,
+        "translate": true,
+        "src": "About \"Becky!\"",
+        "dst": "\"Becky!\" について",
+        "hint_src": "Display program information, version number and copyright",
+        "hint_dst": "プログラム情報・版数・著作権を表示"
+      },
+      {"cmd_id": 57665, "translate": true, "src": "Exit", "dst": "終了", "hint_src": "Quit the application", "hint_dst": "アプリケーションを終了"},
+      {"cmd_id": 57667, "translate": true, "src": "Help Topics", "dst": "ヘルプ目次", "hint_src": "List Help topics", "hint_dst": "ヘルプ目次を表示"},
+      {"cmd_id": 59392, "translate": true, "src": "Tool Bar", "dst": "ツールバー", "hint_src": "Show or hide the toolbar", "hint_dst": "ツールバーの表示/非表示を切替"},
+      {"cmd_id": 59393, "translate": true, "src": "Status Bar", "dst": "ステータスバー", "hint_src": "Show or hide the status bar", "hint_dst": "ステータスバーの表示/非表示を切替"}
+    ]
+  },
+  "windows": {
+    "Becky2MainFrame": {
+      "class_name": "Becky2MainFrame",
+      "sdk_role": "BKA_MainWindow",
+      "properties": {"window_title": {"translate": false, "comment": "Format: '<AccountName> - Becky!' (contains user mailbox name)"}},
+      "children": [
+        {"class_name": "#32770", "ctrl_id": 0, "control_subtype": "ChildDialog", "translate": false},
+        {
+          "class_name": "AfxMDIFrame42s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame42s",
+          "translate": false,
+          "children": [
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59648,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysTreeView32",
+                  "ctrl_id": 1000,
+                  "control_subtype": "SysTreeView32",
+                  "sdk_role": "BKA_FolderTreeView",
+                  "translate": true,
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "root_nodes": [{"src": "Query Result", "dst": "検索結果"}],
+                  "items": [
+                    {"src": "Inbox", "dst": "受信箱"},
+                    {"src": "Outbox", "dst": "送信箱"},
+                    {"src": "Draft", "dst": "下書箱"},
+                    {"src": "Sent", "dst": "送信済"},
+                    {"src": "Reminder", "dst": "備忘録"},
+                    {"src": "Trash", "dst": "塵箱"}
+                  ]
+                },
+                {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
+                {"class_name": "ComboBox", "ctrl_id": 112, "control_subtype": "DropDownListCombo", "translate": false}
+              ]
+            },
+            {
+              "class_name": "AfxMDIFrame42s",
+              "ctrl_id": 59649,
+              "control_subtype": "AfxMDIFrame42s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysListView32",
+                  "ctrl_id": 59648,
+                  "control_subtype": "SysListView32",
+                  "sdk_role": "BKA_MailListView",
+                  "translate": false,
+                  "children": [
+                    {
+                      "class_name": "SysHeader32",
+                      "ctrl_id": 0,
+                      "control_subtype": "SysHeader32",
+                      "translate": true,
+                      "columns": [
+                        {"translate": false, "src": " "},
+                        {"translate": true, "src": "Subject", "dst": "件名"},
+                        {"translate": true, "src": "From", "dst": "差出人"},
+                        {"translate": true, "src": "To", "dst": "宛先"},
+                        {"translate": true, "src": "Sent Date", "dst": "送信日時"},
+                        {"translate": true, "src": "Received Date", "dst": "受信日時"},
+                        {"translate": true, "src": "Delivered Date", "dst": "配信日時"},
+                        {"translate": true, "src": "Size", "dst": "サイズ"},
+                        {"translate": true, "src": "Profile Name", "dst": "プロファイル名"},
+                        {"translate": true, "src": "Connection", "dst": "接続形態"},
+                        {"translate": true, "src": "Protocol", "dst": "通信規約"},
+                        {"translate": true, "src": "Name", "dst": "氏名"},
+                        {"translate": true, "src": "E-mail Address", "dst": "メールアドレス"},
+                        {"translate": true, "src": "Mail Server", "dst": "受信サーバ"},
+                        {"translate": true, "src": "SMTP Server", "dst": "送信サーバ (SMTP)"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {"class_name": "Button", "ctrl_id": 148, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 166, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "DanaEditWindowClass",
+                      "ctrl_id": 103,
+                      "control_subtype": "DanaEditWindowClass",
+                      "sdk_role": "BKA_MailBodyView",
+                      "translate": false
+                    },
+                    {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false},
+                    {
+                      "class_name": "AfxWnd",
+                      "ctrl_id": 12562,
+                      "control_subtype": "AfxWnd",
+                      "translate": true,
+                      "rules": [
+                        {"src": "Body", "dst": "本文"},
+                        {"src": "plain", "dst": "平文"},
+                        {"src": "html", "dst": "HTML"},
+                        {"src": "delivery-status", "dst": "配信状態"},
+                        {"src": "Headers", "dst": "ヘッダ"},
+                        {"src": "Memo", "dst": "メモ"},
+                        {"src": "disposition-notification", "dst": "開封通知"},
+                        {"src": "rfc822-headers", "dst": "RFC822 ヘッダ"}
+                      ],
+                      "children": [{"class_name": "msctls_updown32", "ctrl_id": 1053, "control_subtype": "msctls_updown32", "translate": false}]
+                    },
+                    {"class_name": "Static", "ctrl_id": 1006, "control_subtype": "TextStatic", "translate": true, "src": "From: ", "dst": "差出: "},
+                    {"class_name": "Edit", "ctrl_id": 1005, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To: ", "dst": "宛: "},
+                    {"class_name": "Edit", "ctrl_id": 115, "control_subtype": "Edit", "translate": true, "mode": "regex", "pattern": "Cc: ", "replace": "Cc: "},
+                    {"class_name": "Static", "ctrl_id": 1008, "control_subtype": "TextStatic", "translate": true, "src": "Subject: ", "dst": "件名: "},
+                    {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "日時: "},
+                    {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "状態:"},
+                    {
+                      "class_name": "ComboBox",
+                      "ctrl_id": 1532,
+                      "control_subtype": "DropDownListCombo",
+                      "translate": true,
+                      "items": [
+                        {"index": 0, "src": "Active", "dst": "進行中"},
+                        {"index": 1, "src": "Done", "dst": "完了"},
+                        {"index": 2, "src": "Suspended", "dst": "保留中"}
+                      ]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Edit Task", "dst": "課題編集"},
+                    {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete Task", "dst": "課題削除"},
+                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "次へ->"},
+                    {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
+                    {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false},
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {"index": 0, "translate": false, "sample": ""},
+            {"index": 1, "translate": false, "sample": ""},
+            {"index": 2, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "行:$1$2桁:$3$4総行:$5$6"},
+            {"index": 3, "translate": true, "mode": "regex", "pattern": "^Unread:(\\s*\\d+)\\s*/\\s*Total:(\\s*\\d+)$", "replace": "未読:$1 / 総数:$2"},
+            {"index": 4, "translate": false, "sample": "    "},
+            {"index": 5, "translate": false, "sample": "    "}
+          ],
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false, "src": "Fn"},
+            {"class_name": "Static", "ctrl_id": 2424, "control_subtype": "ImageStatic", "translate": false, "src": "Qu"},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 0,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": false, "src": ""},
+                {"class_name": "msctls_progress32", "ctrl_id": 1045, "control_subtype": "msctls_progress32", "translate": false},
+                {"class_name": "Static", "ctrl_id": 1046, "control_subtype": "TextStatic", "translate": false, "src": "0/0"},
+                {"class_name": "Static", "ctrl_id": 1047, "control_subtype": "TextStatic", "translate": false, "src": ""}
+              ]
+            }
+          ]
+        },
+        {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    }
+  }
+}

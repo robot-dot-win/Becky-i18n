@@ -1,0 +1,1901 @@
+{
+  "meta": {"locale": "uk_UA", "name": "Українська (uk_UA)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "menus": {
+    "popups": {
+      "main_frame": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "Файл",
+          "children": [
+            {"translate": true, "src": "Folder", "dst": "Папка"},
+            {"translate": true, "src": "Mailbox", "dst": "Поштова скринька"},
+            {"translate": true, "src": "System", "dst": "Система"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "Правка"},
+        {
+          "translate": true,
+          "src": "View",
+          "dst": "Вигляд",
+          "children": [
+            {"translate": true, "src": "Change Layout", "dst": "Змінити макет"},
+            {"translate": true, "src": "Language", "dst": "Кодування символів"},
+            {"translate": true, "src": "Mail Address Format", "dst": "Формат поштової адреси"}
+          ]
+        },
+        {
+          "translate": true,
+          "src": "Mail",
+          "dst": "Пошта",
+          "children": [{"translate": true, "src": "Compose To", "dst": "Написати кому"}, {"translate": true, "src": "Reply To", "dst": "Відповісти кому"}]
+        },
+        {
+          "translate": true,
+          "src": "Tools",
+          "dst": "Інструменти",
+          "children": [
+            {"translate": true, "src": "Plug-Ins Setup", "dst": "Налаштування плагінів"},
+            {"translate": true, "src": "Decode", "dst": "Декодувати"},
+            {"translate": true, "src": "Dialup", "dst": "Комутоване з'єднання"}
+          ]
+        },
+        {"translate": true, "src": "Help", "dst": "Довідка"},
+        {"translate": true, "src": "Mailing List", "dst": "Список розсилки"},
+        {"translate": true, "src": "Special Copy/Paste", "dst": "Спеціальне копіювання/вставка"},
+        {"translate": true, "src": "Paragraph Formatting", "dst": "Форматування абзацу"}
+      ],
+      "compose": [
+        {"translate": true, "src": "File", "dst": "Файл"},
+        {
+          "translate": true,
+          "src": "Edit",
+          "dst": "Правка",
+          "children": [
+            {"translate": true, "src": "Special Copy/Paste", "dst": "Спеціальне копіювання/вставка"},
+            {"translate": true, "src": "Paragraph Formatting", "dst": "Форматування абзацу"}
+          ]
+        },
+        {"translate": true, "src": "View", "dst": "Вигляд", "children": [{"translate": true, "src": "Language", "dst": "Кодування символів"}]},
+        {"translate": true, "src": "Tools", "dst": "Інструменти"},
+        {"translate": true, "src": "Help", "dst": "Довідка"}
+      ],
+      "address": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "Файл",
+          "children": [
+            {"translate": true, "src": "Add Address Book", "dst": "Додати адресну книгу"},
+            {"translate": true, "src": "Import", "dst": "Імпорт"},
+            {"translate": true, "src": "Export", "dst": "Експорт"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "Правка"},
+        {"translate": true, "src": "View", "dst": "Вигляд"},
+        {"translate": true, "src": "Tools", "dst": "Інструменти", "children": [{"translate": true, "src": "Input Format", "dst": "Формат введення"}]},
+        {"translate": true, "src": "Help", "dst": "Довідка"}
+      ]
+    },
+    "commands": [
+      {
+        "cmd_id": 1,
+        "cmd_id_end": 100,
+        "ownerdraw": true,
+        "translate": true,
+        "rules": [
+          {"src": "From:", "dst": "Від:"},
+          {"src": "Reply-To:", "dst": "Відповісти:"},
+          {"src": "Sender:", "dst": "Відправник:"},
+          {"src": "To:", "dst": "Кому:"},
+          {"src": "Cc:", "dst": "Копія (Cc):"},
+          {"src": "Bcc:", "dst": "Прихована копія (Bcc):"},
+          {"src": "Subject:", "dst": "Тема:"},
+          {"src": "Return-Path:", "dst": "Шлях повернення:"},
+          {"src": "Message-Id:", "dst": "ID повідомлення:"},
+          {"src": "In-Reply-To:", "dst": "У відповідь на:"},
+          {"src": "References:", "dst": "Посилання:"},
+          {"src": "X-Mailer:", "dst": "Поштовий клієнт:"},
+          {"src": "X-SMTP-Result:", "dst": "Результат SMTP:"},
+          {"src": "Sent Date:", "dst": "Дата надсилання:"},
+          {"src": "Delivered Date:", "dst": "Дата доставки:"},
+          {"src": "Received Date:", "dst": "Дата отримання:"},
+          {"src": "Resent Date:", "dst": "Дата пересилання:"},
+          {"src": "Local Time:", "dst": "Місцевий час:"},
+          {"src": "Time Difference:", "dst": "Різниця в часі:"},
+          {
+            "src": "** Clear All (To delete one by one, right click the item.) **",
+            "dst": "** Очистити все (Щоб видалити по одному, клацніть елемент правою кнопкою миші.) **"
+          }
+        ]
+      },
+      {"cmd_id": 101, "translate": true, "src": "Display as Domestic Time", "dst": "Показувати за місцевим часом"},
+      {
+        "cmd_id": 108,
+        "translate": true,
+        "src": "Direct Edit Mode",
+        "dst": "Режим прямого редагування",
+        "hint_src": "Toggle direct editing mode",
+        "hint_dst": "Увімкнути/вимкнути режим прямого редагування тексту листа"
+      },
+      {
+        "cmd_id": 10000,
+        "cmd_id_end": 10099,
+        "translate": true,
+        "rules": [
+          {"src": "Find Next", "dst": "Знайти далі", "hint_src": "Search next candidate", "hint_dst": "Знайти наступний збіг"},
+          {"src": "Find Previous", "dst": "Знайти попереднє", "hint_src": "Search previous candidate", "hint_dst": "Знайти попередній збіг"},
+          {"src": "uudecode", "dst": "uudecode", "hint_src": "Decode uuencoded text in the message", "hint_dst": "Декодувати текст у форматі uuencode в листі"},
+          {"src": "BinHex", "dst": "BinHex", "hint_src": "Decode BinHex encoded text in the message", "hint_dst": "Декодувати текст у форматі BinHex в листі"},
+          {
+            "src": "Step Undo/Redo",
+            "dst": "Покрокове скасування/повторення",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "Скасувати або повторити дії на вказану кількість кроків"
+          },
+          {
+            "src": "Paste From History",
+            "dst": "Вставити з історії буфера",
+            "hint_src": "Paste from the clipboard history",
+            "hint_dst": "Вставити з історії буфера обміну"
+          },
+          {
+            "src": "Begin Box Selection",
+            "dst": "Почати блокове виділення",
+            "hint_src": "Begin the box selection",
+            "hint_dst": "Почати прямокутне блокове виділення тексту"
+          },
+          {
+            "src": "Paste Box",
+            "dst": "Вставити текстовий блок",
+            "hint_src": "Paste a box text previously copied or cut",
+            "hint_dst": "Вставити раніше скопійований або вирізаний текстовий блок"
+          },
+          {"src": "Copy To File", "dst": "Копіювати у файл", "hint_src": "Copy the selection to a file", "hint_dst": "Скопіювати виділений фрагмент у файл"},
+          {
+            "src": "Append To File",
+            "dst": "Дописати у файл",
+            "hint_src": "Append the selection to an existing file",
+            "hint_dst": "Дописати виділений фрагмент у кінець наявного файлу"
+          },
+          {
+            "src": "Paste From File",
+            "dst": "Вставити з файлу",
+            "hint_src": "Paste an existing text file at the caret position",
+            "hint_dst": "Вставити вміст текстового файлу в позицію курсора"
+          },
+          {"src": "Left", "dst": "За лівим краєм", "hint_src": "Bring the selection to the left", "hint_dst": "Вирівняти виділений текст за лівим краєм"},
+          {"src": "Right", "dst": "За правим краєм", "hint_src": "Bring the selection to the right", "hint_dst": "Вирівняти виділений текст за правим краєм"},
+          {"src": "Center", "dst": "По центру", "hint_src": "Bring the selection to the center", "hint_dst": "Вирівняти виділений текст по центру"},
+          {
+            "src": "Indent",
+            "dst": "Збільшити відступ",
+            "hint_src": "Indent the selection by one level",
+            "hint_dst": "Збільшити відступ виділеного тексту на один рівень"
+          },
+          {
+            "src": "Unindent",
+            "dst": "Зменшити відступ",
+            "hint_src": "UnIndent the selection by one level",
+            "hint_dst": "Зменшити відступ виділеного тексту на один рівень"
+          },
+          {
+            "src": "Add Strings",
+            "dst": "Додати рядок",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "Додати вказаний рядок на початку або в кінці виділеного фрагмента"
+          },
+          {"src": "Sort", "dst": "Сортувати", "hint_src": "Sort the selection", "hint_dst": "Відсортувати виділені рядки"},
+          {
+            "src": "Format",
+            "dst": "Форматувати абзац",
+            "hint_src": "Format the selection or a text block which ends with an empty line",
+            "hint_dst": "Відформатувати виділений фрагмент або текстовий блок до порожнього рядка"
+          },
+          {
+            "src": "Deformat",
+            "dst": "Скасувати форматування",
+            "hint_src": "Remove return codes from the selection or a text block which ends with an empty line",
+            "hint_dst": "Видалити символи перенесення рядка з виділення або блоку тексту до порожнього рядка"
+          },
+          {"src": "Convert", "dst": "Перетворити", "hint_src": "Convert the selection", "hint_dst": "Перетворити виділений текст"},
+          {
+            "src": "Auto Formatting Mode",
+            "dst": "Режим автоформатування",
+            "hint_src": "Toggle Auto Formatting mode",
+            "hint_dst": "Увімкнути/вимкнути режим автоформатування"
+          },
+          {"src": "Overwrite Mode", "dst": "Режим заміни", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "Перемкнути режим Вставка/Заміна"},
+          {
+            "src": "Spelling-Check",
+            "dst": "Перевірка правопису",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Перевірити правопис усього тексту або виділеного фрагмента"
+          },
+          {
+            "src": "(default)",
+            "dst": "(за замовчуванням)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Змінити кодування символів поточного листа"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(За замовчуванням)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Змінити кодування символів поточного листа"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7-біт ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "Західноєвропейська Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "Центральноєвропейська Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "Західноєвропейська Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "Японська (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "Корейська UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "Корейська RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "Китайська традиційна (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "Китайська спрощена (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "Китайський держстандарт (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "Китайська спрощена HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "Російська koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "Українська koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "Кирилиця (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"},
+          {
+            "src": "StepDo",
+            "dst": "Покрокове скасування/повтор",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "Скасувати або повторити дії на вказану кількість кроків"
+          },
+          {"src": "Box Begin", "dst": "Блокове виділення", "hint_src": "Begin the box selection", "hint_dst": "Почати прямокутне блокове виділення тексту"},
+          {
+            "src": "Append String",
+            "dst": "Додати рядок",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "Додати вказаний рядок на початку або в кінці виділеного фрагмента"
+          },
+          {
+            "src": "Auto Formatting",
+            "dst": "Автоформатування",
+            "hint_src": "Toggle Auto Formatting mode",
+            "hint_dst": "Увімкнути/вимкнути режим автоформатування"
+          },
+          {"src": "Insert/Overwrite", "dst": "Вставка/Заміна", "hint_src": "Toggle Insert/Overwrite mode", "hint_dst": "Перемкнути режим Вставка/Заміна"},
+          {
+            "src": "Spell Check",
+            "dst": "Перевірка правопису",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Перевірити правопис усього тексту або виділеного фрагмента"
+          },
+          {
+            "src": "Spelling Check",
+            "dst": "Перевірка правопису",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Перевірити правопис усього тексту або виділеного фрагмента"
+          }
+        ]
+      },
+      {
+        "cmd_id": 10102,
+        "translate": true,
+        "src": "General Setup",
+        "dst": "Загальні налаштування",
+        "hint_src": "Set up general preferences",
+        "hint_dst": "Налаштувати загальні параметри програми"
+      },
+      {
+        "cmd_id": 10103,
+        "translate": true,
+        "src": "Paste With Citation Prefix",
+        "dst": "Вставити з префіксом цитування",
+        "hint_src": "Paste text adding citation prefix at each top of a line",
+        "hint_dst": "Вставити текст із додаванням префікса цитування на початку кожного рядка"
+      },
+      {
+        "cmd_id": 10501,
+        "translate": true,
+        "src": "Receive New Mail",
+        "dst": "Отримати нову пошту",
+        "hint_src": "Retrieve new messages from the server",
+        "hint_dst": "Отримати нові листи з сервера"
+      },
+      {
+        "cmd_id": 10502,
+        "translate": true,
+        "src": "Send From Outbox",
+        "dst": "Надіслати з Вихідних",
+        "hint_src": "Send outgoing messages from Outbox",
+        "hint_dst": "Надіслати вихідні листи з папки «Вихідні»"
+      },
+      {
+        "cmd_id": 10503,
+        "translate": true,
+        "src": "Remote Mailbox",
+        "dst": "Віддалена поштова скринька",
+        "hint_src": "List messages on the server",
+        "hint_dst": "Показати список листів на віддаленому сервері"
+      },
+      {
+        "cmd_id": 10504,
+        "translate": true,
+        "src": "Collection And Delivery",
+        "dst": "Збір та доставка пошти",
+        "hint_src": "Send and receive messages for multiple mailboxes",
+        "hint_dst": "Одночасно надіслати та отримати пошту для кількох скриньок"
+      },
+      {
+        "cmd_id": 10505,
+        "translate": true,
+        "src": "Reply",
+        "dst": "Відповісти",
+        "hint_src": "Reply to the selected message",
+        "hint_dst": "Відповісти на вибраний лист"
+      },
+      {
+        "cmd_id": 10506,
+        "translate": true,
+        "src": "Reply To All",
+        "dst": "Відповісти всім",
+        "hint_src": "Reply to not only the replying address but also the addresses in \"To\" and \"Cc\" field",
+        "hint_dst": "Відповісти відправнику, а також усім адресатам у полях «Кому» та «Копія»"
+      },
+      {
+        "cmd_id": 10507,
+        "translate": true,
+        "src": "Compose",
+        "dst": "Написати листа",
+        "hint_src": "Compose new message",
+        "hint_dst": "Створити новий електронний лист"
+      },
+      {
+        "cmd_id": 10508,
+        "translate": true,
+        "src": "Forward",
+        "dst": "Переслати",
+        "hint_src": "Forward the selected message to others",
+        "hint_dst": "Переслати вибраний лист іншим адресатам"
+      },
+      {
+        "cmd_id": 10510,
+        "translate": true,
+        "src": "Mail Query",
+        "dst": "Пошук листів",
+        "hint_src": "Search the specified string in e-mail messages and show results",
+        "hint_dst": "Знайти вказаний текст у листах і показати результати"
+      },
+      {
+        "cmd_id": 10511,
+        "translate": true,
+        "src": "Mark As Read",
+        "dst": "Позначити як прочитане",
+        "hint_src": "Mark the selected messages read",
+        "hint_dst": "Позначити вибрані листи як прочитані"
+      },
+      {
+        "cmd_id": 10512,
+        "translate": true,
+        "src": "Mark As Unread",
+        "dst": "Позначити як непрочитане",
+        "hint_src": "Mark the selected messages unread",
+        "hint_dst": "Позначити вибрані листи як непрочитані"
+      },
+      {
+        "cmd_id": 10513,
+        "translate": true,
+        "src": "Rename Folder",
+        "dst": "Перейменувати папку",
+        "hint_src": "Change the name of the current folder",
+        "hint_dst": "Змінити назву поточної папки"
+      },
+      {
+        "cmd_id": 10517,
+        "translate": true,
+        "src": "Sort New Messages",
+        "dst": "Фільтрувати нові листи",
+        "hint_src": "Sort messages from Inbox and Sent box to folders according to the sorting rules",
+        "hint_dst": "Розсортувати листи з папок «Вхідні» та «Надіслані» по папках згідно з правилами фільтрації"
+      },
+      {
+        "cmd_id": 10518,
+        "translate": true,
+        "src": "Save To Outbox",
+        "dst": "Зберегти у Вихідні",
+        "hint_src": "Save the currently editing message to Outbox",
+        "hint_dst": "Зберегти поточний редагований лист у папку «Вихідні»"
+      },
+      {
+        "cmd_id": 10519,
+        "translate": true,
+        "src": "Send Now",
+        "dst": "Надіслати зараз",
+        "hint_src": "Send the currently editing message immediately.",
+        "hint_dst": "Негайно надіслати поточний редагований лист"
+      },
+      {
+        "cmd_id": 10520,
+        "translate": true,
+        "src": "Save To Draft",
+        "dst": "Зберегти у Чернетки",
+        "hint_src": "Save the currently editing message to Draft box",
+        "hint_dst": "Зберегти поточний редагований лист у папку «Чернетки»"
+      },
+      {
+        "cmd_id": 10522,
+        "translate": true,
+        "src": "Maxmize View",
+        "dst": "Розгорнути область перегляду",
+        "hint_src": "Toggle the size of the message view between maximized and normal",
+        "hint_dst": "Перемкнути розмір області перегляду листа між максимальним і звичайним"
+      },
+      {
+        "cmd_id": 10523,
+        "translate": true,
+        "src": "Mail To",
+        "dst": "Написати листа на адресу",
+        "hint_src": "Write a message to this e-mail address",
+        "hint_dst": "Написати листа на цю адресу електронної пошти"
+      },
+      {"cmd_id": 10524, "translate": true, "src": "Add To Address Book", "dst": "Додати до адресної книги"},
+      {
+        "cmd_id": 10525,
+        "translate": true,
+        "src": "Copy Address",
+        "dst": "Копіювати адресу",
+        "hint_src": "Highlight a e-mail address and copy to the clipboard",
+        "hint_dst": "Виділити електронну адресу та скопіювати її до буфера обміну"
+      },
+      {"cmd_id": 10526, "translate": true, "src": "Highlight Word", "dst": "Підсвітити слово", "hint_src": "Highlight word", "hint_dst": "Підсвітити слово"},
+      {
+        "cmd_id": 10527,
+        "translate": true,
+        "src": "Open URL",
+        "dst": "Відкрити URL",
+        "hint_src": "Open URL with a Web browser",
+        "hint_dst": "Відкрити посилання URL у веббраузері"
+      },
+      {
+        "cmd_id": 10528,
+        "translate": true,
+        "src": "Copy URL",
+        "dst": "Копіювати URL",
+        "hint_src": "Highlight URL and copy to the clipboard",
+        "hint_dst": "Виділити URL та скопіювати до буфера обміну"
+      },
+      {"cmd_id": 10529, "translate": true, "src": "Highlight Word", "dst": "Підсвітити слово", "hint_src": "Highlight word", "hint_dst": "Підсвітити слово"},
+      {
+        "cmd_id": 10549,
+        "translate": true,
+        "src": "Set Priority",
+        "dst": "Встановити пріоритет",
+        "hint_src": "Set the priority mark for the outgoing message.",
+        "hint_dst": "Встановити позначку пріоритету для вихідного листа"
+      },
+      {
+        "cmd_id": 20000,
+        "cmd_id_end": 31999,
+        "translate": true,
+        "rules": [
+          {
+            "src": "PGP: Decrypt And Verify",
+            "dst": "PGP: Розшифрувати та перевірити підпис",
+            "hint_src": "Decrypt and Verify PGP message",
+            "hint_dst": "Розшифрувати повідомлення PGP та перевірити цифровий підпис"
+          },
+          {"src": "PGP: Setup", "dst": "PGP: Налаштування", "hint_src": "Setup PGP plugin", "hint_dst": "Налаштувати плагін PGP"},
+          {"src": "PGP: Encrypt", "dst": "PGP: Зашифрувати", "hint_src": "Encrypt with PGP", "hint_dst": "Зашифрувати за допомогою PGP"},
+          {"src": "PGP: Sign", "dst": "PGP: Підписати", "hint_src": "Sign with PGP", "hint_dst": "Підписати цифровим підписом PGP"},
+          {
+            "src": "PGP: Sign And Encrypt",
+            "dst": "PGP: Підписати та зашифрувати",
+            "hint_src": "Encrypt And Sign with PGP",
+            "hint_dst": "Зашифрувати та підписати за допомогою PGP"
+          },
+          {
+            "src": "PGP: Attach Public Key",
+            "dst": "PGP: Вкласти відкритий ключ",
+            "hint_src": "Attach a PGP public key",
+            "hint_dst": "Вкласти відкритий ключ PGP"
+          },
+          {"src": "UI Language", "dst": "Мова інтерфейсу", "hint_src": "Select the user interface language", "hint_dst": "Вибрати мову інтерфейсу"},
+          {
+            "src": "Voice Attachment",
+            "dst": "Голосове вкладення",
+            "hint_src": "Record your voice and attach it to the outgoing message.",
+            "hint_dst": "Записати голосове повідомлення та вкласти його у вихідний лист"
+          }
+        ]
+      },
+      {
+        "cmd_id": 32773,
+        "translate": true,
+        "src": "Import",
+        "dst": "Імпорт",
+        "hint_src": "Import e-mail messages from external files",
+        "hint_dst": "Імпортувати електронні листи із зовнішніх файлів"
+      },
+      {
+        "cmd_id": 32774,
+        "translate": true,
+        "src": "Export",
+        "dst": "Експорт",
+        "hint_src": "Export e-mail messages to external files",
+        "hint_dst": "Експортувати електронні листи у зовнішні файли"
+      },
+      {
+        "cmd_id": 32775,
+        "translate": true,
+        "src": "Mailbox Setup",
+        "dst": "Налаштування поштової скриньки",
+        "hint_src": "Set up mailbox preferences",
+        "hint_dst": "Налаштувати параметри поточної поштової скриньки"
+      },
+      {
+        "cmd_id": 32776,
+        "translate": true,
+        "src": "Reorganize",
+        "dst": "Упорядкувати папку",
+        "hint_src": "Organize the messages according to the sent date",
+        "hint_dst": "Упорядкувати листи в папці за датою надсилання"
+      },
+      {
+        "cmd_id": 32777,
+        "translate": true,
+        "src": "Thread Mode",
+        "dst": "Режим гілок обговорення",
+        "hint_src": "Toggle message-threading mode",
+        "hint_dst": "Увімкнути/вимкнути режим відображення гілок обговорення"
+      },
+      {
+        "cmd_id": 32778,
+        "translate": true,
+        "src": "Send And Receive",
+        "dst": "Надіслати та отримати",
+        "hint_src": "Send and receive messages",
+        "hint_dst": "Надіслати та отримати листи"
+      },
+      {
+        "cmd_id": 32779,
+        "translate": true,
+        "src": "Mailboxes For Collection",
+        "dst": "Скриньки для збору пошти",
+        "hint_src": "Select the mailboxes that will be checked by \"Collection And Delivery\" command",
+        "hint_dst": "Вибрати поштові скриньки для перевірки командою «Збір та доставка пошти»"
+      },
+      {
+        "cmd_id": 32780,
+        "translate": true,
+        "src": "Receive All",
+        "dst": "Отримати всю пошту",
+        "hint_src": "Retrieve all the messages on the server including the ones you have already received",
+        "hint_dst": "Отримати всі листи з сервера, включно з тими, що вже були завантажені раніше"
+      },
+      {
+        "cmd_id": 32782,
+        "translate": true,
+        "src": "Redirect",
+        "dst": "Перенаправити (Redirect)",
+        "hint_src": "Forward the selected message keeping \"From\", \"To\", etc. fields intact",
+        "hint_dst": "Перенаправити вибраний лист зі збереженням оригінальних полів «Від», «Кому» тощо"
+      },
+      {
+        "cmd_id": 32784,
+        "translate": true,
+        "src": "Reply To Selected Addresses",
+        "dst": "Відповісти вибраним адресатам",
+        "hint_src": "Reply to the selected e-mail addresses",
+        "hint_dst": "Відповісти на вибрані адреси електронної пошти"
+      },
+      {
+        "cmd_id": 32785,
+        "translate": true,
+        "src": "Forward As Attachment",
+        "dst": "Переслати як вкладення",
+        "hint_src": "Forward the selected message as \"message/rfc822\" attachments",
+        "hint_dst": "Переслати вибраний лист як вкладення формату «message/rfc822»"
+      },
+      {
+        "cmd_id": 32788,
+        "translate": true,
+        "src": "Delete Downloaded Messages From Server",
+        "dst": "Видалити завантажені листи з сервера",
+        "hint_src": "Delete messages that you have already received from the server",
+        "hint_dst": "Видалити з сервера листи, які ви вже отримали"
+      },
+      {
+        "cmd_id": 32789,
+        "translate": true,
+        "src": "Customize Tool Bar",
+        "dst": "Налаштувати панель інструментів",
+        "hint_src": "Customize the toolbar",
+        "hint_dst": "Налаштувати кнопки панелі інструментів"
+      },
+      {
+        "cmd_id": 32790,
+        "translate": true,
+        "src": "Cite Message",
+        "dst": "Цитувати лист",
+        "hint_src": "Cite the selection in the reference window",
+        "hint_dst": "Цитувати виділений текст у вікні довідки"
+      },
+      {
+        "cmd_id": 32792,
+        "translate": true,
+        "src": "Filtering Manager",
+        "dst": "Менеджер правил фільтрації",
+        "hint_src": "Maintain sorting/filtering rules",
+        "hint_dst": "Керувати правилами сортування та фільтрації пошти"
+      },
+      {
+        "cmd_id": 32793,
+        "translate": true,
+        "src": "Mailing Lists Manager",
+        "dst": "Менеджер списків розсилки",
+        "hint_src": "Maintain subscription information of mailing lists",
+        "hint_dst": "Керувати інформацією про підписку на списки розсилки"
+      },
+      {
+        "cmd_id": 32794,
+        "translate": true,
+        "src": "EUC-JP",
+        "dst": "EUC-JP",
+        "hint_src": "Convert EUC-JP text to Shift-JIS",
+        "hint_dst": "Перетворити текст із кодування EUC-JP у Shift-JIS"
+      },
+      {
+        "cmd_id": 32796,
+        "translate": true,
+        "src": "Trash Duplicates",
+        "dst": "Видалити дублікати листів",
+        "hint_src": "Trash messages whose Message-Id and Date is duplicate",
+        "hint_dst": "Перемістити в Кошик листи з однаковими Message-Id та датою"
+      },
+      {
+        "cmd_id": 32797,
+        "translate": true,
+        "src": "Compaction",
+        "dst": "Стиснути папку",
+        "hint_src": "Remove additional header data from all the messages in the selected folder",
+        "hint_dst": "Стиснути вибрану папку, видаливши додаткові дані заголовків з усіх листів"
+      },
+      {
+        "cmd_id": 32798,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "Перебудувати індекс",
+        "hint_src": "Reconstruct an index file of the selected folder",
+        "hint_dst": "Перебудувати індексний файл вибраної папки"
+      },
+      {
+        "cmd_id": 32799,
+        "translate": true,
+        "src": "User Registration",
+        "dst": "Реєстрація користувача",
+        "hint_src": "User registration",
+        "hint_dst": "Реєстрація ліцензії користувача"
+      },
+      {
+        "cmd_id": 32800,
+        "translate": true,
+        "src": "FAQ",
+        "dst": "Часті запитання (FAQ)",
+        "hint_src": "Frequently Asked Question",
+        "hint_dst": "Часті запитання та відповіді (FAQ)"
+      },
+      {
+        "cmd_id": 32802,
+        "translate": true,
+        "src": "Delete Mailbox",
+        "dst": "Видалити поштову скриньку",
+        "hint_src": "Delete the selected mailbox",
+        "hint_dst": "Видалити вибрану поштову скриньку"
+      },
+      {
+        "cmd_id": 32803,
+        "translate": true,
+        "src": "Delete Folder",
+        "dst": "Видалити папку",
+        "hint_src": "Delete the selected folder",
+        "hint_dst": "Видалити вибрану папку"
+      },
+      {"cmd_id": 32804, "translate": true, "src": "New Folder", "dst": "Нова папка", "hint_src": "Create a new folder", "hint_dst": "Створити нову папку"},
+      {
+        "cmd_id": 32805,
+        "translate": true,
+        "src": "Go Back",
+        "dst": "Назад",
+        "hint_src": "Go back to the previously read message",
+        "hint_dst": "Повернутися до попереднього прочитаного листа"
+      },
+      {
+        "cmd_id": 32806,
+        "translate": true,
+        "src": "Go Forward",
+        "dst": "Вперед",
+        "hint_src": "Go forward to the next read message",
+        "hint_dst": "Перейти до наступного прочитаного листа"
+      },
+      {
+        "cmd_id": 32807,
+        "translate": true,
+        "src": "Compose To Reply Address",
+        "dst": "Написати на адресу для відповіді",
+        "hint_src": "Compose new message to the replying address of the selected message",
+        "hint_dst": "Написати нового листа на адресу для відповіді вибраного повідомлення"
+      },
+      {
+        "cmd_id": 32808,
+        "translate": true,
+        "src": "Compose To Selected Addresses",
+        "dst": "Написати вибраним адресатам",
+        "hint_src": "Compose to the selected addresses in the selected message",
+        "hint_dst": "Написати нового листа на адреси, виділені у вибраному повідомленні"
+      },
+      {
+        "cmd_id": 32809,
+        "translate": true,
+        "src": "Cite Without Prefix",
+        "dst": "Цитувати без префікса",
+        "hint_src": "Cite reference message without citation prefixes.",
+        "hint_dst": "Цитувати вихідний лист без додавання префіксів цитування"
+      },
+      {
+        "cmd_id": 32810,
+        "translate": true,
+        "src": "Default Mailbox",
+        "dst": "Основна поштова скринька",
+        "hint_src": "Set the active mailbox as default",
+        "hint_dst": "Встановити активну поштову скриньку як основну за замовчуванням"
+      },
+      {
+        "cmd_id": 32811,
+        "translate": true,
+        "src": "Attach Files",
+        "dst": "Вкласти файли",
+        "hint_src": "Attach files to the current outgoing message",
+        "hint_dst": "Вкласти файли до поточного вихідного листа"
+      },
+      {
+        "cmd_id": 32814,
+        "translate": true,
+        "src": "Close",
+        "dst": "Закрити",
+        "hint_src": "Close the current composing window",
+        "hint_dst": "Закрити поточне вікно написання листа"
+      },
+      {
+        "cmd_id": 32816,
+        "translate": true,
+        "src": "ReEdit",
+        "dst": "Редагувати повторно",
+        "hint_src": "Open the selected message as an outgoing message",
+        "hint_dst": "Відкрити вибраний лист як вихідний для повторного редагування"
+      },
+      {
+        "cmd_id": 32824,
+        "translate": true,
+        "src": "Reset Toolbar",
+        "dst": "Скинути панель інструментів",
+        "hint_src": "Reset tool bar to the initial state",
+        "hint_dst": "Відновити початковий стан панелі інструментів"
+      },
+      {
+        "cmd_id": 32826,
+        "translate": true,
+        "src": "Change Font",
+        "dst": "Змінити шрифт",
+        "hint_src": "Change the font associated to the character set of the current message",
+        "hint_dst": "Змінити шрифт, пов’язаний із кодуванням символів поточного листа"
+      },
+      {"cmd_id": 32827, "translate": true, "src": "Dialup", "dst": "Комутоване з'єднання"},
+      {
+        "cmd_id": 32836,
+        "translate": true,
+        "src": "Delete Mail",
+        "dst": "Видалити лист",
+        "hint_src": "Delete the selected message items",
+        "hint_dst": "Видалити вибрані листи"
+      },
+      {"cmd_id": 32838, "translate": true, "src": "Empty Trash", "dst": "Очистити Кошик", "hint_src": "Empty Trash box", "hint_dst": "Очистити папку «Кошик»"},
+      {
+        "cmd_id": 32839,
+        "translate": true,
+        "src": "Write HTML Message",
+        "dst": "Створити HTML-лист",
+        "hint_src": "Create HTML message",
+        "hint_dst": "Створити лист у форматі HTML"
+      },
+      {
+        "cmd_id": 32856,
+        "translate": true,
+        "src": "Save As Signature",
+        "dst": "Зберегти як підпис",
+        "hint_src": "Save the current selection as a signature",
+        "hint_dst": "Зберегти поточний виділений текст як підпис"
+      },
+      {
+        "cmd_id": 32868,
+        "translate": true,
+        "src": "\"What's New\" List",
+        "dst": "Список «Нові листи»",
+        "hint_src": "List recently arrived messages",
+        "hint_dst": "Показати список нещодавно отриманих листів"
+      },
+      {
+        "cmd_id": 32870,
+        "translate": true,
+        "src": "Set To Mail",
+        "dst": "Встановити як одержувача",
+        "hint_src": "Set the addresses to an outgoing message",
+        "hint_dst": "Додати вибрані адреси як одержувачів вихідного листа"
+      },
+      {"cmd_id": 32871, "translate": true, "src": "Close", "dst": "Закрити", "hint_src": "Close the address book", "hint_dst": "Закрити адресну книгу"},
+      {
+        "cmd_id": 32872,
+        "translate": true,
+        "src": "New Address",
+        "dst": "Новий контакт",
+        "hint_src": "Add a new address entry to the current address group",
+        "hint_dst": "Додати новий контакт до поточної групи адрес"
+      },
+      {
+        "cmd_id": 32873,
+        "translate": true,
+        "src": "New Address Group",
+        "dst": "Нова група контактів",
+        "hint_src": "Add a new address group to the current address book",
+        "hint_dst": "Додати нову групу до поточної адресної книги"
+      },
+      {
+        "cmd_id": 32877,
+        "translate": true,
+        "src": "Help For Address Book",
+        "dst": "Довідка адресної книги",
+        "hint_src": "Show the help for the address book",
+        "hint_dst": "Показати довідку для адресної книги"
+      },
+      {
+        "cmd_id": 32878,
+        "translate": true,
+        "src": "Text File",
+        "dst": "Текстовий файл",
+        "hint_src": "Import data from external files",
+        "hint_dst": "Імпортувати дані із зовнішніх файлів"
+      },
+      {
+        "cmd_id": 32879,
+        "translate": true,
+        "src": "Text File",
+        "dst": "Текстовий файл",
+        "hint_src": "Export the selected addresses to an external file",
+        "hint_dst": "Експортувати вибрані контакти у зовнішній файл"
+      },
+      {"cmd_id": 32885, "translate": true, "src": "Name <mail@address>", "dst": "Ім'я <mail@address>"},
+      {"cmd_id": 32886, "translate": true, "src": "mail@address (Name)", "dst": "mail@address (Ім'я)"},
+      {"cmd_id": 32887, "translate": true, "src": "mail@address", "dst": "mail@address"},
+      {
+        "cmd_id": 32888,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "Перебудувати індекс",
+        "hint_src": "Reconstruct an index file for the current address group",
+        "hint_dst": "Перебудувати індексний файл для поточної групи адрес"
+      },
+      {
+        "cmd_id": 32894,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Import data from \"vCard\" files",
+        "hint_dst": "Імпортувати дані з файлів «vCard»"
+      },
+      {
+        "cmd_id": 32895,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Export the selected addresses as \"vCard\" files",
+        "hint_dst": "Експортувати вибрані контакти як файли «vCard»"
+      },
+      {
+        "cmd_id": 32896,
+        "translate": true,
+        "src": "Post",
+        "dst": "Надіслати до списку розсилки",
+        "hint_src": "Post to the related mailing list",
+        "hint_dst": "Надіслати листа до пов'язаного списку розсилки"
+      },
+      {
+        "cmd_id": 32898,
+        "translate": true,
+        "src": "Set Addresses To List",
+        "dst": "Додати адреси до списку",
+        "hint_src": "Set the selected addresses to the list at the below-left",
+        "hint_dst": "Додати вибрані адреси до списку ліворуч унизу"
+      },
+      {
+        "cmd_id": 32899,
+        "translate": true,
+        "src": "External Edit",
+        "dst": "Зовнішній редактор",
+        "hint_src": "Edit the current message by an external editor",
+        "hint_dst": "Редагувати поточний лист у зовнішньому текстовому редакторі"
+      },
+      {
+        "cmd_id": 32900,
+        "translate": true,
+        "src": "External Editors",
+        "dst": "Зовнішні редактори",
+        "hint_src": "Register external editors",
+        "hint_dst": "Зареєструвати зовнішні текстові редактори"
+      },
+      {"cmd_id": 32901, "translate": true, "src": "0: As Is", "dst": "0: Як є"},
+      {"cmd_id": 32902, "translate": true, "src": "1: Name <mail@address>", "dst": "1: Ім'я <mail@address>"},
+      {"cmd_id": 32903, "translate": true, "src": "2: mail@address (Name)", "dst": "2: mail@address (Ім'я)"},
+      {"cmd_id": 32904, "translate": true, "src": "3: mail@address", "dst": "3: Лише mail@address"},
+      {"cmd_id": 32905, "translate": true, "src": "4: Name", "dst": "4: Лише Ім'я"},
+      {
+        "cmd_id": 32908,
+        "translate": true,
+        "src": "Extract Attached Messages",
+        "dst": "Видобути вкладені листи",
+        "hint_src": "Extract \"message/rfc822\" attachments to a folder as incoming messages",
+        "hint_dst": "Видобути вкладення «message/rfc822» у папку як вхідні листи"
+      },
+      {
+        "cmd_id": 32912,
+        "translate": true,
+        "src": "Color Label",
+        "dst": "Кольорова мітка",
+        "hint_src": "Change the color of the current message item",
+        "hint_dst": "Змінити кольорову мітку поточного листа"
+      },
+      {
+        "cmd_id": 32913,
+        "translate": true,
+        "src": "Set Flag/Priority Level",
+        "dst": "Встановити прапорець/пріоритет",
+        "hint_src": "Change the priority of the selected message items",
+        "hint_dst": "Змінити рівень пріоритету вибраних листів"
+      },
+      {
+        "cmd_id": 32914,
+        "translate": true,
+        "src": "Attach vCard",
+        "dst": "Вкласти vCard",
+        "hint_src": "Attach your \"vCard\" to the current outgoing message",
+        "hint_dst": "Вкласти вашу візитку «vCard» до поточного вихідного листа"
+      },
+      {
+        "cmd_id": 32915,
+        "translate": true,
+        "src": "Edit vCard",
+        "dst": "Редагувати vCard",
+        "hint_src": "Edit your \"vCard\" property",
+        "hint_dst": "Редагувати властивості вашої візитки «vCard»"
+      },
+      {
+        "cmd_id": 32916,
+        "translate": true,
+        "src": "Change Data Folder",
+        "dst": "Змінити папку даних",
+        "hint_src": "Change the data folder Becky! uses",
+        "hint_dst": "Змінити папку зберігання даних, яку використовує Becky!"
+      },
+      {
+        "cmd_id": 32919,
+        "translate": true,
+        "src": "Hide Mailbox",
+        "dst": "Приховати поштову скриньку",
+        "hint_src": "Hide the selected mailbox",
+        "hint_dst": "Приховати вибрану поштову скриньку"
+      },
+      {
+        "cmd_id": 32920,
+        "translate": true,
+        "src": "Reveal Mailbox",
+        "dst": "Показати приховані скриньки",
+        "hint_src": "Reveal hidden mailboxes",
+        "hint_dst": "Показати раніше приховані поштові скриньки"
+      },
+      {
+        "cmd_id": 32921,
+        "translate": true,
+        "src": "Pause Periodical Check",
+        "dst": "Призупинити періодичну перевірку",
+        "hint_src": "Pause all the periodical mail check temporarily",
+        "hint_dst": "Тимчасово призупинити автоматичну періодичну перевірку всіх скриньок"
+      },
+      {
+        "cmd_id": 32923,
+        "translate": true,
+        "src": "Import Backup Logs",
+        "dst": "Імпортувати журнали резервних копій",
+        "hint_src": "Import messages from backup logs to the selected folder",
+        "hint_dst": "Імпортувати листи з резервних журналів у вибрану папку"
+      },
+      {
+        "cmd_id": 32924,
+        "translate": true,
+        "src": "Sorting Rules For Folder",
+        "dst": "Правила фільтрації для папки",
+        "hint_src": "Set sorting rules for the selected folder",
+        "hint_dst": "Встановити правила фільтрації для вибраної папки"
+      },
+      {
+        "cmd_id": 32926,
+        "translate": true,
+        "src": "Thread Tool",
+        "dst": "Інструмент гілок обговорення",
+        "hint_src": "Associate a selected message to another as a child thread",
+        "hint_dst": "Пов’язати вибраний лист з іншим як дочірню гілку обговорення"
+      },
+      {
+        "cmd_id": 32929,
+        "translate": true,
+        "src": "Subscribe",
+        "dst": "Підписатися",
+        "hint_src": "Subscribe to the mailing list",
+        "hint_dst": "Підписатися на список розсилки"
+      },
+      {
+        "cmd_id": 32930,
+        "translate": true,
+        "src": "Unsubscribe",
+        "dst": "Відписатися",
+        "hint_src": "Unsubscribe the mailing list",
+        "hint_dst": "Скасувати підписку на список розсилки"
+      },
+      {
+        "cmd_id": 32931,
+        "translate": true,
+        "src": "Mail To Admin",
+        "dst": "Написати адміністратору",
+        "hint_src": "Mail to the administrator of the mailing list",
+        "hint_dst": "Написати листа адміністратору списку розсилки"
+      },
+      {
+        "cmd_id": 32932,
+        "translate": true,
+        "src": "Web Site",
+        "dst": "Вебсайт",
+        "hint_src": "Open the Web site related to the mailing list",
+        "hint_dst": "Відкрити вебсайт, пов’язаний зі списком розсилки"
+      },
+      {
+        "cmd_id": 32933,
+        "translate": true,
+        "src": "Related ML:",
+        "dst": "Пов'язаний список розсилки:",
+        "hint_src": "Associate the folder with a mailing list",
+        "hint_dst": "Пов’язати папку зі списком розсилки"
+      },
+      {
+        "cmd_id": 32935,
+        "translate": true,
+        "src": "Property",
+        "dst": "Властивості",
+        "hint_src": "Show the property of the selected item",
+        "hint_dst": "Показати властивості вибраного елемента"
+      },
+      {
+        "cmd_id": 32938,
+        "translate": true,
+        "src": "Add To Mailing Lists Manager",
+        "dst": "Додати до Менеджера списків розсилки",
+        "hint_src": "Add an entry to the Mailing List Manager according to the information in the selected message item",
+        "hint_dst": "Додати запис до Менеджера списків розсилки на основі даних вибраного листа"
+      },
+      {
+        "cmd_id": 32939,
+        "translate": true,
+        "src": "Print Settings",
+        "dst": "Параметри друку",
+        "hint_src": "Setup preferences for printing",
+        "hint_dst": "Налаштувати параметри друку"
+      },
+      {
+        "cmd_id": 32940,
+        "translate": true,
+        "src": "Folder Maintenance Combo",
+        "dst": "Комплексне обслуговування папки",
+        "hint_src": "Do \"Reorganize\", \"Compaction\", and \"Trash Duplicates\" at the same time",
+        "hint_dst": "Одночасно виконати «Упорядкування», «Стиснення» та «Видалення дублікатів»"
+      },
+      {
+        "cmd_id": 32942,
+        "translate": true,
+        "src": "Sort Selected Messages",
+        "dst": "Фільтрувати вибрані листи",
+        "hint_src": "Sort the selected message items to folders according to the sorting rules",
+        "hint_dst": "Розсортувати вибрані листи по папках згідно з правилами фільтрації"
+      },
+      {
+        "cmd_id": 32943,
+        "translate": true,
+        "src": "Select Read Messages",
+        "dst": "Виділити прочитані листи",
+        "hint_src": "Select all the read messages in the folder",
+        "hint_dst": "Виділити всі прочитані листи в поточній папці"
+      },
+      {
+        "cmd_id": 32944,
+        "translate": true,
+        "src": "New Address Book",
+        "dst": "Нова адресна книга",
+        "hint_src": "Create a new address book",
+        "hint_dst": "Створити нову адресну книгу"
+      },
+      {
+        "cmd_id": 32945,
+        "translate": true,
+        "src": "Delete Addresses",
+        "dst": "Видалити контакти",
+        "hint_src": "Delete the selected addresses",
+        "hint_dst": "Видалити вибрані контакти"
+      },
+      {
+        "cmd_id": 32946,
+        "translate": true,
+        "src": "Delete Address Group/Book",
+        "dst": "Видалити групу/адресну книгу",
+        "hint_src": "Delete the selected address book or address group",
+        "hint_dst": "Видалити вибрану адресну книгу або групу контактів"
+      },
+      {
+        "cmd_id": 32950,
+        "translate": true,
+        "src": "View Related Messages",
+        "dst": "Переглянути пов'язані листи",
+        "hint_src": "View only the related messages to the current message",
+        "hint_dst": "Показати лише листи, пов’язані з поточним листом"
+      },
+      {
+        "cmd_id": 32958,
+        "translate": true,
+        "src": "Close All Threads",
+        "dst": "Згорнути всі гілки",
+        "hint_src": "Close all the message threads of the current folder",
+        "hint_dst": "Згорнути всі гілки обговорень у поточній папці"
+      },
+      {
+        "cmd_id": 32959,
+        "translate": true,
+        "src": "Open All Threads",
+        "dst": "Розгорнути всі гілки",
+        "hint_src": "Open all the message threads of the current folder",
+        "hint_dst": "Розгорнути всі гілки обговорень у поточній папці"
+      },
+      {
+        "cmd_id": 32963,
+        "translate": true,
+        "src": "Request \"Read Receipt\"",
+        "dst": "Запитати «Підтвердження прочитання»",
+        "hint_src": "Request \"Read Receipt\" to the recipients.",
+        "hint_dst": "Запитати в одержувачів «Підтвердження прочитання»"
+      },
+      {
+        "cmd_id": 32966,
+        "translate": true,
+        "src": "Protocol Logs",
+        "dst": "Журнали протоколів",
+        "hint_src": "Leave protocol logs of mail sessions",
+        "hint_dst": "Зберігати журнали протоколів поштових сеансів"
+      },
+      {
+        "cmd_id": 32968,
+        "translate": true,
+        "src": "Append To \"Quick Memo\"",
+        "dst": "Додати до «Швидкої нотатки»",
+        "hint_src": "Append the selection to \"Becky's Quick Memo\"",
+        "hint_dst": "Додати виділений текст до «Швидкої нотатки Becky!»"
+      },
+      {
+        "cmd_id": 32971,
+        "translate": true,
+        "src": "View Source",
+        "dst": "Переглянути вихідний код",
+        "hint_src": "View a source of the current E-mail message",
+        "hint_dst": "Переглянути вихідний код поточного електронного листа"
+      },
+      {"cmd_id": 32972, "translate": true, "src": "Search for this \"Message-Id\"", "dst": "Шукати цей «Message-Id»"},
+      {
+        "cmd_id": 32975,
+        "translate": true,
+        "src": "View Headers",
+        "dst": "Переглянути заголовки",
+        "hint_src": "Show the header part of the message",
+        "hint_dst": "Показати службові заголовки листа"
+      },
+      {
+        "cmd_id": 32976,
+        "translate": true,
+        "src": "Next Layout",
+        "dst": "Наступний макет",
+        "hint_src": "Change the layout of the views.",
+        "hint_dst": "Змінити макет розташування панелей вікна"
+      },
+      {
+        "cmd_id": 32977,
+        "translate": true,
+        "src": "Abort Session",
+        "dst": "Перервати сеанс з'єднання",
+        "hint_src": "Abort the active session.",
+        "hint_dst": "Перервати активний сеанс зв’язку з сервером"
+      },
+      {
+        "cmd_id": 32978,
+        "translate": true,
+        "src": "Quick Access",
+        "dst": "Швидкий доступ",
+        "hint_src": "Open the message recently double-clicked or composed and saved.",
+        "hint_dst": "Відкрити нещодавно переглянутий або створений і збережений лист"
+      },
+      {
+        "cmd_id": 32979,
+        "translate": true,
+        "src": "Separate Attachments",
+        "dst": "Відокремити вкладення",
+        "hint_src": "Save attachment files in the folder to separate data files.",
+        "hint_dst": "Зберегти вкладені файли в папці як окремі файли даних"
+      },
+      {
+        "cmd_id": 32980,
+        "translate": true,
+        "src": "Combine Attachments",
+        "dst": "Об'єднати вкладення",
+        "hint_src": "Combine attachment files into mail data files.",
+        "hint_dst": "Об’єднати відокремлені файли вкладень назад у файли поштових даних"
+      },
+      {"cmd_id": 32981, "translate": true, "src": "Delete", "dst": "Видалити", "hint_src": "Delete the selection", "hint_dst": "Видалити виділений фрагмент"},
+      {
+        "cmd_id": 32982,
+        "translate": true,
+        "src": "Customize List Columns(Z)",
+        "dst": "Налаштувати стовпці списку",
+        "hint_src": "Customize the columns headers of the list view.",
+        "hint_dst": "Налаштувати заголовки стовпців списку листів"
+      },
+      {
+        "cmd_id": 32984,
+        "translate": true,
+        "src": "Select Flagged Messages",
+        "dst": "Виділити листи з прапорцем",
+        "hint_src": "Select all the flagged messages in the folder",
+        "hint_dst": "Виділити всі листи з прапорцем у поточній папці"
+      },
+      {
+        "cmd_id": 32985,
+        "translate": true,
+        "src": "Switch Mailbox",
+        "dst": "Змінити поштову скриньку",
+        "hint_src": "Switch the mailbox that will be used to send this message.",
+        "hint_dst": "Змінити поштову скриньку, яка використовуватиметься для надсилання цього листа"
+      },
+      {
+        "cmd_id": 32986,
+        "translate": true,
+        "src": "Toggle Flag",
+        "dst": "Перемкнути прапорець",
+        "hint_src": "Toggle Flag on the selected messages",
+        "hint_dst": "Увімкнути або вимкнути прапорець для вибраних листів"
+      },
+      {
+        "cmd_id": 32988,
+        "translate": true,
+        "src": "Close Query Result",
+        "dst": "Закрити результати пошуку",
+        "hint_src": "Close the Query dialog and Query Result folder.",
+        "hint_dst": "Закрити вікно пошуку та папку «Результат запиту»"
+      },
+      {
+        "cmd_id": 32989,
+        "translate": true,
+        "src": "1: [ |---] Long TreeView",
+        "dst": "1: [ |---] Довге дерево папок",
+        "hint_src": "Long treeview",
+        "hint_dst": "Макет із довгим деревом папок"
+      },
+      {
+        "cmd_id": 32990,
+        "translate": true,
+        "src": "2: [-'---] Wide MessageView",
+        "dst": "2: [-'---] Широка область листа",
+        "hint_src": "Wide messageview",
+        "hint_dst": "Макет із широкою областю перегляду листа"
+      },
+      {
+        "cmd_id": 32991,
+        "translate": true,
+        "src": "3: [-,---] Wide ListView",
+        "dst": "3: [-,---] Широкий список листів",
+        "hint_src": "Wide listview",
+        "hint_dst": "Макет із широким списком листів"
+      },
+      {
+        "cmd_id": 32992,
+        "translate": true,
+        "src": "4: [-|   ] Maximum MessageView",
+        "dst": "4: [-|   ] Максимальна область листа",
+        "hint_src": "Maximum messageview",
+        "hint_dst": "Макет із максимальною областю перегляду листа"
+      },
+      {
+        "cmd_id": 32993,
+        "translate": true,
+        "src": "5: [ | |  ] Three Columns",
+        "dst": "5: [ | |  ] Три стовпці",
+        "hint_src": "Three vertically divided panes",
+        "hint_dst": "Три вертикально розділені панелі"
+      },
+      {
+        "cmd_id": 32994,
+        "translate": true,
+        "src": "6: [ |2|  ] Three Columns Two Lines in a Row",
+        "dst": "6: [ |2|  ] Три стовпці у два рядки",
+        "hint_src": "Three Columns Two Layer per Item",
+        "hint_dst": "Три стовпці з відображенням у два рядки на елемент"
+      },
+      {
+        "cmd_id": 32995,
+        "translate": true,
+        "src": "Sync with Portable Media",
+        "dst": "Синхронізувати зі змінним носієм",
+        "hint_src": "Synchronize data with a portable a media or mobile PC.",
+        "hint_dst": "Синхронізувати поштові дані зі змінним носієм або портативним ПК"
+      },
+      {
+        "cmd_id": 32997,
+        "translate": true,
+        "src": "Go Next Mailbox",
+        "dst": "До наступної скриньки",
+        "hint_src": "Open next mailbox.",
+        "hint_dst": "Відкрити наступну поштову скриньку"
+      },
+      {
+        "cmd_id": 32998,
+        "translate": true,
+        "src": "Reload Query Folder",
+        "dst": "Оновити папку пошуку",
+        "hint_src": "Query again on the Query Result or a saved Query folder.",
+        "hint_dst": "Повторити пошук у папці «Результат запиту» або збереженій папці пошуку"
+      },
+      {
+        "cmd_id": 32999,
+        "translate": true,
+        "src": "Select Unread Messages",
+        "dst": "Виділити непрочитані листи",
+        "hint_src": "Select all the unread messages in the folder.",
+        "hint_dst": "Виділити всі непрочитані листи в поточній папці"
+      },
+      {
+        "cmd_id": 33000,
+        "translate": true,
+        "src": "Use \"Name\" from Address Book",
+        "dst": "Використовувати «Ім'я» з адресної книги",
+        "hint_src": "Use \"Name\" as it appears in the address book.",
+        "hint_dst": "Використовувати «Ім'я» контакту так, як воно записане в адресній книзі"
+      },
+      {
+        "cmd_id": 33002,
+        "translate": true,
+        "src": "Sort By Name",
+        "dst": "Сортувати за назвою",
+        "hint_src": "Sort folders on the same level by name.",
+        "hint_dst": "Відсортувати папки одного рівня за назвою"
+      },
+      {
+        "cmd_id": 33003,
+        "translate": true,
+        "src": "Go Previous Mailbox",
+        "dst": "До попередньої скриньки",
+        "hint_src": "Open previous mailbox.",
+        "hint_dst": "Відкрити попередню поштову скриньку"
+      },
+      {
+        "cmd_id": 33004,
+        "translate": true,
+        "src": "View Memo(D)",
+        "dst": "Переглянути нотатку",
+        "hint_src": "Write or view a memo associated to the current message.",
+        "hint_dst": "Написати або переглянути нотатку, прикріплену до поточного листа"
+      },
+      {
+        "cmd_id": 33007,
+        "translate": true,
+        "src": "Headlines Search",
+        "dst": "Пошук за заголовками",
+        "hint_src": "Go to the Headlines Search bar at the right top.",
+        "hint_dst": "Перейти до панелі пошуку за заголовками у верхньому правому куті"
+      },
+      {
+        "cmd_id": 33011,
+        "translate": true,
+        "src": "Add Agent(Z)",
+        "dst": "Додати завдання Агента",
+        "hint_src": "Assign Agent to the selected messages.",
+        "hint_dst": "Призначити завдання Агента для вибраних листів"
+      },
+      {
+        "cmd_id": 33013,
+        "translate": true,
+        "src": "Bookmark",
+        "dst": "Закладка",
+        "hint_src": "Assign Agent with a \"Bookmark\" task to the selected messages.",
+        "hint_dst": "Призначити вибраним листам завдання «Закладка»"
+      },
+      {"cmd_id": 33017, "translate": true, "src": "Headlines Search (K)", "dst": "Панель пошуку за заголовками"},
+      {
+        "cmd_id": 33019,
+        "translate": true,
+        "src": "Go Previous Folder (Y)",
+        "dst": "Повернутися до попередньої папки",
+        "hint_src": "Select previously open folder.",
+        "hint_dst": "Вибрати попередню відкриту папку"
+      },
+      {
+        "cmd_id": 33021,
+        "translate": true,
+        "src": "Go Original Message (J)",
+        "dst": "Перейти до оригінального листа",
+        "hint_src": "Open the original message this item links.",
+        "hint_dst": "Відкрити оригінальний лист, на який посилається цей елемент"
+      },
+      {
+        "cmd_id": 33024,
+        "translate": true,
+        "src": "Follow the Topic",
+        "dst": "Стежити за темою",
+        "hint_src": "Mark as \"Follow the Topic\" Task.",
+        "hint_dst": "Позначити як завдання «Стежити за темою»"
+      },
+      {
+        "cmd_id": 33026,
+        "translate": true,
+        "src": "Mark As Need Reply",
+        "dst": "Позначити як «Потребує відповіді»",
+        "hint_src": "Mark as \"Need Reply\" Task.",
+        "hint_dst": "Позначити як завдання «Потребує відповіді»"
+      },
+      {
+        "cmd_id": 33032,
+        "translate": true,
+        "src": "CardDAV server",
+        "dst": "Сервер CardDAV",
+        "hint_src": "Add CardDAV server.",
+        "hint_dst": "Додати сервер CardDAV"
+      },
+      {"cmd_id": 33033, "translate": true, "src": "LDAP  server", "dst": "Сервер LDAP", "hint_src": "Add LDAP server.", "hint_dst": "Додати сервер LDAP"},
+      {
+        "cmd_id": 33034,
+        "translate": true,
+        "src": "Becky!'s Address book",
+        "dst": "Адресна книга Becky!",
+        "hint_src": "Add Becky!'s address book.",
+        "hint_dst": "Додати адресну книгу Becky!"
+      },
+      {"cmd_id": 33037, "translate": true, "src": "Always Two Lines in a Row", "dst": "Завжди показувати список у два рядки"},
+      {
+        "cmd_id": 33039,
+        "translate": true,
+        "src": "Open Data Folder Location",
+        "dst": "Відкрити розташування папки даних",
+        "hint_src": "Opens Becky! data folder location",
+        "hint_dst": "Відкриває розташування папки даних Becky! у Провіднику"
+      },
+      {
+        "cmd_id": 42778,
+        "translate": true,
+        "src": "Address Book",
+        "dst": "Адресна книга",
+        "hint_src": "Open Address Book",
+        "hint_dst": "Відкрити адресну книгу"
+      },
+      {
+        "cmd_id": 42787,
+        "translate": true,
+        "src": "New Mailbox",
+        "dst": "Нова поштова скринька",
+        "hint_src": "Create a new mailbox",
+        "hint_dst": "Створити нову поштову скриньку"
+      },
+      {
+        "cmd_id": 42796,
+        "translate": true,
+        "src": "Add To Address Book",
+        "dst": "Додати до адресної книги",
+        "hint_src": "Add the sender of the current message to the Address Book",
+        "hint_dst": "Додати відправника поточного листа до адресної книги"
+      },
+      {
+        "cmd_id": 42803,
+        "translate": true,
+        "src": "Load Template",
+        "dst": "Завантажити шаблон",
+        "hint_src": "Load a template file to the current outgoing message",
+        "hint_dst": "Завантажити файл шаблону в поточний вихідний лист"
+      },
+      {
+        "cmd_id": 42804,
+        "translate": true,
+        "src": "Save As Template",
+        "dst": "Зберегти як шаблон",
+        "hint_src": "Save the current outgoing message as a template",
+        "hint_dst": "Зберегти поточний вихідний лист як шаблон"
+      },
+      {
+        "cmd_id": 42805,
+        "translate": true,
+        "src": "Reminder",
+        "dst": "Нагадування",
+        "hint_src": "Save the current outgoing message as a \"Reminder\" for yourself.",
+        "hint_dst": "Зберегти поточний вихідний лист як «Нагадування» для себе"
+      },
+      {
+        "cmd_id": 42806,
+        "translate": true,
+        "src": "Edit Template",
+        "dst": "Редагувати шаблон",
+        "hint_src": "Create or edit a template file",
+        "hint_dst": "Створити або редагувати файл шаблону листа"
+      },
+      {
+        "cmd_id": 55001,
+        "cmd_id_end": 55099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(default)",
+            "dst": "(за замовчуванням)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Змінити кодування символів поточного листа"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(За замовчуванням)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Змінити кодування символів поточного листа"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7-біт ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "Західноєвропейська Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "Центральноєвропейська Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "Західноєвропейська Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "Японська (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "Корейська UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "Корейська RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "Китайська традиційна (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "Китайська спрощена (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "Китайський держстандарт (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "Китайська спрощена HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "Російська koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "Українська koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "Кирилиця (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"}
+        ]
+      },
+      {
+        "cmd_id": 56001,
+        "cmd_id_end": 56099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(no dialup)",
+            "dst": "(немає комутованого з'єднання)",
+            "hint_src": "Connect to the Internet using dialup network",
+            "hint_dst": "Підключитися до Інтернету через комутоване з'єднання"
+          }
+        ]
+      },
+      {
+        "cmd_id": 56100,
+        "cmd_id_end": 56199,
+        "translate": true,
+        "rules": [
+          {"src": "(no plug-ins)", "dst": "(немає плагінів)"},
+          {"src": "Becky2! Multicolor Icons.", "dst": "Багатоколірні значки Becky2!"},
+          {"src": "Becky! PGP Plug-In", "dst": "Плагін шифрування PGP для Becky!"},
+          {"src": "Becky! Voice Message Plug-in", "dst": "Плагін голосових повідомлень Becky!"},
+          {"src": "Becky! UI Inspector", "dst": "Інспектор інтерфейсу (UI) Becky!"},
+          {"src": "Becky! I18n", "dst": "Плагін локалізації (I18n) Becky!"}
+        ]
+      },
+      {
+        "cmd_id": 57604,
+        "translate": true,
+        "rules": [{"src": "Save As", "dst": "Зберегти як"}, {"src": "Save To Folder and continue", "dst": "Зберегти в папку та продовжити"}],
+        "hint_src": "Save the active message",
+        "hint_dst": "Зберегти активний лист"
+      },
+      {
+        "cmd_id": 57607,
+        "translate": true,
+        "src": "Print",
+        "dst": "Друк",
+        "hint_src": "Print the active document",
+        "hint_dst": "Роздрукувати активний документ"
+      },
+      {
+        "cmd_id": 57609,
+        "translate": true,
+        "src": "Print Preview",
+        "dst": "Попередній перегляд друку",
+        "hint_src": "Display full pages",
+        "hint_dst": "Показати повні сторінки перед друком"
+      },
+      {
+        "cmd_id": 57634,
+        "translate": true,
+        "src": "Copy",
+        "dst": "Копіювати",
+        "hint_src": "Copy the selection and put it on the Clipboard",
+        "hint_dst": "Скопіювати виділений фрагмент у буфер обміну"
+      },
+      {
+        "cmd_id": 57635,
+        "translate": true,
+        "src": "Cut",
+        "dst": "Вирізати",
+        "hint_src": "Cut the selection and put it on the Clipboard",
+        "hint_dst": "Вирізати виділений фрагмент у буфер обміну"
+      },
+      {
+        "cmd_id": 57636,
+        "translate": true,
+        "rules": [{"src": "Find", "dst": "Знайти"}, {"src": "Search Address", "dst": "Пошук адреси"}, {"src": "Find Address", "dst": "Знайти адресу"}],
+        "hint_src": "Find the specified text",
+        "hint_dst": "Знайти вказаний текст"
+      },
+      {
+        "cmd_id": 57637,
+        "translate": true,
+        "src": "Paste",
+        "dst": "Вставити",
+        "hint_src": "Insert Clipboard contents",
+        "hint_dst": "Вставити вміст буфера обміну"
+      },
+      {"cmd_id": 57640, "translate": true, "src": "Repeat", "dst": "Повторити", "hint_src": "Repeat the last action", "hint_dst": "Повторити останню дію"},
+      {
+        "cmd_id": 57641,
+        "translate": true,
+        "src": "Replace",
+        "dst": "Замінити",
+        "hint_src": "Replace specific text with different text",
+        "hint_dst": "Замінити вказаний текст іншим текстом"
+      },
+      {"cmd_id": 57642, "translate": true, "src": "Select All", "dst": "Виділити все", "hint_src": "Select entirely", "hint_dst": "Виділити весь текст"},
+      {"cmd_id": 57643, "translate": true, "src": "Undo", "dst": "Скасувати", "hint_src": "Undo the last action", "hint_dst": "Скасувати останню дію"},
+      {
+        "cmd_id": 57644,
+        "translate": true,
+        "src": "Redo",
+        "dst": "Повернути",
+        "hint_src": "Redo the previously undone action",
+        "hint_dst": "Повернути раніше скасовану дію"
+      },
+      {
+        "cmd_id": 57664,
+        "translate": true,
+        "src": "About \"Becky!\"",
+        "dst": "Про програму «Becky!»",
+        "hint_src": "Display program information, version number and copyright",
+        "hint_dst": "Показати відомості про програму, номер версії та авторські права"
+      },
+      {"cmd_id": 57665, "translate": true, "src": "Exit", "dst": "Вихід", "hint_src": "Quit the application", "hint_dst": "Вийти з програми"},
+      {
+        "cmd_id": 57667,
+        "translate": true,
+        "src": "Help Topics",
+        "dst": "Розділи довідки",
+        "hint_src": "List Help topics",
+        "hint_dst": "Показати список розділів довідки"
+      },
+      {
+        "cmd_id": 59392,
+        "translate": true,
+        "src": "Tool Bar",
+        "dst": "Панель інструментів",
+        "hint_src": "Show or hide the toolbar",
+        "hint_dst": "Показати або приховати панель інструментів"
+      },
+      {
+        "cmd_id": 59393,
+        "translate": true,
+        "src": "Status Bar",
+        "dst": "Рядок стану",
+        "hint_src": "Show or hide the status bar",
+        "hint_dst": "Показати або приховати рядок стану"
+      }
+    ]
+  },
+  "windows": {
+    "Becky2MainFrame": {
+      "class_name": "Becky2MainFrame",
+      "sdk_role": "BKA_MainWindow",
+      "properties": {"window_title": {"translate": false, "comment": "Format: '<AccountName> - Becky!' (contains user mailbox name)"}},
+      "children": [
+        {"class_name": "#32770", "ctrl_id": 0, "control_subtype": "ChildDialog", "translate": false},
+        {
+          "class_name": "AfxMDIFrame42s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame42s",
+          "translate": false,
+          "children": [
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59648,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysTreeView32",
+                  "ctrl_id": 1000,
+                  "control_subtype": "SysTreeView32",
+                  "sdk_role": "BKA_FolderTreeView",
+                  "translate": true,
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "root_nodes": [{"src": "Query Result", "dst": "Результат запиту"}],
+                  "items": [
+                    {"src": "Inbox", "dst": "Вхідні"},
+                    {"src": "Outbox", "dst": "Вихідні"},
+                    {"src": "Draft", "dst": "Чернетки"},
+                    {"src": "Sent", "dst": "Надіслані"},
+                    {"src": "Reminder", "dst": "Нагадування"},
+                    {"src": "Trash", "dst": "Кошик"}
+                  ]
+                },
+                {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
+                {"class_name": "ComboBox", "ctrl_id": 112, "control_subtype": "DropDownListCombo", "translate": false}
+              ]
+            },
+            {
+              "class_name": "AfxMDIFrame42s",
+              "ctrl_id": 59649,
+              "control_subtype": "AfxMDIFrame42s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysListView32",
+                  "ctrl_id": 59648,
+                  "control_subtype": "SysListView32",
+                  "sdk_role": "BKA_MailListView",
+                  "translate": false,
+                  "children": [
+                    {
+                      "class_name": "SysHeader32",
+                      "ctrl_id": 0,
+                      "control_subtype": "SysHeader32",
+                      "translate": true,
+                      "columns": [
+                        {"translate": false, "src": " "},
+                        {"translate": true, "src": "Subject", "dst": "Тема"},
+                        {"translate": true, "src": "From", "dst": "Відправник"},
+                        {"translate": true, "src": "To", "dst": "Одержувач"},
+                        {"translate": true, "src": "Sent Date", "dst": "Дата надсилання"},
+                        {"translate": true, "src": "Received Date", "dst": "Дата отримання"},
+                        {"translate": true, "src": "Delivered Date", "dst": "Дата доставки"},
+                        {"translate": true, "src": "Size", "dst": "Розмір"},
+                        {"translate": true, "src": "Profile Name", "dst": "Ім'я профілю"},
+                        {"translate": true, "src": "Connection", "dst": "З'єднання"},
+                        {"translate": true, "src": "Protocol", "dst": "Протокол"},
+                        {"translate": true, "src": "Name", "dst": "Ім'я"},
+                        {"translate": true, "src": "E-mail Address", "dst": "Електронна адреса"},
+                        {"translate": true, "src": "Mail Server", "dst": "Сервер вхідної пошти"},
+                        {"translate": true, "src": "SMTP Server", "dst": "Сервер вихідної пошти (SMTP)"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {"class_name": "Button", "ctrl_id": 148, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 166, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "DanaEditWindowClass",
+                      "ctrl_id": 103,
+                      "control_subtype": "DanaEditWindowClass",
+                      "sdk_role": "BKA_MailBodyView",
+                      "translate": false
+                    },
+                    {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false},
+                    {
+                      "class_name": "AfxWnd",
+                      "ctrl_id": 12562,
+                      "control_subtype": "AfxWnd",
+                      "translate": true,
+                      "rules": [
+                        {"src": "Body", "dst": "Тіло листа"},
+                        {"src": "plain", "dst": "звичайний текст"},
+                        {"src": "html", "dst": "HTML"},
+                        {"src": "delivery-status", "dst": "статус-доставки"},
+                        {"src": "Headers", "dst": "Заголовки"},
+                        {"src": "Memo", "dst": "Нотатка"},
+                        {"src": "disposition-notification", "dst": "підтвердження-прочитання"},
+                        {"src": "rfc822-headers", "dst": "заголовки-rfc822"}
+                      ],
+                      "children": [{"class_name": "msctls_updown32", "ctrl_id": 1053, "control_subtype": "msctls_updown32", "translate": false}]
+                    },
+                    {"class_name": "Static", "ctrl_id": 1006, "control_subtype": "TextStatic", "translate": true, "src": "From: ", "dst": "Від: "},
+                    {"class_name": "Edit", "ctrl_id": 1005, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To: ", "dst": "To: "},
+                    {"class_name": "Edit", "ctrl_id": 115, "control_subtype": "Edit", "translate": true, "mode": "regex", "pattern": "Cc: ", "replace": "Cc: "},
+                    {"class_name": "Static", "ctrl_id": 1008, "control_subtype": "TextStatic", "translate": true, "src": "Subject: ", "dst": "Тема: "},
+                    {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "Дата: "},
+                    {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "Status:"},
+                    {
+                      "class_name": "ComboBox",
+                      "ctrl_id": 1532,
+                      "control_subtype": "DropDownListCombo",
+                      "translate": true,
+                      "items": [
+                        {"index": 0, "src": "Active", "dst": "Активне"},
+                        {"index": 1, "src": "Done", "dst": "Виконано"},
+                        {"index": 2, "src": "Suspended", "dst": "Призупинено"}
+                      ]
+                    },
+                    {
+                      "class_name": "Button",
+                      "ctrl_id": 1068,
+                      "control_subtype": "PushButton",
+                      "translate": true,
+                      "src": "Edit Task",
+                      "dst": "Змінити завдання"
+                    },
+                    {
+                      "class_name": "Button",
+                      "ctrl_id": 1067,
+                      "control_subtype": "PushButton",
+                      "translate": true,
+                      "src": "Delete Task",
+                      "dst": "Видалити завдання"
+                    },
+                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "Далі->"},
+                    {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
+                    {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false},
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {"index": 0, "translate": false, "sample": ""},
+            {"index": 1, "translate": false, "sample": ""},
+            {"index": 2, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "Р:$1$2С:$3$4Ряд:$5$6"},
+            {"index": 3, "translate": true, "mode": "regex", "pattern": "^Unread:(\\s*\\d+)\\s*/\\s*Total:(\\s*\\d+)$", "replace": "Непрочит.:$1 / Усього:$2"},
+            {"index": 4, "translate": false, "sample": "    "},
+            {"index": 5, "translate": false, "sample": "    "}
+          ],
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false, "src": "Fn"},
+            {"class_name": "Static", "ctrl_id": 2424, "control_subtype": "ImageStatic", "translate": false, "src": "Qu"},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 0,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": false, "src": ""},
+                {"class_name": "msctls_progress32", "ctrl_id": 1045, "control_subtype": "msctls_progress32", "translate": false},
+                {"class_name": "Static", "ctrl_id": 1046, "control_subtype": "TextStatic", "translate": false, "src": "0/0"},
+                {"class_name": "Static", "ctrl_id": 1047, "control_subtype": "TextStatic", "translate": false, "src": ""}
+              ]
+            }
+          ]
+        },
+        {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    }
+  }
+}

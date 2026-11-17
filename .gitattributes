@@ -1,0 +1,37 @@
+# Normalize line endings and explicitly mark binary files.
+# Text files are stored with LF in the repository and checked out as LF,
+# which keeps the source tree identical across Windows, Linux and macOS.
+
+# Let Git auto-detect text files by default.
+* text=auto
+
+# Source and build templates
+*.cpp   text eol=lf
+*.hpp   text eol=lf
+*.c     text eol=lf
+*.h     text eol=lf
+*.def   text eol=lf
+*.in    text eol=lf
+
+# Documentation and data
+*.json  text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.txt   text eol=lf
+LICENSE text eol=lf
+
+# Windows shell scripts must keep CRLF if they are ever added.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Binary assets (never normalize or diff as text)
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.dll   binary
+*.lib   binary
+*.exp   binary
+*.pdb   binary
+*.zip   binary
