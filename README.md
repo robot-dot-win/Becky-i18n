@@ -23,9 +23,9 @@
 
 ### The Host Application: Becky! Internet Mail
 
-[**Becky! Internet Mail**](https://www.rimarts.jp/becky.htm) (developed by **RimArts, Inc.**) is a legendary Windows email client with over 20 years of continuous evolution. Written natively in Visual C++ for Win32, it remains a favorite among power users worldwide thanks to its defining characteristics:
+[**Becky! Internet Mail**](https://www.rimarts.jp/becky.htm) (developed by **RimArts, Inc.**) is a legendary Windows email client with over 30 years of continuous evolution. Written natively in Visual C++ for Win32, it remains a favorite among power users worldwide thanks to its defining characteristics:
 
-* **Time-Tested & Actively Maintained**: Over two decades of proven reliability, running seamlessly on the latest Windows releases.
+* **Time-Tested & Actively Maintained**: Over three decades of proven reliability, running seamlessly on the latest Windows releases.
 * **Pure Native Windows Application**: Built directly on Win32/MFC without bloated web frameworks.
 * **Minimal Resource Footprint & Blazing Speed**: Starts instantaneously, consumes a fraction of the memory of modern clients, and handles hundreds of thousands of emails effortlessly.
 * **Rock-Solid Stability**: crash-free in nearly all cases.
