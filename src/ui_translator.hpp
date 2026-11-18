@@ -23,8 +23,27 @@
 
 namespace bki18n {
 
+// 本次插入上下文：TVM_INSERTITEM 同步调用期间，向插入未完成时的 TVN_GETDISPINFOA 提供
+// 根身份/图标（此时 map 尚未记录，且严禁发消息查树），保证节点宽度按译文计算
+struct PendingInsertContext {
+    bool is_root = false;
+    int image_index = -1;
+};
+
 class UiTranslator {
 public:
+    // RAII：在 TVM_INSERTITEMA 调用期间发布本次插入的根身份/图标，供插入期宽度回调读取
+    class ScopedPendingInsert {
+    public:
+        ScopedPendingInsert(bool isRoot, int imageIndex) noexcept;
+        ~ScopedPendingInsert();
+        ScopedPendingInsert(const ScopedPendingInsert&) = delete;
+        ScopedPendingInsert& operator=(const ScopedPendingInsert&) = delete;
+    private:
+        PendingInsertContext ctx_;
+        const PendingInsertContext* prev_;
+    };
+
     static void install_window_hook(HINSTANCE hDll);
     static void uninstall_window_hook();
 

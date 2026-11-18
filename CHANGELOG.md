@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-rc.2] - 2026-11-18
+
+### Changed
+
+- Language packs are now scanned when the UI Language picker is opened
+  instead of during startup, so adding or removing a language file takes
+  effect the next time the picker is opened, without restarting.
+
+### Fixed
+
+- A crash that could terminate the host application when a new mailbox is
+  created and a new root node is inserted into the folder tree.
+- The UI Language picker now always lists English and the currently
+  selected language, even when the active language pack file is missing.
+- When the active language pack is unavailable, the plug-in safely falls
+  back to English and records the fallback in the registry.
+
 ## [1.0.0-rc.1] - 2026-11-17
 
 First public pre-release.

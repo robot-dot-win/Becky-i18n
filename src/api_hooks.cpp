@@ -407,6 +407,7 @@ inline bool IsInterceptedMessageA(UINT msg) noexcept {
         case LVM_INSERTCOLUMNA:
         case LVM_SETCOLUMNA:
         case TVM_INSERTITEMA:
+        case TVM_DELETEITEM:
         case TVM_GETITEMA:
         case TVM_SETITEMA:
         case TCM_INSERTITEMA:
@@ -612,20 +613,55 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
 
             const auto* pInsA = reinterpret_cast<const TVINSERTSTRUCTA*>(lParam);
             if (!is_memory_readable(pInsA, sizeof(TVINSERTSTRUCTA))) break;
-            if ((pInsA->item.mask & TVIF_TEXT) == 0 || !is_valid_user_mode_ptr(reinterpret_cast<LPARAM>(pInsA->item.pszText))) break;
 
-            int imgIdx = (pInsA->item.mask & TVIF_IMAGE) ? pInsA->item.iImage : -1;
-            std::wstring wItemText = I18nManager::ansi_to_wide(pInsA->item.pszText);
-            if (auto trans = I18nManager::instance().translate_tree_item(rules, imgIdx, wItemText)) {
-                ScopedHookGuard guard;
-                TVINSERTSTRUCTW insW{};
-                std::memcpy(&insW, pInsA, sizeof(TVINSERTSTRUCTA));
-                insW.item.pszText = const_cast<LPWSTR>(trans->c_str());
-                LRESULT hNewItem = ::SendMessageW(hWnd, TVM_INSERTITEMW, wParam, reinterpret_cast<LPARAM>(&insW));
+            const bool isRoot = (pInsA->hParent == nullptr || pInsA->hParent == TVI_ROOT);
+            const int insertImg = (pInsA->item.mask & TVIF_IMAGE) ? pInsA->item.iImage : -1;
+            const bool isCallback = (pInsA->item.pszText == LPSTR_TEXTCALLBACK);
+
+            // 仅实体文本节点（非 LPSTR_TEXTCALLBACK）需要在插入时翻译；
+            // callback 节点保持原样，翻译统一留给 TVN_GETDISPINFOA。
+            if (!isCallback && (pInsA->item.mask & TVIF_TEXT) &&
+                is_valid_user_mode_ptr(reinterpret_cast<LPARAM>(pInsA->item.pszText))) {
+
+                std::wstring wItemText = I18nManager::ansi_to_wide(pInsA->item.pszText);
+                if (auto trans = I18nManager::instance().translate_tree_item(rules, insertImg, wItemText)) {
+                    ScopedHookGuard guard;
+                    const std::string transAnsi = I18nManager::wide_to_ansi(*trans);
+                    // 只复制结构体本身（TVINSERTSTRUCTA，不含 TVITEMEX 扩展尾部），
+                    // pszText 指向本次同步调用期间有效的局部缓冲，仍走 ANSI 插入，
+                    // 杜绝整结构 memcpy 改 W 与 TVITEMEX 垃圾导致的重入/AV。
+                    TVINSERTSTRUCTA insLocal = *pInsA;
+                    insLocal.item.pszText = const_cast<LPSTR>(transAnsi.c_str());
+                    LRESULT hNewItem = fpOrigSendMessageA(hWnd, TVM_INSERTITEMA, wParam,
+                                                          reinterpret_cast<LPARAM>(&insLocal));
+                    if (hNewItem) {
+                        auto* hNew = reinterpret_cast<HTREEITEM>(hNewItem);
+                        I18nManager::instance().record_tree_item_orig_text(hNew, pInsA->item.pszText);
+                        I18nManager::instance().record_tree_item_state(hNew, isRoot, insertImg);
+                    }
+                    return hNewItem;
+                }
+            }
+
+            // callback 节点或无需翻译：发布本次插入上下文，使插入未完成时的宽度回调能安全
+            // 翻译（不能用 ScopedHookGuard 屏蔽，否则宽度按英文算导致译文截断）；返回后再
+            // 记录 map，保证 B2 拿到句柄前缓存已就绪。
+            {
+                UiTranslator::ScopedPendingInsert pending(isRoot, insertImg);
+                LRESULT hNewItem = fpOrigSendMessageA(hWnd, TVM_INSERTITEMA, wParam, lParam);
                 if (hNewItem) {
-                    I18nManager::instance().record_tree_item_orig_text(reinterpret_cast<HTREEITEM>(hNewItem), pInsA->item.pszText);
+                    I18nManager::instance().record_tree_item_state(
+                        reinterpret_cast<HTREEITEM>(hNewItem), isRoot, insertImg);
                 }
                 return hNewItem;
+            }
+        }
+
+        case TVM_DELETEITEM: {
+            // lParam 是 TVITEM(EX)，首字段布局兼容，只需 hItem；删除前移除该句柄全部缓存。
+            const auto* pDel = reinterpret_cast<const TVITEMA*>(lParam);
+            if (is_memory_readable(pDel, sizeof(TVITEMA)) && pDel->hItem) {
+                I18nManager::instance().forget_tree_item(pDel->hItem);
             }
             break;
         }
@@ -641,11 +677,9 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
             ScopedHookGuard guard;
             int imgIdx = pItemA->iImage;
             if ((pItemA->mask & TVIF_IMAGE) == 0 && pItemA->hItem != nullptr) {
-                TVITEMW tvQuery{};
-                tvQuery.mask = TVIF_HANDLE | TVIF_IMAGE;
-                tvQuery.hItem = pItemA->hItem;
-                if (::SendMessageW(hWnd, TVM_GETITEMW, 0, reinterpret_cast<LPARAM>(&tvQuery))) {
-                    imgIdx = tvQuery.iImage;
+                // 只查插入边界缓存，绝不向树重发 TVM_GETITEMW（重入风险）
+                if (auto st = I18nManager::instance().get_tree_item_state(pItemA->hItem)) {
+                    imgIdx = st->image_index;
                 }
             }
 
@@ -654,10 +688,12 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
                 if (pItemA->hItem) {
                     I18nManager::instance().record_tree_item_orig_text(pItemA->hItem, pItemA->pszText);
                 }
-                TVITEMW itemW{};
-                std::memcpy(&itemW, pItemA, sizeof(TVITEMA));
-                itemW.pszText = const_cast<LPWSTR>(trans->c_str());
-                return ::SendMessageW(hWnd, TVM_SETITEMW, wParam, reinterpret_cast<LPARAM>(&itemW));
+                // 保持 ANSI 路径：复制 TVITEMA 本身，pszText 指向本次调用有效的局部缓冲
+                const std::string transAnsi = I18nManager::wide_to_ansi(*trans);
+                TVITEMA itemLocal = *pItemA;
+                itemLocal.pszText = const_cast<LPSTR>(transAnsi.c_str());
+                return fpOrigSendMessageA(hWnd, TVM_SETITEMA, wParam,
+                                          reinterpret_cast<LPARAM>(&itemLocal));
             }
             break;
         }
@@ -1042,6 +1078,7 @@ BOOL WINAPI DetourExtTextOutW(HDC hdc, int x, int y, UINT options, const RECT* l
 
 // 邮件内容面板底部自绘页签条 (AfxWnd, ctrl_id: 12562) 测量与绘制拦截：
 // 同时覆盖窗口消息内绘制、CClientDC 直接绘制，以及切换邮件时 C++ 直接向离屏内存双缓冲 DC 的绘制。
+
 int WINAPI DetourDrawTextA(HDC hdc, LPCSTR lpchText, int cchText, LPRECT lprc, UINT format) {
     try {
         if (!g_inDrawTextDetour && !(format & DT_MODIFYSTRING) &&
@@ -1067,7 +1104,9 @@ int WINAPI DetourDrawTextA(HDC hdc, LPCSTR lpchText, int cchText, LPRECT lprc, U
                                                    IsMailTabLabelPattern(sv);
 
                 if (isDirectTabContext || isOffscreenTabContext) {
-                    if (auto trans = I18nManager::instance().translate_mail_tab_text(sv)) {
+                    auto trans = I18nManager::instance().translate_mail_tab_text(sv);
+                    if (trans) {
+                        // 页签条字号本就与左侧树根节点一致、比常规字号大两号，属宿主固有设计，保持 W 通道原样输出。
                         g_inDrawTextDetour = true;
                         int ret = ::DrawTextW(hdc, trans->c_str(), static_cast<int>(trans->size()), lprc, format);
                         g_inDrawTextDetour = false;

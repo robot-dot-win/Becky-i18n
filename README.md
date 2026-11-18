@@ -43,11 +43,11 @@ Internally, Becky! uses **ANSI MBCS encoding** with UI strings hardcoded inside 
 
 ---
 
-## Project Status & Roadmap (`pre-release1`)
+## Project Status & Roadmap
 
-This repository is currently at **`pre-release1`**. The core translation engine, safety guards, Main Window, Menu System, UI Language Picker Dialog, and 14 international language packs are complete and tested.
+This repository is currently at the pre-release stage **`v1.0.0-rc.2`**. The core translation engine, safety guards, Main Window, Menu System, UI Language Picker Dialog, and 14 international language packs are complete and tested.
 
-### Completed in `pre-release1`
+### Completed
 
 * ✅ **Main Window**:
   * System Folder TreeView and dynamic root nodes.

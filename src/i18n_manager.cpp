@@ -389,29 +389,35 @@ void I18nManager::init(HINSTANCE hDll) {
         startup_locale_ = "en_US";
     }
 
-    const auto localeDir = get_locale_dir(hDll);
-    scan_available_locales(localeDir);
-
-    // 匹配当前启动语言的 Meta 信息（用于 About 窗口显示）
-    for (const auto& meta : available_locales_) {
-        if (meta.id == startup_locale_) {
-            active_meta_ = meta;
-            break;
-        }
-    }
-
+    // 启动时不再枚举语言目录。active_meta_ 默认即 en_US；非 en_US 时由
+    // load_locale_json 从该语言包的 meta 填充（用于 About 窗口显示）。
     if (startup_locale_ == "en_US") {
         active_ = false;
         return;
     }
 
+    const auto localeDir = get_locale_dir(hDll);
     const auto targetJson = localeDir / (startup_locale_ + ".json");
-    active_ = load_locale_json(targetJson);
+    if (load_locale_json(targetJson)) {
+        active_ = true;
+        return;
+    }
+
+    // 当前语言包缺失或无法加载：回退内置英文，并把注册表同步为 en_US，
+    // 避免注册表与实际生效语言长期不一致（active_meta_ 还原为默认 en_US）。
+    BKI_LOG_WARN("selected locale pack unavailable, fallback to en_US: " << startup_locale_);
+    startup_locale_ = "en_US";
+    active_meta_ = LocaleMeta{
+        "en_US",
+        L"English (en_US)",
+        L"(Becky! native)",
+        L"(Becky! native)"
+    };
+    active_ = false;
+    write_reg_locale("en_US");
 }
 
-void I18nManager::scan_available_locales(const std::filesystem::path& localeDir) {
-    available_locales_.clear();
-
+std::vector<LocaleMeta> I18nManager::scan_available_locales(const std::filesystem::path& localeDir) {
     LocaleMeta defaultEn{
         "en_US",
         L"English (en_US)",
@@ -421,8 +427,7 @@ void I18nManager::scan_available_locales(const std::filesystem::path& localeDir)
 
     std::error_code ec;
     if (!std::filesystem::exists(localeDir, ec) || !std::filesystem::is_directory(localeDir, ec)) {
-        available_locales_.push_back(std::move(defaultEn));
-        return;
+        return std::vector<LocaleMeta>{std::move(defaultEn)};
     }
 
     std::vector<LocaleMeta> others;
@@ -442,7 +447,7 @@ void I18nManager::scan_available_locales(const std::filesystem::path& localeDir)
             BKI_LOG_WARN("skip locale file with invalid id: " << stem);
             continue;
         }
-        // 语言包数量上限，防止目录塞满导致启动卡死
+        // 语言包数量上限，防止目录塞满导致扫描卡死
         if (scanned >= limits::kMaxLocaleFiles) {
             BKI_LOG_WARN("locale file count exceeds limit, ignore remaining files");
             break;
@@ -490,10 +495,13 @@ void I18nManager::scan_available_locales(const std::filesystem::path& localeDir)
         return a.id < b.id;
     });
 
-    available_locales_.push_back(std::move(defaultEn));
+    std::vector<LocaleMeta> result;
+    result.reserve(others.size() + 1);
+    result.push_back(std::move(defaultEn));
     for (auto& item : others) {
-        available_locales_.push_back(std::move(item));
+        result.push_back(std::move(item));
     }
+    return result;
 }
 
 void I18nManager::parse_regex_rules(const nlohmann::json& j, std::vector<CompiledRegexRule>& outRules) {
@@ -1045,9 +1053,26 @@ bool I18nManager::load_locale_json(const std::filesystem::path& jsonPath) {
     access_key_pattern_ = L"as_is";
     access_key_as_is_ = true;
 
-    // 读取 meta 中的 access_key 配置
+    // 读取 meta：填充当前语言包元信息（用于 About），并读取 access_key 配置
     if (root.contains("meta") && root["meta"].is_object()) {
         const auto& jm = root["meta"];
+
+        // 当前语言包元信息，缺省回退到 locale id 与占位值
+        active_meta_.id = startup_locale_;
+        active_meta_.display_name = utf8_to_wide(startup_locale_);
+        active_meta_.version = L"1.0.0";
+        active_meta_.author = L"Unknown";
+        if (jm.contains("name") && jm["name"].is_string()) {
+            const std::string nm = jm["name"].get<std::string>();
+            if (!nm.empty()) active_meta_.display_name = utf8_to_wide(nm);
+        }
+        if (jm.contains("version") && jm["version"].is_string()) {
+            active_meta_.version = utf8_to_wide(jm["version"].get<std::string>());
+        }
+        if (jm.contains("author") && jm["author"].is_string()) {
+            active_meta_.author = utf8_to_wide(jm["author"].get<std::string>());
+        }
+
         std::string ak = jm.value("access_key", "");
         CheckString(ak, "meta.access_key");
         if (!ak.empty()) {
@@ -1747,6 +1772,38 @@ std::optional<std::string> I18nManager::get_tree_item_orig_text(HTREEITEM hItem)
     return std::nullopt;
 }
 
+void I18nManager::record_tree_item_state(HTREEITEM hItem, bool isRoot, int imageIndex) {
+    if (!hItem) return;
+    std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
+    tree_item_state_[hItem] = TreeItemState{isRoot, imageIndex};
+}
+
+std::optional<TreeItemState> I18nManager::get_tree_item_state(HTREEITEM hItem) const {
+    if (!hItem) return std::nullopt;
+    std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
+    auto it = tree_item_state_.find(hItem);
+    if (it != tree_item_state_.end()) {
+        return it->second;
+    }
+    return std::nullopt;
+}
+
+void I18nManager::forget_tree_item(HTREEITEM hItem) {
+    if (!hItem) return;
+    std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
+    tree_item_state_.erase(hItem);
+    tree_item_orig_text_.erase(hItem);
+}
+
+void I18nManager::update_tree_item_image(HTREEITEM hItem, int imageIndex) {
+    if (!hItem || imageIndex < 0) return;
+    std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
+    auto it = tree_item_state_.find(hItem);
+    if (it != tree_item_state_.end() && it->second.image_index < 0) {
+        it->second.image_index = imageIndex;
+    }
+}
+
 void I18nManager::on_window_destroyed(HWND hWnd) {
     if (!hWnd) return;
     std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
@@ -1759,6 +1816,7 @@ void I18nManager::on_window_destroyed(HWND hWnd) {
         // 代价仅是其余窗口下次访问时重新计算，无正确性影响。
         control_rule_cache_.clear();
         tree_item_orig_text_.clear();
+        tree_item_state_.clear();
     }
 }
 

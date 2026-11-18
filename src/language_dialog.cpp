@@ -19,6 +19,7 @@
 #include "i18n_manager.hpp"
 #include "logger.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -116,15 +117,18 @@ INT_PTR CALLBACK LanguageDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lPa
     try {
         switch (uMsg) {
             case WM_INITDIALOG: {
+                auto* locales = reinterpret_cast<std::vector<LocaleMeta>*>(lParam);
+                ::SetWindowLongPtrW(hDlg, GWLP_USERDATA, lParam);
+                if (!locales) return FALSE;
+
                 HWND hCombo = ::GetDlgItem(hDlg, IDC_LANG_COMBO);
-                const auto& locales = I18nManager::instance().available_locales();
                 const std::string current = read_reg_locale();
 
                 int selected = 0;
-                for (size_t i = 0; i < locales.size(); ++i) {
+                for (size_t i = 0; i < locales->size(); ++i) {
                     ::SendMessageW(hCombo, CB_ADDSTRING, 0,
-                                   reinterpret_cast<LPARAM>(locales[i].display_name.c_str()));
-                    if (locales[i].id == current) {
+                                   reinterpret_cast<LPARAM>((*locales)[i].display_name.c_str()));
+                    if ((*locales)[i].id == current) {
                         selected = static_cast<int>(i);
                     }
                 }
@@ -136,15 +140,14 @@ INT_PTR CALLBACK LanguageDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lPa
             case WM_COMMAND: {
                 const WORD id = LOWORD(wParam);
                 if (id == IDOK) {
+                    auto* locales = reinterpret_cast<std::vector<LocaleMeta>*>(
+                        ::GetWindowLongPtrW(hDlg, GWLP_USERDATA));
                     HWND hCombo = ::GetDlgItem(hDlg, IDC_LANG_COMBO);
                     const int sel = static_cast<int>(
                         ::SendMessageW(hCombo, CB_GETCURSEL, 0, 0));
-                    if (sel >= 0) {
-                        const auto& locales =
-                            I18nManager::instance().available_locales();
-                        if (static_cast<size_t>(sel) < locales.size()) {
-                            write_reg_locale(locales[sel].id);
-                        }
+                    if (locales && sel >= 0 &&
+                        static_cast<size_t>(sel) < locales->size()) {
+                        write_reg_locale((*locales)[sel].id);
                     }
                     ::EndDialog(hDlg, IDOK);
                     return TRUE;
@@ -171,6 +174,26 @@ INT_PTR CALLBACK LanguageDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lPa
 void LanguageDialog::show(HINSTANCE hInstance, HWND hParent) {
     ScopedHookGuard guard;
 
+    // 每次打开都重新扫描 locale 目录，运行期间增删语言文件立即生效
+    std::vector<LocaleMeta> locales =
+        I18nManager::instance().scan_available_locales(get_locale_dir(hInstance));
+
+    // 即使当前语言文件已被删除，列表也要保证至少包含英文与当前语言，
+    // 否则下拉框会因找不到当前项而退化显示为第一项（英文）。
+    const std::string current = read_reg_locale();
+    const bool hasCurrent = std::any_of(locales.begin(), locales.end(),
+        [&](const LocaleMeta& m) { return m.id == current; });
+    if (!hasCurrent) {
+        // 当前语言文件在运行期间被删除：init 已成功加载并缓存其 meta，
+        // 直接复用内存中的 display_name，避免退化成裸 id；对用户自行新增的
+        // 语言同样成立，无需在代码里维护任何静态名称映射表。
+        LocaleMeta placeholder = I18nManager::instance().active_locale_meta();
+        placeholder.id = current;
+        placeholder.version = L"(file missing)";
+        placeholder.author = L"(file missing)";
+        locales.push_back(std::move(placeholder));
+    }
+
     DialogTemplateBuilder builder;
     builder.begin_dialog(300, 129, L"UI Language", L"MS Shell Dlg", 9);
 
@@ -190,7 +213,8 @@ void LanguageDialog::show(HINSTANCE hInstance, HWND hParent) {
     builder.add_item(0x0080, WS_TABSTOP,
                      243, 108, 50, 14, IDCANCEL, L"Cancel");
 
-    ::DialogBoxIndirectParamW(hInstance, builder.data(), hParent, LanguageDlgProc, 0);
+    ::DialogBoxIndirectParamW(hInstance, builder.data(), hParent, LanguageDlgProc,
+                              reinterpret_cast<LPARAM>(&locales));
 }
 
 } // namespace bki18n

@@ -37,6 +37,10 @@ bool g_treeFirstPaintPrimed = false;
 bool g_treePrimingInProgress = false;
 bool g_treeTranslationObserved = false;
 
+// 本次插入上下文指针：仅在 TVM_INSERTITEM 同步调用期间非空，由 ScopedPendingInsert 管理，
+// 支持嵌套插入（构造时保存、析构时恢复外层上下文）
+static thread_local const PendingInsertContext* tls_pending_insert = nullptr;
+
 // B2 通用文件夹/账号固定图标索引（账号、用户文件夹、保存的查询容器均使用此图标）。
 // 根级动态图标节点（如 Mail Query 的 Query Result）使用运行时分配的高索引，不会是该值。
 constexpr int kGenericFolderImage = 5;
@@ -115,7 +119,8 @@ LRESULT CALLBACK TreeParentSubclassProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPA
     try {
         ret = ::CallWindowProcA(g_origTreeParentWndProc, hWnd, uMsg, wParam, lParam);
 
-        if (uMsg == WM_NOTIFY && !ScopedHookGuard::in_hook() &&
+        if (uMsg == WM_NOTIFY &&
+            (!ScopedHookGuard::in_hook() || tls_pending_insert != nullptr) &&
             I18nManager::instance().is_active() &&
             is_valid_user_mode_ptr(reinterpret_cast<const void*>(lParam))) {
             // 解引用前先做 SEH 探针：先探测 NMHDR 头部，再探测整个 NMTVDISPINFOA
@@ -135,58 +140,69 @@ LRESULT CALLBACK TreeParentSubclassProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPA
                     ScopedHookGuard guard;
                     auto rules = I18nManager::instance().find_control_rules(g_hSubclassedTree);
                     if (!rules.empty()) {
-                        int imgIdx = pDispA->item.iImage;
-                        if ((pDispA->item.mask & TVIF_IMAGE) == 0 &&
-                            pDispA->item.hItem != nullptr) {
-                            TVITEMW tvImg{};
-                            tvImg.mask = TVIF_HANDLE | TVIF_IMAGE;
-                            tvImg.hItem = pDispA->item.hItem;
-                            if (::SendMessageW(g_hSubclassedTree, TVM_GETITEMW, 0,
-                                               reinterpret_cast<LPARAM>(&tvImg))) {
-                                imgIdx = tvImg.iImage;
+                        // 重入红线：本回调内绝不再向这棵树发任何 TVM_*。
+                        // 插入期 map 尚未记录，用本次插入上下文；否则查插入边界缓存。
+                        // 两者都无则本次放弃翻译，节点稳定后的下次绘制会命中，记录仍在。
+                        // 通知自带 TVIF_IMAGE 时这是最可靠的真实图标，先回写缓存
+                        // （插入时 mask 常无 TVIF_IMAGE，record 的是 -1），供后续仅
+                        // TVIF_TEXT 的回调使用；只操作内部表，不发任何 TVM_*，无重入
+                        const bool notifyHasImage = (pDispA->item.mask & TVIF_IMAGE) != 0;
+                        if (notifyHasImage && pDispA->item.hItem) {
+                            I18nManager::instance().update_tree_item_image(
+                                pDispA->item.hItem, pDispA->item.iImage);
+                        }
+
+                        int imgIdx = -1;
+                        bool isRoot = false;
+                        bool haveMeta = false;
+
+                        if (const auto* pending = tls_pending_insert) {
+                            // 插入期：通知有图标用通知，否则用插入上下文
+                            imgIdx = notifyHasImage ? pDispA->item.iImage : pending->image_index;
+                            isRoot = pending->is_root;
+                            haveMeta = true;
+                        } else if (const auto cached =
+                                   I18nManager::instance().get_tree_item_state(pDispA->item.hItem)) {
+                            // 正常期：通知有图标用通知，否则用缓存（回写后即为真实图标）
+                            imgIdx = notifyHasImage ? pDispA->item.iImage : cached->image_index;
+                            isRoot = cached->is_root;
+                            haveMeta = true;
+                        }
+
+                        if (haveMeta) {
+                            const std::wstring wOrig =
+                                I18nManager::ansi_to_wide(pDispA->item.pszText);
+
+                            // 根级且图标非通用文件夹(5)：走 root_nodes 精确匹配；
+                            // 其余节点走常规 image_indices。账号名(图标5)不翻译。
+                            std::optional<std::wstring> trans;
+                            if (isRoot && imgIdx != kGenericFolderImage) {
+                                trans = I18nManager::instance().translate_root_item(rules, wOrig);
                             }
-                        }
+                            if (!trans) {
+                                trans = I18nManager::instance().translate_tree_item(
+                                    rules, imgIdx, wOrig);
+                            }
+                            if (trans) {
+                                const std::string transAnsi =
+                                    I18nManager::wide_to_ansi(*trans);
+                                if (!transAnsi.empty()) {
+                                    static thread_local char s_treeTextBufA[256]{};
+                                    strncpy_s(s_treeTextBufA, transAnsi.c_str(), _TRUNCATE);
 
-                        std::wstring wOrig = I18nManager::ansi_to_wide(pDispA->item.pszText);
-
-                        // 根级动态图标节点（如 Mail Query 的 Query Result）：图像索引运行时
-                        // 动态分配、无法纳入静态 image_indices。先用 img!=5（通用文件夹/账号
-                        // 固定图标）做零成本闸门，再以 TVGN_PARENT 确认其为根级，命中
-                        // root_nodes 才翻译；其余节点回退到常规 image_indices 匹配。
-                        bool isRootItem = false;
-                        if (imgIdx != kGenericFolderImage && pDispA->item.hItem != nullptr) {
-                            // TVGN_PARENT 只返回父节点句柄、不取文本，不会重入 TVN_GETDISPINFO
-                            HTREEITEM hParent = reinterpret_cast<HTREEITEM>(::SendMessageW(
-                                g_hSubclassedTree, TVM_GETNEXTITEM, TVGN_PARENT,
-                                reinterpret_cast<LPARAM>(pDispA->item.hItem)));
-                            isRootItem = (hParent == nullptr);
-                        }
-
-                        std::optional<std::wstring> trans;
-                        if (isRootItem) {
-                            trans = I18nManager::instance().translate_root_item(rules, wOrig);
-                        }
-                        if (!trans) {
-                            trans = I18nManager::instance().translate_tree_item(
-                                rules, imgIdx, wOrig);
-                        }
-                        if (trans) {
-                            std::string transAnsi = I18nManager::wide_to_ansi(*trans);
-                            if (!transAnsi.empty()) {
-                                static thread_local char s_treeTextBufA[256]{};
-                                strncpy_s(s_treeTextBufA, transAnsi.c_str(), _TRUNCATE);
-
-                                if (pDispA->item.cchTextMax > 0) {
-                                    strncpy_s(pDispA->item.pszText,
-                                              static_cast<size_t>(pDispA->item.cchTextMax),
-                                              s_treeTextBufA, _TRUNCATE);
-                                } else {
-                                    pDispA->item.pszText = s_treeTextBufA;
+                                    // 仅当调用方提供可写缓冲时写入；cchTextMax==0 表示
+                                    // 不接收文本，跳过且不修改 pszText 指针（改了也不会被读取）
+                                    if (pDispA->item.cchTextMax > 0) {
+                                        strncpy_s(pDispA->item.pszText,
+                                                  static_cast<size_t>(pDispA->item.cchTextMax),
+                                                  s_treeTextBufA, _TRUNCATE);
+                                    }
+                                    // 清掉 TVIF_DI_SETITEM，使节点永久保持
+                                    // LPSTR_TEXTCALLBACK 回调状态
+                                    pDispA->item.mask &= ~TVIF_DI_SETITEM;
+                                    // 记录本周期确实写入过译文，供树子类判断纠正是否生效
+                                    g_treeTranslationObserved = true;
                                 }
-                                // 清掉 TVIF_DI_SETITEM，使节点永久保持 LPSTR_TEXTCALLBACK 回调状态
-                                pDispA->item.mask &= ~TVIF_DI_SETITEM;
-                                // 记录本周期确实写入过译文，供树子类判断纠正是否生效
-                                g_treeTranslationObserved = true;
                             }
                         }
                     }
@@ -301,6 +317,15 @@ void RestoreTreeSubclasses() {
 }
 
 } // namespace
+
+UiTranslator::ScopedPendingInsert::ScopedPendingInsert(bool isRoot, int imageIndex) noexcept
+    : ctx_{isRoot, imageIndex}, prev_(tls_pending_insert) {
+    tls_pending_insert = &ctx_;
+}
+
+UiTranslator::ScopedPendingInsert::~ScopedPendingInsert() {
+    tls_pending_insert = prev_;
+}
 
 void UiTranslator::install_window_hook(HINSTANCE hDll) {
     if (!s_hWndHook_ && I18nManager::instance().is_active()) {

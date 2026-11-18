@@ -53,6 +53,13 @@ struct LocaleMeta {
     std::wstring author;        // 例如 L"Martin Young"
 };
 
+// 树节点插入边界缓存：根身份与图标索引在 TVM_INSERTITEM 返回后记录，
+// 供 TVN_GETDISPINFOA 只读查询，避免回调期间向树重发消息
+struct TreeItemState {
+    bool is_root = false;
+    int image_index = -1;
+};
+
 // 正则替换规则
 struct CompiledRegexRule {
     std::wregex pattern;
@@ -207,8 +214,9 @@ public:
     // 启动时生效的语言元信息（用于 About 窗口展示）
     const LocaleMeta& active_locale_meta() const noexcept { return active_meta_; }
 
-    // 所有扫描到的可用语言包列表（含 en_US，用于构建 Tools -> UI Language 菜单）
-    const std::vector<LocaleMeta>& available_locales() const noexcept { return available_locales_; }
+    // 扫描 locale 目录得到当前可用语言包列表（含 en_US）。每次打开 UI Language 对话框时调用，
+    // 不做常驻缓存，因此运行期间增删语言文件可立即生效。
+    std::vector<LocaleMeta> scan_available_locales(const std::filesystem::path& localeDir);
 
     // 根据 meta.access_key 模板（如 "as_is", "$1(&2)$3", "[&2]$1$3"）格式化译文
     std::wstring apply_access_key_format(std::wstring_view rawSrcWide, std::wstring_view rawDstWide) const;
@@ -273,6 +281,15 @@ public:
     void record_tree_item_orig_text(HTREEITEM hItem, std::string_view origText);
     std::optional<std::string> get_tree_item_orig_text(HTREEITEM hItem) const;
 
+    // 插入返回后记录节点根身份与图标；查询不到返回 nullopt，调用方据此放弃本次翻译，
+    // 绝不回头发 TVM_* 消息；forget 在 TVM_DELETEITEM 时移除该句柄的全部缓存
+    void record_tree_item_state(HTREEITEM hItem, bool isRoot, int imageIndex);
+    std::optional<TreeItemState> get_tree_item_state(HTREEITEM hItem) const;
+    void forget_tree_item(HTREEITEM hItem);
+    // 带 TVIF_IMAGE 的回调拿到真实图标时回写：仅当缓存图标仍为无效(-1)时更新，
+    // 使后续仅 TVIF_TEXT 的回调也能按真实图标通过 image_indices 闸门
+    void update_tree_item_image(HTREEITEM hItem, int imageIndex);
+
     // 使用控件规则翻译状态栏分格文本（msctls_statusbar32，含 Pane 0 菜单 Hint 匹配）
     std::optional<std::wstring> translate_status_pane(const std::vector<const ControlRule*>& rules,
                                                       int paneIndex,
@@ -301,7 +318,6 @@ public:
 private:
     I18nManager() = default;
 
-    void scan_available_locales(const std::filesystem::path& localeDir);
     bool load_locale_json(const std::filesystem::path& jsonPath);
 
     MenuNodeRule parse_menu_node(const nlohmann::json& j, unsigned depth, bool defaultIsPopup = false) const;
@@ -325,7 +341,6 @@ private:
     bool access_key_as_is_{true};
     std::wstring access_key_pattern_{L"as_is"};
 
-    std::vector<LocaleMeta> available_locales_;
     std::unordered_map<std::string, WindowRule> windows_;
 
     // rev12：三窗口各自的 popup 菜单骨架（顶层 menus.popups，键为 main_frame/compose/address）
@@ -356,6 +371,8 @@ private:
     // 临时状态，不做负缓存以免固化）。指针指向 windows_ 内节点，运行期只读、地址稳定
     mutable std::unordered_map<HWND, std::vector<const ControlRule*>> control_rule_cache_;
     std::unordered_map<HTREEITEM, std::string> tree_item_orig_text_;
+    // HTREEITEM -> 插入边界缓存的根身份与图标索引
+    std::unordered_map<HTREEITEM, TreeItemState> tree_item_state_;
 };
 
 } // namespace bki18n
