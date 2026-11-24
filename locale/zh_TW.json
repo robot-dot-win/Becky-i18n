@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "zh_TW", "name": "繁體中文 (zh_TW)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "meta": {"locale": "zh_TW", "name": "繁體中文 (zh_TW)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -704,10 +704,12 @@
       {
         "cmd_id": 32933,
         "translate": true,
-        "src": "Related ML:",
-        "dst": "關聯郵件清單：",
+        "dst": "關聯郵件清單(&R)：$1",
         "hint_src": "Associate the folder with a mailing list",
-        "hint_dst": "將資料夾與郵件清單建立關聯"
+        "hint_dst": "將資料夾與郵件清單建立關聯",
+        "mode": "regex",
+        "pattern": "^Related ML(?:: ?(.*))?$",
+        "as_is": true
       },
       {"cmd_id": 32935, "translate": true, "src": "Property", "dst": "內容", "hint_src": "Show the property of the selected item", "hint_dst": "顯示所選项目的內容"},
       {
@@ -990,7 +992,9 @@
         "src": "Add Agent(Z)",
         "dst": "新增代理工作",
         "hint_src": "Assign Agent to the selected messages.",
-        "hint_dst": "為所選郵件指派代理工作"
+        "hint_dst": "為所選郵件指派代理工作",
+        "tooltip_src": "Assign Agent to this message and give him/her tasks",
+        "tooltip_dst": "為此郵件指派代理並新增工作"
       },
       {
         "cmd_id": 33013,
@@ -1128,7 +1132,7 @@
           {"src": "Becky! PGP Plug-In", "dst": "PGP 加密外掛程式"},
           {"src": "Becky! Voice Message Plug-in", "dst": "語音郵件外掛程式"},
           {"src": "Becky! UI Inspector", "dst": "UI Inspector 外掛程式"},
-          {"src": "Becky! I18n", "dst": "多國語言外掛程式"}
+          {"src": "Becky! I18n", "dst": "介面語言外掛程式"}
         ]
       },
       {
@@ -1201,7 +1205,7 @@
                   "control_subtype": "SysTreeView32",
                   "sdk_role": "BKA_FolderTreeView",
                   "translate": true,
-                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 38, 39],
                   "root_nodes": [{"src": "Query Result", "dst": "查詢結果"}],
                   "items": [
                     {"src": "Inbox", "dst": "收件匣"},
@@ -1209,7 +1213,8 @@
                     {"src": "Draft", "dst": "草稿匣"},
                     {"src": "Sent", "dst": "寄件備份"},
                     {"src": "Reminder", "dst": "備忘錄"},
-                    {"src": "Trash", "dst": "垃圾桶"}
+                    {"src": "Trash", "dst": "垃圾桶"},
+                    {"src": "Tasks", "dst": "工作"}
                   ]
                 },
                 {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
@@ -1243,6 +1248,9 @@
                         {"translate": true, "src": "Received Date", "dst": "接收日期"},
                         {"translate": true, "src": "Delivered Date", "dst": "投遞日期"},
                         {"translate": true, "src": "Size", "dst": "大小"},
+                        {"translate": true, "src": "Deadline", "dst": "截止期限"},
+                        {"translate": true, "src": "Comment", "dst": "備註"},
+                        {"translate": true, "src": "????", "dst": "備註"},
                         {"translate": true, "src": "Profile Name", "dst": "設定檔名稱"},
                         {"translate": true, "src": "Connection", "dst": "連線方式"},
                         {"translate": true, "src": "Protocol", "dst": "通訊協定"},
@@ -1252,7 +1260,8 @@
                         {"translate": true, "src": "SMTP Server", "dst": "傳送伺服器 (SMTP)"}
                       ]
                     }
-                  ]
+                  ],
+                  "gdi_patterns": [{"pattern": "\\{Need to Reply\\}", "replace": "{待回覆}"}, {"pattern": "\\{Follow the Topic\\}", "replace": "{關注話題}"}]
                 },
                 {
                   "class_name": "#32770",
@@ -1295,7 +1304,7 @@
                     {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
                     {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "日期: "},
                     {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
-                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "狀態:"},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status", "dst": "狀態"},
                     {
                       "class_name": "ComboBox",
                       "ctrl_id": 1532,
@@ -1309,10 +1318,25 @@
                     },
                     {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Edit Task", "dst": "編輯工作"},
                     {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete Task", "dst": "刪除工作"},
-                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "Button",
+                      "ctrl_id": 1069,
+                      "control_subtype": "PushButton",
+                      "translate": true,
+                      "rules": [{"src": "To Original", "dst": "返回原位"}, {"src": "To \"Tasks\"", "dst": "列入工作"}]
+                    },
                     {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "下一個->"},
                     {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
                     {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ],
+                  "gdi_patterns": [
+                    {"pattern": "^Task:\\s*Need to Reply", "replace": "工作: 待回覆"},
+                    {"pattern": "^Task:\\s*Follow the Topic", "replace": "工作: 關注話題"},
+                    {"pattern": "^Deadline:\\s*-\\s*\\(\\s*-\\s+more days?\\s*\\)\\s*$", "replace": "Deadline:"},
+                    {"pattern": "\\(\\s*-\\s+more days?\\s*\\)", "replace": ""},
+                    {"pattern": "^Deadline:", "replace": "截止:"},
+                    {"pattern": "more days?", "replace": "天後"},
+                    {"pattern": "^Comment:", "replace": "備註:"}
                   ]
                 }
               ]
@@ -1351,6 +1375,130 @@
           ]
         },
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    },
+    "Becky2ComposeFrame:Compose": {
+      "class_name": "Becky2ComposeFrame",
+      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "撰寫 - $1"}},
+      "children": [
+        {
+          "class_name": "AfxMDIFrame140s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame140s",
+          "translate": false,
+          "children": [
+            {"class_name": "DanaEditWindowClass", "ctrl_id": 59648, "control_subtype": "DanaEditWindowClass", "translate": false},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59664,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "DanaEditWindowClass", "ctrl_id": 103, "control_subtype": "DanaEditWindowClass", "translate": false},
+                {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false}
+              ]
+            }
+          ]
+        },
+        {
+          "class_name": "ReBarWindow32",
+          "ctrl_id": 59396,
+          "control_subtype": "ReBarWindow32",
+          "translate": false,
+          "children": [{"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false}]
+        },
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {
+              "index": 0,
+              "translate": true,
+              "mode": "regex",
+              "rules": [
+                {"pattern": "^Current Character Set:\\s*\"7bit\\ ASCII\\ \\(US\\-ASCII\\)\"$", "replace": "目前字元集: \"7 位元 ASCII (US-ASCII)\""},
+                {"pattern": "^Current Character Set:\\s*\"Latin1\\ \\(ISO\\-8859\\-1\\)\"$", "replace": "目前字元集: \"西歐語言 Latin1 (ISO-8859-1)\""},
+                {"pattern": "^Current Character Set:\\s*\"Latin2\\ \\(ISO\\-8859\\-2\\)\"$", "replace": "目前字元集: \"中歐語言 Latin2 (ISO-8859-2)\""},
+                {"pattern": "^Current Character Set:\\s*\"Latin9\\ \\(ISO\\-8859\\-15\\)\"$", "replace": "目前字元集: \"西歐語言 Latin9 (ISO-8859-15)\""},
+                {"pattern": "^Current Character Set:\\s*\"Japanese\\ \\(ISO\\-2022\\-JP\\)\"$", "replace": "目前字元集: \"日文 (ISO-2022-JP)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ UHC\\ Windows\\ \\(ks_c_5601\\-1987\\)\"$",
+                  "replace": "目前字元集: \"韓文 UHC Windows (ks_c_5601-1987)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Korean\\ RFC1557\\ \\(ISO\\-2022\\-KR\\)\"$", "replace": "目前字元集: \"韓文 RFC1557 (ISO-2022-KR)\""},
+                {"pattern": "^Current Character Set:\\s*\"Chinese\\ Traditional\\ \\(BIG5\\)\"$", "replace": "目前字元集: \"繁體中文 (BIG5)\""},
+                {"pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ \\(GB2312\\)\"$", "replace": "目前字元集: \"簡體中文 (GB2312)\""},
+                {"pattern": "^Current Character Set:\\s*\"Chinese\\ National\\ Standard\\ \\(GB18030\\)\"$", "replace": "目前字元集: \"中國國家標準 (GB18030)\""},
+                {"pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ HZ\\ \\(HZ\\-GB\\-2312\\)\"$", "replace": "目前字元集: \"簡體中文 HZ (HZ-GB-2312)\""},
+                {"pattern": "^Current Character Set:\\s*\"Russian\\ koi8\\ \\(koi8\\-r\\)\"$", "replace": "目前字元集: \"俄文 koi8 (koi8-r)\""},
+                {"pattern": "^Current Character Set:\\s*\"Ukrainian\\ koi8\\ \\(koi8\\-u\\)\"$", "replace": "目前字元集: \"烏克蘭文 koi8 (koi8-u)\""},
+                {"pattern": "^Current Character Set:\\s*\"Cyrillic\\ \\(Windows\\-1251\\)\"$", "replace": "目前字元集: \"西里爾文 (Windows-1251)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-8\\)\"$", "replace": "目前字元集: \"Unicode (UTF-8)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-7\\)\"$", "replace": "目前字元集: \"Unicode (UTF-7)\""},
+                {"pattern": "^Current Character Set:\\s*\"(.*)\"$", "replace": "目前字元集: \"$1\""}
+              ]
+            },
+            {"index": 1, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "行:$1$2列:$3$4總行:$5$6"},
+            {"index": 2, "translate": true, "src": "OVR", "dst": "覆寫"},
+            {"index": 3, "translate": true, "src": "AutoFmt", "dst": "自動格式"},
+            {"index": 4, "translate": true, "src": "CAP", "dst": "大寫"},
+            {"index": 5, "translate": true, "src": "NUM", "dst": "數字"},
+            {"index": 6, "translate": false, "sample": "    "}
+          ],
+          "children": [{"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false}]
+        },
+        {
+          "class_name": "#32770",
+          "ctrl_id": 150,
+          "control_subtype": "ChildDialog",
+          "translate": false,
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To", "dst": "收件"},
+            {"class_name": "Edit", "ctrl_id": 10543, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10541, "control_subtype": "PushButton", "translate": true, "src": "To", "dst": "收件"},
+            {"class_name": "Static", "ctrl_id": 1458, "control_subtype": "TextStatic", "translate": true, "src": "Cc", "dst": "副本"},
+            {"class_name": "Edit", "ctrl_id": 10544, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10540, "control_subtype": "PushButton", "translate": true, "src": "Cc", "dst": "副本"},
+            {"class_name": "Static", "ctrl_id": 1459, "control_subtype": "TextStatic", "translate": true, "src": "Bcc", "dst": "密件"},
+            {"class_name": "Edit", "ctrl_id": 10545, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10539, "control_subtype": "PushButton", "translate": true, "src": "Bcc", "dst": "密件"},
+            {"class_name": "Static", "ctrl_id": 10533, "control_subtype": "TextStatic", "translate": true, "src": "Subject", "dst": "主旨"},
+            {"class_name": "Edit", "ctrl_id": 10546, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Static", "ctrl_id": 10547, "control_subtype": "TextStatic", "translate": true, "src": "Reply-To", "dst": "回覆"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10534,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Static", "ctrl_id": 10536, "control_subtype": "TextStatic", "translate": true, "src": "Sender", "dst": "寄件"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10535,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Button", "ctrl_id": 10542, "control_subtype": "PushButton", "translate": true, "src": "Headers", "dst": "頭"},
+            {"class_name": "Static", "ctrl_id": 10537, "control_subtype": "TextStatic", "translate": true, "src": "Signature", "dst": "簽名"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10548,
+              "control_subtype": "DropDownListCombo",
+              "translate": true,
+              "items": [
+                {"index": 0, "translate": true, "src": "(No Signature)", "dst": "（無簽名）"},
+                {"index": 1, "translate": true, "src": "Default", "dst": "預設"}
+              ]
+            },
+            {"class_name": "Button", "ctrl_id": 432, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10549, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "msctls_updown32", "ctrl_id": 10538, "control_subtype": "msctls_updown32", "translate": false}
+          ]
+        }
       ]
     }
   }

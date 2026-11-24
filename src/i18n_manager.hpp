@@ -76,6 +76,7 @@ struct TextPair {
 struct MenuCommandRule {
     UINT cmd_id{0};
     bool is_regex{false};
+    bool as_is{false};
     std::wstring raw_dst_utf16;
     std::optional<std::wregex> regex_pattern;
     // 多规则固定命令（同 cmd_id 不同措辞，如 57604 Save As... / Save To Folder...）：
@@ -116,6 +117,7 @@ struct MenuNodeRule {
     bool is_popup{false};
     bool is_regex{false};
     bool is_ownerdraw{false};
+    bool as_is{false};
     UINT cmd_id{0};
     // 动态命令范围：cmd_id_end > cmd_id 时本节点代表一个动态 ID 区间（如字符集/拨号/插件），
     // 具体子项的翻译由 dynamic_texts 按文本匹配；未在表中的文本保持原文。
@@ -148,6 +150,8 @@ struct ControlRule {
     std::string active_tab_page;
     bool translate{false};
     bool is_regex{false};
+    // 条目级 as_is：命中后无视全局 access key，跳过 apply_access_key_format 原样输出
+    bool as_is{false};
 
     // 普通控件（Button / Static / SysTreeView32 / AfxWnd 12562 等）精确匹配或多文本映射
     std::vector<TextPair> texts;
@@ -162,6 +166,11 @@ struct ControlRule {
     // 仅对根级（无父节点）且图标不是通用文件夹图标(5)的节点生效，用于 Mail Query
     // 运行时动态分配图像索引、无法纳入静态 image_indices 的特殊节点（如 Query Result）。
     std::vector<TextPair> root_nodes;
+
+    // 自绘 GDI 文本（DrawTextA 等无独立窗口控件的绘制）正则替换规则（JSON gdi_patterns）。
+    // 挂在承载该绘制的父对话框/控件节点下；数组非空即生效，不受节点顶层 translate 标志限制
+    // （宿主常把该容器标为 translate=false，仅通过 children 翻译真实子控件）。
+    std::vector<CompiledRegexRule> gdi_patterns;
 
     // SysHeader32 列名映射 (src_utf8 -> dst_wide)
     std::unordered_map<std::string, std::wstring> header_columns;
@@ -180,6 +189,12 @@ struct ControlRule {
 
     // 子控件树
     std::vector<ControlRule> children;
+};
+
+// 普通控件文本翻译结果：text 为译文，as_is 标记命中条目是否要求无视全局 access key 原样输出
+struct ControlTextResult {
+    std::wstring text;
+    bool as_is{false};
 };
 
 // 顶级窗口/对话框规则
@@ -221,6 +236,25 @@ public:
     // 根据 meta.access_key 模板（如 "as_is", "$1(&2)$3", "[&2]$1$3"）格式化译文
     std::wstring apply_access_key_format(std::wstring_view rawSrcWide, std::wstring_view rawDstWide) const;
 
+    // 仅这些 Win32 控件类把 '&' 解释为有效助记符（与 inspector rev8 同口径）；GroupBox 的类名也是
+    // "Button"。集合封闭，未知类默认 false、不做 caption 加工，避免误剥离。ui 枚举路径与
+    // api_hooks 动态 WM_SETTEXT detour 必须共用此判定（#131）。
+    static bool supports_caption_access_keys(std::string_view normClass) noexcept;
+
+    // caption 文本是否含单个助记符 '&'（"&&" 为转义的字面 &，不计入）
+    static bool has_mnemonic_amp(std::wstring_view text) noexcept;
+
+    // caption 控件文本写入前的唯一最终化出口（ui 枚举翻译与 A 版控件消息 detour 共用，#131）：
+    //  - 非 Button/Static：原样返回 translated.text（Edit/ComboBox 等不施加助记符/标点加工）；
+    //  - Button/Static：rawSource 含单 '&' 时先 record_caption_raw（即使条目 as_is 也记录，保持
+    //    与枚举路径历史行为一致，供二段兜底）；条目非 as_is 时以未归一实时原文 rawSource（从中提取
+    //    助记字母与尾部 ":"/"..."）调 apply_access_key_format，as_is 时译文原样返回。
+    // rawSource 必须是写入前的实时控件文本（枚举路径为 GetWindowTextW；A detour 由 ANSI 代码页转宽）。
+    std::wstring finalize_caption_text(HWND hWnd,
+                                       std::string_view normClass,
+                                       std::wstring_view rawSource,
+                                       const ControlTextResult& translated);
+
     // 根据菜单所属窗口句柄，返回该窗口对应的 popup 菜单骨架（rev12 三窗口分桶）；
     // 窗口类无法识别时返回 nullptr（调用方回退到全局 popup 匹配）
     const std::vector<MenuNodeRule>* find_window_popup_tree(HWND hOwner) const;
@@ -234,6 +268,11 @@ public:
 
     // 翻译邮件内容面板底部自绘页签条 (AfxWnd, ctrl_id: 12562) 的页签标题，自动保留序号、MIME 前缀与首尾空格
     std::optional<std::wstring> translate_mail_tab_text(std::string_view rawAnsiText) const;
+
+    // 对 DrawTextA 自绘文本应用所属控件规则的 gdi_patterns。ANSI 入参先按系统代码页转宽字符，
+    // 再顺序做 regex 子串替换（仅改动 pattern 命中的固定标签，保留日期/数字/用户正文）；无变化返回 nullopt。
+    std::optional<std::wstring> translate_gdi_pattern_text(const std::vector<const ControlRule*>& rules,
+                                                           std::string_view rawAnsiText) const;
 
     // 根据弹出菜单标题查找匹配的菜单树节点
     const MenuNodeRule* find_popup_menu_node(std::string_view baseUtf8Text,
@@ -251,13 +290,25 @@ public:
     // 按控件树路径精确查找指定 HWND 对应的控件规则集合（带 HWND 缓存，含空结果负缓存）
     std::vector<const ControlRule*> find_control_rules(HWND hWnd);
 
-    // 窗口销毁通知：清除该 HWND 的顶级/控件缓存；顶级窗口销毁时整棵子树缓存一并失效，
-    // 防止 HWND/HTREEITEM 句柄被系统复用后命中陈旧映射
+    // 窗口销毁通知：仅清除与该 HWND 一一对应的顶级/控件/caption 缓存（精确失效）。
+    // 不会因某个顶级窗口销毁而清空跨窗口共享的树节点缓存，避免误伤仍存活的主窗口文件夹树。
     void on_window_destroyed(HWND hWnd);
 
-    // 使用控件规则集合翻译普通控件文本（Button / Static / GroupBox 等）
-    std::optional<std::wstring> translate_control_text(const std::vector<const ControlRule*>& rules,
-                                                       std::string_view utf8Text) const;
+    // 文件夹树控件自身 WM_NCDESTROY 时调用：该树全部 HTREEITEM 随之失效，
+    // 清空以 HTREEITEM 为键的树节点原文/状态缓存；其他窗口（Compose/对话框）销毁不得调用。
+    void on_folder_tree_destroyed();
+
+    // caption 控件（Button/Static）原始带 & 文本缓存：首次成功翻译时记录，重译时若实时
+    // 文本丢失 & 则用缓存兜底以提取助记符；窗口销毁时清理，避免 HWND 复用与泄漏
+    void record_caption_raw(HWND hWnd, std::wstring_view rawText);
+    std::optional<std::wstring> get_caption_raw(HWND hWnd) const;
+    void erase_caption_raw(HWND hWnd);
+    void clear_caption_raw();
+
+    // 使用控件规则集合翻译普通控件文本（Button / Static / GroupBox 等），
+    // 同时返回命中条目的 as_is 标记
+    std::optional<ControlTextResult> translate_control_text(const std::vector<const ControlRule*>& rules,
+                                                            std::string_view utf8Text) const;
 
     // 使用控件规则翻译表头列名（SysHeader32）
     std::optional<std::wstring> translate_header_column(const std::vector<const ControlRule*>& rules,
@@ -373,6 +424,10 @@ private:
     std::unordered_map<HTREEITEM, std::string> tree_item_orig_text_;
     // HTREEITEM -> 插入边界缓存的根身份与图标索引
     std::unordered_map<HTREEITEM, TreeItemState> tree_item_state_;
+
+    // HWND -> caption 控件最近一次成功翻译时的原始带 & 文本（改造四兜底）
+    mutable std::mutex caption_raw_mutex_;
+    std::unordered_map<HWND, std::wstring> caption_raw_cache_;
 };
 
 } // namespace bki18n

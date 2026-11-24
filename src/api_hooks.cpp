@@ -21,6 +21,7 @@
 
 #include <MinHook.h>
 #include <commctrl.h>
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 #include <string>
@@ -92,6 +93,10 @@ WNDPROC g_origMailTabProc = nullptr;
 thread_local bool g_inMailTabPaint   = false;
 thread_local bool g_inDrawTextDetour = false;
 
+// rev14：gdi_patterns 自绘文本的作用域窗口缓存。窗口 DC 命中含 gdi_patterns 的控件规则时记录，
+// 供同一绘制周期随后出现的双缓冲内存 DC（WindowFromDC=nullptr）复用规则；使用前以 IsWindow 惰性校验。
+HWND g_hGdiPatternWnd = nullptr;
+
 // 左栏文本判定阈值（相对 rcItem.left）：自绘菜单左栏标签 x 偏移约为 16，右栏数据远大于此
 constexpr int kOwnerDrawLeftColumnLimit = 24;
 
@@ -134,6 +139,20 @@ inline bool IsMailTabLabelPattern(std::string_view sv) noexcept {
         if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n') return false;
     }
     return true;
+}
+
+// rev14：gdi_patterns 自绘文本的热路径廉价预筛。仅用于避免对全局高频 DrawTextA 调用逐一查找
+// 控件规则；是否真正翻译仍由 JSON gdi_patterns 决定，且各作用域规则的强特征互不重叠（双重保险）。
+// 覆盖：①任务 pane 三行固定起始词；②邮件列表 Subject 头部的 {...} 任务类型小标签（独立绘制调用）。
+inline bool IsGdiPatternCandidate(std::string_view sv) noexcept {
+    if (sv.empty()) return false;
+    switch (sv.front()) {
+        case 'T': return sv.starts_with("Task:");
+        case 'D': return sv.starts_with("Deadline:");
+        case 'C': return sv.starts_with("Comment:");
+        case '{': return sv.starts_with("{Need") || sv.starts_with("{Follow");
+        default:  return false;
+    }
 }
 
 // 邮件头 Static 控件在弹出下拉菜单期间的临时子类化窗口过程
@@ -490,8 +509,24 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
 
             std::string u8Text = I18nManager::ansi_to_utf8(lpStr);
             if (auto trans = I18nManager::instance().translate_control_text(rules, u8Text)) {
+                // #131：caption 类（Button/Static）必须与 ui 枚举路径共用 finalize_caption_text，
+                // 否则这里直接写裸 trans->text 会丢失助记符模板与尾部 ":"/"..." 恢复（Win11 工作机
+                // Compose 抄送/密送 Button 被本端点最后定格为无 key 裸译文，即此缺陷）。
+                // 其余控件类（Edit/ComboBox/...）finalize 原样返回译文，保持旧行为不变。
+                const std::string& cls = rules.front()->class_name;
+                std::wstring finalText;
+                if (I18nManager::supports_caption_access_keys(cls)) {
+                    // 必须用未归一的 ANSI 实时原文转宽：保留 '&' 与尾部标点供 finalize 提取
+                    std::wstring wRawSource = I18nManager::ansi_to_wide(lpStr);
+                    finalText = I18nManager::instance().finalize_caption_text(
+                        hWnd, cls, wRawSource, *trans);
+                } else {
+                    finalText = trans->text;
+                }
+
                 ScopedHookGuard guard;
-                return ::SendMessageW(hWnd, WM_SETTEXT, wParam, reinterpret_cast<LPARAM>(trans->c_str()));
+                return ::SendMessageW(hWnd, WM_SETTEXT, wParam,
+                                      reinterpret_cast<LPARAM>(finalText.c_str()));
             }
             break;
         }
@@ -507,7 +542,7 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
             if (auto trans = I18nManager::instance().translate_control_text(rules, u8Text)) {
                 ScopedHookGuard guard;
                 return ::SendMessageW(hWnd, EM_REPLACESEL, wParam,
-                                      reinterpret_cast<LPARAM>(trans->c_str()));
+                                      reinterpret_cast<LPARAM>(trans->text.c_str()));
             }
             break;
         }
@@ -752,6 +787,10 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
 }
 
 // 统一处理发往受管 Edit 的 W 版动态文本（WM_SETTEXT / EM_REPLACESEL）。
+// 设计边界（#131，本期刻意不动逻辑）：W 通道只服务 IsTranslatableEdit（class=="Edit" 且存在
+// translate 规则）。B2 为 ANSI(x86) 程序，Button/Static 等 caption 控件的动态文本走 A 版
+// TryTranslateControlMessageA，其 WM_SETTEXT 普通分支与 ui 枚举路径共用 finalize_caption_text
+// 完成助记符/尾部标点加工；非 Edit 控件在下方闸门直接 break 并放行宿主原始 W 消息，不做 caption 加工。
 std::optional<LRESULT> TryTranslateControlMessageW(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
     if (!hWnd || !is_valid_user_mode_ptr(lParam) || ScopedHookGuard::in_hook() ||
         !I18nManager::instance().is_active()) {
@@ -762,6 +801,7 @@ std::optional<LRESULT> TryTranslateControlMessageW(HWND hWnd, UINT Msg, WPARAM w
         case WM_SETTEXT:
         case EM_REPLACESEL: {
             auto rules = I18nManager::instance().find_control_rules(hWnd);
+            // 仅 Edit 走 W 动态翻译；Button/Static 等 caption 控件在此直接放行（设计边界见函数头，#131）
             if (!IsTranslatableEdit(rules)) break;
 
             const wchar_t* lpStr = reinterpret_cast<const wchar_t*>(lParam);
@@ -774,14 +814,14 @@ std::optional<LRESULT> TryTranslateControlMessageW(HWND hWnd, UINT Msg, WPARAM w
                 ScopedHookGuard guard;
                 if (Msg == WM_SETTEXT) {
                     return ::SendMessageW(hWnd, WM_SETTEXT, wParam,
-                                          reinterpret_cast<LPARAM>(trans->c_str()));
+                                          reinterpret_cast<LPARAM>(trans->text.c_str()));
                 }
                 if (fpOrigSendMessageW) {
                     return fpOrigSendMessageW(hWnd, EM_REPLACESEL, wParam,
-                                              reinterpret_cast<LPARAM>(trans->c_str()));
+                                              reinterpret_cast<LPARAM>(trans->text.c_str()));
                 }
                 return ::SendMessageW(hWnd, EM_REPLACESEL, wParam,
-                                      reinterpret_cast<LPARAM>(trans->c_str()));
+                                      reinterpret_cast<LPARAM>(trans->text.c_str()));
             }
             break;
         }
@@ -1111,6 +1151,65 @@ int WINAPI DetourDrawTextA(HDC hdc, LPCSTR lpchText, int cchText, LPRECT lprc, U
                         int ret = ::DrawTextW(hdc, trans->c_str(), static_cast<int>(trans->size()), lprc, format);
                         g_inDrawTextDetour = false;
                         return ret;
+                    }
+                }
+            }
+        }
+
+        // rev14 通道二：控件 gdi_patterns 自绘文本（任务 pane 的 Task/Deadline/Comment 三行等）。
+        // 廉价前缀预筛后才解析 DC 窗口与规则；窗口 DC 命中即缓存作用域，供同周期随后的双缓冲内存 DC 复用。
+        if (!g_inDrawTextDetour && !(format & DT_MODIFYSTRING) &&
+            I18nManager::instance().is_active() &&
+            is_valid_user_mode_ptr(reinterpret_cast<LPARAM>(lpchText)) &&
+            is_valid_user_mode_ptr(reinterpret_cast<LPARAM>(lprc)) &&
+            is_memory_readable(lprc, sizeof(RECT))) {
+
+            std::string_view gsv;
+            if (cchText < 0) {
+                gsv = std::string_view(lpchText);
+            } else if (cchText > 0 && cchText < 512) {
+                gsv = std::string_view(lpchText, static_cast<size_t>(cchText));
+            }
+
+            if (!gsv.empty() && gsv.size() < 512 && IsGdiPatternCandidate(gsv)) {
+                HWND hDcWndGdi = hdc ? ::WindowFromDC(hdc) : nullptr;
+                HWND hScope = nullptr;
+                std::vector<const ControlRule*> gdiRules;
+
+                auto pickIfHasPatterns = [&](HWND hCandidate) -> bool {
+                    if (!hCandidate || !::IsWindow(hCandidate)) return false;
+                    auto rs = I18nManager::instance().find_control_rules(hCandidate);
+                    if (std::any_of(rs.begin(), rs.end(),
+                                    [](const ControlRule* r) noexcept {
+                                        return r != nullptr && !r->gdi_patterns.empty();
+                                    })) {
+                        gdiRules = std::move(rs);
+                        hScope = hCandidate;
+                        return true;
+                    }
+                    return false;
+                };
+
+                if (hDcWndGdi != nullptr) {
+                    // 窗口 DC：只匹配其所属控件，命中后记录作用域
+                    if (pickIfHasPatterns(hDcWndGdi)) {
+                        g_hGdiPatternWnd = hScope;
+                    }
+                } else if (g_hGdiPatternWnd != nullptr) {
+                    // 双缓冲内存 DC：WindowFromDC 为空，回退到最近活动的任务 pane 作用域窗口
+                    if (!::IsWindow(g_hGdiPatternWnd) || !pickIfHasPatterns(g_hGdiPatternWnd)) {
+                        g_hGdiPatternWnd = nullptr;
+                    }
+                }
+
+                if (hScope != nullptr && !gdiRules.empty()) {
+                    if (auto trans = I18nManager::instance().translate_gdi_pattern_text(gdiRules, gsv)) {
+                        g_inDrawTextDetour = true;
+                        const int gdiRet = ::DrawTextW(hdc, trans->c_str(),
+                                                       static_cast<int>(trans->size()),
+                                                       lprc, format);
+                        g_inDrawTextDetour = false;
+                        return gdiRet;
                     }
                 }
             }

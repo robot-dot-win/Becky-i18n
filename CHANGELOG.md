@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-rc.3] - 2026-11-23
+
+### Added
+
+- Optional data-driven `gdi_patterns` rules for control nodes, allowing
+  regular-expression translation of owner-drawn GDI text surfaces that are
+  not standard controls. This enables translation of the Tasks pane status
+  lines (`Task:`, `Deadline:`, `Comment:`) and the task tags shown in the
+  message list; surfaces without these rules keep their previous behavior.
+- Per-entry `as_is` flag for menu, popup and control rules, so a mnemonic
+  ampersand explicitly written by the language author in a translation is
+  preserved verbatim instead of being reformatted.
+- Two additional bundled languages: Italian (`it_IT`) and Polish (`pl_PL`),
+  bringing the total to 16 language packs under `locale/`.
+- The bundled language packs now translate the Compose message window and
+  the Tasks view, including the owner-drawn Task/Deadline/Comment lines, the
+  system Tasks folder node, message-list task tags and related tooltips.
+
+### Changed
+
+- Refreshed the fourteen previously bundled language files with the latest
+  translations and terminology.
+
 ## [1.0.0-rc.2] - 2026-11-18
 
 ### Changed
@@ -55,3 +78,7 @@ First public pre-release.
   pointer validation so exceptions never escape into the host process.
 - Static CRT linkage and an embedded Windows version resource, so the
   distributed DLL depends only on Windows system libraries.
+
+[1.0.0-rc.3]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.2...v1.0.0-rc.3
+[1.0.0-rc.2]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.1...v1.0.0-rc.2
+[1.0.0-rc.1]: https://github.com/robot-dot-win/Becky-i18n/releases/tag/v1.0.0-rc.1

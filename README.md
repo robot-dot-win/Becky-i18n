@@ -39,35 +39,40 @@ Internally, Becky! uses **ANSI MBCS encoding** with UI strings hardcoded inside 
 
 1. **Zero Binary Modification**: Works strictly as an in-process plug-in (`locale.dll`) loaded via Becky!'s official Plug-In SDK. You always run the untouched, official `B2.exe`.
 2. **100% Data-Driven**: Adding a new language or refining translations requires only editing a human-readable UTF-8 `.json` file—no recompilation needed.
-3. **Deep UI Coverage**: Translates not only standard menus and controls, but also complex owner-draw menus (`ETO_GLYPH_INDEX`), custom double-buffered MIME tab strips (`AfxWnd`), dynamic status bar panes, and toolbar tooltips.
+3. **Deep UI Coverage**: Translates not only standard menus and controls, but also complex owner-draw menus (`ETO_GLYPH_INDEX`), custom double-buffered MIME tab strips (`AfxWnd`), dynamic status bar panes, and toolbar tooltips; it also covers owner-drawn GDI text with no dedicated control handle (such as Task pane status lines and mail-list task labels) via data-driven `gdi_patterns` rules.
 
 ---
 
 ## Project Status & Roadmap
 
-This repository is currently at the pre-release stage **`v1.0.0-rc.2`**. The core translation engine, safety guards, Main Window, Menu System, UI Language Picker Dialog, and 14 international language packs are complete and tested.
+This repository is currently at the pre-release stage **`v1.0.0-rc.3`**. The core translation engine, memory-safety guards, Menu System, Main Window, Compose Window, UI Language Picker Dialog, and 16 international language packs are complete and tested.
 
 ### Completed
 
 * ✅ **Main Window**:
-  * System Folder TreeView and dynamic root nodes.
+  * System Folder TreeView (preserving unread message counts `(n)`) and dynamic root nodes such as "Query Result".
   * Mail ListView Column Headers.
   * Message View Header Labels and Agent/Task controls.
   * Custom Owner-Draw Message View Tab Strip for MIME parts.
   * Status Bar dynamic panes.
+  * **Tasks View**-related UI elements.
 * ✅ **Menu System & UI Language Picker Dialog**:
   * Top-level and nested popup menus across Main Frame, Compose Window, and Address Book.
   * Global command pool covering fixed commands, multi-variant commands, dynamic ID ranges, toolbar tooltips, and status bar help hints.
   * Custom Owner-Draw header fields popup menu.
   * Modal **UI Language Picker Dialog**.
-* ✅ **14 International Language Data Files (`locale/*.json`)**:
+* ✅ **Compose Window**:
+  * Standard control and button labels in the Compose window, along with their tooltips.
+* ✅ **16 International Language Data Files (`locale/*.json`)**:
   * `en_US.json` — English (Baseline template)
   * `de_DE.json` — German (Deutsch)
   * `es_ES.json` — Spanish (Español)
   * `fr_FR.json` — French (Français)
+  * `it_IT.json` — Italian (Italiano)
   * `ja_JP.json` — Japanese (日本語)
   * `ko_KR.json` — Korean (한국어)
   * `ms_MY.json` — Malay (Bahasa Melayu)
+  * `pl_PL.json` — Polish (Polski)
   * `pt_PT.json` — Portuguese (Português)
   * `ru_RU.json` — Russian (Русский)
   * `th_TH.json` — Thai (ไทย)
@@ -78,7 +83,6 @@ This repository is currently at the pre-release stage **`v1.0.0-rc.2`**. The cor
 
 ### To-Do (Upcoming Releases)
 
-* [ ] **`Compose` Window**: Full localization of its child controls and dialogs.
 * [ ] **`Address Book` Window**: Full localization of its child controls, property sheets, and LDAP/CardDAV views.
 * [ ] **`General Setup` Dialog**: Localization of all global preference tabs and controls.
 * [ ] **`Mailbox Setup` Dialog**: Localization of account, POP3/IMAP4/SMTP, and profile configuration dialogs.
@@ -112,16 +116,18 @@ PlugIns\
     ├── de_DE.json      # German (Deutsch)
     ├── es_ES.json      # Spanish (Español)
     ├── fr_FR.json      # French (Français)
+    ├── it_IT.json      # Italian (Italiano)
     ├── ja_JP.json      # Japanese (日本語)
     ├── ko_KR.json      # Korean (한국어)
     ├── ms_MY.json      # Malay (Bahasa Melayu)
+    ├── pl_PL.json      # Polish (Polski)
     ├── pt_PT.json      # Portuguese (Português)
-    └── ru_RU.json      # Russian (Русский)
+    ├── ru_RU.json      # Russian (Русский)
     ├── th_TH.json      # Thai (ไทย)
     ├── uk_UA.json      # Ukrainian (Українська)
     ├── vi_VN.json      # Vietnamese (Tiếng Việt)
     ├── zh_CN.json      # Simplified Chinese (简体中文)
-    ├── zh_TW.json      # Traditional Chinese (繁體中文)
+    └── zh_TW.json      # Traditional Chinese (繁體中文)
 ```
 
 > **Note:** When you launch Becky! for the first time after copying `locale.dll`, Becky! may display a prompt asking whether to load the new plug-in `locale.dll`. Click **Yes**.
@@ -142,7 +148,7 @@ PlugIns\
 
 ## Language Pack Specification (For Localization Authors)
 
-Adding a new language to Becky! requires **no programming knowledge**. You simply copy `en_US.json` in the `PlugIns\locale\` folder, rename it to your target locale code (e.g., `it_IT.json`, `pl_PL.json`), and translate the `dst`, `replace`, and `hint_dst` fields.
+Adding a new language to Becky! requires **no programming knowledge**. You simply copy `en_US.json` from the `PlugIns\locale\` folder, rename it to your target locale code (for example, `nl_NL.json` or `sv_SE.json`), and translate fields such as `dst`, `replace`, `hint_dst`, and `tooltip_dst`: `dst` is used for menu and control text, `replace` for regex replacement strings, `hint_dst` for status-bar help text, and `tooltip_dst` for toolbar-button hover tooltips.
 
 ### 1. File Naming, Encoding & Top-Level Structure
 
@@ -151,7 +157,7 @@ Adding a new language to Becky! requires **no programming knowledge**. You simpl
 * **Top-Level Keys**: Every language JSON file consists of three top-level objects:
   1. `"meta"`: Metadata and the access key (mnemonic `&`) formatting rule.
   2. `"menus"`: Top-level menu definitions, divided into `"popups"` and `"commands"`.
-  3. `"windows"`: Window and child control hierarchy trees, keyed by Win32 window class name (e.g., `"Becky2MainFrame"`).
+  3. `"windows"`: Top-level window and child-control trees. Each key is normally a Win32 window class name (e.g., `"Becky2MainFrame"`); to configure rules separately for different top-level windows sharing the same class name, you may also use a `"ClassName:Window Title"` compound key (e.g., `"Becky2ComposeFrame:Compose"`), and bind the rule to the real window through `class_name` and the optional `properties.window_title` title-matching rule inside the node.
 
 ```json
 {
@@ -173,7 +179,7 @@ Adding a new language to Becky! requires **no programming knowledge**. You simpl
   "locale": "zh_CN",
   "name": "简体中文 (zh_CN)",
   "access_key": "$1(&2)$3",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Martin Young"
 }
 ```
@@ -190,7 +196,7 @@ Adding a new language to Becky! requires **no programming knowledge**. You simpl
 
 In the language file schema, all `src` strings in menus and mnemonic-capable controls are **normalized**:
 
-1. Trailing ellipses (`...`) are stripped from `src` (e.g., `"&Import..."` is stored as `"Import"`).
+1. A trailing ellipsis (`...`, three ASCII dots) or a half-width colon (`:`) at the end of `src` is stripped (e.g., `"&Import..."` is normalized to `"Import"`, and `"&Cc:"` to `"Cc"`).
 2. Single mnemonic ampersands (`&`) and trailing parenthesized access keys like `(&Z)` are stripped from `src`.
 3. Double ampersands (`&&`) in Win32 strings are collapsed to a single literal `"&"` in `src`.
 
@@ -201,15 +207,16 @@ In the language file schema, all `src` strings in menus and mnemonic-capable con
 ##### Mode A: `"as_is"` Mode (Used by `en_US.json`)
 
 * **Behavior**: The runtime outputs `dst` **verbatim without any modification**.
-* **Author Responsibility**: The language author has full control and responsibility over the final presentation format in `dst`, including placing `&` before the mnemonic character, escaping literal `&` as `&&`, and including trailing `...` (e.g., `"src": "Delete Folder"`, `"dst": "De&lete Folder..."`).
+* **Author Responsibility**: The language author has full control and responsibility over the final presentation format in `dst`, including placing `&` before the mnemonic character, escaping literal `&` as `&&`, and preserving original trailing punctuation such as `...` and `:` (e.g., `"src": "Delete Folder"`, `"dst": "De&lete Folder..."`).
 
 ##### Mode B: Pattern Matching Mode (e.g., `"$1(&2)$3"`)
 
-* **Behavior**: `dst` is written as **normalized plain text**. Authors **must not** manually write `&` access keys or trailing `...` in `dst` (e.g., in `zh_CN.json`, `"src": "Delete Folder"`, `"dst": "删除文件夹"`).
+* **Behavior**: `dst` is written as **normalized plain text**. Under pattern matching mode, authors **must not** manually write `&` access keys or trailing `...` / `:` in `dst` (e.g., in `zh_CN.json`, simply write `"src": "Delete Folder"`, `"dst": "删除文件夹"`); at runtime the plug-in automatically performs “`&` escaping + access-key insertion + trailing-punctuation (`...` / `:`) restoration”.
 * **Placeholder Definitions in the Pattern**:
-  * **`$1`**: Represents the main text string (corresponding to the normalized `src` / translated `dst` text stripped of access keys and trailing ellipses).
+  * **`$1`**: Represents the main text string (the `src` / `dst` body after access keys and trailing punctuation (`...` / `:`) have been stripped).
   * **`&2`**: Represents the **access key** (e.g., `&F`, extracted from the live Win32 `src` string).
-  * **`$3`**: Represents the **trailing three dots (`...`)**, if the live Win32 `src` originally had them (otherwise empty `""`).
+  * **`$3`**: Represents the trailing punctuation inherited from the end of the **live Win32 `src` string**: it is `"..."` when the source ends with three ASCII periods, or `":"` when it ends with a half-width colon `:` (the two are mutually exclusive; at most one is matched); otherwise it is the empty string `""`. The runtime automatically appends this punctuation back to the end of the translated text based on the live source, so `dst` does not need to include it. Only ASCII `...` and the half-width colon `:` are recognized; a full-width colon `：` or the single ellipsis character `…` is not restored automatically.
+  * **Template ordering rule**: Always place `$3` at the **very end** of the `meta.access_key` template string (all official templates below follow this convention); do not put it before or between `$1` and `&2`.
 * **Common Pattern Examples** (illustrated with live `src` = `"Save &As..."`, `dst` = `"另存为"`):
 
 | Pattern (`meta.access_key`) | Placement Style | Rendered Output for `"Save &As..."` |
@@ -218,6 +225,25 @@ In the language file schema, all `src` strings in menus and mnemonic-capable con
 | **`"[&2]$1$3"`** | Leading bracketed access key | `"[&A]另存为..."` |
 | **`"&2-$1$3"`** | Leading hyphenated access key | `"&A-另存为..."` |
 | **`"&2. $1$3"`** | Leading numbered/dotted access key | `"&A. 另存为..."` |
+
+* **Trailing-colon example** (using the Bcc/Cc buttons of the Compose window: the live Win32 `src` is `"&Bcc:"` / `"&Cc:"`, while the normalized entries in the language file are `"src": "Bcc", "dst": "密送"` and `"src": "Cc", "dst": "抄送"`; the template remains `"$1(&2)$3"`):
+
+| Live Win32 `src` | Language-file entry (normalized `src` / `dst`) | Rendered result of `"$1(&2)$3"` |
+| :--- | :--- | :--- |
+| `"&Bcc:"` | `"src": "Bcc"`, `"dst": "密送"` | `"密送(&B):"` |
+| `"&Cc:"` | `"src": "Cc"`, `"dst": "抄送"` | `"抄送(&C):"` |
+
+* As with `...` in the previous example, the trailing half-width colon `:` is restored to the end of the translated text by `$3`, while the access key `B` / `C` is inserted by `&2`; `dst` contains only the plain translation (`密送` / `抄送`), with neither `&` nor a trailing colon.
+
+#### Single-Rule `"as_is": true` (Per-Entry Verbatim Output)
+
+Besides the **whole-pack** mode determined by `meta.access_key` (Modes A/B above), `"as_is": true` can be added to an individual menu, popup-menu, or control rule node. When that entry matches, the plug-in skips access-key template post-processing and outputs the entry's `dst` (or `replace` for regex rules) **verbatim**, leaving `&` escaping and trailing punctuation to the author, for example:
+
+```json
+{ "src": "Special Label", "dst": "特判(&S)", "as_is": true }
+```
+
+In a Mode B language pack, `dst` should normally be normalized plain text without `&`; a per-entry `"as_is": true` is the only exception channel (the other exception is the English master `en_US.json` with `"access_key": "as_is"`, which preserves the original Becky! presentation verbatim). Use it sparingly, only for special entries that the template cannot express.
 
 ### 3. Menu System (`menus`)
 
@@ -229,14 +255,14 @@ Popup containers (submenus without a fixed `cmd_id`) are organized into three wi
 
 #### 3.2 `menus.commands` (Global Command Pool)
 
-All actionable menu items across Becky! are stored in a flat array sorted by `cmd_id`. Because Win32 command IDs are globally meaningful, this single pool simultaneously drives **menu items**, **toolbar button tooltips**, and **status bar help text (`hint_src` / `hint_dst`)**.
+All actionable menu items in Becky! are stored in one flat array sorted ascending by `cmd_id`. Because Win32 command IDs have global meaning, this pool simultaneously drives **menu-item text**, **toolbar-button hover tooltips**, and **status-bar help text**: `hint_src` / `hint_dst` carry the status-bar help text, while `tooltip_src` / `tooltip_dst` carry the small hover tooltips of toolbar buttons. Both menu/command nodes and toolbar controls (the `buttons` array of a `ToolbarWindow32`) may provide `tooltip_*` fields; a tooltip on a node can still take effect independently even when that node has `"translate": false`, and it can be explicitly disabled with `"tooltip_translate": false`.
 
 `menus.commands` supports three node patterns:
 
 1. **Fixed Single Command (`cmd_id` + `src`/`dst`)**
 2. **Multi-Variant Command (`cmd_id` + `rules`)**: Used when the same `cmd_id` displays different text depending on the active window (e.g., `57604` or `57636`)
 3. **Dynamic Command ID Range (`cmd_id` + `cmd_id_end` + `rules`)**: Used for dynamic ranges where Becky! assigns IDs at runtime. Any runtime item whose text is not in `rules` (such as user-created dialup connection names) is safely left untranslated:
-   * `1`–`100` (`"ownerdraw": true`): Header fileds popup menus.
+   * `1`–`100` (`"ownerdraw": true`): Header fields popup menus.
    * `10000`–`10099`: Editor, decoding, formatting, charset, and toolbar-specific commands.
    * `20000`–`31999`: Plug-in command range (e.g., PGP plug-in, Voice Attachment plug-in, Becky-i18n plug-in).
    * `55001`–`55099`: View → Language character set menu items.
@@ -245,11 +271,11 @@ All actionable menu items across Becky! are stored in a flat array sorted by `cm
 
 ### 4. Window & Control Tree (`windows`)
 
-Each entry under `"windows"` maps a top-level window class (e.g., `"Becky2MainFrame"`) and recursively mirrors its Win32 child control hierarchy via `"children"`. Controls are matched by `class_name` and `ctrl_id`.
+Each key under `"windows"` corresponds to one top-level window rule (a plain class-name key or a `"ClassName:identifier"` compound key), and the node recursively mirrors its Win32 child-control tree through nested `"children"`; the top-level window title can be configured in `properties.window_title` for exact matching or regex-based translation. Child controls are located precisely by `class_name` and `ctrl_id`, optionally supplemented by annotation fields such as `control_subtype` and `sdk_role` (currently `sdk_role` is descriptive metadata only and does not participate in runtime matching).
 
 | Control Class (`class_name`) | `ctrl_id` | Translation Configuration in JSON |
 | :--- | :--- | :--- |
-| **`SysTreeView32`** | `1000` | System folder tree. Uses `"image_indices": [12..23]` to identify built-in folders and `"root_nodes"` for dynamic root folders. User-created mail folders are never altered. |
+| **`SysTreeView32`** | `1000` | System folder tree. `"image_indices"` lists the icon indices of built-in folders covered by the current language data (`12`–`23`, plus `38` and `39` used by task folders; the set may grow with host versions), and `"root_nodes"` recognizes dynamic root nodes at runtime (e.g., Query Result). User-created mail folders are never mistranslated. |
 | **`SysHeader32`** | `0` | Mail list column headers inside `SysListView32`. |
 | **`AfxWnd` (Tab Strip)** | `12562` | Owner-draw message view bottom tab bar. |
 | **`Static`** | Various | Standard labels. |
@@ -257,6 +283,8 @@ Each entry under `"windows"` maps a top-level window class (e.g., `"Becky2MainFr
 | **`Edit`** | Various | Standard edit fields. |
 | **`ComboBox`** | `1532` | Drop-down list items matched by 0-based index and text. |
 | **`msctls_statusbar32`** | `59393` | Bottom status bar divided into `"panes"` by `index`. |
+
+> **Toolbar buttons and owner-drawn text**: a `ToolbarWindow32` control describes its buttons and their `tooltip_src` / `tooltip_dst` through a `"buttons"` array; owner-drawn GDI text without an independent window handle (such as Task pane status lines) does not go through the control matching of this table, but is handled by a node-level `"gdi_patterns"` regex array on the control node.
 
 ### 5. Translation Matching Rules
 
@@ -338,6 +366,23 @@ Used when a control or status bar pane can display multiple distinct dynamic str
 }
 ```
 
+#### 5.5 Owner-Drawn GDI Text Rules (`gdi_patterns`, Optional)
+
+Some Becky! UI is drawn directly by the host with GDI `DrawTextA` and has no corresponding standard control text (for example the `Task:` / `Deadline:` / `Comment:` status lines in the Task pane, and task-type labels such as `{Need to Reply}` in the mail list). Such text cannot be matched by `src` / `dst` control rules; instead, add an optional `"gdi_patterns"` array on the container window or control node that hosts the drawing (as a sibling of `"children"`):
+
+```json
+"gdi_patterns": [
+  { "pattern": "\\{Need to Reply\\}", "replace": "{待回复}" },
+  { "pattern": "^Deadline:", "replace": "截止:" },
+  { "pattern": "^Comment:",  "replace": "备注:" }
+]
+```
+
+* Each element is a regex rule: `"pattern"` uses ECMAScript regex syntax, and `"replace"` is the replacement string with capture-group support (`$1`, `$2`, etc.). Rules run in array order as **substring replacements**, so you may replace only a fixed leading label while using loose patterns and capture groups to preserve dates, remaining days, message bodies, and other dynamic content.
+* An individual rule may set `"translate": false` to temporarily disable it without deleting it.
+* A non-empty `"gdi_patterns"` array takes effect even when the containing container node has top-level `"translate": false`—the host often marks such containers `false` and translates the real child controls only through their `children`.
+* Its scope is limited to the drawing cycle of that window (including the double-buffered memory DC); owner-drawn surfaces without `"gdi_patterns"` configured keep their original host behavior.
+
 ### 6. Runtime Safety Limits
 
 To guarantee host process stability (`B2.exe`), `locale.dll` enforces strict validation limits (`src/limits.hpp`) when parsing any `.json` language pack. Exceeding any limit causes the plug-in to reject the malformed file/rule and safely fall back to the native `en_US` UI:
@@ -367,7 +412,7 @@ Because Becky! hardcodes its UI strings and uses a mix of standard Win32 control
    * Recursively walks the HWND hierarchy of window and subclasses target window procedures to intercept notifications.
 2. **Narrow-Scope Win32/GDI API Detours (`ApiHooks` via MinHook)**:
    * Owner-Draw Header Popup Menu (`ExtTextOutW` + EMF Pre-Replay).
-   * Owner-Draw MIME Tab Strip (`DrawTextA` Scope Interception).
+   * Owner-drawn MIME tab strip interception (subclass scope plus `DrawTextA` interception on the double-buffered memory DC); the same `DrawTextA` channel also translates handle-less owner-drawn GDI text such as Task pane status lines and mail-list task labels according to control-node `gdi_patterns` regex rules.
    * Zero-Overhead Pass-Through & Memory Safety (`win32_guard.hpp`): Unmatched calls pass through with near-zero overhead. All pointers inspected in hooks/callbacks are validated via user-mode address range checks and SEH readability probes so exceptions never escape into `B2.exe`.
 
 ### 2. Development Environment & Third-Party Dependencies
@@ -443,6 +488,17 @@ cmake --build build --config Release
 
 Once built, the compiled plug-in binary will be located at `build/Release/locale.dll`.
 
+#### Optional: Appending a Pre-Release Suffix to the DLL Version Resource
+
+At configure time, `-DBECKY_VERSION_SUFFIX=<identifier>` appends a SemVer pre-release suffix to the generated DLL file version and `version.hpp`; the major/minor/patch version comes from the top-level `project(... VERSION ...)`:
+
+```powershell
+cmake -S . -B build -A Win32 -DBECKY_VERSION_SUFFIX=rc.3
+cmake --build build --config Release
+```
+
+The full version identifier produced by the example above is `1.0.0-rc.3`; release builds normally leave this option empty.
+
 ---
 
 ## Intellectual Property, Credits & Third-Party Notices
@@ -467,7 +523,7 @@ This project respects the intellectual property rights of all original authors a
 
 ## Patronage & Sponsorship
 
-🙏Your patronage would directly fuels this project: [![Patron](https://img.shields.io/badge/❤%EF%B8%8F-Patron-8b2635?style=flat-square)](patron/PATRON.md)
+🙏 Your patronage would directly fuel this project: [![Patron](https://img.shields.io/badge/❤%EF%B8%8F-Patron-8b2635?style=flat-square)](patron/PATRON.md)
 
 ---
 

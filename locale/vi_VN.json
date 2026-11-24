@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "vi_VN", "name": "Tiếng Việt (vi_VN)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "meta": {"locale": "vi_VN", "name": "Tiếng Việt (vi_VN)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1033,10 +1033,12 @@
       {
         "cmd_id": 32933,
         "translate": true,
-        "src": "Related ML:",
-        "dst": "Danh sách gửi thư liên quan:",
+        "dst": "Danh sách gửi thư liên quan(&R): $1",
         "hint_src": "Associate the folder with a mailing list",
-        "hint_dst": "Liên kết thư mục này với một danh sách gửi thư"
+        "hint_dst": "Liên kết thư mục này với một danh sách gửi thư",
+        "mode": "regex",
+        "pattern": "^Related ML(?:: ?(.*))?$",
+        "as_is": true
       },
       {
         "cmd_id": 32935,
@@ -1382,7 +1384,9 @@
         "src": "Add Agent(Z)",
         "dst": "Thêm tác vụ Agent",
         "hint_src": "Assign Agent to the selected messages.",
-        "hint_dst": "Gán tác vụ Agent cho các thư đã chọn"
+        "hint_dst": "Gán tác vụ Agent cho các thư đã chọn",
+        "tooltip_src": "Assign Agent to this message and give him/her tasks",
+        "tooltip_dst": "Gán tác vụ Agent cho thư này và thêm tác vụ cho agent"
       },
       {
         "cmd_id": 33013,
@@ -1687,7 +1691,7 @@
                   "control_subtype": "SysTreeView32",
                   "sdk_role": "BKA_FolderTreeView",
                   "translate": true,
-                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 38, 39],
                   "root_nodes": [{"src": "Query Result", "dst": "Kết quả truy vấn"}],
                   "items": [
                     {"src": "Inbox", "dst": "Hộp thư đến"},
@@ -1695,7 +1699,8 @@
                     {"src": "Draft", "dst": "Thư nháp"},
                     {"src": "Sent", "dst": "Đã gửi"},
                     {"src": "Reminder", "dst": "Ghi nhớ"},
-                    {"src": "Trash", "dst": "Thùng rác"}
+                    {"src": "Trash", "dst": "Thùng rác"},
+                    {"src": "Tasks", "dst": "Tác vụ"}
                   ]
                 },
                 {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
@@ -1729,6 +1734,9 @@
                         {"translate": true, "src": "Received Date", "dst": "Ngày nhận"},
                         {"translate": true, "src": "Delivered Date", "dst": "Ngày chuyển phát"},
                         {"translate": true, "src": "Size", "dst": "Kích thước"},
+                        {"translate": true, "src": "Deadline", "dst": "Hạn chót"},
+                        {"translate": true, "src": "Comment", "dst": "Ghi chú"},
+                        {"translate": true, "src": "????", "dst": "Ghi chú"},
                         {"translate": true, "src": "Profile Name", "dst": "Tên cấu hình"},
                         {"translate": true, "src": "Connection", "dst": "Kết nối"},
                         {"translate": true, "src": "Protocol", "dst": "Giao thức"},
@@ -1738,6 +1746,10 @@
                         {"translate": true, "src": "SMTP Server", "dst": "Máy chủ gửi thư (SMTP)"}
                       ]
                     }
+                  ],
+                  "gdi_patterns": [
+                    {"pattern": "\\{Need to Reply\\}", "replace": "{Cần trả lời}"},
+                    {"pattern": "\\{Follow the Topic\\}", "replace": "{Theo dõi chủ đề}"}
                   ]
                 },
                 {
@@ -1781,7 +1793,7 @@
                     {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
                     {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "Ngày: "},
                     {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
-                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "Status:"},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status", "dst": "Status"},
                     {
                       "class_name": "ComboBox",
                       "ctrl_id": 1532,
@@ -1795,10 +1807,25 @@
                     },
                     {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Edit Task", "dst": "Sửa tác vụ"},
                     {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete Task", "dst": "Xóa tác vụ"},
-                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "Button",
+                      "ctrl_id": 1069,
+                      "control_subtype": "PushButton",
+                      "translate": true,
+                      "rules": [{"src": "To Original", "dst": "Về bản gốc"}, {"src": "To \"Tasks\"", "dst": "Vào tác vụ"}]
+                    },
                     {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "Tiếp->"},
                     {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
                     {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ],
+                  "gdi_patterns": [
+                    {"pattern": "^Task:\\s*Need to Reply", "replace": "Tác vụ: Cần trả lời"},
+                    {"pattern": "^Task:\\s*Follow the Topic", "replace": "Tác vụ: Theo dõi chủ đề"},
+                    {"pattern": "^Deadline:\\s*-\\s*\\(\\s*-\\s+more days?\\s*\\)\\s*$", "replace": "Deadline:"},
+                    {"pattern": "\\(\\s*-\\s+more days?\\s*\\)", "replace": ""},
+                    {"pattern": "^Deadline:", "replace": "Hạn chót:"},
+                    {"pattern": "more days?", "replace": "ngày"},
+                    {"pattern": "^Comment:", "replace": "Ghi chú:"}
                   ]
                 }
               ]
@@ -1837,6 +1864,148 @@
           ]
         },
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    },
+    "Becky2ComposeFrame:Compose": {
+      "class_name": "Becky2ComposeFrame",
+      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Soạn thư - $1"}},
+      "children": [
+        {
+          "class_name": "AfxMDIFrame140s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame140s",
+          "translate": false,
+          "children": [
+            {"class_name": "DanaEditWindowClass", "ctrl_id": 59648, "control_subtype": "DanaEditWindowClass", "translate": false},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59664,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "DanaEditWindowClass", "ctrl_id": 103, "control_subtype": "DanaEditWindowClass", "translate": false},
+                {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false}
+              ]
+            }
+          ]
+        },
+        {
+          "class_name": "ReBarWindow32",
+          "ctrl_id": 59396,
+          "control_subtype": "ReBarWindow32",
+          "translate": false,
+          "children": [{"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false}]
+        },
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {
+              "index": 0,
+              "translate": true,
+              "mode": "regex",
+              "rules": [
+                {"pattern": "^Current Character Set:\\s*\"7bit\\ ASCII\\ \\(US\\-ASCII\\)\"$", "replace": "Bảng mã hiện tại: \"7bit ASCII (US-ASCII)\""},
+                {"pattern": "^Current Character Set:\\s*\"Latin1\\ \\(ISO\\-8859\\-1\\)\"$", "replace": "Bảng mã hiện tại: \"Tây Âu Latin1 (ISO-8859-1)\""},
+                {"pattern": "^Current Character Set:\\s*\"Latin2\\ \\(ISO\\-8859\\-2\\)\"$", "replace": "Bảng mã hiện tại: \"Trung Âu Latin2 (ISO-8859-2)\""},
+                {"pattern": "^Current Character Set:\\s*\"Latin9\\ \\(ISO\\-8859\\-15\\)\"$", "replace": "Bảng mã hiện tại: \"Tây Âu Latin9 (ISO-8859-15)\""},
+                {"pattern": "^Current Character Set:\\s*\"Japanese\\ \\(ISO\\-2022\\-JP\\)\"$", "replace": "Bảng mã hiện tại: \"Tiếng Nhật (ISO-2022-JP)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ UHC\\ Windows\\ \\(ks_c_5601\\-1987\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiếng Hàn UHC Windows (ks_c_5601-1987)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ RFC1557\\ \\(ISO\\-2022\\-KR\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiếng Hàn RFC1557 (ISO-2022-KR)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Traditional\\ \\(BIG5\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiếng Trung Phồn thể (BIG5)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ \\(GB2312\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiếng Trung Giản thể (GB2312)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ National\\ Standard\\ \\(GB18030\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiêu chuẩn Quốc gia Trung Quốc (GB18030)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ HZ\\ \\(HZ\\-GB\\-2312\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiếng Trung Giản thể HZ (HZ-GB-2312)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Russian\\ koi8\\ \\(koi8\\-r\\)\"$", "replace": "Bảng mã hiện tại: \"Tiếng Nga koi8 (koi8-r)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Ukrainian\\ koi8\\ \\(koi8\\-u\\)\"$",
+                  "replace": "Bảng mã hiện tại: \"Tiếng Ukraina koi8 (koi8-u)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Cyrillic\\ \\(Windows\\-1251\\)\"$", "replace": "Bảng mã hiện tại: \"Chữ Kirin (Windows-1251)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-8\\)\"$", "replace": "Bảng mã hiện tại: \"Unicode (UTF-8)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-7\\)\"$", "replace": "Bảng mã hiện tại: \"Unicode (UTF-7)\""},
+                {"pattern": "^Current Character Set:\\s*\"(.*)\"$", "replace": "Bảng mã hiện tại: \"$1\""}
+              ]
+            },
+            {"index": 1, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "D:$1$2C:$3$4Dòng:$5$6"},
+            {"index": 2, "translate": true, "src": "OVR", "dst": "OVR"},
+            {"index": 3, "translate": true, "src": "AutoFmt", "dst": "AutoFmt"},
+            {"index": 4, "translate": true, "src": "CAP", "dst": "CAP"},
+            {"index": 5, "translate": true, "src": "NUM", "dst": "NUM"},
+            {"index": 6, "translate": false, "sample": "    "}
+          ],
+          "children": [{"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false}]
+        },
+        {
+          "class_name": "#32770",
+          "ctrl_id": 150,
+          "control_subtype": "ChildDialog",
+          "translate": false,
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To", "dst": "Đến"},
+            {"class_name": "Edit", "ctrl_id": 10543, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10541, "control_subtype": "PushButton", "translate": true, "src": "To", "dst": "Đến"},
+            {"class_name": "Static", "ctrl_id": 1458, "control_subtype": "TextStatic", "translate": true, "src": "Cc", "dst": "Cc"},
+            {"class_name": "Edit", "ctrl_id": 10544, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10540, "control_subtype": "PushButton", "translate": true, "src": "Cc", "dst": "Cc"},
+            {"class_name": "Static", "ctrl_id": 1459, "control_subtype": "TextStatic", "translate": true, "src": "Bcc", "dst": "Bcc"},
+            {"class_name": "Edit", "ctrl_id": 10545, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10539, "control_subtype": "PushButton", "translate": true, "src": "Bcc", "dst": "Bcc"},
+            {"class_name": "Static", "ctrl_id": 10533, "control_subtype": "TextStatic", "translate": true, "src": "Subject", "dst": "Chủ đề"},
+            {"class_name": "Edit", "ctrl_id": 10546, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Static", "ctrl_id": 10547, "control_subtype": "TextStatic", "translate": true, "src": "Reply-To", "dst": "Trả lời"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10534,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Static", "ctrl_id": 10536, "control_subtype": "TextStatic", "translate": true, "src": "Sender", "dst": "Gửi"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10535,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Button", "ctrl_id": 10542, "control_subtype": "PushButton", "translate": true, "src": "Headers", "dst": "Đầu thư"},
+            {"class_name": "Static", "ctrl_id": 10537, "control_subtype": "TextStatic", "translate": true, "src": "Signature", "dst": "Chữ ký"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10548,
+              "control_subtype": "DropDownListCombo",
+              "translate": true,
+              "items": [
+                {"index": 0, "translate": true, "src": "(No Signature)", "dst": "(Không chữ ký)"},
+                {"index": 1, "translate": true, "src": "Default", "dst": "Mặc định"}
+              ]
+            },
+            {"class_name": "Button", "ctrl_id": 432, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10549, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "msctls_updown32", "ctrl_id": 10538, "control_subtype": "msctls_updown32", "translate": false}
+          ]
+        }
       ]
     }
   }

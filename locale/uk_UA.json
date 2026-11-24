@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "uk_UA", "name": "Українська (uk_UA)", "access_key": "$1(&2)$3", "version": "1.0.7", "author": "Gemini AI"},
+  "meta": {"locale": "uk_UA", "name": "Українська (uk_UA)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1063,10 +1063,12 @@
       {
         "cmd_id": 32933,
         "translate": true,
-        "src": "Related ML:",
-        "dst": "Пов'язаний список розсилки:",
+        "dst": "Пов'язаний список розсилки(&R): $1",
         "hint_src": "Associate the folder with a mailing list",
-        "hint_dst": "Пов’язати папку зі списком розсилки"
+        "hint_dst": "Пов’язати папку зі списком розсилки",
+        "mode": "regex",
+        "pattern": "^Related ML(?:: ?(.*))?$",
+        "as_is": true
       },
       {
         "cmd_id": 32935,
@@ -1412,7 +1414,9 @@
         "src": "Add Agent(Z)",
         "dst": "Додати завдання Агента",
         "hint_src": "Assign Agent to the selected messages.",
-        "hint_dst": "Призначити завдання Агента для вибраних листів"
+        "hint_dst": "Призначити завдання Агента для вибраних листів",
+        "tooltip_src": "Assign Agent to this message and give him/her tasks",
+        "tooltip_dst": "Призначити завдання агента для цього листа та додати завдання"
       },
       {
         "cmd_id": 33013,
@@ -1731,7 +1735,7 @@
                   "control_subtype": "SysTreeView32",
                   "sdk_role": "BKA_FolderTreeView",
                   "translate": true,
-                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 38, 39],
                   "root_nodes": [{"src": "Query Result", "dst": "Результат запиту"}],
                   "items": [
                     {"src": "Inbox", "dst": "Вхідні"},
@@ -1739,7 +1743,8 @@
                     {"src": "Draft", "dst": "Чернетки"},
                     {"src": "Sent", "dst": "Надіслані"},
                     {"src": "Reminder", "dst": "Нагадування"},
-                    {"src": "Trash", "dst": "Кошик"}
+                    {"src": "Trash", "dst": "Кошик"},
+                    {"src": "Tasks", "dst": "Завдання"}
                   ]
                 },
                 {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
@@ -1773,6 +1778,9 @@
                         {"translate": true, "src": "Received Date", "dst": "Дата отримання"},
                         {"translate": true, "src": "Delivered Date", "dst": "Дата доставки"},
                         {"translate": true, "src": "Size", "dst": "Розмір"},
+                        {"translate": true, "src": "Deadline", "dst": "Кінцевий термін"},
+                        {"translate": true, "src": "Comment", "dst": "Коментар"},
+                        {"translate": true, "src": "????", "dst": "Коментар"},
                         {"translate": true, "src": "Profile Name", "dst": "Ім'я профілю"},
                         {"translate": true, "src": "Connection", "dst": "З'єднання"},
                         {"translate": true, "src": "Protocol", "dst": "Протокол"},
@@ -1782,6 +1790,10 @@
                         {"translate": true, "src": "SMTP Server", "dst": "Сервер вихідної пошти (SMTP)"}
                       ]
                     }
+                  ],
+                  "gdi_patterns": [
+                    {"pattern": "\\{Need to Reply\\}", "replace": "{Потребує відповіді}"},
+                    {"pattern": "\\{Follow the Topic\\}", "replace": "{Стежити за темою}"}
                   ]
                 },
                 {
@@ -1825,7 +1837,7 @@
                     {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
                     {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "Дата: "},
                     {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
-                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status:", "dst": "Status:"},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status", "dst": "Status"},
                     {
                       "class_name": "ComboBox",
                       "ctrl_id": 1532,
@@ -1853,10 +1865,25 @@
                       "src": "Delete Task",
                       "dst": "Видалити завдання"
                     },
-                    {"class_name": "Button", "ctrl_id": 1069, "control_subtype": "PushButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "Button",
+                      "ctrl_id": 1069,
+                      "control_subtype": "PushButton",
+                      "translate": true,
+                      "rules": [{"src": "To Original", "dst": "До оригіналу"}, {"src": "To \"Tasks\"", "dst": "До завдань"}]
+                    },
                     {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "Далі->"},
                     {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
                     {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ],
+                  "gdi_patterns": [
+                    {"pattern": "^Task:\\s*Need to Reply", "replace": "Завдання: Потребує відповіді"},
+                    {"pattern": "^Task:\\s*Follow the Topic", "replace": "Завдання: Стежити за темою"},
+                    {"pattern": "^Deadline:\\s*-\\s*\\(\\s*-\\s+more days?\\s*\\)\\s*$", "replace": "Deadline:"},
+                    {"pattern": "\\(\\s*-\\s+more days?\\s*\\)", "replace": ""},
+                    {"pattern": "^Deadline:", "replace": "Термін:"},
+                    {"pattern": "more days?", "replace": "днів"},
+                    {"pattern": "^Comment:", "replace": "Коментар:"}
                   ]
                 }
               ]
@@ -1895,6 +1922,154 @@
           ]
         },
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    },
+    "Becky2ComposeFrame:Compose": {
+      "class_name": "Becky2ComposeFrame",
+      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Створення - $1"}},
+      "children": [
+        {
+          "class_name": "AfxMDIFrame140s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame140s",
+          "translate": false,
+          "children": [
+            {"class_name": "DanaEditWindowClass", "ctrl_id": 59648, "control_subtype": "DanaEditWindowClass", "translate": false},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59664,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "DanaEditWindowClass", "ctrl_id": 103, "control_subtype": "DanaEditWindowClass", "translate": false},
+                {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false}
+              ]
+            }
+          ]
+        },
+        {
+          "class_name": "ReBarWindow32",
+          "ctrl_id": 59396,
+          "control_subtype": "ReBarWindow32",
+          "translate": false,
+          "children": [{"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false}]
+        },
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {
+              "index": 0,
+              "translate": true,
+              "mode": "regex",
+              "rules": [
+                {"pattern": "^Current Character Set:\\s*\"7bit\\ ASCII\\ \\(US\\-ASCII\\)\"$", "replace": "Поточне кодування: \"7-біт ASCII (US-ASCII)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Latin1\\ \\(ISO\\-8859\\-1\\)\"$",
+                  "replace": "Поточне кодування: \"Західноєвропейська Latin1 (ISO-8859-1)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Latin2\\ \\(ISO\\-8859\\-2\\)\"$",
+                  "replace": "Поточне кодування: \"Центральноєвропейська Latin2 (ISO-8859-2)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Latin9\\ \\(ISO\\-8859\\-15\\)\"$",
+                  "replace": "Поточне кодування: \"Західноєвропейська Latin9 (ISO-8859-15)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Japanese\\ \\(ISO\\-2022\\-JP\\)\"$", "replace": "Поточне кодування: \"Японська (ISO-2022-JP)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ UHC\\ Windows\\ \\(ks_c_5601\\-1987\\)\"$",
+                  "replace": "Поточне кодування: \"Корейська UHC Windows (ks_c_5601-1987)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ RFC1557\\ \\(ISO\\-2022\\-KR\\)\"$",
+                  "replace": "Поточне кодування: \"Корейська RFC1557 (ISO-2022-KR)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Traditional\\ \\(BIG5\\)\"$",
+                  "replace": "Поточне кодування: \"Китайська традиційна (BIG5)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ \\(GB2312\\)\"$",
+                  "replace": "Поточне кодування: \"Китайська спрощена (GB2312)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ National\\ Standard\\ \\(GB18030\\)\"$",
+                  "replace": "Поточне кодування: \"Китайський держстандарт (GB18030)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ HZ\\ \\(HZ\\-GB\\-2312\\)\"$",
+                  "replace": "Поточне кодування: \"Китайська спрощена HZ (HZ-GB-2312)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Russian\\ koi8\\ \\(koi8\\-r\\)\"$", "replace": "Поточне кодування: \"Російська koi8 (koi8-r)\""},
+                {"pattern": "^Current Character Set:\\s*\"Ukrainian\\ koi8\\ \\(koi8\\-u\\)\"$", "replace": "Поточне кодування: \"Українська koi8 (koi8-u)\""},
+                {"pattern": "^Current Character Set:\\s*\"Cyrillic\\ \\(Windows\\-1251\\)\"$", "replace": "Поточне кодування: \"Кирилиця (Windows-1251)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-8\\)\"$", "replace": "Поточне кодування: \"Unicode (UTF-8)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-7\\)\"$", "replace": "Поточне кодування: \"Unicode (UTF-7)\""},
+                {"pattern": "^Current Character Set:\\s*\"(.*)\"$", "replace": "Поточне кодування: \"$1\""}
+              ]
+            },
+            {"index": 1, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "Р:$1$2С:$3$4Ряд:$5$6"},
+            {"index": 2, "translate": true, "src": "OVR", "dst": "OVR"},
+            {"index": 3, "translate": true, "src": "AutoFmt", "dst": "AutoFmt"},
+            {"index": 4, "translate": true, "src": "CAP", "dst": "CAP"},
+            {"index": 5, "translate": true, "src": "NUM", "dst": "NUM"},
+            {"index": 6, "translate": false, "sample": "    "}
+          ],
+          "children": [{"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false}]
+        },
+        {
+          "class_name": "#32770",
+          "ctrl_id": 150,
+          "control_subtype": "ChildDialog",
+          "translate": false,
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To", "dst": "Кому"},
+            {"class_name": "Edit", "ctrl_id": 10543, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10541, "control_subtype": "PushButton", "translate": true, "src": "To", "dst": "Кому"},
+            {"class_name": "Static", "ctrl_id": 1458, "control_subtype": "TextStatic", "translate": true, "src": "Cc", "dst": "Копія"},
+            {"class_name": "Edit", "ctrl_id": 10544, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10540, "control_subtype": "PushButton", "translate": true, "src": "Cc", "dst": "Копія"},
+            {"class_name": "Static", "ctrl_id": 1459, "control_subtype": "TextStatic", "translate": true, "src": "Bcc", "dst": "Bcc"},
+            {"class_name": "Edit", "ctrl_id": 10545, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10539, "control_subtype": "PushButton", "translate": true, "src": "Bcc", "dst": "Bcc"},
+            {"class_name": "Static", "ctrl_id": 10533, "control_subtype": "TextStatic", "translate": true, "src": "Subject", "dst": "Тема"},
+            {"class_name": "Edit", "ctrl_id": 10546, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Static", "ctrl_id": 10547, "control_subtype": "TextStatic", "translate": true, "src": "Reply-To", "dst": "Відповідь"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10534,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Static", "ctrl_id": 10536, "control_subtype": "TextStatic", "translate": true, "src": "Sender", "dst": "Відправ."},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10535,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Button", "ctrl_id": 10542, "control_subtype": "PushButton", "translate": true, "src": "Headers", "dst": "Загол."},
+            {"class_name": "Static", "ctrl_id": 10537, "control_subtype": "TextStatic", "translate": true, "src": "Signature", "dst": "Підпис"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10548,
+              "control_subtype": "DropDownListCombo",
+              "translate": true,
+              "items": [
+                {"index": 0, "translate": true, "src": "(No Signature)", "dst": "(Немає підпису)"},
+                {"index": 1, "translate": true, "src": "Default", "dst": "Типово"}
+              ]
+            },
+            {"class_name": "Button", "ctrl_id": 432, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10549, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "msctls_updown32", "ctrl_id": 10538, "control_subtype": "msctls_updown32", "translate": false}
+          ]
+        }
       ]
     }
   }

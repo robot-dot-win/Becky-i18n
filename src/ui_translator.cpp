@@ -18,7 +18,6 @@
 #include "win32_guard.hpp"
 #include "logger.hpp"
 #include <commctrl.h>
-#include <array>
 #include <cstdint>
 #include <cstring>
 
@@ -45,15 +44,9 @@ static thread_local const PendingInsertContext* tls_pending_insert = nullptr;
 // 根级动态图标节点（如 Mail Query 的 Query Result）使用运行时分配的高索引，不会是该值。
 constexpr int kGenericFolderImage = 5;
 
-// 控件 access key 白名单：仅这些控件类把 '&' 解释为有效助记符（与 inspector rev8 同口径）。
-// 集合封闭，未知新类型默认不在其中、按原文保留，避免误剥离。GroupBox 属 Button 类。
-bool SupportsAccessKeyCaption(std::string_view normClass) noexcept {
-    static constexpr std::array<std::string_view, 2> kAccessKeyCaptionClasses{"Button", "Static"};
-    for (const std::string_view cls : kAccessKeyCaptionClasses) {
-        if (cls == normClass) return true;
-    }
-    return false;
-}
+// 控件 access-key 白名单判定、助记符 '&' 检测与 caption 最终化（record/as_is/全局模板/尾部标点
+// 恢复）已下沉为 I18nManager 的静态方法与 finalize_caption_text，供本文件枚举路径与 api_hooks 的
+// A 版 WM_SETTEXT detour 共用同一输出口径，避免两条写入路径再次发生格式化漂移（#131）。
 
 // 文件夹树控件子类：仅负责修复启动首帧的未读数错位。
 //
@@ -83,6 +76,9 @@ LRESULT CALLBACK FolderTreeSubclassProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPA
         }
 
         if (uMsg == WM_NCDESTROY) {
+            // 树控件自身销毁：其 HTREEITEM 全部失效，精确清空树节点缓存。
+            // 注意：其他顶级窗口（Compose/对话框）的 NCDESTROY 不经过本过程，不会误清主树。
+            I18nManager::instance().on_folder_tree_destroyed();
             // 窗口销毁前恢复原窗口过程，避免任何指向已卸载代码的悬挂回调（兜底路径）
             WNDPROC orig = g_origTreeWndProc;
             if (orig) {
@@ -388,10 +384,12 @@ void UiTranslator::translate_menu(HMENU hMenu, const std::vector<MenuNodeRule>* 
                 I18nManager::instance().find_popup_menu_node(u8BaseText, levelNodes);
             if (popupNode) {
                 if (popupNode->translate && !popupNode->raw_dst_utf16.empty()) {
-                    // access key 从实时文本（带 &）提取并应用到无 & 译文，结果与 rev7 一致
+                    // as_is：作者写就的 & 原样保留；否则 access key 从实时文本（带 &）提取
                     std::wstring formattedPopup =
-                        I18nManager::instance().apply_access_key_format(
-                            wBaseText, popupNode->raw_dst_utf16);
+                        popupNode->as_is
+                            ? popupNode->raw_dst_utf16
+                            : I18nManager::instance().apply_access_key_format(
+                                  wBaseText, popupNode->raw_dst_utf16);
                     std::wstring newText = formattedPopup + wAccelSuffix;
                     if (newText != wFullText) {
                         MENUITEMINFOW miiSet{};
@@ -701,18 +699,36 @@ void UiTranslator::translate_single_control(HWND hWnd) {
         int copied = ::GetWindowTextW(hWnd, wText.data(), len + 1);
         wText.resize(static_cast<size_t>(copied));
 
+        const bool supportsKey = I18nManager::supports_caption_access_keys(normClass);
         std::string u8Text = I18nManager::wide_to_utf8(wText);
+
+        // 第一段：用实时文本匹配数据 src。命中说明实时文本是英文原文
         if (auto trans = I18nManager::instance().translate_control_text(
                 rules, u8Text)) {
-            // Button/Static 与菜单同口径：从实时文本（带 &）恢复助记符与三点；
-            // 其余控件不解释 &，直接使用规范化译文（字面 & 原样保留）
-            std::wstring finalText = *trans;
-            if (SupportsAccessKeyCaption(normClass)) {
-                finalText = I18nManager::instance().apply_access_key_format(wText, finalText);
-            }
+            // record_caption_raw / as_is / 助记符与尾部标点恢复统一在 finalize_caption_text 完成，
+            // 与 api_hooks 的 A 版 WM_SETTEXT detour 输出口径保持一致（#131）
+            std::wstring finalText = I18nManager::instance().finalize_caption_text(
+                hWnd, normClass, wText, *trans);
             if (finalText != wText) {
                 ::SetWindowTextW(hWnd, finalText.c_str());
                 ::InvalidateRect(hWnd, nullptr, TRUE);
+            }
+        } else if (supportsKey && !I18nManager::has_mnemonic_amp(wText)) {
+            // 第二段：实时文本不命中且无 &（被宿主重设为无 key 文本，可能已是译文）。
+            // 用缓存的原始带 & 英文文本重新匹配并提 key，恢复助记符
+            if (auto cached = I18nManager::instance().get_caption_raw(hWnd)) {
+                std::string u8Cached = I18nManager::wide_to_utf8(*cached);
+                if (auto trans2 = I18nManager::instance().translate_control_text(
+                        rules, u8Cached)) {
+                    // 兜底命中时以缓存的原始带 & 英文文本作为 key/标点提取源；finalize 内的
+                    // record 为同键同值幂等写入，不会用当前无 & 的实时文本污染缓存（#131）
+                    std::wstring finalText = I18nManager::instance().finalize_caption_text(
+                        hWnd, normClass, *cached, *trans2);
+                    if (finalText != wText) {
+                        ::SetWindowTextW(hWnd, finalText.c_str());
+                        ::InvalidateRect(hWnd, nullptr, TRUE);
+                    }
+                }
             }
         }
     }

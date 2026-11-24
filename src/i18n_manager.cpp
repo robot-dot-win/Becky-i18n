@@ -18,6 +18,7 @@
 #include "limits.hpp"
 #include "logger.hpp"
 
+#include <array>
 #include <fstream>
 #include <algorithm>
 #include <cwctype>
@@ -45,11 +46,8 @@ inline bool IsAccessKeyFormatAsIs(std::wstring_view fmt) noexcept {
            _wcsicmp(std::wstring(fmt).c_str(), L"as is") == 0;
 }
 
-// 从原文提取热键字母 (&2) 与尾部是否是三个点 ($3)
-void ExtractSrcAccessKeyAndEllipsis(std::wstring_view rawSrc, wchar_t& outKey, bool& outHasEllipsis) noexcept {
-    outKey = L'\0';
-    outHasEllipsis = rawSrc.ends_with(L"...");
-
+// 从原文提取热键字母（&2）；尾部标点（"..." / ":"）由 ExtractTrailingSuffixW 单独负责。
+wchar_t ExtractSrcAccessKeyW(std::wstring_view rawSrc) noexcept {
     for (size_t i = 0; i + 1 < rawSrc.size(); ++i) {
         if (rawSrc[i] == L'&') {
             if (rawSrc[i + 1] == L'&') {
@@ -58,21 +56,48 @@ void ExtractSrcAccessKeyAndEllipsis(std::wstring_view rawSrc, wchar_t& outKey, b
             }
             wchar_t nextCh = rawSrc[i + 1];
             if (nextCh != L' ' && nextCh != L'\t' && nextCh != L'\r' && nextCh != L'\n') {
-                outKey = ToUpperAsciiW(nextCh);
-                break;
+                return ToUpperAsciiW(nextCh);
             }
         }
     }
+    return L'\0';
+}
+
+// 可扩展尾部常量串集合（与 inspector rev9 kTrailingSuffixes 对齐）：互斥，按长度降序匹配。
+// 全角冒号 L"：" 不在集合内；仅当常量串真正位于最末尾才命中，尾随空格不剥。
+constexpr std::array<std::wstring_view, 2> kTrailingSuffixesW = {
+    L"...",
+    L":"
+};
+
+// 剥离首个命中的尾部常量串；无命中则原样返回。
+std::wstring_view StripTrailingSuffixW(std::wstring_view sv) noexcept {
+    for (std::wstring_view suffix : kTrailingSuffixesW) {
+        if (sv.size() >= suffix.size() && sv.ends_with(suffix)) {
+            sv.remove_suffix(suffix.size());
+            return sv;
+        }
+    }
+    return sv;
+}
+
+// 返回实时 src 最末尾命中的标点串（"..." 或 ":"），无命中则空串。
+// 与 kTrailingSuffixesW 同口径：全角冒号不识别、尾随空格不识别；集合按长度降序，
+// 一个文本至多命中一个，故取首个命中即可。
+std::wstring_view ExtractTrailingSuffixW(std::wstring_view sv) noexcept {
+    for (std::wstring_view suffix : kTrailingSuffixesW) {
+        if (sv.size() >= suffix.size() && sv.ends_with(suffix)) {
+            return suffix;
+        }
+    }
+    return {};
 }
 
 // 存储/匹配规范化（与 inspector normalize_caption_text 完全对齐）：
-// 剥离尾部 "..."、单 & 助记符删除、"&&" 折叠为字面 &，保留大小写与其余空白。
-// 对已规范化文本幂等，可安全用于实时文本归一与数据 src 两侧。
+// 先剥离尾部常量串（"..." / ":"），再处理 &——单 & 助记符删除、"&&" 折叠为字面 &，
+// 保留大小写与其余空白。对已规范化文本幂等，可安全用于实时文本归一与数据 src 两侧。
 std::wstring NormalizeCaptionW(std::wstring_view input) {
-    std::wstring_view sv = input;
-    if (sv.ends_with(L"...")) {
-        sv.remove_suffix(3);
-    }
+    const std::wstring_view sv = StripTrailingSuffixW(input);
 
     std::wstring out;
     out.reserve(sv.size());
@@ -153,16 +178,9 @@ std::optional<std::wregex> CompileRegexChecked(std::string_view patUtf8) {
 
 // 运行期正则安全包装：输入超 kMaxRegexInputChars 直接不匹配；
 // 引擎异常（complexity/stack/bad_alloc）吞掉按不匹配处理，绝不逃逸到系统回调。
+// 用 regex_search 而非 regex_match：全串 pattern（带 ^...$）因锚点仍等价于全串匹配；
+// 无锚点的子串 pattern（如 "Cc: "）也能命中，配合 regex_replace 完成子串替换。
 bool SafeRegexMatch(const std::wregex& re, const std::wstring& input) noexcept {
-    if (input.size() > limits::kMaxRegexInputChars) return false;
-    try {
-        return std::regex_match(input, re);
-    } catch (...) {
-        return false;
-    }
-}
-
-bool SafeRegexSearch(const std::wregex& re, const std::wstring& input) noexcept {
     if (input.size() > limits::kMaxRegexInputChars) return false;
     try {
         return std::regex_search(input, re);
@@ -285,83 +303,86 @@ std::wstring I18nManager::apply_access_key_format(std::wstring_view rawSrcWide, 
         return std::wstring(rawDstWide);
     }
 
-    // 1. 从实时 src 提取助记符字母与尾部三点（实时文本带 &/...）
-    wchar_t accessKey = L'\0';
-    bool srcHasEllipsis = false;
-    ExtractSrcAccessKeyAndEllipsis(rawSrcWide, accessKey, srcHasEllipsis);
-    const std::wstring suffix3 = srcHasEllipsis ? L"..." : L"";
+    // 1. 从实时 src 提取助记符字母与尾部标点。数据 src/dst 均为无标点纯文本，
+    //    尾部标点（"..." / ":"）一律以实时 src 为准，翻译后恢复
+    const wchar_t accessKey = ExtractSrcAccessKeyW(rawSrcWide);
+    const std::wstring trailingSuffix(ExtractTrailingSuffixW(rawSrcWide));
 
-    // 2. dst 是规范化纯文本：防御性去掉残留尾部三点，字面 & 稍后统一转义
+    // 2. dst 是无标点纯正文：防御性剥掉可能残留的尾部标点（不恢复，标点以 src 为准）
     std::wstring_view bodyView = rawDstWide;
     if (bodyView.ends_with(L"...")) {
         bodyView.remove_suffix(3);
     }
+    if (bodyView.ends_with(L":")) {
+        bodyView.remove_suffix(1);
+    }
 
-    // 3. 实时 src 无热键：仅转义字面 &，不插助记符，再恢复三点
+    // 3. 计算正文（不含任何尾部标点）
+    std::wstring bodyResult;
+
+    // 实时 src 无热键：仅转义字面 &，不插助记符
     if (accessKey == L'\0') {
-        return EscapeLiteralAmpersandsW(bodyView) + suffix3;
-    }
-
-    // 4. 在规范化正文（未转义）里定位 key 字母位置，忽略大小写，取第一个匹配
-    size_t keyPos = std::wstring_view::npos;
-    for (size_t i = 0; i < bodyView.size(); ++i) {
-        if (EqualsIgnoreCaseAsciiW(bodyView[i], accessKey)) {
-            keyPos = i;
-            break;
-        }
-    }
-
-    // 5. 正文命中 key：一次遍历同时完成"字面 & 转义 &&"与"key 前插助记符 &"
-    if (keyPos != std::wstring_view::npos) {
-        std::wstring out;
-        out.reserve(bodyView.size() + 2 + suffix3.size());
+        bodyResult = EscapeLiteralAmpersandsW(bodyView);
+    } else {
+        // 在规范化正文（未转义）里定位 key 字母位置，忽略大小写，取第一个匹配
+        size_t keyPos = std::wstring_view::npos;
         for (size_t i = 0; i < bodyView.size(); ++i) {
-            if (i == keyPos) {
-                out.push_back(L'&'); // 助记符
-            }
-            if (bodyView[i] == L'&') {
-                out.push_back(L'&');
-                out.push_back(L'&');
-            } else {
-                out.push_back(bodyView[i]);
+            if (EqualsIgnoreCaseAsciiW(bodyView[i], accessKey)) {
+                keyPos = i;
+                break;
             }
         }
-        return out + suffix3;
-    }
 
-    // 6. 正文找不到 key：按 access_key 模板（$1=正文、&2=助记符、$3=三点）
-    const std::wstring escapedBody = EscapeLiteralAmpersandsW(bodyView);
-    std::wstring out;
-    out.reserve(escapedBody.size() + access_key_pattern_.size() + suffix3.size() + 4);
+        if (keyPos != std::wstring_view::npos) {
+            // 正文命中 key：一次遍历同时完成"字面 & 转义 &&"与"key 前插助记符 &"
+            bodyResult.reserve(bodyView.size() + 2);
+            for (size_t i = 0; i < bodyView.size(); ++i) {
+                if (i == keyPos) {
+                    bodyResult.push_back(L'&'); // 助记符
+                }
+                if (bodyView[i] == L'&') {
+                    bodyResult.push_back(L'&');
+                    bodyResult.push_back(L'&');
+                } else {
+                    bodyResult.push_back(bodyView[i]);
+                }
+            }
+        } else {
+            // 正文找不到 key：按 access_key 模板（$1=正文、&2=助记符、$3 尾部标点统一恢复）
+            const std::wstring escapedBody = EscapeLiteralAmpersandsW(bodyView);
+            bodyResult.reserve(escapedBody.size() + access_key_pattern_.size() + 4);
 
-    const std::wstring& tpl = access_key_pattern_;
-    for (size_t i = 0; i < tpl.size(); ++i) {
-        if (tpl[i] == L'$' && i + 1 < tpl.size()) {
-            if (tpl[i + 1] == L'1') {
-                out += escapedBody;
-                ++i;
-                continue;
+            const std::wstring& tpl = access_key_pattern_;
+            for (size_t i = 0; i < tpl.size(); ++i) {
+                if (tpl[i] == L'$' && i + 1 < tpl.size()) {
+                    if (tpl[i + 1] == L'1') {
+                        bodyResult += escapedBody;
+                        ++i;
+                        continue;
+                    }
+                    if (tpl[i + 1] == L'2') {
+                        bodyResult.push_back(accessKey);
+                        ++i;
+                        continue;
+                    }
+                    if (tpl[i + 1] == L'3') {
+                        // 尾部标点（"..." / ":"）在函数末尾按实时 src 统一恢复，此处不输出
+                        ++i;
+                        continue;
+                    }
+                } else if (tpl[i] == L'&' && i + 1 < tpl.size() && tpl[i + 1] == L'2') {
+                    bodyResult.push_back(L'&');
+                    bodyResult.push_back(accessKey);
+                    ++i;
+                    continue;
+                }
+                bodyResult.push_back(tpl[i]);
             }
-            if (tpl[i + 1] == L'2') {
-                out.push_back(accessKey);
-                ++i;
-                continue;
-            }
-            if (tpl[i + 1] == L'3') {
-                out += suffix3;
-                ++i;
-                continue;
-            }
-        } else if (tpl[i] == L'&' && i + 1 < tpl.size() && tpl[i + 1] == L'2') {
-            out.push_back(L'&');
-            out.push_back(accessKey);
-            ++i;
-            continue;
         }
-        out.push_back(tpl[i]);
     }
 
-    return out;
+    // 4. 统一恢复从实时 src 提取的尾部标点（"..." 或 ":"，二者互斥）
+    return bodyResult + trailingSuffix;
 }
 
 std::string I18nManager::normalize_class_name(std::string_view rawClass) {
@@ -560,6 +581,7 @@ MenuNodeRule I18nManager::parse_menu_node(const nlohmann::json& j, unsigned dept
     }
     node.is_regex = (j.value("mode", "") == "regex");
     node.is_ownerdraw = j.value("ownerdraw", false);
+    node.as_is = j.value("as_is", false);
     node.cmd_id = static_cast<UINT>(j.value("cmd_id", 0));
     node.cmd_id_end = static_cast<UINT>(j.value("cmd_id_end", 0));
     if (node.cmd_id_end != 0 && node.cmd_id_end < node.cmd_id) {
@@ -663,6 +685,7 @@ ControlRule I18nManager::parse_control_node(const nlohmann::json& j, unsigned de
     CheckString(ctrl.active_tab_page, "control.active_tab_page");
     ctrl.translate = j.value("translate", false);
     ctrl.is_regex = (j.value("mode", "") == "regex");
+    ctrl.as_is = j.value("as_is", false);
 
     if (ctrl.is_regex) {
         parse_regex_rules(j, ctrl.regex_rules);
@@ -707,6 +730,32 @@ ControlRule I18nManager::parse_control_node(const nlohmann::json& j, unsigned de
             if (!src.empty() && !dst.empty()) {
                 ctrl.root_nodes.push_back(TextPair{src, utf8_to_wide(dst)});
             }
+        }
+    }
+
+    // 自绘 GDI 文本正则规则（JSON gdi_patterns，与 children 同级）：作用于该窗口 DC 及其
+    // 双缓冲内存 DC 上的 DrawTextA 文本；每条独立启用，编译失败的 pattern 跳过并告警。
+    if (j.contains("gdi_patterns") && j["gdi_patterns"].is_array()) {
+        const auto& gdiArray = j["gdi_patterns"];
+        CheckArraySize(gdiArray.size(), "control.gdi_patterns");
+        for (const auto& gp : gdiArray) {
+            if (!gp.is_object()) continue;
+            if (!gp.value("translate", true)) continue;
+            const std::string pat = gp.value("pattern", "");
+            const std::string rep = gp.value("replace", "");
+            CheckString(pat, "control.gdi_patterns.pattern");
+            CheckString(rep, "control.gdi_patterns.replace");
+            if (pat.empty()) continue;
+
+            auto compiled = CompileRegexChecked(pat);
+            if (!compiled) {
+                BKI_LOG_WARN("gdi pattern rejected: " << pat);
+                continue;
+            }
+            CompiledRegexRule cr;
+            cr.pattern = std::move(*compiled);
+            cr.replace = utf8_to_wide(rep);
+            ctrl.gdi_patterns.push_back(std::move(cr));
         }
     }
 
@@ -943,6 +992,7 @@ void I18nManager::index_menu_tree_recursive(const std::vector<MenuNodeRule>& nod
                     MenuCommandRule cmdRule;
                     cmdRule.cmd_id = node.cmd_id;
                     cmdRule.is_regex = node.is_regex;
+                    cmdRule.as_is = node.as_is;
                     cmdRule.raw_dst_utf16 = node.raw_dst_utf16;
                     cmdRule.regex_pattern = node.regex_pattern;
                     if (hasVariants) {
@@ -1233,43 +1283,51 @@ std::optional<std::wstring> I18nManager::translate_menu_command(UINT cmdId, std:
         accelSuffix = utf8_to_wide(u8Full.substr(tabPos));
     }
 
-    // 实时文本（菜单带 &/...）按新契约 normalize 后，再与规范化数据 src 匹配
+    // 实时文本（菜单带 &/尾部串）：保留原始宽串用于提取 key 字母，同时得到规范化串，
+    // 使 regex 与控件同口径、只作用于规范化串
     const std::wstring wBaseText = utf8_to_wide(baseText);
-    const std::string baseNoAmp = wide_to_utf8(NormalizeCaptionW(wBaseText));
+    const std::wstring wNorm = NormalizeCaptionW(wBaseText);
+    const std::string baseNoAmp = wide_to_utf8(wNorm);
 
     // 1) 精确 cmd_id 索引：固定命令（普通单 dst / 多规则 variants / 正则）
     auto it = menu_cmd_map_.find(cmdId);
     if (it != menu_cmd_map_.end() && !it->second.empty()) {
         for (const auto& rule : it->second) {
             if (rule.is_regex && rule.regex_pattern.has_value()) {
-                if (SafeRegexMatch(*rule.regex_pattern, wBaseText)) {
+                // regex 作用于规范化串（与控件统一）
+                if (SafeRegexMatch(*rule.regex_pattern, wNorm)) {
                     std::wstring replaced =
-                        SafeRegexReplace(*rule.regex_pattern, wBaseText, rule.raw_dst_utf16);
-                    if (replaced == wBaseText) continue;
-                    // access key 从实时文本提取（菜单带 & 则插，tooltip 无 & 自然不插）
+                        SafeRegexReplace(*rule.regex_pattern, wNorm, rule.raw_dst_utf16);
+                    if (replaced == wNorm) continue;
+                    // as_is：跳过 access key 加工，作者显式写就的 & 原样保留；
+                    // 否则从原始实时文本（带 &）提取 key
+                    if (rule.as_is) return replaced + accelSuffix;
                     return apply_access_key_format(wBaseText, replaced) + accelSuffix;
                 }
             } else if (!rule.variants.empty()) {
-                // 多规则固定命令（如 57604/57636）：先按去 & 实时文本选 dst，再套 access key
+                // 多规则固定命令（如 57604/57636）：先按规范化实时文本选 dst，再套 access key
                 for (const auto& v : rule.variants) {
                     if (v.src == baseNoAmp) {
+                        if (rule.as_is) return v.dst + accelSuffix;
                         return apply_access_key_format(wBaseText, v.dst) + accelSuffix;
                     }
                 }
             } else if (!rule.raw_dst_utf16.empty()) {
-                // 普通固定命令：按原规范应用 access key
+                // 普通固定命令：as_is 原样输出，否则按原规范应用 access key
+                if (rule.as_is) return rule.raw_dst_utf16 + accelSuffix;
                 return apply_access_key_format(wBaseText, rule.raw_dst_utf16) + accelSuffix;
             }
         }
     }
 
-    // 2) 动态 ID 区间回退：cmdId 落入某区间，按去 & 文本在 dynamic_texts 匹配后套 access key。
+    // 2) 动态 ID 区间回退：cmdId 落入某区间，按规范化文本在 dynamic_texts 匹配后套 access key。
     //    各区间在设计上互斥，命中某区间即不再考察其他区间。
     for (const auto* rangeNode : dynamic_cmd_ranges_) {
         if (!rangeNode || cmdId < rangeNode->cmd_id || cmdId > rangeNode->cmd_id_end) continue;
 
         for (const auto& pair : rangeNode->dynamic_texts) {
             if (pair.src == baseNoAmp) {
+                if (rangeNode->as_is) return pair.dst + accelSuffix;
                 return apply_access_key_format(wBaseText, pair.dst) + accelSuffix;
             }
         }
@@ -1366,6 +1424,32 @@ std::optional<std::wstring> I18nManager::translate_mail_tab_text(std::string_vie
     }
 
     return std::nullopt;
+}
+
+std::optional<std::wstring> I18nManager::translate_gdi_pattern_text(
+    const std::vector<const ControlRule*>& rules,
+    std::string_view rawAnsiText) const {
+    if (!active_ || rawAnsiText.empty()) return std::nullopt;
+
+    // DrawTextA 入参为系统 ANSI 代码页（任务 pane 的中文日期/注释为 GBK 字节）；统一转宽字符后
+    // 在宽串上做 regex 子串替换，调用方改走 DrawTextW 输出，避免破坏多字节日期与用户注释正文。
+    std::wstring wCur = ansi_to_wide(rawAnsiText);
+    if (wCur.empty()) return std::nullopt;
+
+    bool changed = false;
+    for (const auto* rule : rules) {
+        if (!rule || rule->gdi_patterns.empty()) continue;
+        for (const auto& rx : rule->gdi_patterns) {
+            std::wstring replaced = SafeRegexReplace(rx.pattern, wCur, rx.replace);
+            if (replaced != wCur) {
+                wCur = std::move(replaced);
+                changed = true;
+            }
+        }
+    }
+
+    if (!changed) return std::nullopt;
+    return wCur;
 }
 
 const MenuNodeRule* I18nManager::find_popup_menu_node(std::string_view baseUtf8Text,
@@ -1644,13 +1728,13 @@ std::vector<const ControlRule*> I18nManager::compute_control_rules(HWND hWnd) {
     return {};
 }
 
-std::optional<std::wstring> I18nManager::translate_control_text(const std::vector<const ControlRule*>& rules,
-                                                                std::string_view utf8Text) const {
+std::optional<ControlTextResult> I18nManager::translate_control_text(const std::vector<const ControlRule*>& rules,
+                                                                      std::string_view utf8Text) const {
     if (utf8Text.empty()) return std::nullopt;
 
-    // 实时控件文本经与 inspector normalize_caption_text 完全相同的归一（剥离尾部 "..."、
-    // 单 & 助记符删除、"&&" 折叠为字面 &，保留大小写与其余空白）。数据 src 本身即该
-    // 归一的输出，故直接相等比较，不引入换行/空白等额外变换，保证两侧算法呼应一致。
+    // 实时控件文本经与 inspector normalize_caption_text 完全相同的归一（剥离尾部常量串
+    // "..." / ":"、单 & 助记符删除、"&&" 折叠为字面 &，保留大小写与其余空白）。数据 src
+    // 本身即该归一的输出，故直接相等比较，不引入额外变换，保证两侧算法呼应一致。
     const std::wstring wNorm = NormalizeCaptionW(utf8_to_wide(utf8Text));
     const std::string normInput = wide_to_utf8(wNorm);
 
@@ -1659,17 +1743,17 @@ std::optional<std::wstring> I18nManager::translate_control_text(const std::vecto
 
         for (const auto& pair : rule->texts) {
             if (pair.src == normInput) {
-                return pair.dst;
+                return ControlTextResult{pair.dst, rule->as_is};
             }
         }
 
         if (rule->is_regex && !rule->regex_rules.empty()) {
             for (const auto& rx : rule->regex_rules) {
-                if (SafeRegexSearch(rx.pattern, wNorm)) {
+                if (SafeRegexMatch(rx.pattern, wNorm)) {
                     std::wstring replaced = SafeRegexReplace(rx.pattern, wNorm, rx.replace);
-                    // 返回规范化结果；access key 由 ui_translator 按控件类白名单统一应用
+                    // 返回规范化结果与条目 as_is；access key 由 ui_translator 按控件类白名单统一应用
                     if (replaced != wNorm) {
-                        return replaced;
+                        return ControlTextResult{std::move(replaced), rule->as_is};
                     }
                 }
             }
@@ -1804,20 +1888,97 @@ void I18nManager::update_tree_item_image(HTREEITEM hItem, int imageIndex) {
     }
 }
 
+void I18nManager::on_folder_tree_destroyed() {
+    // 仅在文件夹树控件自身销毁（其全部 HTREEITEM 随之失效）时调用。
+    // 这两个表以 HTREEITEM 为键、从属于存活的树控件；其他顶级窗口（Compose、对话框等）
+    // 销毁时绝不能清空，否则存活主窗树的节点元数据丢失后，无法在 TVN_GETDISPINFO 中重建，
+    // 会导致整棵树回退原文（开关一次 Compose 后主树系统文件夹全英文的回归）。
+    std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
+    tree_item_orig_text_.clear();
+    tree_item_state_.clear();
+}
+
 void I18nManager::on_window_destroyed(HWND hWnd) {
     if (!hWnd) return;
-    std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
-    const bool wasTop = top_window_cache_.find(hWnd) != top_window_cache_.end();
-    top_window_cache_.erase(hWnd);
-    control_rule_cache_.erase(hWnd);
-    if (wasTop) {
-        // 顶级窗口销毁：其整棵子树与树节点缓存全部失效。子窗口理论上先于父窗口收到
-        // WM_NCDESTROY，这里做防御性全量清理，杜绝句柄复用导致的陈旧映射；
-        // 代价仅是其余窗口下次访问时重新计算，无正确性影响。
-        control_rule_cache_.clear();
-        tree_item_orig_text_.clear();
-        tree_item_state_.clear();
+    {
+        // 只做与被销毁 HWND 一一对应的精确失效。每个窗口（含各子控件）都会在
+        // WM_NCDESTROY 到达本钩子，因此无需因某个顶级窗口销毁而 clear 全局缓存：
+        // 那样会误删其他存活顶级窗口（如主窗口文件夹树）的规则与节点状态。
+        std::lock_guard<std::mutex> lock(hwnd_cache_mutex_);
+        top_window_cache_.erase(hWnd);
+        control_rule_cache_.erase(hWnd);
     }
+    // caption 原始文本缓存使用独立互斥锁，放在 hwnd_cache_mutex_ 作用域外清理，
+    // 保持单锁获取、避免嵌套加锁；此处仅删本窗口键，其子控件由各自 NCDESTROY 清理。
+    erase_caption_raw(hWnd);
+}
+
+void I18nManager::record_caption_raw(HWND hWnd, std::wstring_view rawText) {
+    if (!hWnd || rawText.empty()) return;
+    std::lock_guard<std::mutex> lock(caption_raw_mutex_);
+    caption_raw_cache_[hWnd] = std::wstring(rawText);
+}
+
+std::optional<std::wstring> I18nManager::get_caption_raw(HWND hWnd) const {
+    if (!hWnd) return std::nullopt;
+    std::lock_guard<std::mutex> lock(caption_raw_mutex_);
+    auto it = caption_raw_cache_.find(hWnd);
+    if (it != caption_raw_cache_.end()) {
+        return it->second;
+    }
+    return std::nullopt;
+}
+
+void I18nManager::erase_caption_raw(HWND hWnd) {
+    if (!hWnd) return;
+    std::lock_guard<std::mutex> lock(caption_raw_mutex_);
+    caption_raw_cache_.erase(hWnd);
+}
+
+void I18nManager::clear_caption_raw() {
+    std::lock_guard<std::mutex> lock(caption_raw_mutex_);
+    caption_raw_cache_.clear();
+}
+
+bool I18nManager::supports_caption_access_keys(std::string_view normClass) noexcept {
+    // GroupBox 的 Win32 类名同样是 "Button"，一并覆盖；集合封闭，未知类不加工。
+    return normClass == "Button" || normClass == "Static";
+}
+
+bool I18nManager::has_mnemonic_amp(std::wstring_view text) noexcept {
+    for (size_t i = 0; i < text.size(); ++i) {
+        if (text[i] == L'&') {
+            if (i + 1 < text.size() && text[i + 1] == L'&') {
+                ++i;  // 转义的字面 "&&"，跳过
+                continue;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+std::wstring I18nManager::finalize_caption_text(HWND hWnd,
+                                                std::string_view normClass,
+                                                std::wstring_view rawSource,
+                                                const ControlTextResult& translated) {
+    // 非 caption 助记符类（Edit/ComboBox/...）：保持各动态通道旧行为，译文原样输出。
+    if (!supports_caption_access_keys(normClass)) {
+        return translated.text;
+    }
+
+    // 仅在实时原文确实含单 '&' 时刷新缓存，避免宿主重设的无 '&' 文本污染原始英文缓存；
+    // as_is 条目也照常记录（与 ui 枚举路径抽取前的行为一致），供后续二段兜底提取 key。
+    if (has_mnemonic_amp(rawSource)) {
+        record_caption_raw(hWnd, rawSource);
+    }
+
+    // 条目级 as_is：作者在 dst 中写就的内容全权保留，不套全局 access-key 模板。
+    if (translated.as_is) {
+        return translated.text;
+    }
+
+    return apply_access_key_format(rawSource, translated.text);
 }
 
 std::optional<std::wstring> I18nManager::translate_status_pane(const std::vector<const ControlRule*>& rules,

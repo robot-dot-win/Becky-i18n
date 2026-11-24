@@ -1,0 +1,2091 @@
+{
+  "meta": {"locale": "pl_PL", "name": "Polski (pl_PL)", "access_key": "$1(&2)$3", "version": "1.0.0", "author": "Gemini AI"},
+  "menus": {
+    "popups": {
+      "main_frame": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "Plik",
+          "children": [
+            {"translate": true, "src": "Folder", "dst": "Folder"},
+            {"translate": true, "src": "Mailbox", "dst": "Skrzynka pocztowa"},
+            {"translate": true, "src": "System", "dst": "System"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "Edycja"},
+        {
+          "translate": true,
+          "src": "View",
+          "dst": "Widok",
+          "children": [
+            {"translate": true, "src": "Change Layout", "dst": "Zmień układ"},
+            {"translate": true, "src": "Language", "dst": "Kodowanie znaków"},
+            {"translate": true, "src": "Mail Address Format", "dst": "Format adresu e-mail"}
+          ]
+        },
+        {
+          "translate": true,
+          "src": "Mail",
+          "dst": "Wiadomość",
+          "children": [{"translate": true, "src": "Compose To", "dst": "Napisz do"}, {"translate": true, "src": "Reply To", "dst": "Odpowiedz do"}]
+        },
+        {
+          "translate": true,
+          "src": "Tools",
+          "dst": "Narzędzia",
+          "children": [
+            {"translate": true, "src": "Plug-Ins Setup", "dst": "Konfiguracja wtyczek"},
+            {"translate": true, "src": "Decode", "dst": "Dekoduj"},
+            {"translate": true, "src": "Dialup", "dst": "Połączenie telefoniczne"}
+          ]
+        },
+        {"translate": true, "src": "Help", "dst": "Pomoc"},
+        {"translate": true, "src": "Mailing List", "dst": "Lista dyskusyjna"},
+        {"translate": true, "src": "Special Copy/Paste", "dst": "Specjalne kopiuj/wklej"},
+        {"translate": true, "src": "Paragraph Formatting", "dst": "Formatowanie akapitu"}
+      ],
+      "compose": [
+        {"translate": true, "src": "File", "dst": "Plik"},
+        {
+          "translate": true,
+          "src": "Edit",
+          "dst": "Edycja",
+          "children": [
+            {"translate": true, "src": "Special Copy/Paste", "dst": "Specjalne kopiuj/wklej"},
+            {"translate": true, "src": "Paragraph Formatting", "dst": "Formatowanie akapitu"}
+          ]
+        },
+        {"translate": true, "src": "View", "dst": "Widok", "children": [{"translate": true, "src": "Language", "dst": "Kodowanie znaków"}]},
+        {"translate": true, "src": "Tools", "dst": "Narzędzia"},
+        {"translate": true, "src": "Help", "dst": "Pomoc"}
+      ],
+      "address": [
+        {
+          "translate": true,
+          "src": "File",
+          "dst": "Plik",
+          "children": [
+            {"translate": true, "src": "Add Address Book", "dst": "Dodaj książkę adresową"},
+            {"translate": true, "src": "Import", "dst": "Importuj"},
+            {"translate": true, "src": "Export", "dst": "Eksportuj"}
+          ]
+        },
+        {"translate": true, "src": "Edit", "dst": "Edycja"},
+        {"translate": true, "src": "View", "dst": "Widok"},
+        {"translate": true, "src": "Tools", "dst": "Narzędzia", "children": [{"translate": true, "src": "Input Format", "dst": "Format wprowadzania"}]},
+        {"translate": true, "src": "Help", "dst": "Pomoc"}
+      ]
+    },
+    "commands": [
+      {
+        "cmd_id": 1,
+        "cmd_id_end": 100,
+        "ownerdraw": true,
+        "translate": true,
+        "rules": [
+          {"src": "From:", "dst": "Od:"},
+          {"src": "Reply-To:", "dst": "Odpowiedz-do:"},
+          {"src": "Sender:", "dst": "Nadawca:"},
+          {"src": "To:", "dst": "Do:"},
+          {"src": "Cc:", "dst": "Dw:"},
+          {"src": "Bcc:", "dst": "Udw:"},
+          {"src": "Subject:", "dst": "Temat:"},
+          {"src": "Return-Path:", "dst": "Ścieżka zwrotu:"},
+          {"src": "Message-Id:", "dst": "ID wiadomości:"},
+          {"src": "In-Reply-To:", "dst": "W odpowiedzi na:"},
+          {"src": "References:", "dst": "Odwołania:"},
+          {"src": "X-Mailer:", "dst": "Klient poczty:"},
+          {"src": "X-SMTP-Result:", "dst": "Wynik SMTP:"},
+          {"src": "Sent Date:", "dst": "Data wysłania:"},
+          {"src": "Delivered Date:", "dst": "Data dostarczenia:"},
+          {"src": "Received Date:", "dst": "Data odebrania:"},
+          {"src": "Resent Date:", "dst": "Data ponownego wysłania:"},
+          {"src": "Local Time:", "dst": "Czas lokalny:"},
+          {"src": "Time Difference:", "dst": "Różnica czasu:"},
+          {
+            "src": "** Clear All (To delete one by one, right click the item.) **",
+            "dst": "** Wyczyść wszystko (Aby usunąć pojedynczo, kliknij element prawym przyciskiem myszy.) **"
+          }
+        ]
+      },
+      {"cmd_id": 101, "translate": true, "src": "Display as Domestic Time", "dst": "Wyświetl w czasie lokalnym"},
+      {
+        "cmd_id": 108,
+        "translate": true,
+        "src": "Direct Edit Mode",
+        "dst": "Tryb edycji bezpośredniej",
+        "hint_src": "Toggle direct editing mode",
+        "hint_dst": "Przełącza tryb bezpośredniej edycji treści wiadomości"
+      },
+      {
+        "cmd_id": 10000,
+        "cmd_id_end": 10099,
+        "translate": true,
+        "rules": [
+          {"src": "Find Next", "dst": "Znajdź następny", "hint_src": "Search next candidate", "hint_dst": "Wyszukuje następne dopasowanie"},
+          {"src": "Find Previous", "dst": "Znajdź poprzedni", "hint_src": "Search previous candidate", "hint_dst": "Wyszukuje poprzednie dopasowanie"},
+          {
+            "src": "uudecode",
+            "dst": "uudecode",
+            "hint_src": "Decode uuencoded text in the message",
+            "hint_dst": "Dekoduje tekst zakodowany w formacie uuencode w wiadomości"
+          },
+          {
+            "src": "BinHex",
+            "dst": "BinHex",
+            "hint_src": "Decode BinHex encoded text in the message",
+            "hint_dst": "Dekoduje tekst zakodowany w formacie BinHex w wiadomości"
+          },
+          {
+            "src": "Step Undo/Redo",
+            "dst": "Krokowe Cofnij/Ponów",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "Cofa lub ponawia operacje o określoną liczbę kroków"
+          },
+          {
+            "src": "Paste From History",
+            "dst": "Wklej z historii schowka",
+            "hint_src": "Paste from the clipboard history",
+            "hint_dst": "Wkleja zawartość z historii schowka"
+          },
+          {
+            "src": "Begin Box Selection",
+            "dst": "Rozpocznij zaznaczanie blokowe",
+            "hint_src": "Begin the box selection",
+            "hint_dst": "Rozpoczyna prostokątne zaznaczanie blokowe tekstu"
+          },
+          {
+            "src": "Paste Box",
+            "dst": "Wklej blok tekstu",
+            "hint_src": "Paste a box text previously copied or cut",
+            "hint_dst": "Wkleja wcześniej skopiowany lub wycięty blok tekstu"
+          },
+          {"src": "Copy To File", "dst": "Kopiuj do pliku", "hint_src": "Copy the selection to a file", "hint_dst": "Kopiuje zaznaczony fragment do pliku"},
+          {
+            "src": "Append To File",
+            "dst": "Dołącz do pliku",
+            "hint_src": "Append the selection to an existing file",
+            "hint_dst": "Dopisuje zaznaczony fragment na końcu istniejącego pliku"
+          },
+          {
+            "src": "Paste From File",
+            "dst": "Wklej z pliku",
+            "hint_src": "Paste an existing text file at the caret position",
+            "hint_dst": "Wstawia zawartość pliku tekstowego w pozycji kursora"
+          },
+          {
+            "src": "Left",
+            "dst": "Wyrównaj do lewej",
+            "hint_src": "Bring the selection to the left",
+            "hint_dst": "Wyrównuje zaznaczony tekst do lewej krawędzi"
+          },
+          {
+            "src": "Right",
+            "dst": "Wyrównaj do prawej",
+            "hint_src": "Bring the selection to the right",
+            "hint_dst": "Wyrównuje zaznaczony tekst do prawej krawędzi"
+          },
+          {"src": "Center", "dst": "Wyśrodkuj", "hint_src": "Bring the selection to the center", "hint_dst": "Wyśrodkowuje zaznaczony tekst"},
+          {
+            "src": "Indent",
+            "dst": "Zwiększ wcięcie",
+            "hint_src": "Indent the selection by one level",
+            "hint_dst": "Zwiększa wcięcie zaznaczonego tekstu o jeden poziom"
+          },
+          {
+            "src": "Unindent",
+            "dst": "Zmniejsz wcięcie",
+            "hint_src": "UnIndent the selection by one level",
+            "hint_dst": "Zmniejsza wcięcie zaznaczonego tekstu o jeden poziom"
+          },
+          {
+            "src": "Add Strings",
+            "dst": "Dodaj ciąg znaków",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "Dodaje określony ciąg znaków na początku lub końcu zaznaczenia"
+          },
+          {"src": "Sort", "dst": "Sortuj", "hint_src": "Sort the selection", "hint_dst": "Sortuje zaznaczone wiersze"},
+          {
+            "src": "Format",
+            "dst": "Formatuj akapit",
+            "hint_src": "Format the selection or a text block which ends with an empty line",
+            "hint_dst": "Formatuje zaznaczenie lub blok tekstu zakończony pustym wierszem"
+          },
+          {
+            "src": "Deformat",
+            "dst": "Usuń formatowanie",
+            "hint_src": "Remove return codes from the selection or a text block which ends with an empty line",
+            "hint_dst": "Usuwa znaki podziału wiersza z zaznaczenia lub bloku tekstu zakończonego pustym wierszem"
+          },
+          {"src": "Convert", "dst": "Konwertuj", "hint_src": "Convert the selection", "hint_dst": "Konwertuje zaznaczony tekst"},
+          {
+            "src": "Auto Formatting Mode",
+            "dst": "Tryb autoformatowania",
+            "hint_src": "Toggle Auto Formatting mode",
+            "hint_dst": "Przełącza tryb automatycznego formatowania akapitów"
+          },
+          {
+            "src": "Overwrite Mode",
+            "dst": "Tryb nadpisywania",
+            "hint_src": "Toggle Insert/Overwrite mode",
+            "hint_dst": "Przełącza tryb Wstawianie/Nadpisywanie"
+          },
+          {
+            "src": "Spelling-Check",
+            "dst": "Sprawdzanie pisowni",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Sprawdza pisownię całego tekstu lub bieżącego zaznaczenia"
+          },
+          {
+            "src": "(default)",
+            "dst": "(domyślny)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Zmienia kodowanie znaków bieżącej wiadomości"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(Domyślny)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Zmienia kodowanie znaków bieżącej wiadomości"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7-bit ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "Zachodnioeuropejski Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "Środkowoeuropejski Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "Zachodnioeuropejski Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "Japoński (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "Koreański UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "Koreański RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "Chiński tradycyjny (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "Chiński uproszczony (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "Chiński standard państwowy (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "Chiński uproszczony HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "Rosyjski koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "Ukraiński koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "Cyrylica (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"},
+          {
+            "src": "StepDo",
+            "dst": "Krokowe Cofnij/Ponów",
+            "hint_src": "Undo/Redo by the specified steps",
+            "hint_dst": "Cofa lub ponawia operacje o określoną liczbę kroków"
+          },
+          {
+            "src": "Box Begin",
+            "dst": "Zaznaczanie blokowe",
+            "hint_src": "Begin the box selection",
+            "hint_dst": "Rozpoczyna prostokątne zaznaczanie blokowe tekstu"
+          },
+          {
+            "src": "Append String",
+            "dst": "Dołącz ciąg",
+            "hint_src": "Append specified string at the top/end of the selection",
+            "hint_dst": "Dodaje określony ciąg znaków na początku lub końcu zaznaczenia"
+          },
+          {
+            "src": "Auto Formatting",
+            "dst": "Autoformatowanie",
+            "hint_src": "Toggle Auto Formatting mode",
+            "hint_dst": "Przełącza tryb automatycznego formatowania akapitów"
+          },
+          {
+            "src": "Insert/Overwrite",
+            "dst": "Wstawianie/Nadpisywanie",
+            "hint_src": "Toggle Insert/Overwrite mode",
+            "hint_dst": "Przełącza tryb Wstawianie/Nadpisywanie"
+          },
+          {
+            "src": "Spell Check",
+            "dst": "Sprawdź pisownię",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Sprawdza pisownię całego tekstu lub bieżącego zaznaczenia"
+          },
+          {
+            "src": "Spelling Check",
+            "dst": "Sprawdzanie pisowni",
+            "hint_src": "Check the spelling of the entire text or the current selection",
+            "hint_dst": "Sprawdza pisownię całego tekstu lub bieżącego zaznaczenia"
+          }
+        ]
+      },
+      {
+        "cmd_id": 10102,
+        "translate": true,
+        "src": "General Setup",
+        "dst": "Ustawienia ogólne",
+        "hint_src": "Set up general preferences",
+        "hint_dst": "Konfiguruje ogólne ustawienia programu"
+      },
+      {
+        "cmd_id": 10103,
+        "translate": true,
+        "src": "Paste With Citation Prefix",
+        "dst": "Wklej z prefiksem cytatu",
+        "hint_src": "Paste text adding citation prefix at each top of a line",
+        "hint_dst": "Wkleja tekst z dodaniem prefiksu cytowania na początku każdego wiersza"
+      },
+      {
+        "cmd_id": 10501,
+        "translate": true,
+        "src": "Receive New Mail",
+        "dst": "Odbierz nową pocztę",
+        "hint_src": "Retrieve new messages from the server",
+        "hint_dst": "Pobiera nowe wiadomości z serwera"
+      },
+      {
+        "cmd_id": 10502,
+        "translate": true,
+        "src": "Send From Outbox",
+        "dst": "Wyślij ze Skrzynki nadawczej",
+        "hint_src": "Send outgoing messages from Outbox",
+        "hint_dst": "Wysyła oczekujące wiadomości ze Skrzynki nadawczej"
+      },
+      {
+        "cmd_id": 10503,
+        "translate": true,
+        "src": "Remote Mailbox",
+        "dst": "Zdalna skrzynka pocztowa",
+        "hint_src": "List messages on the server",
+        "hint_dst": "Wyświetla listę wiadomości na serwerze zdalnym"
+      },
+      {
+        "cmd_id": 10504,
+        "translate": true,
+        "src": "Collection And Delivery",
+        "dst": "Zbiorcze wysyłanie i odbieranie",
+        "hint_src": "Send and receive messages for multiple mailboxes",
+        "hint_dst": "Wysyła i odbiera wiadomości dla wielu skrzynek pocztowych jednocześnie"
+      },
+      {
+        "cmd_id": 10505,
+        "translate": true,
+        "src": "Reply",
+        "dst": "Odpowiedz",
+        "hint_src": "Reply to the selected message",
+        "hint_dst": "Odpowiada na zaznaczoną wiadomość"
+      },
+      {
+        "cmd_id": 10506,
+        "translate": true,
+        "src": "Reply To All",
+        "dst": "Odpowiedz wszystkim",
+        "hint_src": "Reply to not only the replying address but also the addresses in \"To\" and \"Cc\" field",
+        "hint_dst": "Odpowiada nadawcy oraz wszystkim adresatom z pól „Do” i „Dw”"
+      },
+      {
+        "cmd_id": 10507,
+        "translate": true,
+        "src": "Compose",
+        "dst": "Nowa wiadomość",
+        "hint_src": "Compose new message",
+        "hint_dst": "Tworzy nową wiadomość e-mail"
+      },
+      {
+        "cmd_id": 10508,
+        "translate": true,
+        "src": "Forward",
+        "dst": "Prześlij dalej",
+        "hint_src": "Forward the selected message to others",
+        "hint_dst": "Przesyła zaznaczoną wiadomość dalej do innych odbiorców"
+      },
+      {
+        "cmd_id": 10510,
+        "translate": true,
+        "src": "Mail Query",
+        "dst": "Wyszukiwanie wiadomości",
+        "hint_src": "Search the specified string in e-mail messages and show results",
+        "hint_dst": "Wyszukuje podany ciąg znaków w wiadomościach i wyświetla wyniki"
+      },
+      {
+        "cmd_id": 10511,
+        "translate": true,
+        "src": "Mark As Read",
+        "dst": "Oznacz jako przeczytane",
+        "hint_src": "Mark the selected messages read",
+        "hint_dst": "Oznacza zaznaczone wiadomości jako przeczytane"
+      },
+      {
+        "cmd_id": 10512,
+        "translate": true,
+        "src": "Mark As Unread",
+        "dst": "Oznacz jako nieprzeczytane",
+        "hint_src": "Mark the selected messages unread",
+        "hint_dst": "Oznacza zaznaczone wiadomości jako nieprzeczytane"
+      },
+      {
+        "cmd_id": 10513,
+        "translate": true,
+        "src": "Rename Folder",
+        "dst": "Zmień nazwę folderu",
+        "hint_src": "Change the name of the current folder",
+        "hint_dst": "Zmienia nazwę bieżącego folderu"
+      },
+      {
+        "cmd_id": 10517,
+        "translate": true,
+        "src": "Sort New Messages",
+        "dst": "Filtruj nowe wiadomości",
+        "hint_src": "Sort messages from Inbox and Sent box to folders according to the sorting rules",
+        "hint_dst": "Sortuje wiadomości z folderów Odebrane i Wysłane według reguł filtrowania"
+      },
+      {
+        "cmd_id": 10518,
+        "translate": true,
+        "src": "Save To Outbox",
+        "dst": "Zapisz w Skrzynce nadawczej",
+        "hint_src": "Save the currently editing message to Outbox",
+        "hint_dst": "Zapisuje edytowaną wiadomość w Skrzynce nadawczej"
+      },
+      {
+        "cmd_id": 10519,
+        "translate": true,
+        "src": "Send Now",
+        "dst": "Wyślij teraz",
+        "hint_src": "Send the currently editing message immediately.",
+        "hint_dst": "Natychmiast wysyła edytowaną wiadomość"
+      },
+      {
+        "cmd_id": 10520,
+        "translate": true,
+        "src": "Save To Draft",
+        "dst": "Zapisz w Szkicach",
+        "hint_src": "Save the currently editing message to Draft box",
+        "hint_dst": "Zapisuje edytowaną wiadomość w folderze Szkice"
+      },
+      {
+        "cmd_id": 10522,
+        "translate": true,
+        "src": "Maxmize View",
+        "dst": "Maksymalizuj podgląd wiadomości",
+        "hint_src": "Toggle the size of the message view between maximized and normal",
+        "hint_dst": "Przełącza rozmiar panelu podglądu wiadomości między zmaksymalizowanym a normalnym"
+      },
+      {
+        "cmd_id": 10523,
+        "translate": true,
+        "src": "Mail To",
+        "dst": "Napisz na ten adres",
+        "hint_src": "Write a message to this e-mail address",
+        "hint_dst": "Tworzy nową wiadomość na ten adres e-mail"
+      },
+      {"cmd_id": 10524, "translate": true, "src": "Add To Address Book", "dst": "Dodaj do książki adresowej"},
+      {
+        "cmd_id": 10525,
+        "translate": true,
+        "src": "Copy Address",
+        "dst": "Kopiuj adres",
+        "hint_src": "Highlight a e-mail address and copy to the clipboard",
+        "hint_dst": "Zaznacza adres e-mail i kopiuje go do schowka"
+      },
+      {"cmd_id": 10526, "translate": true, "src": "Highlight Word", "dst": "Wyróżnij słowo", "hint_src": "Highlight word", "hint_dst": "Wyróżnia słowo"},
+      {
+        "cmd_id": 10527,
+        "translate": true,
+        "src": "Open URL",
+        "dst": "Otwórz adres URL",
+        "hint_src": "Open URL with a Web browser",
+        "hint_dst": "Otwiera adres URL w przeglądarce internetowej"
+      },
+      {
+        "cmd_id": 10528,
+        "translate": true,
+        "src": "Copy URL",
+        "dst": "Kopiuj adres URL",
+        "hint_src": "Highlight URL and copy to the clipboard",
+        "hint_dst": "Zaznacza adres URL i kopiuje go do schowka"
+      },
+      {"cmd_id": 10529, "translate": true, "src": "Highlight Word", "dst": "Wyróżnij słowo", "hint_src": "Highlight word", "hint_dst": "Wyróżnia słowo"},
+      {
+        "cmd_id": 10549,
+        "translate": true,
+        "src": "Set Priority",
+        "dst": "Ustaw priorytet",
+        "hint_src": "Set the priority mark for the outgoing message.",
+        "hint_dst": "Ustawia znacznik priorytetu dla wiadomości wychodzącej"
+      },
+      {
+        "cmd_id": 20000,
+        "cmd_id_end": 31999,
+        "translate": true,
+        "rules": [
+          {
+            "src": "PGP: Decrypt And Verify",
+            "dst": "PGP: Odszyfruj i zweryfikuj podpis",
+            "hint_src": "Decrypt and Verify PGP message",
+            "hint_dst": "Odszyfrowuje wiadomość PGP i weryfikuje podpis cyfrowy"
+          },
+          {"src": "PGP: Setup", "dst": "PGP: Konfiguracja", "hint_src": "Setup PGP plugin", "hint_dst": "Konfiguruje wtyczkę szyfrowania PGP"},
+          {"src": "PGP: Encrypt", "dst": "PGP: Zaszyfruj", "hint_src": "Encrypt with PGP", "hint_dst": "Szyfruje wiadomość za pomocą PGP"},
+          {"src": "PGP: Sign", "dst": "PGP: Podpisz cyfrowo", "hint_src": "Sign with PGP", "hint_dst": "Podpisuje wiadomość cyfrowo za pomocą PGP"},
+          {
+            "src": "PGP: Sign And Encrypt",
+            "dst": "PGP: Podpisz i zaszyfruj",
+            "hint_src": "Encrypt And Sign with PGP",
+            "hint_dst": "Szyfruje i podpisuje wiadomość za pomocą PGP"
+          },
+          {
+            "src": "PGP: Attach Public Key",
+            "dst": "PGP: Dołącz klucz publiczny",
+            "hint_src": "Attach a PGP public key",
+            "hint_dst": "Dołącza klucz publiczny PGP"
+          },
+          {
+            "src": "UI Language",
+            "dst": "Język interfejsu",
+            "hint_src": "Select the user interface language",
+            "hint_dst": "Wybiera język interfejsu użytkownika"
+          },
+          {
+            "src": "Voice Attachment",
+            "dst": "Załącznik głosowy",
+            "hint_src": "Record your voice and attach it to the outgoing message.",
+            "hint_dst": "Nagrywa wiadomość głosową i dołącza ją do wiadomości wychodzącej"
+          }
+        ]
+      },
+      {
+        "cmd_id": 32773,
+        "translate": true,
+        "src": "Import",
+        "dst": "Importuj",
+        "hint_src": "Import e-mail messages from external files",
+        "hint_dst": "Importuje wiadomości e-mail z plików zewnętrznych"
+      },
+      {
+        "cmd_id": 32774,
+        "translate": true,
+        "src": "Export",
+        "dst": "Eksportuj",
+        "hint_src": "Export e-mail messages to external files",
+        "hint_dst": "Eksportuje wiadomości e-mail do plików zewnętrznych"
+      },
+      {
+        "cmd_id": 32775,
+        "translate": true,
+        "src": "Mailbox Setup",
+        "dst": "Ustawienia skrzynki pocztowej",
+        "hint_src": "Set up mailbox preferences",
+        "hint_dst": "Konfiguruje ustawienia bieżącej skrzynki pocztowej"
+      },
+      {
+        "cmd_id": 32776,
+        "translate": true,
+        "src": "Reorganize",
+        "dst": "Uporządkuj folder",
+        "hint_src": "Organize the messages according to the sent date",
+        "hint_dst": "Porządkuje wiadomości w folderze według daty wysłania"
+      },
+      {
+        "cmd_id": 32777,
+        "translate": true,
+        "src": "Thread Mode",
+        "dst": "Tryb wątków dyskusji",
+        "hint_src": "Toggle message-threading mode",
+        "hint_dst": "Przełącza tryb wyświetlania wątków dyskusji"
+      },
+      {
+        "cmd_id": 32778,
+        "translate": true,
+        "src": "Send And Receive",
+        "dst": "Wyślij i odbierz",
+        "hint_src": "Send and receive messages",
+        "hint_dst": "Wysyła i odbiera wiadomości"
+      },
+      {
+        "cmd_id": 32779,
+        "translate": true,
+        "src": "Mailboxes For Collection",
+        "dst": "Skrzynki do odbioru zbiorczego",
+        "hint_src": "Select the mailboxes that will be checked by \"Collection And Delivery\" command",
+        "hint_dst": "Wybiera skrzynki pocztowe sprawdzane przez polecenie „Zbiorcze wysyłanie i odbieranie”"
+      },
+      {
+        "cmd_id": 32780,
+        "translate": true,
+        "src": "Receive All",
+        "dst": "Odbierz wszystkie",
+        "hint_src": "Retrieve all the messages on the server including the ones you have already received",
+        "hint_dst": "Pobiera wszystkie wiadomości z serwera, w tym już wcześniej odebrane"
+      },
+      {
+        "cmd_id": 32782,
+        "translate": true,
+        "src": "Redirect",
+        "dst": "Przekieruj (Redirect)",
+        "hint_src": "Forward the selected message keeping \"From\", \"To\", etc. fields intact",
+        "hint_dst": "Przekierowuje zaznaczoną wiadomość z zachowaniem oryginalnych pól „Od”, „Do” itp."
+      },
+      {
+        "cmd_id": 32784,
+        "translate": true,
+        "src": "Reply To Selected Addresses",
+        "dst": "Odpowiedz na wybrane adresy",
+        "hint_src": "Reply to the selected e-mail addresses",
+        "hint_dst": "Odpowiada na zaznaczone adresy e-mail"
+      },
+      {
+        "cmd_id": 32785,
+        "translate": true,
+        "src": "Forward As Attachment",
+        "dst": "Prześlij dalej jako załącznik",
+        "hint_src": "Forward the selected message as \"message/rfc822\" attachments",
+        "hint_dst": "Przesyła zaznaczoną wiadomość dalej jako załącznik „message/rfc822”"
+      },
+      {
+        "cmd_id": 32788,
+        "translate": true,
+        "src": "Delete Downloaded Messages From Server",
+        "dst": "Usuń pobrane wiadomości z serwera",
+        "hint_src": "Delete messages that you have already received from the server",
+        "hint_dst": "Usuwa z serwera wiadomości, które zostały już pobrane"
+      },
+      {
+        "cmd_id": 32789,
+        "translate": true,
+        "src": "Customize Tool Bar",
+        "dst": "Dostosuj pasek narzędzi",
+        "hint_src": "Customize the toolbar",
+        "hint_dst": "Dostosowuje przyciski paska narzędzi"
+      },
+      {
+        "cmd_id": 32790,
+        "translate": true,
+        "src": "Cite Message",
+        "dst": "Cytuj wiadomość",
+        "hint_src": "Cite the selection in the reference window",
+        "hint_dst": "Cytuje zaznaczenie w oknie odniesienia"
+      },
+      {
+        "cmd_id": 32792,
+        "translate": true,
+        "src": "Filtering Manager",
+        "dst": "Menedżer reguł filtrowania",
+        "hint_src": "Maintain sorting/filtering rules",
+        "hint_dst": "Zarządza regułami sortowania i filtrowania poczty"
+      },
+      {
+        "cmd_id": 32793,
+        "translate": true,
+        "src": "Mailing Lists Manager",
+        "dst": "Menedżer list dyskusyjnych",
+        "hint_src": "Maintain subscription information of mailing lists",
+        "hint_dst": "Zarządza informacjami o subskrypcji list dyskusyjnych"
+      },
+      {
+        "cmd_id": 32794,
+        "translate": true,
+        "src": "EUC-JP",
+        "dst": "EUC-JP",
+        "hint_src": "Convert EUC-JP text to Shift-JIS",
+        "hint_dst": "Konwertuje tekst z kodowania EUC-JP na Shift-JIS"
+      },
+      {
+        "cmd_id": 32796,
+        "translate": true,
+        "src": "Trash Duplicates",
+        "dst": "Przenieś duplikaty do Kosza",
+        "hint_src": "Trash messages whose Message-Id and Date is duplicate",
+        "hint_dst": "Przenosi do Kosza wiadomości o zduplikowanym identyfikatorze Message-Id i dacie"
+      },
+      {
+        "cmd_id": 32797,
+        "translate": true,
+        "src": "Compaction",
+        "dst": "Kompaktuj folder",
+        "hint_src": "Remove additional header data from all the messages in the selected folder",
+        "hint_dst": "Kompaktuje folder, usuwając zbędne dane nagłówków ze wszystkich wiadomości"
+      },
+      {
+        "cmd_id": 32798,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "Odbuduj indeks",
+        "hint_src": "Reconstruct an index file of the selected folder",
+        "hint_dst": "Odbudowuje plik indeksu wybranego folderu"
+      },
+      {
+        "cmd_id": 32799,
+        "translate": true,
+        "src": "User Registration",
+        "dst": "Rejestracja użytkownika",
+        "hint_src": "User registration",
+        "hint_dst": "Rejestracja licencji użytkownika"
+      },
+      {
+        "cmd_id": 32800,
+        "translate": true,
+        "src": "FAQ",
+        "dst": "Często zadawane pytania (FAQ)",
+        "hint_src": "Frequently Asked Question",
+        "hint_dst": "Często zadawane pytania i odpowiedzi (FAQ)"
+      },
+      {
+        "cmd_id": 32802,
+        "translate": true,
+        "src": "Delete Mailbox",
+        "dst": "Usuń skrzynkę pocztową",
+        "hint_src": "Delete the selected mailbox",
+        "hint_dst": "Usuwa zaznaczoną skrzynkę pocztową"
+      },
+      {
+        "cmd_id": 32803,
+        "translate": true,
+        "src": "Delete Folder",
+        "dst": "Usuń folder",
+        "hint_src": "Delete the selected folder",
+        "hint_dst": "Usuwa zaznaczony folder"
+      },
+      {"cmd_id": 32804, "translate": true, "src": "New Folder", "dst": "Nowy folder", "hint_src": "Create a new folder", "hint_dst": "Tworzy nowy folder"},
+      {
+        "cmd_id": 32805,
+        "translate": true,
+        "src": "Go Back",
+        "dst": "Wstecz",
+        "hint_src": "Go back to the previously read message",
+        "hint_dst": "Wraca do poprzednio czytanej wiadomości"
+      },
+      {
+        "cmd_id": 32806,
+        "translate": true,
+        "src": "Go Forward",
+        "dst": "Dalej",
+        "hint_src": "Go forward to the next read message",
+        "hint_dst": "Przechodzi do następnej czytanej wiadomości"
+      },
+      {
+        "cmd_id": 32807,
+        "translate": true,
+        "src": "Compose To Reply Address",
+        "dst": "Napisz na adres zwrotny",
+        "hint_src": "Compose new message to the replying address of the selected message",
+        "hint_dst": "Tworzy nową wiadomość na adres zwrotny zaznaczonej wiadomości"
+      },
+      {
+        "cmd_id": 32808,
+        "translate": true,
+        "src": "Compose To Selected Addresses",
+        "dst": "Napisz na wybrane adresy",
+        "hint_src": "Compose to the selected addresses in the selected message",
+        "hint_dst": "Tworzy wiadomość na adresy zaznaczone w bieżącej wiadomości"
+      },
+      {
+        "cmd_id": 32809,
+        "translate": true,
+        "src": "Cite Without Prefix",
+        "dst": "Cytuj bez prefiksu",
+        "hint_src": "Cite reference message without citation prefixes.",
+        "hint_dst": "Cytuje wiadomość źródłową bez dodawania prefiksów cytowania"
+      },
+      {
+        "cmd_id": 32810,
+        "translate": true,
+        "src": "Default Mailbox",
+        "dst": "Ustaw jako skrzynkę domyślną",
+        "hint_src": "Set the active mailbox as default",
+        "hint_dst": "Ustawia aktywną skrzynkę pocztową jako domyślną"
+      },
+      {
+        "cmd_id": 32811,
+        "translate": true,
+        "src": "Attach Files",
+        "dst": "Dołącz pliki",
+        "hint_src": "Attach files to the current outgoing message",
+        "hint_dst": "Dołącza pliki do bieżącej wiadomości wychodzącej"
+      },
+      {
+        "cmd_id": 32814,
+        "translate": true,
+        "src": "Close",
+        "dst": "Zamknij",
+        "hint_src": "Close the current composing window",
+        "hint_dst": "Zamyka bieżące okno tworzenia wiadomości"
+      },
+      {
+        "cmd_id": 32816,
+        "translate": true,
+        "src": "ReEdit",
+        "dst": "Edytuj ponownie",
+        "hint_src": "Open the selected message as an outgoing message",
+        "hint_dst": "Otwiera zaznaczoną wiadomość jako wychodzącą do ponownej edycji"
+      },
+      {
+        "cmd_id": 32824,
+        "translate": true,
+        "src": "Reset Toolbar",
+        "dst": "Resetuj pasek narzędzi",
+        "hint_src": "Reset tool bar to the initial state",
+        "hint_dst": "Przywraca początkowy układ paska narzędzi"
+      },
+      {
+        "cmd_id": 32826,
+        "translate": true,
+        "src": "Change Font",
+        "dst": "Zmień czcionkę",
+        "hint_src": "Change the font associated to the character set of the current message",
+        "hint_dst": "Zmienia czcionkę powiązaną z zestawem znaków bieżącej wiadomości"
+      },
+      {"cmd_id": 32827, "translate": true, "src": "Dialup", "dst": "Połączenie telefoniczne"},
+      {
+        "cmd_id": 32836,
+        "translate": true,
+        "src": "Delete Mail",
+        "dst": "Usuń wiadomość",
+        "hint_src": "Delete the selected message items",
+        "hint_dst": "Usuwa zaznaczone wiadomości"
+      },
+      {"cmd_id": 32838, "translate": true, "src": "Empty Trash", "dst": "Opróżnij Kosz", "hint_src": "Empty Trash box", "hint_dst": "Opróżnia folder Kosz"},
+      {
+        "cmd_id": 32839,
+        "translate": true,
+        "src": "Write HTML Message",
+        "dst": "Napisz wiadomość HTML",
+        "hint_src": "Create HTML message",
+        "hint_dst": "Tworzy wiadomość w formacie HTML"
+      },
+      {
+        "cmd_id": 32856,
+        "translate": true,
+        "src": "Save As Signature",
+        "dst": "Zapisz jako podpis",
+        "hint_src": "Save the current selection as a signature",
+        "hint_dst": "Zapisuje bieżące zaznaczenie jako podpis"
+      },
+      {
+        "cmd_id": 32868,
+        "translate": true,
+        "src": "\"What's New\" List",
+        "dst": "Lista „Nowości”",
+        "hint_src": "List recently arrived messages",
+        "hint_dst": "Wyświetla listę ostatnio odebranych wiadomości"
+      },
+      {
+        "cmd_id": 32870,
+        "translate": true,
+        "src": "Set To Mail",
+        "dst": "Wstaw jako adresata",
+        "hint_src": "Set the addresses to an outgoing message",
+        "hint_dst": "Wstawia wybrane adresy jako odbiorców wiadomości wychodzącej"
+      },
+      {"cmd_id": 32871, "translate": true, "src": "Close", "dst": "Zamknij", "hint_src": "Close the address book", "hint_dst": "Zamyka książkę adresową"},
+      {
+        "cmd_id": 32872,
+        "translate": true,
+        "src": "New Address",
+        "dst": "Nowy kontakt",
+        "hint_src": "Add a new address entry to the current address group",
+        "hint_dst": "Dodaje nowy wpis kontaktu do bieżącej grupy adresów"
+      },
+      {
+        "cmd_id": 32873,
+        "translate": true,
+        "src": "New Address Group",
+        "dst": "Nowa grupa adresów",
+        "hint_src": "Add a new address group to the current address book",
+        "hint_dst": "Dodaje nową grupę adresów do bieżącej książki adresowej"
+      },
+      {
+        "cmd_id": 32877,
+        "translate": true,
+        "src": "Help For Address Book",
+        "dst": "Pomoc książki adresowej",
+        "hint_src": "Show the help for the address book",
+        "hint_dst": "Wyświetla pomoc dla książki adresowej"
+      },
+      {
+        "cmd_id": 32878,
+        "translate": true,
+        "src": "Text File",
+        "dst": "Plik tekstowy",
+        "hint_src": "Import data from external files",
+        "hint_dst": "Importuje dane z plików zewnętrznych"
+      },
+      {
+        "cmd_id": 32879,
+        "translate": true,
+        "src": "Text File",
+        "dst": "Plik tekstowy",
+        "hint_src": "Export the selected addresses to an external file",
+        "hint_dst": "Eksportuje zaznaczone kontakty do pliku zewnętrznego"
+      },
+      {"cmd_id": 32885, "translate": true, "src": "Name <mail@address>", "dst": "Nazwa <mail@address>"},
+      {"cmd_id": 32886, "translate": true, "src": "mail@address (Name)", "dst": "mail@address (Nazwa)"},
+      {"cmd_id": 32887, "translate": true, "src": "mail@address", "dst": "mail@address"},
+      {
+        "cmd_id": 32888,
+        "translate": true,
+        "src": "Reconstruct Index",
+        "dst": "Odbuduj indeks",
+        "hint_src": "Reconstruct an index file for the current address group",
+        "hint_dst": "Odbudowuje plik indeksu dla bieżącej grupy adresów"
+      },
+      {
+        "cmd_id": 32894,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Import data from \"vCard\" files",
+        "hint_dst": "Importuje dane z plików „vCard”"
+      },
+      {
+        "cmd_id": 32895,
+        "translate": true,
+        "src": "vCard",
+        "dst": "vCard",
+        "hint_src": "Export the selected addresses as \"vCard\" files",
+        "hint_dst": "Eksportuje zaznaczone kontakty jako pliki „vCard”"
+      },
+      {
+        "cmd_id": 32896,
+        "translate": true,
+        "src": "Post",
+        "dst": "Wyślij na listę dyskusyjną",
+        "hint_src": "Post to the related mailing list",
+        "hint_dst": "Wysyła wiadomość na powiązaną listę dyskusyjną"
+      },
+      {
+        "cmd_id": 32898,
+        "translate": true,
+        "src": "Set Addresses To List",
+        "dst": "Dodaj adresy do listy",
+        "hint_src": "Set the selected addresses to the list at the below-left",
+        "hint_dst": "Dodaje zaznaczone adresy do listy w lewym dolnym rogu"
+      },
+      {
+        "cmd_id": 32899,
+        "translate": true,
+        "src": "External Edit",
+        "dst": "Edytor zewnętrzny",
+        "hint_src": "Edit the current message by an external editor",
+        "hint_dst": "Edytuje bieżącą wiadomość w zewnętrznym edytorze tekstu"
+      },
+      {
+        "cmd_id": 32900,
+        "translate": true,
+        "src": "External Editors",
+        "dst": "Edytory zewnętrzne",
+        "hint_src": "Register external editors",
+        "hint_dst": "Rejestruje zewnętrzne edytory tekstu"
+      },
+      {"cmd_id": 32901, "translate": true, "src": "0: As Is", "dst": "0: Bez zmian"},
+      {"cmd_id": 32902, "translate": true, "src": "1: Name <mail@address>", "dst": "1: Nazwa <mail@address>"},
+      {"cmd_id": 32903, "translate": true, "src": "2: mail@address (Name)", "dst": "2: mail@address (Nazwa)"},
+      {"cmd_id": 32904, "translate": true, "src": "3: mail@address", "dst": "3: Tylko mail@address"},
+      {"cmd_id": 32905, "translate": true, "src": "4: Name", "dst": "4: Tylko Nazwa"},
+      {
+        "cmd_id": 32908,
+        "translate": true,
+        "src": "Extract Attached Messages",
+        "dst": "Wyodrębnij załączone wiadomości",
+        "hint_src": "Extract \"message/rfc822\" attachments to a folder as incoming messages",
+        "hint_dst": "Wyodrębnia załączniki „message/rfc822” do folderu jako wiadomości przychodzące"
+      },
+      {
+        "cmd_id": 32912,
+        "translate": true,
+        "src": "Color Label",
+        "dst": "Etykieta koloru",
+        "hint_src": "Change the color of the current message item",
+        "hint_dst": "Zmienia etykietę kolorystyczną bieżącej wiadomości"
+      },
+      {
+        "cmd_id": 32913,
+        "translate": true,
+        "src": "Set Flag/Priority Level",
+        "dst": "Ustaw flagę/priorytet",
+        "hint_src": "Change the priority of the selected message items",
+        "hint_dst": "Zmienia poziom priorytetu zaznaczonych wiadomości"
+      },
+      {
+        "cmd_id": 32914,
+        "translate": true,
+        "src": "Attach vCard",
+        "dst": "Dołącz wizytówkę vCard",
+        "hint_src": "Attach your \"vCard\" to the current outgoing message",
+        "hint_dst": "Dołącza wizytówkę „vCard” do bieżącej wiadomości wychodzącej"
+      },
+      {
+        "cmd_id": 32915,
+        "translate": true,
+        "src": "Edit vCard",
+        "dst": "Edytuj wizytówkę vCard",
+        "hint_src": "Edit your \"vCard\" property",
+        "hint_dst": "Edytuje właściwości wizytówki „vCard”"
+      },
+      {
+        "cmd_id": 32916,
+        "translate": true,
+        "src": "Change Data Folder",
+        "dst": "Zmień folder danych",
+        "hint_src": "Change the data folder Becky! uses",
+        "hint_dst": "Zmienia lokalizację folderu danych używanego przez Becky!"
+      },
+      {
+        "cmd_id": 32919,
+        "translate": true,
+        "src": "Hide Mailbox",
+        "dst": "Ukryj skrzynkę pocztową",
+        "hint_src": "Hide the selected mailbox",
+        "hint_dst": "Ukrywa zaznaczoną skrzynkę pocztową"
+      },
+      {
+        "cmd_id": 32920,
+        "translate": true,
+        "src": "Reveal Mailbox",
+        "dst": "Pokaż ukryte skrzynki",
+        "hint_src": "Reveal hidden mailboxes",
+        "hint_dst": "Odkrywa wcześniej ukryte skrzynki pocztowe"
+      },
+      {
+        "cmd_id": 32921,
+        "translate": true,
+        "src": "Pause Periodical Check",
+        "dst": "Wstrzymaj okresowe sprawdzanie",
+        "hint_src": "Pause all the periodical mail check temporarily",
+        "hint_dst": "Tymczasowo wstrzymuje okresowe sprawdzanie wszystkich skrzynek"
+      },
+      {
+        "cmd_id": 32923,
+        "translate": true,
+        "src": "Import Backup Logs",
+        "dst": "Importuj dzienniki kopii zapasowych",
+        "hint_src": "Import messages from backup logs to the selected folder",
+        "hint_dst": "Importuje wiadomości z dzienników kopii zapasowych do wybranego folderu"
+      },
+      {
+        "cmd_id": 32924,
+        "translate": true,
+        "src": "Sorting Rules For Folder",
+        "dst": "Reguły filtrowania dla folderu",
+        "hint_src": "Set sorting rules for the selected folder",
+        "hint_dst": "Ustawia reguły filtrowania dla wybranego folderu"
+      },
+      {
+        "cmd_id": 32926,
+        "translate": true,
+        "src": "Thread Tool",
+        "dst": "Narzędzie wątkowania",
+        "hint_src": "Associate a selected message to another as a child thread",
+        "hint_dst": "Łączy zaznaczoną wiadomość z inną jako wątek podrzędny"
+      },
+      {
+        "cmd_id": 32929,
+        "translate": true,
+        "src": "Subscribe",
+        "dst": "Subskrybuj",
+        "hint_src": "Subscribe to the mailing list",
+        "hint_dst": "Subskrybuje listę dyskusyjną"
+      },
+      {
+        "cmd_id": 32930,
+        "translate": true,
+        "src": "Unsubscribe",
+        "dst": "Anuluj subskrypcję",
+        "hint_src": "Unsubscribe the mailing list",
+        "hint_dst": "Anuluje subskrypcję listy dyskusyjnej"
+      },
+      {
+        "cmd_id": 32931,
+        "translate": true,
+        "src": "Mail To Admin",
+        "dst": "Napisz do administratora",
+        "hint_src": "Mail to the administrator of the mailing list",
+        "hint_dst": "Wysyła wiadomość do administratora listy dyskusyjnej"
+      },
+      {
+        "cmd_id": 32932,
+        "translate": true,
+        "src": "Web Site",
+        "dst": "Strona WWW",
+        "hint_src": "Open the Web site related to the mailing list",
+        "hint_dst": "Otwiera stronę WWW powiązaną z listą dyskusyjną"
+      },
+      {
+        "cmd_id": 32933,
+        "translate": true,
+        "dst": "Powiązana lista(&R): $1",
+        "hint_src": "Associate the folder with a mailing list",
+        "hint_dst": "Powiązuje folder z listą dyskusyjną",
+        "mode": "regex",
+        "pattern": "^Related ML(?:: ?(.*))?$",
+        "as_is": true
+      },
+      {
+        "cmd_id": 32935,
+        "translate": true,
+        "src": "Property",
+        "dst": "Właściwości",
+        "hint_src": "Show the property of the selected item",
+        "hint_dst": "Wyświetla właściwości zaznaczonego elementu"
+      },
+      {
+        "cmd_id": 32938,
+        "translate": true,
+        "src": "Add To Mailing Lists Manager",
+        "dst": "Dodaj do Menedżera list dyskusyjnych",
+        "hint_src": "Add an entry to the Mailing List Manager according to the information in the selected message item",
+        "hint_dst": "Dodaje wpis do Menedżera list dyskusyjnych na podstawie danych zaznaczonej wiadomości"
+      },
+      {
+        "cmd_id": 32939,
+        "translate": true,
+        "src": "Print Settings",
+        "dst": "Ustawienia wydruku",
+        "hint_src": "Setup preferences for printing",
+        "hint_dst": "Konfiguruje ustawienia wydruku"
+      },
+      {
+        "cmd_id": 32940,
+        "translate": true,
+        "src": "Folder Maintenance Combo",
+        "dst": "Konserwacja złożona folderu",
+        "hint_src": "Do \"Reorganize\", \"Compaction\", and \"Trash Duplicates\" at the same time",
+        "hint_dst": "Wykonuje jednocześnie operacje „Uporządkuj”, „Kompaktuj” oraz „Przenieś duplikaty do Kosza”"
+      },
+      {
+        "cmd_id": 32942,
+        "translate": true,
+        "src": "Sort Selected Messages",
+        "dst": "Filtruj wybrane wiadomości",
+        "hint_src": "Sort the selected message items to folders according to the sorting rules",
+        "hint_dst": "Sortuje zaznaczone wiadomości do folderów według reguł filtrowania"
+      },
+      {
+        "cmd_id": 32943,
+        "translate": true,
+        "src": "Select Read Messages",
+        "dst": "Zaznacz przeczytane wiadomości",
+        "hint_src": "Select all the read messages in the folder",
+        "hint_dst": "Zaznacza wszystkie przeczytane wiadomości w bieżącym folderze"
+      },
+      {
+        "cmd_id": 32944,
+        "translate": true,
+        "src": "New Address Book",
+        "dst": "Nowa książka adresowa",
+        "hint_src": "Create a new address book",
+        "hint_dst": "Tworzy nową książkę adresową"
+      },
+      {
+        "cmd_id": 32945,
+        "translate": true,
+        "src": "Delete Addresses",
+        "dst": "Usuń kontakty",
+        "hint_src": "Delete the selected addresses",
+        "hint_dst": "Usuwa zaznaczone kontakty"
+      },
+      {
+        "cmd_id": 32946,
+        "translate": true,
+        "src": "Delete Address Group/Book",
+        "dst": "Usuń grupę/książkę adresową",
+        "hint_src": "Delete the selected address book or address group",
+        "hint_dst": "Usuwa zaznaczoną książkę adresową lub grupę adresów"
+      },
+      {
+        "cmd_id": 32950,
+        "translate": true,
+        "src": "View Related Messages",
+        "dst": "Pokaż powiązane wiadomości",
+        "hint_src": "View only the related messages to the current message",
+        "hint_dst": "Wyświetla wyłącznie wiadomości powiązane z bieżącą wiadomością"
+      },
+      {
+        "cmd_id": 32958,
+        "translate": true,
+        "src": "Close All Threads",
+        "dst": "Zwiń wszystkie wątki",
+        "hint_src": "Close all the message threads of the current folder",
+        "hint_dst": "Zwija wszystkie wątki dyskusji w bieżącym folderze"
+      },
+      {
+        "cmd_id": 32959,
+        "translate": true,
+        "src": "Open All Threads",
+        "dst": "Rozwiń wszystkie wątki",
+        "hint_src": "Open all the message threads of the current folder",
+        "hint_dst": "Rozwija wszystkie wątki dyskusji w bieżącym folderze"
+      },
+      {
+        "cmd_id": 32963,
+        "translate": true,
+        "src": "Request \"Read Receipt\"",
+        "dst": "Żądaj „Potwierdzenia przeczytania”",
+        "hint_src": "Request \"Read Receipt\" to the recipients.",
+        "hint_dst": "Żąda od odbiorców „Potwierdzenia przeczytania”"
+      },
+      {
+        "cmd_id": 32966,
+        "translate": true,
+        "src": "Protocol Logs",
+        "dst": "Dzienniki protokołu",
+        "hint_src": "Leave protocol logs of mail sessions",
+        "hint_dst": "Zapisuje dzienniki protokołu sesji pocztowych"
+      },
+      {
+        "cmd_id": 32968,
+        "translate": true,
+        "src": "Append To \"Quick Memo\"",
+        "dst": "Dołącz do „Szybkiej notatki”",
+        "hint_src": "Append the selection to \"Becky's Quick Memo\"",
+        "hint_dst": "Dołącza zaznaczenie do „Szybkiej notatki Becky!”"
+      },
+      {
+        "cmd_id": 32971,
+        "translate": true,
+        "src": "View Source",
+        "dst": "Pokaż źródło wiadomości",
+        "hint_src": "View a source of the current E-mail message",
+        "hint_dst": "Wyświetla oryginalny kod źródłowy bieżącej wiadomości"
+      },
+      {"cmd_id": 32972, "translate": true, "src": "Search for this \"Message-Id\"", "dst": "Szukaj tego „Message-Id”"},
+      {
+        "cmd_id": 32975,
+        "translate": true,
+        "src": "View Headers",
+        "dst": "Pokaż nagłówki",
+        "hint_src": "Show the header part of the message",
+        "hint_dst": "Wyświetla pełne nagłówki techniczne wiadomości"
+      },
+      {
+        "cmd_id": 32976,
+        "translate": true,
+        "src": "Next Layout",
+        "dst": "Następny układ",
+        "hint_src": "Change the layout of the views.",
+        "hint_dst": "Zmienia układ paneli okna"
+      },
+      {
+        "cmd_id": 32977,
+        "translate": true,
+        "src": "Abort Session",
+        "dst": "Przerwij sesję",
+        "hint_src": "Abort the active session.",
+        "hint_dst": "Przerywa aktywną sesję połączenia z serwerem"
+      },
+      {
+        "cmd_id": 32978,
+        "translate": true,
+        "src": "Quick Access",
+        "dst": "Szybki dostęp",
+        "hint_src": "Open the message recently double-clicked or composed and saved.",
+        "hint_dst": "Otwiera ostatnio przeglądaną lub utworzoną i zapisaną wiadomość"
+      },
+      {
+        "cmd_id": 32979,
+        "translate": true,
+        "src": "Separate Attachments",
+        "dst": "Oddziel załączniki",
+        "hint_src": "Save attachment files in the folder to separate data files.",
+        "hint_dst": "Zapisuje załączniki w folderze jako oddzielne pliki danych"
+      },
+      {
+        "cmd_id": 32980,
+        "translate": true,
+        "src": "Combine Attachments",
+        "dst": "Scal załączniki",
+        "hint_src": "Combine attachment files into mail data files.",
+        "hint_dst": "Scala oddzielone pliki załączników z powrotem w pliki danych poczty"
+      },
+      {"cmd_id": 32981, "translate": true, "src": "Delete", "dst": "Usuń", "hint_src": "Delete the selection", "hint_dst": "Usuwa zaznaczony fragment"},
+      {
+        "cmd_id": 32982,
+        "translate": true,
+        "src": "Customize List Columns(Z)",
+        "dst": "Dostosuj kolumny listy",
+        "hint_src": "Customize the columns headers of the list view.",
+        "hint_dst": "Dostosowuje nagłówki kolumn na liście wiadomości"
+      },
+      {
+        "cmd_id": 32984,
+        "translate": true,
+        "src": "Select Flagged Messages",
+        "dst": "Zaznacz oflagowane wiadomości",
+        "hint_src": "Select all the flagged messages in the folder",
+        "hint_dst": "Zaznacza wszystkie oflagowane wiadomości w bieżącym folderze"
+      },
+      {
+        "cmd_id": 32985,
+        "translate": true,
+        "src": "Switch Mailbox",
+        "dst": "Przełącz skrzynkę pocztową",
+        "hint_src": "Switch the mailbox that will be used to send this message.",
+        "hint_dst": "Zmienia skrzynkę pocztową używaną do wysłania tej wiadomości"
+      },
+      {
+        "cmd_id": 32986,
+        "translate": true,
+        "src": "Toggle Flag",
+        "dst": "Przełącz flagę",
+        "hint_src": "Toggle Flag on the selected messages",
+        "hint_dst": "Przełącza flagę dla zaznaczonych wiadomości"
+      },
+      {
+        "cmd_id": 32988,
+        "translate": true,
+        "src": "Close Query Result",
+        "dst": "Zamknij wyniki wyszukiwania",
+        "hint_src": "Close the Query dialog and Query Result folder.",
+        "hint_dst": "Zamyka okno wyszukiwania oraz folder Wyniki wyszukiwania"
+      },
+      {
+        "cmd_id": 32989,
+        "translate": true,
+        "src": "1: [ |---] Long TreeView",
+        "dst": "1: [ |---] Długie drzewo folderów",
+        "hint_src": "Long treeview",
+        "hint_dst": "Układ z długim drzewem folderów"
+      },
+      {
+        "cmd_id": 32990,
+        "translate": true,
+        "src": "2: [-'---] Wide MessageView",
+        "dst": "2: [-'---] Szeroki podgląd wiadomości",
+        "hint_src": "Wide messageview",
+        "hint_dst": "Układ z szerokim podglądem wiadomości"
+      },
+      {
+        "cmd_id": 32991,
+        "translate": true,
+        "src": "3: [-,---] Wide ListView",
+        "dst": "3: [-,---] Szeroka lista wiadomości",
+        "hint_src": "Wide listview",
+        "hint_dst": "Układ z szeroką listą wiadomości"
+      },
+      {
+        "cmd_id": 32992,
+        "translate": true,
+        "src": "4: [-|   ] Maximum MessageView",
+        "dst": "4: [-|   ] Maksymalny podgląd wiadomości",
+        "hint_src": "Maximum messageview",
+        "hint_dst": "Układ z maksymalnym podglądem wiadomości"
+      },
+      {
+        "cmd_id": 32993,
+        "translate": true,
+        "src": "5: [ | |  ] Three Columns",
+        "dst": "5: [ | |  ] Trzy kolumny",
+        "hint_src": "Three vertically divided panes",
+        "hint_dst": "Trzy panele podzielone pionowo"
+      },
+      {
+        "cmd_id": 32994,
+        "translate": true,
+        "src": "6: [ |2|  ] Three Columns Two Lines in a Row",
+        "dst": "6: [ |2|  ] Trzy kolumny (dwa wiersze)",
+        "hint_src": "Three Columns Two Layer per Item",
+        "hint_dst": "Trzy kolumny z dwoma wierszami na pozycję"
+      },
+      {
+        "cmd_id": 32995,
+        "translate": true,
+        "src": "Sync with Portable Media",
+        "dst": "Synchronizuj z nośnikiem przenośnym",
+        "hint_src": "Synchronize data with a portable a media or mobile PC.",
+        "hint_dst": "Synchronizuje dane pocztowe z nośnikiem przenośnym lub komputerem mobilnym"
+      },
+      {
+        "cmd_id": 32997,
+        "translate": true,
+        "src": "Go Next Mailbox",
+        "dst": "Następna skrzynka pocztowa",
+        "hint_src": "Open next mailbox.",
+        "hint_dst": "Otwiera następną skrzynkę pocztową"
+      },
+      {
+        "cmd_id": 32998,
+        "translate": true,
+        "src": "Reload Query Folder",
+        "dst": "Odśwież folder wyszukiwania",
+        "hint_src": "Query again on the Query Result or a saved Query folder.",
+        "hint_dst": "Ponawia wyszukiwanie w folderze Wyniki wyszukiwania lub zapisanym folderze zapytań"
+      },
+      {
+        "cmd_id": 32999,
+        "translate": true,
+        "src": "Select Unread Messages",
+        "dst": "Zaznacz nieprzeczytane wiadomości",
+        "hint_src": "Select all the unread messages in the folder.",
+        "hint_dst": "Zaznacza wszystkie nieprzeczytane wiadomości w bieżącym folderze"
+      },
+      {
+        "cmd_id": 33000,
+        "translate": true,
+        "src": "Use \"Name\" from Address Book",
+        "dst": "Użyj „Nazwy” z książki adresowej",
+        "hint_src": "Use \"Name\" as it appears in the address book.",
+        "hint_dst": "Używa „Nazwy” kontaktu zapisanej w książce adresowej"
+      },
+      {
+        "cmd_id": 33002,
+        "translate": true,
+        "src": "Sort By Name",
+        "dst": "Sortuj według nazwy",
+        "hint_src": "Sort folders on the same level by name.",
+        "hint_dst": "Sortuje foldery tego samego poziomu według nazwy"
+      },
+      {
+        "cmd_id": 33003,
+        "translate": true,
+        "src": "Go Previous Mailbox",
+        "dst": "Poprzednia skrzynka pocztowa",
+        "hint_src": "Open previous mailbox.",
+        "hint_dst": "Otwiera poprzednią skrzynkę pocztową"
+      },
+      {
+        "cmd_id": 33004,
+        "translate": true,
+        "src": "View Memo(D)",
+        "dst": "Pokaż notatkę",
+        "hint_src": "Write or view a memo associated to the current message.",
+        "hint_dst": "Tworzy lub wyświetla notatkę powiązaną z bieżącą wiadomością"
+      },
+      {
+        "cmd_id": 33007,
+        "translate": true,
+        "src": "Headlines Search",
+        "dst": "Szukaj w nagłówkach",
+        "hint_src": "Go to the Headlines Search bar at the right top.",
+        "hint_dst": "Przechodzi do paska wyszukiwania nagłówków w prawym górnym rogu"
+      },
+      {
+        "cmd_id": 33011,
+        "translate": true,
+        "src": "Add Agent(Z)",
+        "dst": "Przypisz zadanie Agenta",
+        "hint_src": "Assign Agent to the selected messages.",
+        "hint_dst": "Przypisuje zadanie Agenta do zaznaczonych wiadomości",
+        "tooltip_src": "Assign Agent to this message and give him/her tasks",
+        "tooltip_dst": "Przypisz Agenta do tej wiadomości i przydziel mu zadania"
+      },
+      {
+        "cmd_id": 33013,
+        "translate": true,
+        "src": "Bookmark",
+        "dst": "Zakładka",
+        "hint_src": "Assign Agent with a \"Bookmark\" task to the selected messages.",
+        "hint_dst": "Przypisuje zaznaczonym wiadomościom zadanie „Zakładka”"
+      },
+      {"cmd_id": 33017, "translate": true, "src": "Headlines Search (K)", "dst": "Pasek wyszukiwania nagłówków"},
+      {
+        "cmd_id": 33019,
+        "translate": true,
+        "src": "Go Previous Folder (Y)",
+        "dst": "Poprzedni folder",
+        "hint_src": "Select previously open folder.",
+        "hint_dst": "Wybiera poprzednio otwarty folder"
+      },
+      {
+        "cmd_id": 33021,
+        "translate": true,
+        "src": "Go Original Message (J)",
+        "dst": "Przejdź do oryginału",
+        "hint_src": "Open the original message this item links.",
+        "hint_dst": "Otwiera oryginalną wiadomość, do której prowadzi ten odnośnik"
+      },
+      {
+        "cmd_id": 33024,
+        "translate": true,
+        "src": "Follow the Topic",
+        "dst": "Śledź wątek",
+        "hint_src": "Mark as \"Follow the Topic\" Task.",
+        "hint_dst": "Oznacza jako zadanie „Śledź wątek”"
+      },
+      {
+        "cmd_id": 33026,
+        "translate": true,
+        "src": "Mark As Need Reply",
+        "dst": "Oznacz jako „Wymaga odpowiedzi”",
+        "hint_src": "Mark as \"Need Reply\" Task.",
+        "hint_dst": "Oznacza jako zadanie „Wymaga odpowiedzi”"
+      },
+      {
+        "cmd_id": 33032,
+        "translate": true,
+        "src": "CardDAV server",
+        "dst": "Serwer CardDAV",
+        "hint_src": "Add CardDAV server.",
+        "hint_dst": "Dodaje serwer CardDAV"
+      },
+      {"cmd_id": 33033, "translate": true, "src": "LDAP  server", "dst": "Serwer LDAP", "hint_src": "Add LDAP server.", "hint_dst": "Dodaje serwer LDAP"},
+      {
+        "cmd_id": 33034,
+        "translate": true,
+        "src": "Becky!'s Address book",
+        "dst": "Książka adresowa Becky!",
+        "hint_src": "Add Becky!'s address book.",
+        "hint_dst": "Dodaje książkę adresową Becky!"
+      },
+      {"cmd_id": 33037, "translate": true, "src": "Always Two Lines in a Row", "dst": "Zawsze dwa wiersze na pozycję"},
+      {
+        "cmd_id": 33039,
+        "translate": true,
+        "src": "Open Data Folder Location",
+        "dst": "Otwórz lokalizację folderu danych",
+        "hint_src": "Opens Becky! data folder location",
+        "hint_dst": "Otwiera lokalizację folderu danych Becky! w Eksploratorze"
+      },
+      {
+        "cmd_id": 42778,
+        "translate": true,
+        "src": "Address Book",
+        "dst": "Książka adresowa",
+        "hint_src": "Open Address Book",
+        "hint_dst": "Otwiera książkę adresową"
+      },
+      {
+        "cmd_id": 42787,
+        "translate": true,
+        "src": "New Mailbox",
+        "dst": "Nowa skrzynka pocztowa",
+        "hint_src": "Create a new mailbox",
+        "hint_dst": "Tworzy nową skrzynkę pocztową"
+      },
+      {
+        "cmd_id": 42796,
+        "translate": true,
+        "src": "Add To Address Book",
+        "dst": "Dodaj do książki adresowej",
+        "hint_src": "Add the sender of the current message to the Address Book",
+        "hint_dst": "Dodaje nadawcę bieżącej wiadomości do książki adresowej"
+      },
+      {
+        "cmd_id": 42803,
+        "translate": true,
+        "src": "Load Template",
+        "dst": "Wczytaj szablon",
+        "hint_src": "Load a template file to the current outgoing message",
+        "hint_dst": "Wczytuje plik szablonu do bieżącej wiadomości wychodzącej"
+      },
+      {
+        "cmd_id": 42804,
+        "translate": true,
+        "src": "Save As Template",
+        "dst": "Zapisz jako szablon",
+        "hint_src": "Save the current outgoing message as a template",
+        "hint_dst": "Zapisuje bieżącą wiadomość wychodzącą jako szablon"
+      },
+      {
+        "cmd_id": 42805,
+        "translate": true,
+        "src": "Reminder",
+        "dst": "Przypomnienie",
+        "hint_src": "Save the current outgoing message as a \"Reminder\" for yourself.",
+        "hint_dst": "Zapisuje bieżącą wiadomość wychodzącą jako „Przypomnienie” dla siebie"
+      },
+      {
+        "cmd_id": 42806,
+        "translate": true,
+        "src": "Edit Template",
+        "dst": "Edytuj szablon",
+        "hint_src": "Create or edit a template file",
+        "hint_dst": "Tworzy lub edytuje plik szablonu wiadomości"
+      },
+      {
+        "cmd_id": 55001,
+        "cmd_id_end": 55099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(default)",
+            "dst": "(domyślny)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Zmienia kodowanie znaków bieżącej wiadomości"
+          },
+          {
+            "src": "(Default)",
+            "dst": "(Domyślny)",
+            "hint_src": "Change the language of the current message",
+            "hint_dst": "Zmienia kodowanie znaków bieżącej wiadomości"
+          },
+          {"src": "7bit ASCII (US-ASCII)", "dst": "7-bit ASCII (US-ASCII)"},
+          {"src": "Latin1 (ISO-8859-1)", "dst": "Zachodnioeuropejski Latin1 (ISO-8859-1)"},
+          {"src": "Latin2 (ISO-8859-2)", "dst": "Środkowoeuropejski Latin2 (ISO-8859-2)"},
+          {"src": "Latin9 (ISO-8859-15)", "dst": "Zachodnioeuropejski Latin9 (ISO-8859-15)"},
+          {"src": "Japanese (ISO-2022-JP)", "dst": "Japoński (ISO-2022-JP)"},
+          {"src": "Korean UHC Windows (ks_c_5601-1987)", "dst": "Koreański UHC Windows (ks_c_5601-1987)"},
+          {"src": "Korean RFC1557 (ISO-2022-KR)", "dst": "Koreański RFC1557 (ISO-2022-KR)"},
+          {"src": "Chinese Traditional (BIG5)", "dst": "Chiński tradycyjny (BIG5)"},
+          {"src": "Chinese Simplified (GB2312)", "dst": "Chiński uproszczony (GB2312)"},
+          {"src": "Chinese National Standard (GB18030)", "dst": "Chiński standard państwowy (GB18030)"},
+          {"src": "Chinese Simplified HZ (HZ-GB-2312)", "dst": "Chiński uproszczony HZ (HZ-GB-2312)"},
+          {"src": "Russian koi8 (koi8-r)", "dst": "Rosyjski koi8 (koi8-r)"},
+          {"src": "Ukrainian koi8 (koi8-u)", "dst": "Ukraiński koi8 (koi8-u)"},
+          {"src": "Cyrillic (Windows-1251)", "dst": "Cyrylica (Windows-1251)"},
+          {"src": "UNICODE (UTF-8)", "dst": "Unicode (UTF-8)"},
+          {"src": "UNICODE (UTF-7)", "dst": "Unicode (UTF-7)"}
+        ]
+      },
+      {
+        "cmd_id": 56001,
+        "cmd_id_end": 56099,
+        "translate": true,
+        "rules": [
+          {
+            "src": "(no dialup)",
+            "dst": "(brak połączenia telefonicznego)",
+            "hint_src": "Connect to the Internet using dialup network",
+            "hint_dst": "Łączy z Internetem za pomocą połączenia telefonicznego"
+          }
+        ]
+      },
+      {
+        "cmd_id": 56100,
+        "cmd_id_end": 56199,
+        "translate": true,
+        "rules": [
+          {"src": "(no plug-ins)", "dst": "(brak wtyczek)"},
+          {"src": "Becky2! Multicolor Icons.", "dst": "Wielokolorowe ikony Becky2!"},
+          {"src": "Becky! PGP Plug-In", "dst": "Wtyczka szyfrowania PGP Becky!"},
+          {"src": "Becky! Voice Message Plug-in", "dst": "Wtyczka poczty głosowej Becky!"},
+          {"src": "Becky! UI Inspector", "dst": "Inspektor interfejsu (UI) Becky!"},
+          {"src": "Becky! I18n", "dst": "Wtyczka języka interfejsu Becky!"}
+        ]
+      },
+      {
+        "cmd_id": 57604,
+        "translate": true,
+        "rules": [{"src": "Save As", "dst": "Zapisz jako"}, {"src": "Save To Folder and continue", "dst": "Zapisz w folderze i kontynuuj"}],
+        "hint_src": "Save the active message",
+        "hint_dst": "Zapisuje aktywną wiadomość"
+      },
+      {"cmd_id": 57607, "translate": true, "src": "Print", "dst": "Drukuj", "hint_src": "Print the active document", "hint_dst": "Drukuje aktywny dokument"},
+      {
+        "cmd_id": 57609,
+        "translate": true,
+        "src": "Print Preview",
+        "dst": "Podgląd wydruku",
+        "hint_src": "Display full pages",
+        "hint_dst": "Wyświetla pełne strony na podglądzie wydruku"
+      },
+      {
+        "cmd_id": 57634,
+        "translate": true,
+        "src": "Copy",
+        "dst": "Kopiuj",
+        "hint_src": "Copy the selection and put it on the Clipboard",
+        "hint_dst": "Kopiuje zaznaczenie i umieszcza je w schowku"
+      },
+      {
+        "cmd_id": 57635,
+        "translate": true,
+        "src": "Cut",
+        "dst": "Wytnij",
+        "hint_src": "Cut the selection and put it on the Clipboard",
+        "hint_dst": "Wycina zaznaczenie i umieszcza je w schowku"
+      },
+      {
+        "cmd_id": 57636,
+        "translate": true,
+        "rules": [{"src": "Find", "dst": "Znajdź"}, {"src": "Search Address", "dst": "Szukaj adresu"}, {"src": "Find Address", "dst": "Znajdź adres"}],
+        "hint_src": "Find the specified text",
+        "hint_dst": "Wyszukuje podany tekst"
+      },
+      {"cmd_id": 57637, "translate": true, "src": "Paste", "dst": "Wklej", "hint_src": "Insert Clipboard contents", "hint_dst": "Wstawia zawartość schowka"},
+      {"cmd_id": 57640, "translate": true, "src": "Repeat", "dst": "Powtórz", "hint_src": "Repeat the last action", "hint_dst": "Powtarza ostatnią czynność"},
+      {
+        "cmd_id": 57641,
+        "translate": true,
+        "src": "Replace",
+        "dst": "Zamień",
+        "hint_src": "Replace specific text with different text",
+        "hint_dst": "Zastępuje określony tekst innym tekstem"
+      },
+      {"cmd_id": 57642, "translate": true, "src": "Select All", "dst": "Zaznacz wszystko", "hint_src": "Select entirely", "hint_dst": "Zaznacza cały tekst"},
+      {"cmd_id": 57643, "translate": true, "src": "Undo", "dst": "Cofnij", "hint_src": "Undo the last action", "hint_dst": "Cofa ostatnią czynność"},
+      {
+        "cmd_id": 57644,
+        "translate": true,
+        "src": "Redo",
+        "dst": "Ponów",
+        "hint_src": "Redo the previously undone action",
+        "hint_dst": "Ponawia wcześniej cofniętą czynność"
+      },
+      {
+        "cmd_id": 57664,
+        "translate": true,
+        "src": "About \"Becky!\"",
+        "dst": "O programie „Becky!”",
+        "hint_src": "Display program information, version number and copyright",
+        "hint_dst": "Wyświetla informacje o programie, numer wersji oraz prawa autorskie"
+      },
+      {"cmd_id": 57665, "translate": true, "src": "Exit", "dst": "Zakończ", "hint_src": "Quit the application", "hint_dst": "Kończy pracę aplikacji"},
+      {
+        "cmd_id": 57667,
+        "translate": true,
+        "src": "Help Topics",
+        "dst": "Tematy pomocy",
+        "hint_src": "List Help topics",
+        "hint_dst": "Wyświetla listę tematów pomocy"
+      },
+      {
+        "cmd_id": 59392,
+        "translate": true,
+        "src": "Tool Bar",
+        "dst": "Pasek narzędzi",
+        "hint_src": "Show or hide the toolbar",
+        "hint_dst": "Pokazuje lub ukrywa pasek narzędzi"
+      },
+      {
+        "cmd_id": 59393,
+        "translate": true,
+        "src": "Status Bar",
+        "dst": "Pasek stanu",
+        "hint_src": "Show or hide the status bar",
+        "hint_dst": "Pokazuje lub ukrywa pasek stanu"
+      }
+    ]
+  },
+  "windows": {
+    "Becky2MainFrame": {
+      "class_name": "Becky2MainFrame",
+      "sdk_role": "BKA_MainWindow",
+      "properties": {"window_title": {"translate": false, "comment": "Format: '<AccountName> - Becky!' (contains user mailbox name)"}},
+      "children": [
+        {"class_name": "#32770", "ctrl_id": 0, "control_subtype": "ChildDialog", "translate": false},
+        {
+          "class_name": "AfxMDIFrame42s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame42s",
+          "translate": false,
+          "children": [
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59648,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysTreeView32",
+                  "ctrl_id": 1000,
+                  "control_subtype": "SysTreeView32",
+                  "sdk_role": "BKA_FolderTreeView",
+                  "translate": true,
+                  "image_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 38, 39],
+                  "root_nodes": [{"src": "Query Result", "dst": "Wyniki wyszukiwania"}],
+                  "items": [
+                    {"src": "Inbox", "dst": "Odebrane"},
+                    {"src": "Outbox", "dst": "Skrzynka nadawcza"},
+                    {"src": "Draft", "dst": "Szkice"},
+                    {"src": "Sent", "dst": "Wysłane"},
+                    {"src": "Reminder", "dst": "Przypomnienia"},
+                    {"src": "Trash", "dst": "Kosz"},
+                    {"src": "Tasks", "dst": "Zadania"}
+                  ]
+                },
+                {"class_name": "ComboBox", "ctrl_id": 1001, "control_subtype": "DropDownListCombo", "translate": false},
+                {"class_name": "ComboBox", "ctrl_id": 112, "control_subtype": "DropDownListCombo", "translate": false}
+              ]
+            },
+            {
+              "class_name": "AfxMDIFrame42s",
+              "ctrl_id": 59649,
+              "control_subtype": "AfxMDIFrame42s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "SysListView32",
+                  "ctrl_id": 59648,
+                  "control_subtype": "SysListView32",
+                  "sdk_role": "BKA_MailListView",
+                  "translate": false,
+                  "gdi_patterns": [
+                    {"pattern": "\\{Need to Reply\\}", "replace": "{Wymaga odpowiedzi}"},
+                    {"pattern": "\\{Follow the Topic\\}", "replace": "{Śledź wątek}"}
+                  ],
+                  "children": [
+                    {
+                      "class_name": "SysHeader32",
+                      "ctrl_id": 0,
+                      "control_subtype": "SysHeader32",
+                      "translate": true,
+                      "columns": [
+                        {"translate": false, "src": " "},
+                        {"translate": true, "src": "Subject", "dst": "Temat"},
+                        {"translate": true, "src": "From", "dst": "Od"},
+                        {"translate": true, "src": "To", "dst": "Do"},
+                        {"translate": true, "src": "Sent Date", "dst": "Data wysłania"},
+                        {"translate": true, "src": "Received Date", "dst": "Data odebrania"},
+                        {"translate": true, "src": "Delivered Date", "dst": "Data dostarczenia"},
+                        {"translate": true, "src": "Size", "dst": "Rozmiar"},
+                        {"translate": true, "src": "Deadline", "dst": "Termin"},
+                        {"translate": true, "src": "Comment", "dst": "Komentarz"},
+                        {"translate": true, "src": "????", "dst": "Komentarz"},
+                        {"translate": true, "src": "Profile Name", "dst": "Nazwa profilu"},
+                        {"translate": true, "src": "Connection", "dst": "Połączenie"},
+                        {"translate": true, "src": "Protocol", "dst": "Protokół"},
+                        {"translate": true, "src": "Name", "dst": "Nazwa"},
+                        {"translate": true, "src": "E-mail Address", "dst": "Adres e-mail"},
+                        {"translate": true, "src": "Mail Server", "dst": "Serwer poczty przychodzącej"},
+                        {"translate": true, "src": "SMTP Server", "dst": "Serwer poczty wychodzącej (SMTP)"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "gdi_patterns": [
+                    {"pattern": "^Task:\\s*Need to Reply", "replace": "Zadanie: Wymaga odpowiedzi"},
+                    {"pattern": "^Task:\\s*Follow the Topic", "replace": "Zadanie: Śledź wątek"},
+                    {"pattern": "^Deadline:\\s*-\\s*\\(\\s*-\\s+more days?\\s*\\)\\s*$", "replace": "Deadline:"},
+                    {"pattern": "\\(\\s*-\\s+more days?\\s*\\)", "replace": ""},
+                    {"pattern": "^Deadline:", "replace": "Termin:"},
+                    {"pattern": "more days?", "replace": "dni"},
+                    {"pattern": "^Comment:", "replace": "Komentarz:"}
+                  ],
+                  "children": [
+                    {"class_name": "Button", "ctrl_id": 148, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {"class_name": "Button", "ctrl_id": 166, "control_subtype": "OwnerDrawButton", "translate": false, "src": ""},
+                    {
+                      "class_name": "DanaEditWindowClass",
+                      "ctrl_id": 103,
+                      "control_subtype": "DanaEditWindowClass",
+                      "sdk_role": "BKA_MailBodyView",
+                      "translate": false
+                    },
+                    {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false},
+                    {
+                      "class_name": "AfxWnd",
+                      "ctrl_id": 12562,
+                      "control_subtype": "AfxWnd",
+                      "translate": true,
+                      "rules": [
+                        {"src": "Body", "dst": "Treść"},
+                        {"src": "plain", "dst": "zwykły tekst"},
+                        {"src": "html", "dst": "HTML"},
+                        {"src": "delivery-status", "dst": "status-dostarczenia"},
+                        {"src": "Headers", "dst": "Nagłówki"},
+                        {"src": "Memo", "dst": "Notatka"},
+                        {"src": "disposition-notification", "dst": "potwierdzenie-odczytu"},
+                        {"src": "rfc822-headers", "dst": "nagłówki-rfc822"}
+                      ],
+                      "children": [{"class_name": "msctls_updown32", "ctrl_id": 1053, "control_subtype": "msctls_updown32", "translate": false}]
+                    },
+                    {"class_name": "Static", "ctrl_id": 1006, "control_subtype": "TextStatic", "translate": true, "src": "From: ", "dst": "Od: "},
+                    {"class_name": "Edit", "ctrl_id": 1005, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To: ", "dst": "Do: "},
+                    {"class_name": "Edit", "ctrl_id": 115, "control_subtype": "Edit", "translate": true, "mode": "regex", "pattern": "Cc: ", "replace": "Dw: "},
+                    {"class_name": "Static", "ctrl_id": 1008, "control_subtype": "TextStatic", "translate": true, "src": "Subject: ", "dst": "Temat: "},
+                    {"class_name": "Edit", "ctrl_id": 114, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1007, "control_subtype": "TextStatic", "translate": true, "src": "Date: ", "dst": "Data: "},
+                    {"class_name": "Edit", "ctrl_id": 113, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 1544, "control_subtype": "TextStatic", "translate": true, "src": "Status", "dst": "Status"},
+                    {
+                      "class_name": "ComboBox",
+                      "ctrl_id": 1532,
+                      "control_subtype": "DropDownListCombo",
+                      "translate": true,
+                      "items": [
+                        {"index": 0, "src": "Active", "dst": "Aktywne"},
+                        {"index": 1, "src": "Done", "dst": "Zakończone"},
+                        {"index": 2, "src": "Suspended", "dst": "Wstrzymane"}
+                      ]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Edit Task", "dst": "Edytuj zadanie"},
+                    {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete Task", "dst": "Usuń zadanie"},
+                    {
+                      "class_name": "Button",
+                      "ctrl_id": 1069,
+                      "control_subtype": "PushButton",
+                      "translate": true,
+                      "rules": [{"src": "To Original", "dst": "Do oryginału"}, {"src": "To \"Tasks\"", "dst": "Do „Zadań”"}]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1552, "control_subtype": "PushButton", "translate": true, "src": "Next->", "dst": "Nast.->"},
+                    {"class_name": "Static", "ctrl_id": 1554, "control_subtype": "TextStatic", "translate": false, "src": "[99/99]"},
+                    {"class_name": "EdgeBrowserHost", "ctrl_id": 105, "control_subtype": "EdgeBrowserHost", "translate": false}
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false},
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {"index": 0, "translate": false, "sample": ""},
+            {"index": 1, "translate": false, "sample": ""},
+            {"index": 2, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "W:$1$2K:$3$4Wrs:$5$6"},
+            {"index": 3, "translate": true, "mode": "regex", "pattern": "^Unread:(\\s*\\d+)\\s*/\\s*Total:(\\s*\\d+)$", "replace": "Nieprzecz.:$1 / Razem:$2"},
+            {"index": 4, "translate": false, "sample": "    "},
+            {"index": 5, "translate": false, "sample": "    "}
+          ],
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false, "src": "Fn"},
+            {"class_name": "Static", "ctrl_id": 2424, "control_subtype": "ImageStatic", "translate": false, "src": "Qu"},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 0,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": false, "src": ""},
+                {"class_name": "msctls_progress32", "ctrl_id": 1045, "control_subtype": "msctls_progress32", "translate": false},
+                {"class_name": "Static", "ctrl_id": 1046, "control_subtype": "TextStatic", "translate": false, "src": "0/0"},
+                {"class_name": "Static", "ctrl_id": 1047, "control_subtype": "TextStatic", "translate": false, "src": ""}
+              ]
+            }
+          ]
+        },
+        {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
+      ]
+    },
+    "Becky2ComposeFrame:Compose": {
+      "class_name": "Becky2ComposeFrame",
+      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Nowa wiadomość - $1"}},
+      "children": [
+        {
+          "class_name": "AfxMDIFrame140s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame140s",
+          "translate": false,
+          "children": [
+            {"class_name": "DanaEditWindowClass", "ctrl_id": 59648, "control_subtype": "DanaEditWindowClass", "translate": false},
+            {
+              "class_name": "#32770",
+              "ctrl_id": 59664,
+              "control_subtype": "ChildDialog",
+              "translate": false,
+              "children": [
+                {"class_name": "DanaEditWindowClass", "ctrl_id": 103, "control_subtype": "DanaEditWindowClass", "translate": false},
+                {"class_name": "SysListView32", "ctrl_id": 1002, "control_subtype": "SysListView32", "translate": false}
+              ]
+            }
+          ]
+        },
+        {
+          "class_name": "ReBarWindow32",
+          "ctrl_id": 59396,
+          "control_subtype": "ReBarWindow32",
+          "translate": false,
+          "children": [{"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false}]
+        },
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {
+              "index": 0,
+              "translate": true,
+              "mode": "regex",
+              "rules": [
+                {"pattern": "^Current Character Set:\\s*\"7bit\\ ASCII\\ \\(US\\-ASCII\\)\"$", "replace": "Bieżący zestaw znaków: \"7-bit ASCII (US-ASCII)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Latin1\\ \\(ISO\\-8859\\-1\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Zachodnioeuropejski Latin1 (ISO-8859-1)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Latin2\\ \\(ISO\\-8859\\-2\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Środkowoeuropejski Latin2 (ISO-8859-2)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Latin9\\ \\(ISO\\-8859\\-15\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Zachodnioeuropejski Latin9 (ISO-8859-15)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Japanese\\ \\(ISO\\-2022\\-JP\\)\"$", "replace": "Bieżący zestaw znaków: \"Japoński (ISO-2022-JP)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ UHC\\ Windows\\ \\(ks_c_5601\\-1987\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Koreański UHC Windows (ks_c_5601-1987)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Korean\\ RFC1557\\ \\(ISO\\-2022\\-KR\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Koreański RFC1557 (ISO-2022-KR)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Traditional\\ \\(BIG5\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Chiński tradycyjny (BIG5)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ \\(GB2312\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Chiński uproszczony (GB2312)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ National\\ Standard\\ \\(GB18030\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Chiński standard państwowy (GB18030)\""
+                },
+                {
+                  "pattern": "^Current Character Set:\\s*\"Chinese\\ Simplified\\ HZ\\ \\(HZ\\-GB\\-2312\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Chiński uproszczony HZ (HZ-GB-2312)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Russian\\ koi8\\ \\(koi8\\-r\\)\"$", "replace": "Bieżący zestaw znaków: \"Rosyjski koi8 (koi8-r)\""},
+                {
+                  "pattern": "^Current Character Set:\\s*\"Ukrainian\\ koi8\\ \\(koi8\\-u\\)\"$",
+                  "replace": "Bieżący zestaw znaków: \"Ukraiński koi8 (koi8-u)\""
+                },
+                {"pattern": "^Current Character Set:\\s*\"Cyrillic\\ \\(Windows\\-1251\\)\"$", "replace": "Bieżący zestaw znaków: \"Cyrylica (Windows-1251)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-8\\)\"$", "replace": "Bieżący zestaw znaków: \"Unicode (UTF-8)\""},
+                {"pattern": "^Current Character Set:\\s*\"UNICODE\\ \\(UTF\\-7\\)\"$", "replace": "Bieżący zestaw znaków: \"Unicode (UTF-7)\""},
+                {"pattern": "^Current Character Set:\\s*\"(.*)\"$", "replace": "Bieżący zestaw znaków: \"$1\""}
+              ]
+            },
+            {"index": 1, "translate": true, "mode": "regex", "pattern": "^R:(\\d+)(\\s+)C:(\\d+)(\\s+)Lines:(\\d+)(\\s*)$", "replace": "W:$1$2K:$3$4Wrs:$5$6"},
+            {"index": 2, "translate": true, "src": "OVR", "dst": "NADP"},
+            {"index": 3, "translate": true, "src": "AutoFmt", "dst": "AutoFmt"},
+            {"index": 4, "translate": true, "src": "CAP", "dst": "CAP"},
+            {"index": 5, "translate": true, "src": "NUM", "dst": "NUM"},
+            {"index": 6, "translate": false, "sample": "    "}
+          ],
+          "children": [{"class_name": "Static", "ctrl_id": 1212, "control_subtype": "ImageStatic", "translate": false}]
+        },
+        {
+          "class_name": "#32770",
+          "ctrl_id": 150,
+          "control_subtype": "ChildDialog",
+          "translate": false,
+          "children": [
+            {"class_name": "Static", "ctrl_id": 1009, "control_subtype": "TextStatic", "translate": true, "src": "To", "dst": "Do"},
+            {"class_name": "Edit", "ctrl_id": 10543, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10541, "control_subtype": "PushButton", "translate": true, "src": "To", "dst": "Do"},
+            {"class_name": "Static", "ctrl_id": 1458, "control_subtype": "TextStatic", "translate": true, "src": "Cc", "dst": "Dw"},
+            {"class_name": "Edit", "ctrl_id": 10544, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10540, "control_subtype": "PushButton", "translate": true, "src": "Cc", "dst": "Dw"},
+            {"class_name": "Static", "ctrl_id": 1459, "control_subtype": "TextStatic", "translate": true, "src": "Bcc", "dst": "Udw"},
+            {"class_name": "Edit", "ctrl_id": 10545, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10539, "control_subtype": "PushButton", "translate": true, "src": "Bcc", "dst": "Udw"},
+            {"class_name": "Static", "ctrl_id": 10533, "control_subtype": "TextStatic", "translate": true, "src": "Subject", "dst": "Temat"},
+            {"class_name": "Edit", "ctrl_id": 10546, "control_subtype": "Edit", "translate": false},
+            {"class_name": "Static", "ctrl_id": 10547, "control_subtype": "TextStatic", "translate": true, "src": "Reply-To", "dst": "Odp. do"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10534,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Static", "ctrl_id": 10536, "control_subtype": "TextStatic", "translate": true, "src": "Sender", "dst": "Nad."},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10535,
+              "control_subtype": "DropDownCombo",
+              "translate": false,
+              "children": [{"class_name": "Edit", "ctrl_id": 1001, "control_subtype": "Edit", "translate": false}]
+            },
+            {"class_name": "Button", "ctrl_id": 10542, "control_subtype": "PushButton", "translate": true, "src": "Headers", "dst": "Nagł."},
+            {"class_name": "Static", "ctrl_id": 10537, "control_subtype": "TextStatic", "translate": true, "src": "Signature", "dst": "Podpis"},
+            {
+              "class_name": "ComboBox",
+              "ctrl_id": 10548,
+              "control_subtype": "DropDownListCombo",
+              "translate": true,
+              "items": [
+                {"index": 0, "translate": true, "src": "(No Signature)", "dst": "(Brak podpisu)"},
+                {"index": 1, "translate": true, "src": "Default", "dst": "Domyślny"}
+              ]
+            },
+            {"class_name": "Button", "ctrl_id": 432, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "Button", "ctrl_id": 10549, "control_subtype": "OwnerDrawButton", "translate": false},
+            {"class_name": "msctls_updown32", "ctrl_id": 10538, "control_subtype": "msctls_updown32", "translate": false}
+          ]
+        }
+      ]
+    }
+  }
+}
