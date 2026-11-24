@@ -24,6 +24,9 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstring>
+#include <iomanip>
+#include <optional>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -72,6 +75,62 @@ PFN_SendDlgItemMessageW fpOrigSendDlgItemMessageW = nullptr;
 
 PFN_ExtTextOutW fpOrigExtTextOutW = nullptr;
 PFN_DrawTextA   fpOrigDrawTextA   = nullptr;
+
+// ===== ETO_GLYPH_INDEX 自绘弹出菜单（如 Compose 优先级菜单）=====
+// 弹出菜单模态期间的线程局部上下文：记录顶级窗口与其绑定的 WindowRule，并缓存当前字体的
+// glyph->wchar 反查表，供 ExtTextOutW 把字形索引还原为明文后再做数据驱动的正则替换。
+struct GlyphMenuContext {
+    bool active{false};
+    HWND top{nullptr};
+    const WindowRule* window_rule{nullptr};
+    HFONT cached_font{nullptr};
+    std::unordered_map<WORD, wchar_t> glyph_to_char;
+};
+thread_local GlyphMenuContext g_glyphMenuCtx;
+
+// 用当前 hdc 字体建立（或按 HFONT 复用）glyph->wchar 反向表，覆盖 ASCII 与 Latin-1。
+const std::unordered_map<WORD, wchar_t>* GetGlyphReverseMap(HDC hdc) {
+    if (!hdc) return nullptr;
+    auto* hFont = static_cast<HFONT>(::GetCurrentObject(hdc, OBJ_FONT));
+    if (!hFont) return nullptr;
+    if (g_glyphMenuCtx.cached_font == hFont && !g_glyphMenuCtx.glyph_to_char.empty()) {
+        return &g_glyphMenuCtx.glyph_to_char;
+    }
+
+    std::unordered_map<WORD, wchar_t> g2c;
+    wchar_t single[2] = {0, 0};
+    const auto collect = [&](wchar_t wc) {
+        single[0] = wc;
+        WORD glyph = 0;
+        if (::GetGlyphIndicesW(hdc, single, 1, &glyph, 0) != GDI_ERROR &&
+            glyph != 0xFFFF) {
+            g2c.emplace(glyph, wc);
+        }
+    };
+    for (wchar_t wc = 0x20; wc <= 0x7E; ++wc) collect(wc);
+    for (wchar_t wc = 0xA0; wc <= 0xFF; ++wc) collect(wc);
+
+    g_glyphMenuCtx.cached_font = hFont;
+    g_glyphMenuCtx.glyph_to_char = std::move(g2c);
+    return &g_glyphMenuCtx.glyph_to_char;
+}
+
+// 把 glyph 索引序列反解为明文；任一 glyph 无法映射则返回 nullopt（调用方原样放行）。
+std::optional<std::wstring> DecodeGlyphText(HDC hdc, LPCWSTR lpString, UINT count) {
+    if (count == 0 || !lpString) return std::nullopt;
+    const auto* g2c = GetGlyphReverseMap(hdc);
+    if (!g2c) return std::nullopt;
+
+    std::wstring plain;
+    plain.reserve(count);
+    for (UINT i = 0; i < count; ++i) {
+        auto it = g2c->find(static_cast<WORD>(lpString[i]));
+        if (it == g2c->end()) return std::nullopt;
+        plain.push_back(it->second);
+    }
+    return plain;
+}
+// ===== END glyph menu context =====
 
 struct HeaderItemTranslation {
     std::wstring text;
@@ -797,6 +856,29 @@ std::optional<LRESULT> TryTranslateControlMessageW(HWND hWnd, UINT Msg, WPARAM w
         return std::nullopt;
     }
 
+    // rev15：顶级窗口标题的 W 版实时翻译，与 TryTranslateControlMessageA 中 hWnd==hTop
+    // 的 WM_SETTEXT 分支对称。Compose 窗口六种标题（Compose/Reply/Forward/Template，
+    // 模板名可能含非 ANSI 字符）若经 SetWindowTextW/SendMessageW 更新也需即时翻译。
+    // 严格限定 hWnd==GA_ROOT 顶级窗口本身；Button/Static 等子控件 caption 的 W 通道仍沿用
+    // #131 边界（仅服务下方 IsTranslatableEdit），不在此做任何 caption 加工。
+    if (Msg == WM_SETTEXT && hWnd == ::GetAncestor(hWnd, GA_ROOT)) {
+        const auto* winRule = I18nManager::instance().find_or_bind_window_rule(hWnd);
+        if (winRule && winRule->translate_title) {
+            const wchar_t* lpTitle = reinterpret_cast<const wchar_t*>(lParam);
+            if (lpTitle && lpTitle[0] != L'\0') {
+                std::wstring wTitle(lpTitle);
+                if (auto transTitle =
+                        I18nManager::instance().translate_window_title(*winRule, wTitle)) {
+                    ScopedHookGuard guard;
+                    return ::SendMessageW(hWnd, WM_SETTEXT, wParam,
+                                          reinterpret_cast<LPARAM>(transTitle->c_str()));
+                }
+            }
+        }
+        // 顶级窗口不是 Edit 子控件：未命中标题翻译时放行原 W 消息，不再进入下方控件判定。
+        return std::nullopt;
+    }
+
     switch (Msg) {
         case WM_SETTEXT:
         case EM_REPLACESEL: {
@@ -927,6 +1009,27 @@ LRESULT WINAPI DetourDefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
     }
 }
 
+// 进入弹出菜单模态前建立 glyph 菜单上下文，退出（含异常）时复位，确保线程局部状态不泄漏。
+class ScopedGlyphMenuContext {
+public:
+    explicit ScopedGlyphMenuContext(HWND hOwner) {
+        HWND hTop = hOwner ? ::GetAncestor(hOwner, GA_ROOT) : nullptr;
+        const WindowRule* pRule = nullptr;
+        if (hTop && I18nManager::instance().is_active()) {
+            pRule = I18nManager::instance().find_or_bind_window_rule(hTop);
+        }
+        // 全部计算成功后最后再写入共享上下文，避免构造期异常留下半激活状态
+        g_glyphMenuCtx.active = true;
+        g_glyphMenuCtx.top = hTop;
+        g_glyphMenuCtx.window_rule = pRule;
+    }
+    ~ScopedGlyphMenuContext() {
+        g_glyphMenuCtx = GlyphMenuContext{};
+    }
+    ScopedGlyphMenuContext(const ScopedGlyphMenuContext&) = delete;
+    ScopedGlyphMenuContext& operator=(const ScopedGlyphMenuContext&) = delete;
+};
+
 BOOL WINAPI DetourTrackPopupMenu(HMENU hMenu, UINT uFlags, int x, int y, int nReserved, HWND hWnd, const RECT* prcRect) {
     try {
         if (hMenu && !ScopedHookGuard::in_hook() && I18nManager::instance().is_active()) {
@@ -934,6 +1037,7 @@ BOOL WINAPI DetourTrackPopupMenu(HMENU hMenu, UINT uFlags, int x, int y, int nRe
             PrescanHeaderOwnerdrawMenu(hMenu, hWnd);
         }
         ScopedHeaderMenuSubclass headerSubclass(hWnd);
+        ScopedGlyphMenuContext glyphCtx(hWnd);
         return fpOrigTrackPopupMenu(hMenu, uFlags, x, y, nReserved, hWnd, prcRect);
     } catch (...) {
         BKI_LOG_ERROR("unhandled exception in TrackPopupMenu detour, fallback");
@@ -948,6 +1052,7 @@ BOOL WINAPI DetourTrackPopupMenuEx(HMENU hMenu, UINT uFlags, int x, int y, HWND 
             PrescanHeaderOwnerdrawMenu(hMenu, hWnd);
         }
         ScopedHeaderMenuSubclass headerSubclass(hWnd);
+        ScopedGlyphMenuContext glyphCtx(hWnd);
         return fpOrigTrackPopupMenuEx(hMenu, uFlags, x, y, hWnd, lptpm);
     } catch (...) {
         BKI_LOG_ERROR("unhandled exception in TrackPopupMenuEx detour, fallback");
@@ -1077,10 +1182,27 @@ LRESULT WINAPI DetourSendDlgItemMessageW(HWND hDlg, int nIDDlgItem, UINT Msg,
     }
 }
 
-// 自绘菜单真实绘制拦截：仅在 Static 1006..1009 处理 ODT_MENU 的 WM_DRAWITEM 期间生效。
+// ExtTextOutW 拦截，覆盖两条独立通道：
+//  1) ETO_GLYPH_INDEX 自绘弹出菜单（如 Compose 优先级菜单），由窗口级 glyph_menu 规则驱动；
+//  2) 邮件头 Static 1006..1009 处理 ODT_MENU 的 WM_DRAWITEM 期间的自绘菜单。
 BOOL WINAPI DetourExtTextOutW(HDC hdc, int x, int y, UINT options, const RECT* lprect,
                              LPCWSTR lpString, UINT c, const INT* lpDx) {
     try {
+        // ETO_GLYPH_INDEX 自绘弹出菜单（如 Compose 优先级菜单）：先把 glyph 反解为明文，
+        // 命中窗口级 glyph_menu 规则则去掉 GLYPH_INDEX，以正常字符输出译文。
+        if (g_glyphMenuCtx.active && c > 0 && g_glyphMenuCtx.window_rule != nullptr &&
+            (options & ETO_GLYPH_INDEX) != 0 && !ScopedHookGuard::in_hook()) {
+            if (auto plain = DecodeGlyphText(hdc, lpString, c)) {
+                if (auto translated = I18nManager::instance().translate_glyph_menu_text(
+                        *g_glyphMenuCtx.window_rule, *plain)) {
+                    ScopedHookGuard guard;
+                    const UINT plainOptions = options & ~static_cast<UINT>(ETO_GLYPH_INDEX);
+                    return fpOrigExtTextOutW(hdc, x, y, plainOptions, lprect,
+                                            translated->c_str(),
+                                            static_cast<UINT>(translated->size()), nullptr);
+                }
+            }
+        }
         if (g_inOwnerDrawDraw && !ScopedHookGuard::in_hook()) {
             // 1. 不论是否带 ETO_GLYPH_INDEX，只要单行拼接模式已输出整行译文，后续所有字符绘制一律吞除
             if (g_suppressRemainingDraws && c > 0) {

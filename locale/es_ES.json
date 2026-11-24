@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "es_ES", "name": "Español (es_ES)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
+  "meta": {"locale": "es_ES", "name": "Español (es_ES)", "access_key": "$1(&2)$3", "version": "1.0.9", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1951,9 +1951,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Redactar - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "Plantilla - [#Responder\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "Plantilla - [#Reenviar\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "Plantilla - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "Redactar - De: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "Responder - De: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "Reenviar - De: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1Alta"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1Media alta"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1Normal"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1Media baja"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1Baja"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",

@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "ko_KR", "name": "한국어 (ko_KR)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
+  "meta": {"locale": "ko_KR", "name": "한국어 (ko_KR)", "access_key": "$1(&2)$3", "version": "1.0.9", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1529,9 +1529,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "작성 - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "템플릿 - [#회신\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "템플릿 - [#전달\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "템플릿 - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "작성 - 보낸 사람: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "회신 - 보낸 사람: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "전달 - 보낸 사람: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1높음"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1중간 높음"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1보통"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1중간 낮음"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1낮음"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",

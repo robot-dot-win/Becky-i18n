@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "pl_PL", "name": "Polski (pl_PL)", "access_key": "$1(&2)$3", "version": "1.0.0", "author": "Gemini AI"},
+  "meta": {"locale": "pl_PL", "name": "Polski (pl_PL)", "access_key": "$1(&2)$3", "version": "1.0.1", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1936,9 +1936,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Nowa wiadomość - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "Szablon - [#Odpowiedz\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "Szablon - [#Prześlij dalej\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "Szablon - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "Nowa wiadomość - Od: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "Odpowiedz - Od: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "Prześlij dalej - Od: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1Wysoki"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1Średnio wysoki"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1Normalny"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1Średnio niski"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1Niski"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",

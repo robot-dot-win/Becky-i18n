@@ -45,7 +45,7 @@ Becky! 内部采用 **ANSI MBCS 编码**，界面字符串全部硬编码在可�
 
 ## 项目进度与路线图
 
-当前仓库处于预发布阶段 **`v1.0.0-rc.3`**。核心翻译引擎、内存安全防护、菜单系统、主窗口、撰写邮件窗口（Compose）、界面语言选择对话框以及 16 个国际语种语言包均已开发并测试完毕。
+当前仓库处于预发布阶段 **`v1.0.0-rc.4`**。核心翻译引擎、内存安全防护、菜单系统、主窗口、撰写窗口（邮件与模板）、界面语言选择对话框以及 16 个国际语种语言包均已开发并测试完毕。
 
 ### 已完成内容
 
@@ -62,7 +62,8 @@ Becky! 内部采用 **ANSI MBCS 编码**，界面字符串全部硬编码在可�
   * 邮件头字段自绘弹出菜单。
   * 模态**界面语言选择对话框（UI Language Picker Dialog）**。
 * ✅ **撰写邮件窗口（Compose Window）**：
-  * 撰写窗口内的标准控件与按钮标签及相关工具提示。
+  * 6 种撰写窗口（新邮件、回复、转发及三种模板编辑窗）内的标准控件与按钮标签及相关工具提示。
+  * 窗口标题的数据驱动正则翻译。
 * ✅ **16 种国际语言数据文件（`locale/*.json`）**：
   * `en_US.json` — 英语（English，基线模板）
   * `de_DE.json` — 德语（Deutsch）
@@ -157,7 +158,7 @@ PlugIns\
 * **顶层键结构**：每个语言 JSON 文件固定由三个顶层对象组成：
   1. `"meta"`：语言包元数据及快捷键助记符（`&`）排版规则。
   2. `"menus"`：顶层菜单定义，分为 `"popups"`（弹出子菜单树）和 `"commands"`（全局命令池）。
-  3. `"windows"`：顶层窗口与子控件树。每个键通常是 Win32 窗口类名（如 `"Becky2MainFrame"`）；若需为同类名的不同顶层窗口分别配置规则，也可使用 `"类名:窗口标题"` 形式的复合键（如 `"Becky2ComposeFrame:Compose"`），并在节点内通过 `class_name` 与可选的 `properties.window_title` 标题匹配规则绑定真实窗口。
+  3. `"windows"`：顶层窗口与子控件树。每个键首选使用纯 Win32 窗口类名（如 `"Becky2MainFrame"`、`"Becky2ComposeFrame"`），节点内通过 `class_name` 绑定该类名的顶层窗口；若需为共享同一类名的不同顶层窗口分别配置规则，也可使用 `"类名:窗口标题"` 形式的复合键，并在节点内通过 `class_name` 与可选的 `properties.window_title` 标题匹配规则绑定真实窗口。运行期按“纯类名键 → 复合键 → 通用匹配”的顺序查找，首个命中即绑定。
 
 ```json
 {
@@ -271,7 +272,7 @@ Becky! 中所有可执行菜单项按 `cmd_id` 升序存放在同一个扁平数
 
 ### 4. 窗口与控件树（`windows`）
 
-`"windows"` 下的每个键对应一条顶层窗口规则（纯类名键或 `"类名:标识"` 复合键），节点通过嵌套的 `"children"` 递归映射其 Win32 子控件树；顶层窗口标题可在 `properties.window_title` 中配置精确匹配或正则翻译。子控件通过 `class_name` 与 `ctrl_id` 精确定位，并可辅以 `control_subtype`、`sdk_role` 等标注字段（其中 `sdk_role` 当前仅作数据说明，不参与运行期匹配）。
+`"windows"` 下的每个键对应一条顶层窗口规则（纯类名键或 `"类名:标识"` 复合键），节点通过嵌套的 `"children"` 递归映射其 Win32 子控件树。子控件通过 `class_name` 与 `ctrl_id` 精确定位，并可辅以 `control_subtype`、`sdk_role` 等标注字段（其中 `sdk_role` 当前仅作数据说明，不参与运行期匹配）。除子控件外，节点还可在 `properties` 中配置两类窗口级规则：`window_title`（窗口标题翻译）与 `glyph_menu`（自绘弹出菜单翻译）。
 
 | 控件类名（`class_name`） | `ctrl_id` | JSON 翻译配置说明 |
 | :--- | :--- | :--- |
@@ -284,7 +285,39 @@ Becky! 中所有可执行菜单项按 `cmd_id` 升序存放在同一个扁平数
 | **`ComboBox`** | `1532` | 下拉列表框，按从 0 开始的索引（`index`）与文本匹配。 |
 | **`msctls_statusbar32`** | `59393` | 底部状态栏，按分格索引 `index` 划分为多个 `"panes"`。 |
 
-> **工具栏按钮与自绘文本**：`ToolbarWindow32` 控件通过 `"buttons"` 数组描述各按钮及其 `tooltip_src` / `tooltip_dst`；没有独立窗口句柄的自绘 GDI 文本（如任务窗格状态行）不走本表的控件匹配，而由控件节点上的 `"gdi_patterns"` 正则数组处理。
+> **工具栏按钮与自绘文本**：`ToolbarWindow32` 控件通过 `"buttons"` 数组描述各按钮及其 `tooltip_src` / `tooltip_dst`；没有独立窗口句柄的自绘 GDI 文本不走本表的控件匹配，而由控件节点上的 `"gdi_patterns"` 正则数组处理。
+
+#### 4.1 窗口级属性（`properties`）：窗口标题与自绘菜单
+
+窗口节点的 `properties` 与 `children` 同级，用于描述不属于某个具体子控件的窗口级文本，当前包含两个可选字段。
+
+**`window_title`：顶层窗口标题翻译。** 当同一类名窗口在运行期呈现多种标题时，可设置多条正则；运行期自上而下取**首个匹配**（first-match-wins），不做链式替换：
+
+```json
+"window_title": {
+  "translate": true,
+  "mode": "regex",
+  "rules": [
+    { "pattern": "^Compose - From:\\s*(.*)$",   "replace": "撰写 - 发件人: $1" },
+    { "pattern": "^Reply - From:\\s*(.*)$",     "replace": "回复 - 发件人: $1" },
+    { "pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "模板 - [$1]" }
+  ]
+}
+```
+
+**`glyph_menu`：字形索引自绘弹出菜单翻译。** 部分自绘弹出菜单的文字并不存入菜单项字符串，此时统一交由窗口级 `glyph_menu` 处理。规则同样为 first-match-wins：
+
+```json
+"glyph_menu": {
+  "translate": true,
+  "mode": "regex",
+  "rules": [
+    { "pattern": "^(\\d+:\\s*)High$",   "replace": "$1高" },
+    { "pattern": "^(\\d+:\\s*)Normal$", "replace": "$1普通" },
+    { "pattern": "^(\\d+:\\s*)Low$",    "replace": "$1低" }
+  ]
+}
+```
 
 ### 5. 译文匹配规则
 
@@ -417,6 +450,7 @@ Becky! 中所有可执行菜单项按 `cmd_id` 升序存放在同一个扁平数
    * 递归遍历窗口 HWND 树并对目标窗口过程进行子类化（Subclassing），实时拦截并翻译各类窗口与控件通知消息。
 2. **窄范围 Win32/GDI API 钩子（基于 MinHook 的 `ApiHooks`）**：
    * 自绘邮件头弹出菜单拦截（`ExtTextOutW` + 增强图元文件 `EMF` 离屏预重放提取明文）。
+   * 字形索引自绘弹出菜单拦截（`ExtTextOutW` / `ETO_GLYPH_INDEX`）：在弹出菜单绘制周期内用当前字体 `GetGlyphIndicesW` 反查字形，再套用窗口级 `glyph_menu` 规则。
    * 自绘 MIME 页签条拦截（子类化作用域 + 双缓冲内存 DC `DrawTextA` 拦截）；同一 `DrawTextA` 通道还会按控件节点的 `gdi_patterns` 正则规则，翻译任务窗格状态行、邮件列表任务标签等无独立句柄的自绘 GDI 文本。
    * 未命中路径零开销直通与内存安全防护（`win32_guard.hpp`）：所有钩子与回调中解引用的指针均经过用户态地址范围校验与 SEH 内存可读性探针保护，确保任何异常绝不逃逸至宿主进程 `B2.exe`。
 

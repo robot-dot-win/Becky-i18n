@@ -209,6 +209,10 @@ struct WindowRule {
     std::wstring title_dst;
     std::vector<CompiledRegexRule> title_regex_rules;
 
+    // ETO_GLYPH_INDEX 自绘弹出菜单（如 Compose 优先级菜单）：运行时反解 glyph 后按正则替换
+    bool translate_glyph_menu{false};
+    std::vector<CompiledRegexRule> glyph_menu_regex_rules;
+
     // 顶级窗口的子控件树
     std::vector<ControlRule> children;
 };
@@ -353,6 +357,10 @@ public:
     // 翻译顶级窗口标题
     std::optional<std::wstring> translate_window_title(const WindowRule& winRule,
                                                        std::wstring_view wideTitle) const;
+
+    // 翻译 ETO_GLYPH_INDEX 自绘弹出菜单的反解明文（如 Compose 优先级菜单）
+    std::optional<std::wstring> translate_glyph_menu_text(const WindowRule& winRule,
+                                                          std::wstring_view wideText) const;
 
     // 字符集与类名工具函数
     static std::string normalize_class_name(std::string_view rawClass);

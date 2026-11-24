@@ -45,7 +45,7 @@ Internally, Becky! uses **ANSI MBCS encoding** with UI strings hardcoded inside 
 
 ## Project Status & Roadmap
 
-This repository is currently at the pre-release stage **`v1.0.0-rc.3`**. The core translation engine, memory-safety guards, Menu System, Main Window, Compose Window, UI Language Picker Dialog, and 16 international language packs are complete and tested.
+This repository is currently at the pre-release stage **`v1.0.0-rc.4`**. The core translation engine, memory-safety guards, Menu System, Main Window, Compose Window (mail and templates), UI Language Picker Dialog, and 16 international language packs are complete and tested.
 
 ### Completed
 
@@ -62,7 +62,8 @@ This repository is currently at the pre-release stage **`v1.0.0-rc.3`**. The cor
   * Custom Owner-Draw header fields popup menu.
   * Modal **UI Language Picker Dialog**.
 * ✅ **Compose Window**:
-  * Standard control and button labels in the Compose window, along with their tooltips.
+  * Standard control and button labels, along with their tooltips, across the six Compose windows (new message, reply, forward, and the three template editor windows).
+  * Data-driven regular-expression translation of the window title.
 * ✅ **16 International Language Data Files (`locale/*.json`)**:
   * `en_US.json` — English (Baseline template)
   * `de_DE.json` — German (Deutsch)
@@ -157,7 +158,7 @@ Adding a new language to Becky! requires **no programming knowledge**. You simpl
 * **Top-Level Keys**: Every language JSON file consists of three top-level objects:
   1. `"meta"`: Metadata and the access key (mnemonic `&`) formatting rule.
   2. `"menus"`: Top-level menu definitions, divided into `"popups"` and `"commands"`.
-  3. `"windows"`: Top-level window and child-control trees. Each key is normally a Win32 window class name (e.g., `"Becky2MainFrame"`); to configure rules separately for different top-level windows sharing the same class name, you may also use a `"ClassName:Window Title"` compound key (e.g., `"Becky2ComposeFrame:Compose"`), and bind the rule to the real window through `class_name` and the optional `properties.window_title` title-matching rule inside the node.
+  3. `"windows"`: Top-level window and child-control trees. Each key preferably uses a plain Win32 window class name (e.g., `"Becky2MainFrame"`, `"Becky2ComposeFrame"`), and the node binds to the top-level window of that class name through `class_name`; to configure rules separately for different top-level windows sharing the same class name, you may also use a `"ClassName:Window Title"` compound key, and bind the rule to the real window through `class_name` and the optional `properties.window_title` title-matching rule inside the node. At runtime the lookup follows the order "plain class-name key → compound key → general matching", and the first hit is bound.
 
 ```json
 {
@@ -271,7 +272,7 @@ All actionable menu items in Becky! are stored in one flat array sorted ascendin
 
 ### 4. Window & Control Tree (`windows`)
 
-Each key under `"windows"` corresponds to one top-level window rule (a plain class-name key or a `"ClassName:identifier"` compound key), and the node recursively mirrors its Win32 child-control tree through nested `"children"`; the top-level window title can be configured in `properties.window_title` for exact matching or regex-based translation. Child controls are located precisely by `class_name` and `ctrl_id`, optionally supplemented by annotation fields such as `control_subtype` and `sdk_role` (currently `sdk_role` is descriptive metadata only and does not participate in runtime matching).
+Each key under `"windows"` corresponds to one top-level window rule (a plain class-name key or a `"ClassName:identifier"` compound key), and the node recursively mirrors its Win32 child-control tree through nested `"children"`. Child controls are located precisely by `class_name` and `ctrl_id`, optionally supplemented by annotation fields such as `control_subtype` and `sdk_role` (currently `sdk_role` is descriptive metadata only and does not participate in runtime matching). Beyond child controls, the node can also configure two kinds of window-level rules in `properties`: `window_title` (window title translation) and `glyph_menu` (owner-drawn popup menu translation).
 
 | Control Class (`class_name`) | `ctrl_id` | Translation Configuration in JSON |
 | :--- | :--- | :--- |
@@ -285,6 +286,38 @@ Each key under `"windows"` corresponds to one top-level window rule (a plain cla
 | **`msctls_statusbar32`** | `59393` | Bottom status bar divided into `"panes"` by `index`. |
 
 > **Toolbar buttons and owner-drawn text**: a `ToolbarWindow32` control describes its buttons and their `tooltip_src` / `tooltip_dst` through a `"buttons"` array; owner-drawn GDI text without an independent window handle (such as Task pane status lines) does not go through the control matching of this table, but is handled by a node-level `"gdi_patterns"` regex array on the control node.
+
+#### 4.1 Window-Level Properties (`properties`): Window Title and Owner-Drawn Menus
+
+The window node's `properties` sits at the same level as `"children"` and describes window-level text that does not belong to a specific child control. It currently contains two optional fields.
+
+**`window_title`: Top-level window title translation.** When a window of the same class name shows multiple titles at runtime, you can provide several regular expressions; the runtime takes the **first match** from top to bottom (first-match-wins) rather than chaining replacements:
+
+```json
+"window_title": {
+  "translate": true,
+  "mode": "regex",
+  "rules": [
+    { "pattern": "^Compose - From:\\s*(.*)$",   "replace": "撰写 - 发件人: $1" },
+    { "pattern": "^Reply - From:\\s*(.*)$",     "replace": "回复 - 发件人: $1" },
+    { "pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "模板 - [$1]" }
+  ]
+}
+```
+
+**`glyph_menu`: Owner-drawn popup menu translation.** The text of some owner-drawn popup menus is not stored in the menu item strings, in which case it is handled uniformly by the window-level `glyph_menu`. The rules are likewise first-match-wins:
+
+```json
+"glyph_menu": {
+  "translate": true,
+  "mode": "regex",
+  "rules": [
+    { "pattern": "^(\\d+:\\s*)High$",   "replace": "$1高" },
+    { "pattern": "^(\\d+:\\s*)Normal$", "replace": "$1普通" },
+    { "pattern": "^(\\d+:\\s*)Low$",    "replace": "$1低" }
+  ]
+}
+```
 
 ### 5. Translation Matching Rules
 
@@ -412,6 +445,7 @@ Because Becky! hardcodes its UI strings and uses a mix of standard Win32 control
    * Recursively walks the HWND hierarchy of window and subclasses target window procedures to intercept notifications.
 2. **Narrow-Scope Win32/GDI API Detours (`ApiHooks` via MinHook)**:
    * Owner-Draw Header Popup Menu (`ExtTextOutW` + EMF Pre-Replay).
+   * Glyph-index owner-drawn popup menu interception (`ExtTextOutW` / `ETO_GLYPH_INDEX`): within the popup menu's drawing cycle it reverse-maps the glyphs using the current font via `GetGlyphIndicesW`, then applies the window-level `glyph_menu` rules.
    * Owner-drawn MIME tab strip interception (subclass scope plus `DrawTextA` interception on the double-buffered memory DC); the same `DrawTextA` channel also translates handle-less owner-drawn GDI text such as Task pane status lines and mail-list task labels according to control-node `gdi_patterns` regex rules.
    * Zero-Overhead Pass-Through & Memory Safety (`win32_guard.hpp`): Unmatched calls pass through with near-zero overhead. All pointers inspected in hooks/callbacks are validated via user-mode address range checks and SEH readability probes so exceptions never escape into `B2.exe`.
 

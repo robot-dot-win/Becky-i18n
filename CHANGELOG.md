@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-rc.4] - 2026-11-25
+
+### Added
+
+- Data-driven `glyph_menu` rules on the Compose window for translating the
+  owner-drawn priority menu (five priority levels).
+- Multi-rule regular-expression `window_title` rules covering all six Compose
+  window title forms.
+
+### Fixed
+
+- The Compose window is now bound by its pure class-name key
+  (`Becky2ComposeFrame`) instead of a title-dependent composite key, so all
+  controls in all six Compose windows are translated.
+- Added the wide-character (`W`) top-level window title translation branch,
+  matching the existing ANSI branch, so runtime title updates are not reverted
+  to English.
+
 ## [1.0.0-rc.3] - 2026-11-23
 
 ### Added
@@ -79,6 +97,7 @@ First public pre-release.
 - Static CRT linkage and an embedded Windows version resource, so the
   distributed DLL depends only on Windows system libraries.
 
+[1.0.0-rc.4]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.3...v1.0.0-rc.4
 [1.0.0-rc.3]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.2...v1.0.0-rc.3
 [1.0.0-rc.2]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.1...v1.0.0-rc.2
 [1.0.0-rc.1]: https://github.com/robot-dot-win/Becky-i18n/releases/tag/v1.0.0-rc.1

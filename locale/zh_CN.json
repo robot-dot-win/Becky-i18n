@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "zh_CN", "name": "简体中文 (zh_CN)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Martin Young"},
+  "meta": {"locale": "zh_CN", "name": "简体中文 (zh_CN)", "access_key": "$1(&2)$3", "version": "1.0.9", "author": "Martin Young"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1382,9 +1382,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "撰写 - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "模板 - [#回复\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "模板 - [#转发\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "模板 - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "撰写 - 发件人: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "回复 - 发件人: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "转发 - 发件人: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1高"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1中高"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1普通"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1中低"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1低"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",

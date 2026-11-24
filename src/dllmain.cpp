@@ -223,8 +223,12 @@ int WINAPI BKC_OnOpenFolder(LPCSTR /*lpFolderID*/) {
 
 int WINAPI BKC_OnOpenCompose(HWND hWnd, int /*nMode*/) {
     try {
-        if (hWnd) {
-            bki18n::UiTranslator::translate_window_tree(hWnd);
+        if (hWnd && ::IsWindow(hWnd)) {
+            // SDK 交付本次打开的 Compose 窗口句柄（含模板编辑途径；nMode 只影响窗口标题形态，
+            // 不参与窗口/控件绑定，故此处不读取 nMode）。防御性上溯到顶级框架，保证
+            // translate_window_tree 的标题/菜单栏段与整窗 EnumChildWindows 以顶级 HWND 为根（rev15）。
+            HWND hTop = ::GetAncestor(hWnd, GA_ROOT);
+            bki18n::UiTranslator::translate_window_tree(hTop ? hTop : hWnd);
         }
     } catch (...) {
         BKI_LOG_ERROR("unhandled exception in BKC_OnOpenCompose");

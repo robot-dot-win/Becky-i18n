@@ -1168,6 +1168,13 @@ bool I18nManager::load_locale_json(const std::filesystem::path& jsonPath) {
                     }
                 }
             }
+            if (jProps.contains("glyph_menu") && jProps["glyph_menu"].is_object()) {
+                const auto& jGlyph = jProps["glyph_menu"];
+                wRule.translate_glyph_menu = jGlyph.value("translate", false);
+                if (wRule.translate_glyph_menu && jGlyph.value("mode", "") == "regex") {
+                    parse_regex_rules(jGlyph, wRule.glyph_menu_regex_rules);
+                }
+            }
         }
 
         if (jWin.contains("children") && jWin["children"].is_array()) {
@@ -2067,6 +2074,22 @@ std::optional<std::wstring> I18nManager::translate_window_title(const WindowRule
     } else if (!winRule.title_src.empty() && !winRule.title_dst.empty()) {
         if (wide_to_utf8(wInput) == winRule.title_src) {
             return winRule.title_dst;
+        }
+    }
+    return std::nullopt;
+}
+
+std::optional<std::wstring> I18nManager::translate_glyph_menu_text(const WindowRule& winRule,
+                                                                   std::wstring_view wideText) const {
+    if (!winRule.translate_glyph_menu || wideText.empty()) return std::nullopt;
+
+    std::wstring wInput(wideText);
+    for (const auto& rx : winRule.glyph_menu_regex_rules) {
+        if (SafeRegexMatch(rx.pattern, wInput)) {
+            std::wstring replaced = SafeRegexReplace(rx.pattern, wInput, rx.replace);
+            if (replaced != wInput) {
+                return replaced;
+            }
         }
     }
     return std::nullopt;

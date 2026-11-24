@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "en_US", "name": "English (en_US)", "access_key": "as_is", "version": "1.0.8", "author": "Gemini AI"},
+  "meta": {"locale": "en_US", "name": "English (en_US)", "access_key": "as_is", "version": "1.0.9", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1826,9 +1826,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Compose - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "Template - [#Reply\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "Template - [#Forward\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "Template - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "Compose - From: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "Reply - From: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "Forward - From: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1High"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1Middle High"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1Normal"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1Middle Low"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1Low"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",

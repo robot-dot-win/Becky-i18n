@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "vi_VN", "name": "Tiếng Việt (vi_VN)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
+  "meta": {"locale": "vi_VN", "name": "Tiếng Việt (vi_VN)", "access_key": "$1(&2)$3", "version": "1.0.9", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1866,9 +1866,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Soạn thư - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "Mẫu thư - [#Trả lời\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "Mẫu thư - [#Chuyển tiếp\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "Mẫu thư - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "Soạn thư - Từ: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "Trả lời - Từ: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "Chuyển tiếp - Từ: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1Cao"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1Cao trung bình"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1Bình thường"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1Thấp trung bình"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1Thấp"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",

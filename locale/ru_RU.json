@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "ru_RU", "name": "Русский (ru_RU)", "access_key": "$1(&2)$3", "version": "1.0.8", "author": "Gemini AI"},
+  "meta": {"locale": "ru_RU", "name": "Русский (ru_RU)", "access_key": "$1(&2)$3", "version": "1.0.9", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -1941,9 +1941,33 @@
         {"class_name": "AfxWnd", "ctrl_id": 149, "control_subtype": "AfxWnd", "translate": false}
       ]
     },
-    "Becky2ComposeFrame:Compose": {
+    "Becky2ComposeFrame": {
       "class_name": "Becky2ComposeFrame",
-      "properties": {"window_title": {"translate": true, "mode": "regex", "pattern": "^Compose - (.*)$", "replace": "Создание - $1"}},
+      "properties": {
+        "window_title": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^Template - \\[#Reply\\\\(.*)\\]\\s*$", "replace": "Шаблон - [#Ответить\\$1]"},
+            {"pattern": "^Template - \\[#Forward\\\\(.*)\\]\\s*$", "replace": "Шаблон - [#Переслать\\$1]"},
+            {"pattern": "^Template - \\[(.*)\\]\\s*$", "replace": "Шаблон - [$1]"},
+            {"pattern": "^Compose - From:\\s*(.*)$", "replace": "Создание - От: $1"},
+            {"pattern": "^Reply - From:\\s*(.*)$", "replace": "Ответить - От: $1"},
+            {"pattern": "^Forward - From:\\s*(.*)$", "replace": "Переслать - От: $1"}
+          ]
+        },
+        "glyph_menu": {
+          "translate": true,
+          "mode": "regex",
+          "rules": [
+            {"pattern": "^(\\d+:\\s*)High$", "replace": "$1Высокий"},
+            {"pattern": "^(\\d+:\\s*)Middle High$", "replace": "$1Средневысокий"},
+            {"pattern": "^(\\d+:\\s*)Normal$", "replace": "$1Обычный"},
+            {"pattern": "^(\\d+:\\s*)Middle Low$", "replace": "$1Средненизкий"},
+            {"pattern": "^(\\d+:\\s*)Low$", "replace": "$1Низкий"}
+          ]
+        }
+      },
       "children": [
         {
           "class_name": "AfxMDIFrame140s",
