@@ -543,7 +543,7 @@ void UiTranslator::translate_tab_control(HWND hTab,
                            reinterpret_cast<LPARAM>(&tci))) {
             std::string u8Text = I18nManager::wide_to_utf8(buf);
             if (auto trans = I18nManager::instance().translate_tab_item(
-                    rules, u8Text)) {
+                    rules, i, u8Text)) {
                 tci.pszText = trans->data();
                 ::SendMessageW(hTab, TCM_SETITEMW, static_cast<WPARAM>(i),
                                reinterpret_cast<LPARAM>(&tci));
@@ -552,21 +552,55 @@ void UiTranslator::translate_tab_control(HWND hTab,
     }
 }
 
-void UiTranslator::translate_toolbar_control(HWND hToolbar,
-                                             const std::vector<const ControlRule*>& rules) {
-    for (const auto* rule : rules) {
-        if (!rule || !rule->translate) continue;
-        for (const auto& btn : rule->toolbar_buttons) {
-            if (!btn.translate || btn.cmd_id == 0 || btn.dst.empty()) continue;
-            TBBUTTONINFOW tbi{};
-            tbi.cbSize = sizeof(tbi);
-            tbi.dwMask = TBIF_TEXT;
-            tbi.pszText = const_cast<LPWSTR>(btn.dst.c_str());
-            ::SendMessageW(hToolbar, TB_SETBUTTONINFOW,
-                           static_cast<WPARAM>(btn.cmd_id),
-                           reinterpret_cast<LPARAM>(&tbi));
+void UiTranslator::translate_toolbar_control(HWND hToolbar) {
+    constexpr int kMaxButtonCount = 256;
+    constexpr int kTextCapacity = 256;
+
+    const int buttonCount = static_cast<int>(
+        ::SendMessageW(hToolbar, TB_BUTTONCOUNT, 0, 0));
+    if (buttonCount <= 0 || buttonCount > kMaxButtonCount) return;
+
+    I18nManager& manager = I18nManager::instance();
+
+    for (int index = 0; index < buttonCount; ++index) {
+        TBBUTTON button{};
+        if (::SendMessageW(hToolbar, TB_GETBUTTON,
+                           static_cast<WPARAM>(index),
+                           reinterpret_cast<LPARAM>(&button)) == 0) {
+            continue;
         }
+        if ((button.fsStyle & TBSTYLE_SEP) != 0) continue;
+
+        wchar_t textBuf[kTextCapacity]{};
+        TBBUTTONINFOW info{};
+        info.cbSize = sizeof(info);
+        info.dwMask = TBIF_TEXT;
+        info.pszText = textBuf;
+        info.cchText = kTextCapacity;
+        ::SendMessageW(hToolbar, TB_GETBUTTONINFOW,
+                       static_cast<WPARAM>(button.idCommand),
+                       reinterpret_cast<LPARAM>(&info));
+        if (textBuf[0] == L'\0') continue;  // pure-icon button or empty text
+
+        const std::wstring current(textBuf);
+        const std::string utf8Text = I18nManager::wide_to_utf8(current);
+        auto translated = manager.translate_menu_command(
+            static_cast<UINT>(button.idCommand), utf8Text, /*isUtf8=*/true);
+        if (!translated || translated->empty() || *translated == current) {
+            continue;
+        }
+
+        TBBUTTONINFOW setInfo{};
+        setInfo.cbSize = sizeof(setInfo);
+        setInfo.dwMask = TBIF_TEXT;
+        setInfo.pszText = translated->data();
+        setInfo.cchText = static_cast<int>(translated->size());
+        ::SendMessageW(hToolbar, TB_SETBUTTONINFOW,
+                       static_cast<WPARAM>(button.idCommand),
+                       reinterpret_cast<LPARAM>(&setInfo));
     }
+
+    ::SendMessageW(hToolbar, TB_AUTOSIZE, 0, 0);
 }
 
 void UiTranslator::translate_tooltip_notify_a(NMTTDISPINFOA* pTTTA) {
@@ -650,6 +684,14 @@ void UiTranslator::translate_single_control(HWND hWnd) {
     auto rules = I18nManager::instance().find_control_rules(hWnd);
     if (rules.empty()) return;
 
+    // 工具栏按钮面文字通道：节点 translate=false 是 rev11 起的历史约定（tooltip 等走独立通道），
+    // 但按钮面文字经命令 ID 复用菜单译文，与该标志无关；只要存在匹配的工具栏节点即枚举回写。
+    if (rules.front()->class_name == "ToolbarWindow32") {
+        ScopedHookGuard guard;
+        translate_toolbar_control(hWnd);
+        return;
+    }
+
     bool anyTranslatable = false;
     for (const auto* r : rules) {
         if (r && r->translate) {
@@ -680,10 +722,6 @@ void UiTranslator::translate_single_control(HWND hWnd) {
     }
     if (normClass == "SysTabControl32") {
         translate_tab_control(hWnd, rules);
-        return;
-    }
-    if (normClass == "ToolbarWindow32") {
-        translate_toolbar_control(hWnd, rules);
         return;
     }
     if (normClass == "AfxWnd" && rules.front()->ctrl_id == 12562) {

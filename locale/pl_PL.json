@@ -1,5 +1,5 @@
 {
-  "meta": {"locale": "pl_PL", "name": "Polski (pl_PL)", "access_key": "$1(&2)$3", "version": "1.0.1", "author": "Gemini AI"},
+  "meta": {"locale": "pl_PL", "name": "Polski (pl_PL)", "access_key": "$1(&2)$3", "version": "1.0.2", "author": "Gemini AI"},
   "menus": {
     "popups": {
       "main_frame": [
@@ -862,8 +862,11 @@
       {
         "cmd_id": 32870,
         "translate": true,
-        "src": "Set To Mail",
-        "dst": "Wstaw jako adresata",
+        "rules": [
+          {"src": "Set To Mail", "dst": "Nowa wiadomość"},
+          {"src": "Set to Mail", "dst": "Nowa wiadomość"},
+          {"src": "Write Mail", "dst": "Nowa wiadomość"}
+        ],
         "hint_src": "Set the addresses to an outgoing message",
         "hint_dst": "Wstawia wybrane adresy jako odbiorców wiadomości wychodzącej"
       },
@@ -2107,6 +2110,222 @@
             {"class_name": "Button", "ctrl_id": 432, "control_subtype": "OwnerDrawButton", "translate": false},
             {"class_name": "Button", "ctrl_id": 10549, "control_subtype": "OwnerDrawButton", "translate": false},
             {"class_name": "msctls_updown32", "ctrl_id": 10538, "control_subtype": "msctls_updown32", "translate": false}
+          ]
+        }
+      ]
+    },
+    "Becky2AddressFrame": {
+      "class_name": "Becky2AddressFrame",
+      "properties": {"window_title": {"translate": true, "mode": "exact", "src": "Address Book", "dst": "Książka adresowa"}},
+      "children": [
+        {
+          "class_name": "AfxMDIFrame140s",
+          "ctrl_id": 59648,
+          "control_subtype": "AfxMDIFrame140s",
+          "translate": false,
+          "children": [
+            {
+              "class_name": "AfxMDIFrame140s",
+              "ctrl_id": 59648,
+              "control_subtype": "AfxMDIFrame140s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59648,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [{"class_name": "SysTreeView32", "ctrl_id": 1295, "control_subtype": "SysTreeView32", "translate": false}]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {"class_name": "ListBox", "ctrl_id": 1002, "control_subtype": "ListBox", "translate": false},
+                    {
+                      "class_name": "SysTabControl32",
+                      "ctrl_id": 1297,
+                      "control_subtype": "SysTabControl32",
+                      "translate": true,
+                      "tabs": [
+                        {"index": 0, "translate": true, "rules": [{"src": "To", "dst": "Do"}, {"src": "To*", "dst": "Do*"}]},
+                        {"index": 1, "translate": true, "rules": [{"src": "Cc", "dst": "Dw"}, {"src": "Cc*", "dst": "Dw*"}]},
+                        {"index": 2, "translate": true, "rules": [{"src": "Bcc", "dst": "Udw"}, {"src": "Bcc*", "dst": "Udw*"}]}
+                      ],
+                      "children": [{"class_name": "msctls_updown32", "ctrl_id": 1, "control_subtype": "msctls_updown32", "translate": false}]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1066, "control_subtype": "PushButton", "translate": true, "src": "Add", "dst": "Dodaj"},
+                    {"class_name": "Button", "ctrl_id": 1067, "control_subtype": "PushButton", "translate": true, "src": "Delete", "dst": "Usuń"},
+                    {"class_name": "Button", "ctrl_id": 1466, "control_subtype": "PushButton", "translate": true, "src": "Input", "dst": "Wprowadź"},
+                    {"class_name": "Button", "ctrl_id": 1068, "control_subtype": "PushButton", "translate": true, "src": "Clear", "dst": "Wyczyść"},
+                    {"class_name": "Button", "ctrl_id": 1177, "control_subtype": "PushButton", "translate": true, "src": "Up", "dst": "W górę"},
+                    {"class_name": "Button", "ctrl_id": 1178, "control_subtype": "PushButton", "translate": true, "src": "Down", "dst": "W dół"}
+                  ]
+                }
+              ]
+            },
+            {
+              "class_name": "AfxMDIFrame140s",
+              "ctrl_id": 59649,
+              "control_subtype": "AfxMDIFrame140s",
+              "translate": false,
+              "children": [
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59648,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {"class_name": "ComboBox", "ctrl_id": 111, "control_subtype": "DropDownCombo", "translate": false},
+                    {
+                      "class_name": "ComboBox",
+                      "ctrl_id": 112,
+                      "control_subtype": "DropDownListCombo",
+                      "translate": true,
+                      "items": [
+                        {"index": 0, "translate": true, "src": "by Name", "dst": "Wg nazwy"},
+                        {"index": 1, "translate": true, "src": "by E-mail", "dst": "Wg e-mail"},
+                        {"index": 2, "translate": true, "src": "by Name & E-mail", "dst": "Wg nazwy i e-mail"},
+                        {"index": 3, "translate": true, "src": "by Note", "dst": "Wg notatki"}
+                      ]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1305, "control_subtype": "PushButton", "translate": true, "src": "Search", "dst": "Szukaj"},
+                    {
+                      "class_name": "SysListView32",
+                      "ctrl_id": 1306,
+                      "control_subtype": "SysListView32",
+                      "translate": false,
+                      "children": [
+                        {
+                          "class_name": "SysHeader32",
+                          "ctrl_id": 0,
+                          "control_subtype": "SysHeader32",
+                          "translate": true,
+                          "columns": [
+                            {"translate": true, "src": "Name", "dst": "Nazwa"},
+                            {"translate": true, "src": "E-mail Address", "dst": "Adres e-mail"},
+                            {"translate": true, "src": "Note", "dst": "Notatka"}
+                          ]
+                        }
+                      ]
+                    },
+                    {"class_name": "Button", "ctrl_id": 1177, "control_subtype": "PushButton", "translate": true, "src": "Up", "dst": "↑"},
+                    {"class_name": "Button", "ctrl_id": 1178, "control_subtype": "PushButton", "translate": true, "src": "Down", "dst": "↓"}
+                  ]
+                },
+                {
+                  "class_name": "#32770",
+                  "ctrl_id": 59664,
+                  "control_subtype": "ChildDialog",
+                  "translate": false,
+                  "children": [
+                    {
+                      "class_name": "Static",
+                      "ctrl_id": 65535,
+                      "control_subtype": "TextStatic",
+                      "translate": true,
+                      "src": "Full Name",
+                      "dst": "Imię i nazwisko"
+                    },
+                    {"class_name": "Edit", "ctrl_id": 1298, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": true, "src": "E-mail", "dst": "E-mail"},
+                    {"class_name": "Edit", "ctrl_id": 1299, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": true, "src": "Nick Name", "dst": "Pseudonim"},
+                    {"class_name": "Edit", "ctrl_id": 1111, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": true, "src": "Organization", "dst": "Organizacja"},
+                    {"class_name": "Edit", "ctrl_id": 1113, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Button", "ctrl_id": 1308, "control_subtype": "PushButton", "translate": true, "src": "Web Page", "dst": "Strona WWW"},
+                    {"class_name": "Edit", "ctrl_id": 1112, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": true, "src": "Note", "dst": "Notatka"},
+                    {"class_name": "Edit", "ctrl_id": 1110, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Button", "ctrl_id": 1303, "control_subtype": "GroupBox", "translate": true, "src": "Contact", "dst": "Kontakt"},
+                    {
+                      "class_name": "Static",
+                      "ctrl_id": 65535,
+                      "control_subtype": "TextStatic",
+                      "translate": true,
+                      "src": "Home phone",
+                      "dst": "Telefon domowy"
+                    },
+                    {"class_name": "Edit", "ctrl_id": 1114, "control_subtype": "Edit", "translate": false},
+                    {
+                      "class_name": "Static",
+                      "ctrl_id": 65535,
+                      "control_subtype": "TextStatic",
+                      "translate": true,
+                      "src": "Work phone",
+                      "dst": "Telefon służbowy"
+                    },
+                    {"class_name": "Edit", "ctrl_id": 1115, "control_subtype": "Edit", "translate": false},
+                    {"class_name": "Static", "ctrl_id": 65535, "control_subtype": "TextStatic", "translate": true, "src": "Fax", "dst": "Faks"},
+                    {"class_name": "Edit", "ctrl_id": 1116, "control_subtype": "Edit", "translate": false},
+                    {
+                      "class_name": "Static",
+                      "ctrl_id": 65535,
+                      "control_subtype": "TextStatic",
+                      "translate": true,
+                      "src": "Postal Address",
+                      "dst": "Adres pocztowy"
+                    },
+                    {"class_name": "Edit", "ctrl_id": 1301, "control_subtype": "Edit", "translate": false},
+                    {
+                      "class_name": "Static",
+                      "ctrl_id": 1304,
+                      "control_subtype": "TextStatic",
+                      "translate": true,
+                      "src": "Misc. (vCard format)",
+                      "dst": "Inne (format vCard)"
+                    },
+                    {
+                      "class_name": "SysListView32",
+                      "ctrl_id": 1307,
+                      "control_subtype": "SysListView32",
+                      "translate": false,
+                      "children": [
+                        {
+                          "class_name": "SysHeader32",
+                          "ctrl_id": 0,
+                          "control_subtype": "SysHeader32",
+                          "translate": true,
+                          "columns": [
+                            {"translate": true, "src": "Property", "dst": "Właściwości"},
+                            {"translate": true, "src": "Type", "dst": "Typ"},
+                            {"translate": true, "src": "Data", "dst": "Dane"}
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class_name": "Static",
+                      "ctrl_id": 65535,
+                      "control_subtype": "TextStatic",
+                      "translate": true,
+                      "src": "Mobile phone",
+                      "dst": "Telefon komórkowy"
+                    },
+                    {"class_name": "Edit", "ctrl_id": 1117, "control_subtype": "Edit", "translate": false}
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {"class_name": "ToolbarWindow32", "ctrl_id": 59392, "control_subtype": "ToolbarWindow32", "translate": false},
+        {
+          "class_name": "msctls_statusbar32",
+          "ctrl_id": 59393,
+          "control_subtype": "msctls_statusbar32",
+          "translate": true,
+          "panes": [
+            {
+              "index": 0,
+              "translate": true,
+              "src": "To input e-mail addresses to an outgoing message, click \"Write Mail\" button.",
+              "dst": "Aby wprowadzić adresy e-mail do wiadomości wychodzącej, kliknij przycisk „Nowa wiadomość”."
+            },
+            {"index": 1, "translate": true, "mode": "regex", "pattern": "^Addresses:\\s*(.*?)\\s*$", "replace": "Liczba: $1"}
           ]
         }
       ]

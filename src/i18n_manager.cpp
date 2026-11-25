@@ -805,19 +805,41 @@ ControlRule I18nManager::parse_control_node(const nlohmann::json& j, unsigned de
         }
     }
 
-    // SysTabControl32 页签
+    // SysTabControl32 页签：新写法（index + rules 多文本变体）与旧写法（src/dst 单对）
     if (j.contains("tabs") && j["tabs"].is_array()) {
         const auto& tabArray = j["tabs"];
         CheckArraySize(tabArray.size(), "control.tabs");
         for (const auto& tab : tabArray) {
-            if (!tab.is_object()) continue;
-            if (!tab.value("translate", false)) continue;
-            std::string src = tab.value("src", "");
-            std::string dst = tab.value("dst", "");
-            CheckString(src, "control.tabs.src");
-            CheckString(dst, "control.tabs.dst");
-            if (!src.empty() && !dst.empty()) {
-                ctrl.tab_items[src] = utf8_to_wide(dst);
+            if (!tab.is_object() || !tab.value("translate", false)) continue;
+            const int tabIndex = tab.value("index", -1);
+
+            if (tab.contains("rules") && tab["rules"].is_array()) {
+                const auto& ruleArray = tab["rules"];
+                CheckArraySize(ruleArray.size(), "control.tabs.rules");
+                TabItemRule tabRule;
+                tabRule.index = tabIndex;
+                tabRule.translate = true;
+                for (const auto& r : ruleArray) {
+                    if (!r.is_object()) continue;
+                    std::string s = r.value("src", "");
+                    std::string d = r.value("dst", "");
+                    CheckString(s, "control.tabs.rules.src");
+                    CheckString(d, "control.tabs.rules.dst");
+                    if (!s.empty() && !d.empty()) {
+                        tabRule.variants.push_back(TextPair{s, utf8_to_wide(d)});
+                    }
+                }
+                if (tabIndex >= 0 && !tabRule.variants.empty()) {
+                    ctrl.tab_rules.push_back(std::move(tabRule));
+                }
+            } else {
+                std::string src = tab.value("src", "");
+                std::string dst = tab.value("dst", "");
+                CheckString(src, "control.tabs.src");
+                CheckString(dst, "control.tabs.dst");
+                if (!src.empty() && !dst.empty()) {
+                    ctrl.tab_items[src] = utf8_to_wide(dst);
+                }
             }
         }
     }
@@ -1784,11 +1806,24 @@ std::optional<std::wstring> I18nManager::translate_header_column(const std::vect
 }
 
 std::optional<std::wstring> I18nManager::translate_tab_item(const std::vector<const ControlRule*>& rules,
+                                                            int index,
                                                             std::string_view utf8TabText) const {
     if (utf8TabText.empty()) return std::nullopt;
-    std::string key(utf8TabText);
+    const std::string key(utf8TabText);
     for (const auto* rule : rules) {
         if (!rule || !rule->translate) continue;
+
+        // 新写法：按 index 定位页签，再在其变体中精确匹配文本
+        for (const auto& tabRule : rule->tab_rules) {
+            if (!tabRule.translate || tabRule.index != index) continue;
+            for (const auto& pair : tabRule.variants) {
+                if (pair.src == key) {
+                    return pair.dst;
+                }
+            }
+        }
+
+        // 旧写法回退：全局文本映射
         auto it = rule->tab_items.find(key);
         if (it != rule->tab_items.end()) {
             return it->second;

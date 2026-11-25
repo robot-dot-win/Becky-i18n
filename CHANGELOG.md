@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-rc.5] - 2026-11-25
+
+### Added
+
+- Address Book window (`Becky2AddressFrame`) translation in the bundled
+  language packs.
+- Translation of persistent toolbar button-face text, reusing the menu
+  command translations.
+- Multi-variant tab rules allowing a single tab to match several text forms.
+
+### Fixed
+
+- Wide-character (`W`) status-bar text updates (`SB_SETTEXTW`) are now
+  translated, matching the existing ANSI path.
+
 ## [1.0.0-rc.4] - 2026-11-25
 
 ### Added
@@ -74,15 +89,15 @@ First public pre-release.
   binary-patched.
 - Dual-path interception engine:
   - SDK callbacks with Win32 window subclassing for menus and controls;
-  - narrow-scope Win32/GDI API detours (MinHook) for owner-draw surfaces and
+  - narrow-scope Win32/GDI API detours (MinHook) for owner-drawn surfaces and
     internal text-update paths, with zero-overhead pass-through when no rule
     matches.
 - Main window localization: system folder tree view with dynamic root nodes,
   mail list column headers, message view header labels and controls,
-  owner-draw MIME tab strip, and dynamic status bar panes.
+  owner-drawn MIME tab strip, and dynamic status bar panes.
 - Full menu system coverage: top-level and nested popup menus across the main
   frame, compose window and address book, a global command pool with dynamic
-  ID ranges, toolbar tooltips, status bar help hints, and the owner-draw header
+  ID ranges, toolbar tooltips, status bar help hints, and the owner-drawn header
   fields popup menu.
 - Modal UI Language picker dialog and a Tools → UI Language menu entry; the
   selection is stored in the registry and applied on restart.
@@ -97,6 +112,7 @@ First public pre-release.
 - Static CRT linkage and an embedded Windows version resource, so the
   distributed DLL depends only on Windows system libraries.
 
+[1.0.0-rc.5]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.4...v1.0.0-rc.5
 [1.0.0-rc.4]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.3...v1.0.0-rc.4
 [1.0.0-rc.3]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.2...v1.0.0-rc.3
 [1.0.0-rc.2]: https://github.com/robot-dot-win/Becky-i18n/compare/v1.0.0-rc.1...v1.0.0-rc.2

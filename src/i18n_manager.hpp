@@ -102,6 +102,13 @@ struct ComboItemRule {
     std::wstring dst;
 };
 
+// SysTabControl32 单个页签规则（按 index 定位，rules 内支持同一页签的多文本变体）
+struct TabItemRule {
+    int index{-1};
+    bool translate{false};
+    std::vector<TextPair> variants;
+};
+
 // 工具栏按钮规则（支持按钮表面文字 src/dst 与悬浮提示 tooltip_src/tooltip_dst）
 struct ToolbarButtonRule {
     int cmd_id{0};
@@ -175,8 +182,11 @@ struct ControlRule {
     // SysHeader32 列名映射 (src_utf8 -> dst_wide)
     std::unordered_map<std::string, std::wstring> header_columns;
 
-    // SysTabControl32 页签名映射 (src_utf8 -> dst_wide)
+    // SysTabControl32 页签名映射 (src_utf8 -> dst_wide)，旧写法
     std::unordered_map<std::string, std::wstring> tab_items;
+
+    // SysTabControl32 按 index 的页签规则（新写法，rules 内支持多文本变体）
+    std::vector<TabItemRule> tab_rules;
 
     // ToolbarWindow32 按钮映射
     std::vector<ToolbarButtonRule> toolbar_buttons;
@@ -320,6 +330,7 @@ public:
 
     // 使用控件规则翻译选项卡标题（SysTabControl32）
     std::optional<std::wstring> translate_tab_item(const std::vector<const ControlRule*>& rules,
+                                                   int index,
                                                    std::string_view utf8TabText) const;
 
     // 使用控件规则翻译树视图节点（SysTreeView32，含图标索引校验，支持非正则精确匹配与正则匹配）

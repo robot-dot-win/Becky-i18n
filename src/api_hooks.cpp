@@ -502,6 +502,7 @@ inline bool IsInterceptedMessageW(UINT msg) noexcept {
     switch (msg) {
         case WM_SETTEXT:
         case EM_REPLACESEL:
+        case SB_SETTEXTW:
             return true;
         default:
             return false;
@@ -827,7 +828,8 @@ std::optional<LRESULT> TryTranslateControlMessageA(HWND hWnd, UINT Msg, WPARAM w
             if ((pTcA->mask & TCIF_TEXT) == 0 || !is_valid_user_mode_ptr(reinterpret_cast<LPARAM>(pTcA->pszText))) break;
 
             std::string u8Tab = I18nManager::ansi_to_utf8(pTcA->pszText);
-            if (auto trans = I18nManager::instance().translate_tab_item(rules, u8Tab)) {
+            if (auto trans = I18nManager::instance().translate_tab_item(
+                    rules, static_cast<int>(wParam), u8Tab)) {
                 ScopedHookGuard guard;
                 TCITEMW tcW{};
                 std::memcpy(&tcW, pTcA, sizeof(TCITEMA));
@@ -904,6 +906,27 @@ std::optional<LRESULT> TryTranslateControlMessageW(HWND hWnd, UINT Msg, WPARAM w
                 }
                 return ::SendMessageW(hWnd, EM_REPLACESEL, wParam,
                                       reinterpret_cast<LPARAM>(trans->text.c_str()));
+            }
+            break;
+        }
+        case SB_SETTEXTW: {
+            if ((wParam & SBT_OWNERDRAW) != 0) break;
+
+            auto sbRules = I18nManager::instance().find_control_rules(hWnd);
+            if (sbRules.empty() ||
+                sbRules.front()->class_name != "msctls_statusbar32") {
+                break;
+            }
+
+            const wchar_t* lpStr = reinterpret_cast<const wchar_t*>(lParam);
+            if (!lpStr || lpStr[0] == L'\0') break;
+
+            const int paneIndex = static_cast<int>(LOWORD(wParam) & 0xFF);
+            if (auto trans = I18nManager::instance().translate_status_pane(
+                    sbRules, paneIndex, std::wstring_view(lpStr))) {
+                ScopedHookGuard guard;
+                return ::SendMessageW(hWnd, SB_SETTEXTW, wParam,
+                                      reinterpret_cast<LPARAM>(trans->c_str()));
             }
             break;
         }

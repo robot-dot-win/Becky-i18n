@@ -63,7 +63,7 @@ public:
     static void translate_statusbar_control(HWND hStatus, const std::vector<const ControlRule*>& rules);
     static void translate_combobox_control(HWND hCombo, const std::vector<const ControlRule*>& rules);
     static void translate_tab_control(HWND hTab, const std::vector<const ControlRule*>& rules);
-    static void translate_toolbar_control(HWND hToolbar, const std::vector<const ControlRule*>& rules);
+    static void translate_toolbar_control(HWND hToolbar);
 
     // 处理 TTN_NEEDTEXTA / TTN_NEEDTEXTW 悬浮提示通知翻译
     static void translate_tooltip_notify_a(NMTTDISPINFOA* pTTTA);

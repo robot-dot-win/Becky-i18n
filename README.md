@@ -39,13 +39,13 @@ Internally, Becky! uses **ANSI MBCS encoding** with UI strings hardcoded inside 
 
 1. **Zero Binary Modification**: Works strictly as an in-process plug-in (`locale.dll`) loaded via Becky!'s official Plug-In SDK. You always run the untouched, official `B2.exe`.
 2. **100% Data-Driven**: Adding a new language or refining translations requires only editing a human-readable UTF-8 `.json` file—no recompilation needed.
-3. **Deep UI Coverage**: Translates not only standard menus and controls, but also complex owner-draw menus (`ETO_GLYPH_INDEX`), custom double-buffered MIME tab strips (`AfxWnd`), dynamic status bar panes, and toolbar tooltips; it also covers owner-drawn GDI text with no dedicated control handle (such as Task pane status lines and mail-list task labels) via data-driven `gdi_patterns` rules.
+3. **Deep UI Coverage**: Translates not only standard menus and controls, but also complex owner-draw menus (`ETO_GLYPH_INDEX`), custom double-buffered MIME tab strips (`AfxWnd`), dynamic status bar panes; it also covers owner-drawn GDI text with no dedicated control handle via data-driven `gdi_patterns` rules.
 
 ---
 
 ## Project Status & Roadmap
 
-This repository is currently at the pre-release stage **`v1.0.0-rc.4`**. The core translation engine, memory-safety guards, Menu System, Main Window, Compose Window (mail and templates), UI Language Picker Dialog, and 16 international language packs are complete and tested.
+This repository is currently at the pre-release stage **`v1.0.0-rc.5`**. The core translation engine, memory-safety guards, Menu System, Main Window, Compose Window (mail and templates), Address Book Window, UI Language Picker Dialog, and 16 international language packs are complete and tested.
 
 ### Completed
 
@@ -64,6 +64,10 @@ This repository is currently at the pre-release stage **`v1.0.0-rc.4`**. The cor
 * ✅ **Compose Window**:
   * Standard control and button labels, along with their tooltips, across the six Compose windows (new message, reply, forward, and the three template editor windows).
   * Data-driven regular-expression translation of the window title.
+* ✅ **Address Book Window**:
+  * Persistent toolbar button-face text.
+  * Buttons, lists, combo boxes, and list-view headers.
+  * Bottom status bar panes.
 * ✅ **16 International Language Data Files (`locale/*.json`)**:
   * `en_US.json` — English (Baseline template)
   * `de_DE.json` — German (Deutsch)
@@ -84,7 +88,6 @@ This repository is currently at the pre-release stage **`v1.0.0-rc.4`**. The cor
 
 ### To-Do (Upcoming Releases)
 
-* [ ] **`Address Book` Window**: Full localization of its child controls, property sheets, and LDAP/CardDAV views.
 * [ ] **`General Setup` Dialog**: Localization of all global preference tabs and controls.
 * [ ] **`Mailbox Setup` Dialog**: Localization of account, POP3/IMAP4/SMTP, and profile configuration dialogs.
 * [ ] **Remaining Dialogs & UI Elements**: Filtering Manager, Mailing Lists Manager, Mail Query dialog, Template editor, and message boxes.
@@ -158,7 +161,7 @@ Adding a new language to Becky! requires **no programming knowledge**. You simpl
 * **Top-Level Keys**: Every language JSON file consists of three top-level objects:
   1. `"meta"`: Metadata and the access key (mnemonic `&`) formatting rule.
   2. `"menus"`: Top-level menu definitions, divided into `"popups"` and `"commands"`.
-  3. `"windows"`: Top-level window and child-control trees. Each key preferably uses a plain Win32 window class name (e.g., `"Becky2MainFrame"`, `"Becky2ComposeFrame"`), and the node binds to the top-level window of that class name through `class_name`; to configure rules separately for different top-level windows sharing the same class name, you may also use a `"ClassName:Window Title"` compound key, and bind the rule to the real window through `class_name` and the optional `properties.window_title` title-matching rule inside the node. At runtime the lookup follows the order "plain class-name key → compound key → general matching", and the first hit is bound.
+  3. `"windows"`: Top-level window and child-control trees. Each key preferably uses a plain Win32 window class name (e.g., `"Becky2MainFrame"`), and the node binds to the top-level window of that class name through `class_name`; to configure rules separately for different top-level windows sharing the same class name, you may also use a `"ClassName:Window Title"` compound key, and bind the rule to the real window through `class_name` and the optional `properties.window_title` title-matching rule inside the node. At runtime the lookup follows the order "plain class-name key → compound key → general matching", and the first hit is bound.
 
 ```json
 {
@@ -256,7 +259,7 @@ Popup containers (submenus without a fixed `cmd_id`) are organized into three wi
 
 #### 3.2 `menus.commands` (Global Command Pool)
 
-All actionable menu items in Becky! are stored in one flat array sorted ascending by `cmd_id`. Because Win32 command IDs have global meaning, this pool simultaneously drives **menu-item text**, **toolbar-button hover tooltips**, and **status-bar help text**: `hint_src` / `hint_dst` carry the status-bar help text, while `tooltip_src` / `tooltip_dst` carry the small hover tooltips of toolbar buttons. Both menu/command nodes and toolbar controls (the `buttons` array of a `ToolbarWindow32`) may provide `tooltip_*` fields; a tooltip on a node can still take effect independently even when that node has `"translate": false`, and it can be explicitly disabled with `"tooltip_translate": false`.
+All actionable menu items in Becky! are stored in one flat array sorted ascending by `cmd_id`. Because Win32 command IDs have global meaning, this pool simultaneously drives **menu-item text**, **toolbar-button hover tooltips**, and **status-bar help text**: `hint_src` / `hint_dst` carry the status-bar help text, while `tooltip_src` / `tooltip_dst` carry the small hover tooltips of toolbar buttons. Both menu/command nodes and toolbar controls may provide `tooltip_*` fields; a tooltip on a node can still take effect independently even when that node has `"translate": false`, and it can be explicitly disabled with `"tooltip_translate": false`.
 
 `menus.commands` supports three node patterns:
 
@@ -283,9 +286,11 @@ Each key under `"windows"` corresponds to one top-level window rule (a plain cla
 | **`Button`** | Various | Standard push buttons. |
 | **`Edit`** | Various | Standard edit fields. |
 | **`ComboBox`** | `1532` | Drop-down list items matched by 0-based index and text. |
-| **`msctls_statusbar32`** | `59393` | Bottom status bar divided into `"panes"` by `index`. |
+| **`SysTabControl32`** | `1297` | Tab control located by tab `index`; each tab can use a single `src`/`dst` pair or a `"rules"` array listing multiple text variants for the same tab. |
+| **`ToolbarWindow32`** | `59392` | Toolbar. Button-face text reuses the menu translation of the same command, so it does not need to be repeated on the control node. |
+| **`msctls_statusbar32`** | `59393` | Bottom status bar divided into `"panes"` by `index`; each pane can use exact `src`/`dst` or `"mode": "regex"` to match dynamic text. |
 
-> **Toolbar buttons and owner-drawn text**: a `ToolbarWindow32` control describes its buttons and their `tooltip_src` / `tooltip_dst` through a `"buttons"` array; owner-drawn GDI text without an independent window handle (such as Task pane status lines) does not go through the control matching of this table, but is handled by a node-level `"gdi_patterns"` regex array on the control node.
+> **Toolbar buttons and owner-drawn text**: the persistent button-face text of a `ToolbarWindow32` reuses the menu translation by command ID, while hover tooltips are provided by the `tooltip_*` fields; owner-drawn GDI text without an independent window handle (such as Task pane status lines) does not go through the control matching of this table, but is handled by a node-level `"gdi_patterns"` regex array on the control node.
 
 #### 4.1 Window-Level Properties (`properties`): Window Title and Owner-Drawn Menus
 
